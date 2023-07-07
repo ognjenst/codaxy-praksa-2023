@@ -1,8 +1,6 @@
 import { Store } from 'cx/data';
-import { Url, History, Widget, startHotAppLoop, enableCultureSensitiveFormatting } from 'cx/ui';
-import { Timing, Debug } from 'cx/util';
-
-import './data/mock-api-service-worker';
+import { History, Widget, enableCultureSensitiveFormatting, startHotAppLoop } from 'cx/ui';
+import { Debug, Timing } from 'cx/util';
 
 enableCultureSensitiveFormatting();
 
