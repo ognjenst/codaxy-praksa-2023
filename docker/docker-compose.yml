@@ -1,0 +1,52 @@
+version: "3.8"
+services:
+  soc-thehive:
+    image: strangebee/thehive:5.0.23
+    container_name: 'soc-thehive'
+    ports:
+      - "9000:9000"
+    environment:
+      - MAX_HEAP_SIZE=1G
+      - HEAP_NEWSIZE=1G
+    volumes:
+      - ./vol/thehive/etc:/etc/thehive
+      - ./vol/thehive/db:/opt/thp/thehive/db
+      - ./vol/thehive/index:/opt/thp/thehive/index
+      - ./vol/thehive/data:/opt/thp/thehive/data
+      - ./vol/thehive/logs:/var/log/thehive
+
+  soc-scanner:
+    build: ./scanner
+    image: soc-scanner
+    ports:
+      - "2222:22"
+    container_name: soc-scanner
+
+  soc-db:
+    container_name: soc-db
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /data/postgres
+    volumes:
+      - psqlvolume:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  soc-pgadmin:
+    container_name: soc-pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: soc-user@soc.com
+      PGADMIN_DEFAULT_PASSWORD: soc-user
+    volumes:
+      - pgadminvolume:/root/.pgadmin
+    ports:
+      - "8085:80"
+    restart: unless-stopped
+
+volumes:
+  psqlvolume: null
+  pgadminvolume: null 
