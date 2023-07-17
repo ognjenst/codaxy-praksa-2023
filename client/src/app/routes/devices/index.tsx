@@ -52,40 +52,7 @@ export default (
                     </Repeater>
                 </FirstVisibleChildLayout>
             </Section>
-            <Section
-                style={{ width: "50%" }}
-                header={
-                    <cx>
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                            }}
-                        >
-                            <h3>Send payload</h3>
-                            <LookupField options={$page.devices} optionTextField="id" value={$page.selectedDeviceId} />
-                            <Button
-                                mod={ButtonMod.Primary}
-                                text="Send"
-                                onClick={(_, { controller }: Instance<DevicesPageModel, Controller>) => controller.onSendPayload()}
-                                disabled={expr($page.selectedDeviceId, (id) => !id)}
-                            />
-                        </div>
-                    </cx>
-                }
-            >
-                <TextArea value={$page.devicePayload} style={{ width: "100%", height: 200 }} />
-            </Section>
-            <Section title="Device state history" style={{ width: "100%" }}>
-                <Repeater sortField="order" sortDirection="DESC" records={$page.deviceLog} recordAlias={$log}>
-                    <div>
-                        <span text={$log.order} />
-                        <span style={{ paddingLeft: "0.5rem" }} text={$log.id} />
-                        <span style={{ paddingLeft: "0.5rem" }} text={expr($log, (log) => JSON.stringify(log))} />
-                    </div>
-                </Repeater>
-            </Section>
+            
         </div>
     </cx>
 );
