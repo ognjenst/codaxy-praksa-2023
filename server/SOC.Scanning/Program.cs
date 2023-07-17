@@ -6,12 +6,13 @@ using MediatR.Extensions.Autofac.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using SOC.Scanning.Extensions;
+using SOC.Scanning.Handler;
 
 var builder = Host.CreateDefaultBuilder()
     .ConfigureAppConfiguration(
         (hosting, config) =>
         {
-            config.AddJsonFile("appsettings.json", optional: true);
+            config.AddJsonFile("appsettings.json");
         }
     )
     .UseServiceProviderFactory(new AutofacServiceProviderFactory())
@@ -47,6 +48,8 @@ var builder = Host.CreateDefaultBuilder()
                     pipelines.AddRequestResponseLogging();
                     pipelines.AddValidation();
                 });
+
+            builder.RegisterWorkerTask<ScanIpAdrressHandler>();
 
             builder.RegisterMediatR(typeof(Program).Assembly);
         }
