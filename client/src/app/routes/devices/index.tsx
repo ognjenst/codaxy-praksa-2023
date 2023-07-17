@@ -1,13 +1,44 @@
 import Controller from "./Controller";
 import { createAccessorModelProxy } from "cx/data";
 import { DevicesPageModel } from "./page";
-import { FirstVisibleChildLayout, Instance, PureContainer, Repeater, expr } from "cx/ui";
-import { Button, Icon, Link, LookupField, Section, TextArea } from "cx/widgets";
+import { FirstVisibleChildLayout, Instance, PureContainer, Repeater, computable, expr } from "cx/ui";
+import { Button, Grid, Icon, Text, Link, LookupField, Section, TextArea } from "cx/widgets";
 import { Status } from "../../types/status";
 import { Icons } from "../../types/icons";
 import { ButtonMod } from "../../types/buttonMod";
 
 let { $page, $log, $device, $capability } = createAccessorModelProxy<DevicesPageModel>();
+
+const gridColumns = [
+    {
+        header: 'Type',
+        
+    },
+    {
+        header: 'State',
+        field: '$record.state.state',
+        items: (
+            <cx>
+            <Text value={computable('$record.state.state', (state) =>  state ? 'Up' : 'Down')} />
+               
+            </cx>
+         ),
+    },
+    {
+       header: 'Device name',
+       field: '$record.id',
+       items: (
+        <cx>
+           <Link
+              href-tpl="~/devices/{$record.id}"
+              url-bind="url"
+              text-bind="$record.id"
+              className="text-blue-400 hover:text-blue-600"
+           />
+        </cx>
+     ),
+    }
+ ];
 
 export default (
     <cx>
@@ -39,17 +70,9 @@ export default (
                         <Icon name={Icons.Loading} style={{ paddingRight: "0.5rem" }} />
                         <span>Loading...</span>
                     </PureContainer>
-                    <Repeater records={$page.devices} recordAlias={$device}>
-                        <div>
-                            <span>ID: </span>
-                            <span text={$device.id} />
-                            <span style={{ paddingLeft: "0.5rem" }}> Capabilities: </span>
-                            <Repeater records={$device.capabilities} recordAlias={$capability}>
-                                <span text={$capability} />
-                                <span ws> </span>
-                            </Repeater>
-                        </div>
-                    </Repeater>
+                    
+
+                    <Grid records-bind={$page.devices} columns={gridColumns} scrollable />
                 </FirstVisibleChildLayout>
             </Section>
             
@@ -58,28 +81,5 @@ export default (
 );
 
 
-const gridColumns = [
-    {
-       header: 'Device name',
-       field: 'id',
-    },
-    {
-       header: 'Capabilities',
-       field: 'capabilities',
-       items: (
-          <cx>
-             <Link
-                href-tpl="~/praksa/{$record.id}"
-                url-bind="url"
-                text-bind="$record.title"
-                className="text-blue-400 hover:text-blue-600"
-             />
-          </cx>
-       ),
-    },
-    {
-       header: 'UserId',
-       field: 'userId',
-    },
- ];
+
 
