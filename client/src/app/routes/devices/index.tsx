@@ -9,7 +9,7 @@ import { ButtonMod } from "../../types/buttonMod";
 
 let { $page, $log, $device, $capability } = createAccessorModelProxy<DevicesPageModel>();
 
-export default (
+export default () => (
     <cx>
         <div controller={Controller} style={{ display: "flex", flexWrap: "wrap" }}>
             <Section

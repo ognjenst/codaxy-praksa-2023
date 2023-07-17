@@ -16,7 +16,7 @@ internal class ScanIpAdrressResponse
 }
 
 [OriginalName("SCANNING_ip_address")]
-internal class ScanIpAdrressHandler
+internal class ScanIpAddressHandler
     : ITaskRequestHandler<ScanIpAdrressRequest, ScanIpAdrressResponse>
 {
     public Task<ScanIpAdrressResponse> Handle(
