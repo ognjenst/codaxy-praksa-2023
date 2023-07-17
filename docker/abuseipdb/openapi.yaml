@@ -1,0 +1,501 @@
+openapi: 3.0.0
+info:
+  title: AbuseIPDB API
+  description: >-
+    The AbuseIPDB API allows you to utilize our database programmatically. This
+    is most commonly done through Fail2Ban, which comes prepackaged with an
+    AbuseIPDB configuration.
+  version: 2.0.0
+servers:
+  - url: https://api.abuseipdb.com
+paths:
+  /api/v2/check:
+    get:
+      tags:
+        - default
+      summary: CHECK Endpoint
+      description: >-
+        The check endpoint accepts a single IP address (v4 or v6). Optionally
+        you may set the maxAgeInDays parameter to only return reports within the
+        last x amount of days.
+
+        The desired data is stored in the data property. Here you can inspect
+        details regarding the IP address queried, such as version, country of
+        origin, usage type, ISP, and domain name. And of course, there is the
+        valuable abusive reports.
+
+        Geolocation, usage type, ISP, and domain name are sourced from the
+        IP2Location™ IP Address Geolocation Database. If you're looking for a
+        performant IP database for geolocation, then use their product directly.
+
+        The isWhitelisted property reflects whether the IP is spotted in any of
+        our whitelists. Our whitelists give the benefit of the doubt to many
+        IPs, so it generally should not be used as a basis for action. The
+        abuseConfidenceScore is a better basis for action, because it is
+        nonbinary and allows for nuance. The isWhitelisted property may be null
+        if a whitelist lookup was not performed.
+
+        The usageType is a string that describes the general usage of this
+        address. Possible values are:
+
+
+        * Commercial
+        * Organization
+        * Government
+        * Military
+        * University/College/School
+        * Library
+        * Content Delivery Network
+        * Fixed Line ISP
+        * Mobile ISP
+        * Data Center/Web Hosting/Transit
+        * Search Engine Spider
+        * Reserved
+
+        The maxAgeInDays parameter determines how far back in time we go to
+        fetch reports. In this example, we ask for reports no older than 90
+        days. The default is 30.
+
+        The totalReports property is a sum of the reports within maxAgeInDays.
+
+        Reports are included in this response because the verbose flag was
+        added. Omitting the verbose flag will exclude reports and the country
+        name field. If you want to keep your response payloads light, this is
+        recommended. The reports array is limited to 10,000 elements. Only
+        reports within the timeframe of maxAgeInDays are considered.
+
+        The IP address should be url-encoded, because IPv6 addresses use colons,
+        which are reserved characters in URIs.
+      parameters:
+        - name: Key
+          in: header
+          schema:
+            type: string
+          example: YOUR_API_KEY
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: maxAgeInDays
+          in: query
+          schema:
+            type: integer
+          example: "90"
+        - name: verbose
+          in: query
+          schema:
+            type: string
+        - name: ipAddress
+          in: query
+          schema:
+            type: number
+          example: 1.1.1.1
+      responses:
+        "200":
+          description: JSON Respose from the CHECK Endpoint
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      lastReportedAt:
+                        type: string
+                      reports:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            reportedAt:
+                              type: string
+                            reporterCountryName:
+                              type: string
+                            comment:
+                              type: string
+                            reporterId:
+                              type: integer
+                            categories:
+                              type: array
+                              items:
+                                type: integer
+                            reporterCountryCode:
+                              type: string
+                      abuseConfidenceScore:
+                        type: integer
+                      numDistinctUsers:
+                        type: integer
+                      isp:
+                        type: string
+                      ipAddress:
+                        type: string
+                      totalReports:
+                        type: integer
+                      hostnames:
+                        type: array
+                        items:
+                          type: string
+                      isWhitelisted:
+                        type: boolean
+                      ipVersion:
+                        type: integer
+                      countryCode:
+                        type: string
+                      domain:
+                        type: string
+                      isPublic:
+                        type: boolean
+                      countryName:
+                        type: string
+                      usageType:
+                        type: string
+              examples:
+                "0":
+                  value: >-
+                    {"data":{"ipAddress":"1.1.1.1","isPublic":true,"ipVersion":4,"isWhitelisted":true,"abuseConfidenceScore":0,"countryCode":"US","usageType":"Content
+                    Delivery Network","isp":"APNIC and CloudFlare DNS Resolver
+                    Project","domain":"cloudflare.com","hostnames":["one.one.one.one"],"countryName":"United
+                    States of
+                    America","totalReports":8,"numDistinctUsers":3,"lastReportedAt":"2022-08-10T06:30:54+00:00","reports":[{"reportedAt":"2022-08-10T06:30:54+00:00","comment":"Fail2Ban
+                    Auto Report - VPN Hacking
+                    Attempt","categories":[15,18],"reporterId":13399,"reporterCountryCode":"GB","reporterCountryName":"United
+                    Kingdom of Great Britain and Northern
+                    Ireland"},{"reportedAt":"2022-08-10T00:14:57+00:00","comment":"[Neko
+                    CA] Unauthorized UDP Packet from 1.1.1.1 on dstPort
+                    60813","categories":[14],"reporterId":55003,"reporterCountryCode":"CA","reporterCountryName":"Canada"},{"reportedAt":"2022-08-03T08:44:44+00:00","comment":"ddos","categories":[4],"reporterId":89703,"reporterCountryCode":"PL","reporterCountryName":"Poland"},{"reportedAt":"2022-08-02T00:01:06+00:00","comment":"[Neko
+                    CA] Unauthorized UDP Packet from 1.1.1.1 on dstPort
+                    63394","categories":[14],"reporterId":55003,"reporterCountryCode":"CA","reporterCountryName":"Canada"},{"reportedAt":"2022-07-31T00:14:56+00:00","comment":"[Neko
+                    CA] Unauthorized UDP Packet from 1.1.1.1 on dstPort
+                    54322","categories":[14],"reporterId":55003,"reporterCountryCode":"CA","reporterCountryName":"Canada"},{"reportedAt":"2022-07-30T00:12:48+00:00","comment":"[Neko
+                    CA] Unauthorized UDP Packet from 1.1.1.1 on dstPort
+                    49960","categories":[14],"reporterId":55003,"reporterCountryCode":"CA","reporterCountryName":"Canada"},{"reportedAt":"2022-07-27T00:21:00+00:00","comment":"[Neko
+                    CA] Unauthorized UDP Packet from 1.1.1.1 on dstPort
+                    61951","categories":[14],"reporterId":55003,"reporterCountryCode":"CA","reporterCountryName":"Canada"},{"reportedAt":"2022-07-27T00:04:45+00:00","comment":"[Neko
+                    CA] Unauthorized UDP Packet from 1.1.1.1 on dstPort
+                    55193","categories":[14],"reporterId":55003,"reporterCountryCode":"CA","reporterCountryName":"Canada"}]}}
+  /api/v2/reports:
+    get:
+      tags:
+        - default
+      summary: REPORTS Endpoint
+      description: >-
+        The reports endpoint accepts a single IP address (v4 or v6). Optionally
+        you may set the maxAgeInDays parameter to only return reports within the
+        last x amount of days. You can also adjust the pagination with the
+        perPage parameter, and navigate the pagination via the page parameter.
+
+        The desired data is stored in the data property.
+      parameters:
+        - name: Key
+          in: header
+          schema:
+            type: string
+          example: YOUR_API_KEY
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: "1"
+        - name: perPage
+          in: query
+          schema:
+            type: integer
+          example: "25"
+        - name: ipAddress
+          in: query
+          schema:
+            type: number
+          example: 1.1.1.1
+      responses:
+        "200":
+          description: Valid response when Items found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                      perPage:
+                        type: integer
+                      nextPageUrl:
+                        type: string
+                      lastPage:
+                        type: integer
+                      previousPageUrl: {}
+                      count:
+                        type: integer
+                      page:
+                        type: integer
+                      results:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            reportedAt:
+                              type: string
+                            reporterCountryName:
+                              type: string
+                            comment:
+                              type: string
+                            reporterId:
+                              type: integer
+                            categories:
+                              type: array
+                              items:
+                                type: integer
+                            reporterCountryCode:
+                              type: string
+              examples:
+                "0":
+                  value: >-
+                    {"data":{"total":25,"page":1,"count":10,"perPage":10,"lastPage":3,"nextPageUrl":"https:\/\/api.abuseipdb.com\/api\/v2\/reports?ipAddress=1.1.1.1&maxAgeInDays=365&perPage=10&page=2","previousPageUrl":null,"results":[{"reportedAt":"2022-08-15T12:48:53+00:00","comment":"Port
+                    scan of UDP port
+                    9034","categories":[14,15],"reporterId":48089,"reporterCountryCode":"US","reporterCountryName":"United
+                    States of
+                    America"},{"reportedAt":"2022-08-15T00:19:26+00:00","comment":"Hit
+                    honeypot
+                    r.","categories":[14,15,20],"reporterId":24931,"reporterCountryCode":"PL","reporterCountryName":"Poland"},{"reportedAt":"2022-08-15T00:17:15+00:00","comment":"[Neko
+                    CA] Unauthorized UDP Packet from 1.1.1.1 on dstPort
+                    58123","categories":[14],"reporterId":55003,"reporterCountryCode":"CA","reporterCountryName":"Canada"},{"reportedAt":"2022-08-15T00:00:47+00:00","comment":"[Neko
+                    CA] Unauthorized UDP Packet from 1.1.1.1 on dstPort
+                    55745","categories":[14],"reporterId":55003,"reporterCountryCode":"CA","reporterCountryName":"Canada"},{"reportedAt":"2022-08-14T22:39:32+00:00","comment":"ufw_block_log_banned","categories":[14],"reporterId":56307,"reporterCountryCode":"TW","reporterCountryName":"Taiwan"},{"reportedAt":"2022-08-14T21:58:05+00:00","comment":"Unauthorized
+                    port
+                    sweep","categories":[14],"reporterId":54328,"reporterCountryCode":"PL","reporterCountryName":"Poland"},{"reportedAt":"2022-08-14T16:21:26+00:00","comment":"ufw_block_log","categories":[14],"reporterId":56307,"reporterCountryCode":"US","reporterCountryName":"United
+                    States of
+                    America"},{"reportedAt":"2022-08-14T14:39:15+00:00","comment":"PortscanM","categories":[14],"reporterId":56590,"reporterCountryCode":"DE","reporterCountryName":"Germany"},{"reportedAt":"2022-08-14T14:16:40+00:00","comment":"9034\/udp
+                    9034\/udp\n[2022-08-14]2pkt","categories":[14],"reporterId":20262,"reporterCountryCode":"JP","reporterCountryName":"Japan"},{"reportedAt":"2022-08-14T14:15:15+00:00","comment":"Unauthorized
+                    connection attempt from IP address 1.1.1.1 on Port
+                    9034","categories":[14],"reporterId":19767,"reporterCountryCode":"NL","reporterCountryName":"Netherlands"}]}}
+        "422":
+          description: Missing IP Address Error Condition
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        detail:
+                          type: string
+                        source:
+                          type: object
+                          properties:
+                            parameter:
+                              type: string
+                        status:
+                          type: integer
+              examples:
+                "0":
+                  value: >-
+                    {"errors":[{"detail":"The ip address field is
+                    required.","status":422,"source":{"parameter":"ipAddress"}}]}
+  /api/v2/report:
+    post:
+      tags:
+        - default
+      summary: REPORT Endpoint
+      description: >-
+        Reporting IP addresses is the core feature of AbuseIPDB. When you report
+        what you observe, everyone benefits, including yourself. To report an IP
+        address, send a POST request. At least one category is required, but you
+        may add additional categories using commas to separate the integer IDs.
+        Related details can be included in the comment field.
+
+        **STRIP ANY PERSONALLY IDENTIFIABLE INFORMATION (PII); WE ARE NOT
+        RESPONSIBLE FOR PII YOU REVEAL.**
+
+        In the body, we get the updated abuseConfidenceScore.
+
+        Request Categories are detailed:
+        [https://www.abuseipdb.com/categories](https://www.abuseipdb.com/categories)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example: >-
+                categories=18,22&ip=127.0.0.1&comment=SSH login attempts with
+                user root.
+      parameters:
+        - name: Key
+          in: header
+          schema:
+            type: string
+          example: YOUR_API_KEY
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/x-www-form-urlencoded
+      responses:
+        "200":
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      abuseConfidenceScore:
+                        type: integer
+                      ipAddress:
+                        type: string
+              examples:
+                "0":
+                  value: '{"data":{"ipAddress":"127.0.0.1","abuseConfidenceScore":0}}'
+        "422":
+          description: Response when missing require fields
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        detail:
+                          type: string
+                        source:
+                          type: object
+                          properties:
+                            parameter:
+                              type: string
+                        status:
+                          type: integer
+              examples:
+                "0":
+                  value: >-
+                    {"errors":[{"detail":"The ip field is
+                    required.","status":422,"source":{"parameter":"ip"}},{"detail":"The
+                    categories field is
+                    required.","status":422,"source":{"parameter":"categories"}}]}
+        "429":
+          description: Response when attempting to report the same IP address within a 15 Minute Window.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        detail:
+                          type: string
+                        source:
+                          type: object
+                          properties:
+                            parameter:
+                              type: string
+                        status:
+                          type: integer
+              examples:
+                "0":
+                  value: >-
+                    {"errors":[{"detail":"You can only report the same IP
+                    address (`127.0.0.1`) once in 15
+                    minutes.","status":403,"source":{"parameter":"ip"}}]}
+  /api/v2/bulk-report:
+    post:
+      tags:
+        - default
+      summary: BULK-REPORT Endpoint
+      description: >-
+        If reporting IP addresses one by one may not seem efficient to you, we
+        offer an endpoint that allows a CSV file of IPs to be reported in one
+        shot. Such a list can be extracted from your secure log file or similar.
+
+        See the bulk report form for a guide
+        ([https://www.abuseipdb.com/bulk-report](https://www.abuseipdb.com/bulk-report))
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                csv:
+                  type: string
+      parameters:
+        - name: Key
+          in: header
+          schema:
+            type: string
+          example: YOUR_API_KEY
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      savedReports:
+                        type: integer
+                      invalidReports:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            error:
+                              type: string
+                            input:
+                              type: string
+                            rowNumber:
+                              type: integer
+              examples:
+                "0": 
+                  value: >-
+                    {
+                      "data": {
+                        "savedReports": 60,
+                        "invalidReports": [
+                          {
+                            "error": "Duplicate IP",
+                            "input": "41.188.138.68",
+                            "rowNumber": 5
+                          },
+                          {
+                            "error": "Invalid IP",
+                            "input": "127.0.foo.bar",
+                            "rowNumber": 6
+                          },
+                          {
+                            "error": "Invalid Category",
+                            "input": "189.87.146.50",
+                            "rowNumber": 8
+                          }
+                        ]
+                      }
+                    }
