@@ -49,7 +49,7 @@ var builder = Host.CreateDefaultBuilder()
                     pipelines.AddValidation();
                 });
 
-            builder.RegisterWorkerTask<ScanIpAdrressHandler>();
+            builder.RegisterWorkerTask<ScanIpAddressHandler>();
 
             builder.RegisterMediatR(typeof(Program).Assembly);
         }
