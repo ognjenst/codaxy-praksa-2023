@@ -2,7 +2,7 @@ import Controller from "./Controller";
 import { createAccessorModelProxy } from "cx/data";
 import { DevicesPageModel } from "./page";
 import { FirstVisibleChildLayout, Instance, PureContainer, Repeater, expr } from "cx/ui";
-import { Button, Icon, LookupField, Section, TextArea } from "cx/widgets";
+import { Button, Icon, Link, LookupField, Section, TextArea } from "cx/widgets";
 import { Status } from "../../types/status";
 import { Icons } from "../../types/icons";
 import { ButtonMod } from "../../types/buttonMod";
