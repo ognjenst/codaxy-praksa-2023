@@ -16,7 +16,7 @@ namespace SOC.Conductor.Entities
 
         public bool Enabled { get; set; }   
 
-        public ICollection<Automation> Automations { get; set;}
+        public ICollection<Trigger> Triggers { get; set;}
 
     }
 }
