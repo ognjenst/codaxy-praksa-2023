@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using SOC.Conductor.Entities.Contexts;
 using SOC.Conductor.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.RegisterServices(builder.Configuration);
+builder.Services.AddDbContext<SOCDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db")));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

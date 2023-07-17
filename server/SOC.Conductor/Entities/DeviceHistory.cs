@@ -11,7 +11,7 @@ namespace SOC.Conductor.Entities
 
         public DateTime Time { get; set; }
 
-        public JObject Configuration { get; set; }
+        public JObject? Configuration { get; set; }
 
 
     }

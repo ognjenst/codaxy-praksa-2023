@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace SOC.Conductor.Entities.Contexts
 {
@@ -10,6 +12,8 @@ namespace SOC.Conductor.Entities.Contexts
         public DbSet<Automation> Automations { get; set; }
         public DbSet<PeriodicTrigger> PeriodicTriggers { get; set; }
         public DbSet<IoTTrigger> IoTTriggers { get; set; }
+        
+        public SOCDbContext(DbContextOptions<SOCDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,6 +39,10 @@ namespace SOC.Conductor.Entities.Contexts
             modelBuilder.Entity<DeviceHistory>(entity =>
             {
                 entity.HasKey(entity => entity.Id);
+
+                entity.Property(e => e.Configuration).HasConversion(
+                    v => JsonConvert.SerializeObject(v),
+                    v => JsonConvert.DeserializeObject<JObject>(v)).HasColumnType("jsonb");
             });
 
             modelBuilder.Entity<Automation>(entity =>

@@ -4,23 +4,23 @@ using MediatR;
 
 namespace SOC.Scanning.Handler;
 
-internal class ScanIpAdrressRequest : IRequest<ScanIpAdrressResponse>
+internal class ScanIpAddressRequest : IRequest<ScanIpAddressResponse>
 {
     public string IpAddress { get; set; }
     public int Subnet { get; set; }
 }
 
-internal class ScanIpAdrressResponse
+internal class ScanIpAddressResponse
 {
     public string NmapOutput { get; set; }
 }
 
 [OriginalName("SCANNING_ip_address")]
-internal class ScanIpAdrressHandler
-    : ITaskRequestHandler<ScanIpAdrressRequest, ScanIpAdrressResponse>
+internal class ScanIpAddressHandler
+    : ITaskRequestHandler<ScanIpAddressRequest, ScanIpAddressResponse>
 {
-    public Task<ScanIpAdrressResponse> Handle(
-        ScanIpAdrressRequest request,
+    public Task<ScanIpAddressResponse> Handle(
+        ScanIpAddressRequest request,
         CancellationToken cancellationToken
     )
     {
