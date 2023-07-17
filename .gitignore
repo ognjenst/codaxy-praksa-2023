@@ -441,3 +441,6 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 .yarn
+
+
+appsettings.Development.json
