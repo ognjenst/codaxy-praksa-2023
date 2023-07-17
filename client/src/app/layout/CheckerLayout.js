@@ -181,6 +181,10 @@ export const CheckerLayout = ({ children, nav }) => (
 
                 
 
+                <GroupItem text="Pages" icon="document-report" expanded-bind="nav.expand.pages">
+                    <ChildItem text="Sign In" href="~/pages/sign-in" />
+                    <ChildItem text="Password Recovery" href="~/pages/password-recovery" />
+                </GroupItem>
                 
                 
                 <NavItem text="Devices" icon="puzzle" href="~/devices" />
@@ -191,3 +195,28 @@ export const CheckerLayout = ({ children, nav }) => (
         </div>
     </cx>
 );
+
+const gridColumns = [
+    {
+       header: 'Device name',
+       field: 'id',
+    },
+    {
+       header: 'Capabilities',
+       field: 'capabilities',
+       items: (
+          <cx>
+             <Link
+                href-tpl="~/praksa/{$record.id}"
+                url-bind="url"
+                text-bind="$record.title"
+                className="text-blue-400 hover:text-blue-600"
+             />
+          </cx>
+       ),
+    },
+    {
+       header: 'UserId',
+       field: 'userId',
+    },
+ ];

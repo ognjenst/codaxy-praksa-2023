@@ -14,7 +14,7 @@ import Devices from "./devices";
 export default () => (
     <cx>
         <FirstVisibleChildLayout>
-            <Route route="~/devices" url-bind="url" prefix>
+            <Route route="~/pages" url-bind="url" prefix>
                 <Pages />
             </Route>
 
