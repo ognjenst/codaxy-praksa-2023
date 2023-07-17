@@ -56,3 +56,30 @@ export default (
         </div>
     </cx>
 );
+
+
+const gridColumns = [
+    {
+       header: 'Device name',
+       field: 'id',
+    },
+    {
+       header: 'Capabilities',
+       field: 'capabilities',
+       items: (
+          <cx>
+             <Link
+                href-tpl="~/praksa/{$record.id}"
+                url-bind="url"
+                text-bind="$record.title"
+                className="text-blue-400 hover:text-blue-600"
+             />
+          </cx>
+       ),
+    },
+    {
+       header: 'UserId',
+       field: 'userId',
+    },
+ ];
+
