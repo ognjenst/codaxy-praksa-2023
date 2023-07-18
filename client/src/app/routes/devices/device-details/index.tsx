@@ -3,6 +3,7 @@ import { Heading } from "cx/widgets";
 import Controller from "./Controller";
 import { BrightnessComponent } from "./BrightnessComponent";
 import { StateComponent } from "./StateComponent";
+import { ColorComponent } from "./ColorComponent";
 
 export default () => (
     <cx>
@@ -16,7 +17,7 @@ export default () => (
                     <BrightnessComponent />
                 </div>
                 <div visible-bind="$page.device.colorXy">
-                    <BrightnessComponent />
+                    <ColorComponent />
                 </div>
             </div>
         </div>

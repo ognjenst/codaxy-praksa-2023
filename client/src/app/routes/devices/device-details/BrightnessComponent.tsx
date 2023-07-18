@@ -15,6 +15,7 @@ export const BrightnessComponent = () => (
                 maxValue={1}
             />
             <NumberField format="n;0;2" value-bind="$page.device.light.brightness" autoFocus />
+            <hr />
         </div>
     </cx>
 );
