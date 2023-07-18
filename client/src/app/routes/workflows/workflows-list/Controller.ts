@@ -28,6 +28,7 @@ export default class extends Controller {
           ];
         
         this.store.set('$page.workflows', workflows);
+        this.store.set('$page.currentWorkflow', workflows[0]);
     }
 
     async loadData() {

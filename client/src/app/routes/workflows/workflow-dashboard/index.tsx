@@ -3,7 +3,7 @@ import { Button, FlexRow, Icon, Switch } from "cx/widgets";
 export default () => (
     <cx>
         <div className="relative">
-            <span className="relative -top-4 left-5 bg-white p-2">Morning Routine</span>
+            <span className="relative -top-4 left-5 bg-white p-2" text-bind="$page.currentWorkflow.name" />
             <Button className="absolute top-2 right-2 p-0" mod="hollow"><Icon className="h-10 w-10" name="calendar"/></Button>
         </div> 
 
