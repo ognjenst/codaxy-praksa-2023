@@ -1,6 +1,7 @@
 import { LabelsLeftLayout, LabelsTopLayout } from "cx/ui";
 import { LookupField, TextField } from "cx/widgets";
 import InputParams from "../../input-params";
+import ConditionExecution from "../../condition-execution";
 
 export default () => (
     <cx>
@@ -12,6 +13,9 @@ export default () => (
                 <LookupField label="Task" className="flex-1" value-bind="$page.task.type" options={taskTypes} required />
             </div>
             <div className="flex items-center justify-middle gap-2"></div>
+            <div className="flex items-center justify-middle gap-2">
+                <ConditionExecution />
+            </div>
         </div>
     </cx>
 );

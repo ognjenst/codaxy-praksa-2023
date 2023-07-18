@@ -3,6 +3,7 @@ import Controller from "./Controller";
 import { Svg } from "cx/svg";
 import WorkflowTaskProperties from "./workflow-task-properties";
 import InputParams from "../input-params";
+import ConditionExecution from "../condition-execution";
 
 export default () => (
     <cx>
