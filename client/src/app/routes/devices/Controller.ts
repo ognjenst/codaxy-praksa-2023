@@ -1,11 +1,12 @@
 import { Controller } from "cx/ui";
-import { DeviceLogItem, DevicesPageModel } from "./brightness-component";
+
 import { showErrorToast, showInfoToast } from "../../util/toasts";
 import { append, createAccessorModelProxy } from "cx/data";
 import { Status } from "../../types/status";
 import { UpdateDevicePayload, getDevices, updateDevice } from "../../api/devices";
 import * as signalR from "@microsoft/signalr";
 import { Device } from "../../types/device";
+import { DeviceLogItem, DevicesPageModel } from "./page";
 
 let { $page } = createAccessorModelProxy<DevicesPageModel>();
 
