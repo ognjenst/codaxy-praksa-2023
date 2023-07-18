@@ -444,3 +444,6 @@ msbuild.wrn
 
 
 appsettings.Development.json
+
+docker/vol/thehive
+!docker/vol/thehive/etc
