@@ -9,6 +9,8 @@ namespace SOC.IoT.ApiGateway.Entities.Contexts
         public SOCIoTDbContext(DbContextOptions<SOCIoTDbContext> options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Device>
+
             base.OnModelCreating(modelBuilder);
         }
     }
