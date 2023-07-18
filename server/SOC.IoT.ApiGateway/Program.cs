@@ -4,6 +4,7 @@ using System.Reflection;
 using SOC.IoT.Base;
 using SOC.IoT.ApiGateway.Hubs;
 using SOC.IoT.ApiGateway.Controllers.Examples;
+using SOC.IoT.ApiGateway.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
+
 
 // Disable CORS
 app.UseCors(builder =>
