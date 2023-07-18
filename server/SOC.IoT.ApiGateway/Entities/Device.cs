@@ -5,7 +5,7 @@ namespace SOC.IoT.ApiGateway.Entities
     public class Device
     {
         public int Id { get; set; }
-        public int IoTId { get; set; }
+        public string IoTId { get; set; }
         public string Name { get; set; }    
         public string Description { get; set; }
         public string Manufacturer { get; set; }
