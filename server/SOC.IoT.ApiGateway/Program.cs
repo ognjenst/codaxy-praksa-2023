@@ -4,6 +4,7 @@ using System.Reflection;
 using SOC.IoT.Base;
 using SOC.IoT.ApiGateway.Hubs;
 using SOC.IoT.ApiGateway.Controllers.Examples;
+using SOC.IoT.ApiGateway.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,8 @@ builder.Services.AddLogging();
 builder.Services.AddSignalR();
 
 builder.Services.AddIoTServices();
+
+builder.Services.RegisterServices();
 
 var app = builder.Build();
 
