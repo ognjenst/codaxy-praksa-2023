@@ -10,12 +10,14 @@ export default class extends Controller {
     async loadData() {
         let id = this.store.get("$route.id");
         try {
-            let resp = await GET(`/devices/${id}`);
-            this.store.set("$page.device", resp);
+            let device = await GET(`/devices/${id}`);
+            this.store.set("$page.device", device);
         } catch (err) {
             console.error(err);
         }
     }
+
+    openConfiguration() {}
 }
 
 const colorMap = {
