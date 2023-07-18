@@ -24,4 +24,8 @@
     <ProjectReference Include="..\SOC.IoT.Base\SOC.IoT.Base.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\Contexts\" />
+  </ItemGroup>
+
 </Project>
