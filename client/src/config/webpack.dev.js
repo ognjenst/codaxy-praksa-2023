@@ -22,14 +22,6 @@ module.exports = async () => {
             port: 5544,
             historyApiFallback: true,
             static: path.join(__dirname, "../public"),
-            proxy: {
-                "/api": {
-                    target: "https://localhost:7296",
-                    pathRewrite: { "^/api": "" },
-                    secure: true,
-                    changeOrigin: true,
-                },
-            },
         },
     });
 };
