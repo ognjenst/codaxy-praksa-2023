@@ -178,18 +178,9 @@ export const CheckerLayout = ({ children, nav }) => (
             </div>
             <div class="border-r pt-3">
                 <div class="px-6 py-3 text-gray-400 text-sm">Main Menu</div>
-
-                
-
-                <GroupItem text="Pages" icon="document-report" expanded-bind="nav.expand.pages">
-                    <ChildItem text="Sign In" href="~/pages/sign-in" />
-                    <ChildItem text="Password Recovery" href="~/pages/password-recovery" />
-                </GroupItem>
-                
-                
-                <NavItem text="Devices" icon="puzzle" href="~/devices" />
-                <NavItem text="Automations" icon="puzzle" href="~/automations" />
-                <NavItem text="Workflows" icon="puzzle" href="~/workflows" />
+                <NavItem text="Devices" icon="light-bulb" href="~/devices" />
+                <NavItem text="Automations" icon="presentation-chart-line" href="~/automations" />
+                <NavItem text="Workflows" icon="arrow-down-circle" href="~/workflows" />
             </div>
             {children}
         </div>

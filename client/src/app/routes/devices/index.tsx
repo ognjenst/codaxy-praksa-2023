@@ -1,50 +1,66 @@
-import Controller from "./Controller";
 import { createAccessorModelProxy } from "cx/data";
-import { DevicesPageModel } from "./page";
-import { FirstVisibleChildLayout, Instance, PureContainer, Repeater, computable, expr } from "cx/ui";
-import { Button, Grid, Icon, Text, Link, LookupField, Section, TextArea } from "cx/widgets";
-import { Status } from "../../types/status";
-import { Icons } from "../../types/icons";
+import { FirstVisibleChildLayout, Instance, PureContainer, computable, expr } from "cx/ui";
+import { Button, Grid, GridColumnConfig, Icon, Link, Section } from "cx/widgets";
 import { ButtonMod } from "../../types/buttonMod";
+import { Icons } from "../../types/icons";
+import { Status } from "../../types/status";
+import Controller from "./Controller";
+import { DevicesPageModel } from "./page";
 
 let { $page, $log, $device, $capability } = createAccessorModelProxy<DevicesPageModel>();
 
 const gridColumns = [
     {
-        header: 'Type',
-        
-    },
-    {
-        header: 'State',
-        field: '$record.state.state',
+        header: "Type",
+        align: "center",
+        defaultWidth: 60,
         items: (
             <cx>
-            <Text value={computable('$record.state.state', (state) =>  state ? 'Up' : 'Down')} />
-               
+                <Icon name="light-bulb" />
             </cx>
-         ),
+        ),
     },
     {
-       header: 'Device name',
-       field: '$record.id',
-       items: (
-        <cx>
-           <Link
-              href-tpl="~/devices/{$record.id}"
-              url-bind="url"
-              text-bind="$record.id"
-              className="text-blue-400 hover:text-blue-600"
-           />
-        </cx>
-     ),
-    }
- ];
+        header: "State",
+        field: "$record.state.state",
+        align: "center",
+        defaultWidth: 60,
+        items: (
+            <cx>
+                <span text={computable("$record.state", (state) => (state ? (state.state ? "On" : "Off") : ""))} />
+            </cx>
+        ),
+    },
+    {
+        header: "Device name",
+        field: "$record.id",
+        items: (
+            <cx>
+                <Link
+                    href-tpl="~/devices/{$record.id}"
+                    url-bind="url"
+                    text-bind="$record.id"
+                    className="text-blue-400 hover:text-blue-600"
+                />
+            </cx>
+        ),
+    },
+    {
+        header: "Actions",
+        defaultWidth: 80,
+        align: "center",
+        items: (
+            <cx>
+                <Button icon="cog" mod="hollow" />
+            </cx>
+        ),
+    },
+] as GridColumnConfig[];
 
 export default (
     <cx>
-        <div controller={Controller} style={{ display: "flex", flexWrap: "wrap" }}>
+        <div controller={Controller}>
             <Section
-                style={{ width: "50%" }}
                 header={
                     <cx>
                         <div
@@ -70,16 +86,10 @@ export default (
                         <Icon name={Icons.Loading} style={{ paddingRight: "0.5rem" }} />
                         <span>Loading...</span>
                     </PureContainer>
-                    
 
                     <Grid records-bind={$page.devices} columns={gridColumns} scrollable />
                 </FirstVisibleChildLayout>
             </Section>
-            
         </div>
     </cx>
 );
-
-
-
-
