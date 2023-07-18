@@ -1,27 +1,35 @@
-const webpack = require('webpack'),
-   { merge } = require('webpack-merge'),
-   common = require('./webpack.config'),
-   path = require('path');
+const webpack = require("webpack"),
+    { merge } = require("webpack-merge"),
+    common = require("./webpack.config"),
+    path = require("path");
 
-process.env.TAILWIND_MODE = 'watch';
+process.env.TAILWIND_MODE = "watch";
 
 module.exports = async () => {
-   return merge(common({ tailwindOptions: {}, rootCssLoader: 'style-loader' }), {
-      mode: 'development',
+    return merge(common({ tailwindOptions: {}, rootCssLoader: "style-loader" }), {
+        mode: "development",
 
-      //plugins: [new webpack.HotModuleReplacementPlugin()],
+        //plugins: [new webpack.HotModuleReplacementPlugin()],
 
-      devtool: 'eval',
+        devtool: "eval",
 
-      output: {
-         publicPath: '/',
-      },
+        output: {
+            publicPath: "/",
+        },
 
-      devServer: {
-         hot: true,
-         port: 5544,
-         historyApiFallback: true,
-         static: path.join(__dirname, '../public'),
-      },
-   });
+        devServer: {
+            hot: true,
+            port: 5544,
+            historyApiFallback: true,
+            static: path.join(__dirname, "../public"),
+            proxy: {
+                "/api": {
+                    target: "https://localhost:7296",
+                    pathRewrite: { "^/api": "" },
+                    secure: true,
+                    changeOrigin: true,
+                },
+            },
+        },
+    });
 };

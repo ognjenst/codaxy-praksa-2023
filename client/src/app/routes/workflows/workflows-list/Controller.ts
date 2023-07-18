@@ -1,5 +1,5 @@
 import { Controller } from 'cx/ui';
-import { GET } from '../../api/util/methods';
+import { GET } from '../../../api/util/methods';
 
 export default class extends Controller {
     onInit(): void {
@@ -28,9 +28,8 @@ export default class extends Controller {
           ];
         
         this.store.set('$page.workflows', workflows);
-        // this.loadData();
     }
-    
+
     async loadData() {
         console.log('load data');
         try {
@@ -39,5 +38,5 @@ export default class extends Controller {
         } catch (err) {
             console.log(err);
         }
-    }    
-};
+    }  
+}
