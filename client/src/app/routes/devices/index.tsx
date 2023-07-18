@@ -57,7 +57,7 @@ const gridColumns = [
     },
 ] as GridColumnConfig[];
 
-export default (
+export default () => (
     <cx>
         <div controller={Controller}>
             <Section
