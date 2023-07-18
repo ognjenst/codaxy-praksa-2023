@@ -2,6 +2,6 @@
 {
     public enum DeviceType
     {
-        LIGHTBULB, SOCKET, SENSOR
+        LIGHTBULB, SOCKET, SENSOR, BUTTON
     }
 }

@@ -9,7 +9,7 @@ namespace SOC.IoT.ApiGateway.Entities.Contexts
         {
             builder.HasKey(x => x.Id);
             
-            builder.HasMany(e = e => e.Devices);
+            builder.HasMany(x => x.DevicesHistory).WithOne(h => h.Device).HasForeignKey(h => h.DeviceID);
 
             builder.HasData(new Device
             {
@@ -28,10 +28,10 @@ namespace SOC.IoT.ApiGateway.Entities.Contexts
                 Description = "Wireless button",
                 Manufacturer = "SONOFF",
                 Model = "SNZB-01",
-                Type = Enums.DeviceType.LIGHTBULB
+                Type = Enums.DeviceType.BUTTON
             }, new Device
             {
-                Id = 2,
+                Id = 3,
                 IoTId = "0x00124b0022d2d320",
                 Name = "SONOFF Temp and Humidity Sensor",
                 Description = "Temperature and humidity sensor",
@@ -40,13 +40,40 @@ namespace SOC.IoT.ApiGateway.Entities.Contexts
                 Type = Enums.DeviceType.SENSOR
             }, new Device
             {
-                Id = 3,
+                Id = 4,
                 IoTId = "0x04cf8cdf3c7597cd",
                 Name = "Xiaomi Mi Socket",
                 Description = "Mi power plug ZigBee EU",
                 Manufacturer = "Xiaomi",
                 Model = "ZNCZ04LM",
                 Type = Enums.DeviceType.SOCKET
+            }, new Device
+            {
+                Id = 5,
+                IoTId = "0x00124b00226969ac",
+                Name = "Contact Sensor",
+                Description = "Contact sensor",
+                Manufacturer = "SONOFF",
+                Model = "SNZB-04",
+                Type = Enums.DeviceType.SENSOR
+            }, new Device
+            {
+                Id = 6,
+                IoTId = "0xa4c13893cdd87674",
+                Name = "Wireless switch",
+                Description = "Wireless switch with 4 buttons",
+                Manufacturer = "TuYa",
+                Model = "TS0044",
+                Type = Enums.DeviceType.BUTTON
+            }, new Device
+            {
+                Id = 7,
+                IoTId = "0x00158d0001dd7e46",
+                Name = "Light bulb",
+                Description = "Smart 7W E27 light bulb",
+                Manufacturer = "Nue / 3A",
+                Model = "HGZB-06A",
+                Type = Enums.DeviceType.LIGHTBULB
             });
         }
     }
