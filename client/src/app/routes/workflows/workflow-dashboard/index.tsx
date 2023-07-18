@@ -1,4 +1,7 @@
-import { Button, FlexRow, Grid, Icon, Switch } from "cx/widgets";
+import { Button, FlexRow, Grid, GridColumnConfig, GridRowLineConfig, Icon, LookupField, Switch } from "cx/widgets";
+import Controller from "./Controller";
+import { Svg } from "cx/svg";
+import WorkflowTaskProperties from "./workflow-task-properties";
 import InputParams from "../input-params";
 
 export default () => (
@@ -23,7 +26,7 @@ export default () => (
             </Button>
         </div>
 
-        <div className="p-10">
+        <div className="p-10" controller={Controller}>
             <div className="flex flex-row">
                 <div className="flex flex-col">
                     <div className="flex-1">
@@ -98,11 +101,64 @@ export default () => (
                 <div class="mt-3 md:mt-0 lg:mt-0 bg-white border-2 border-gray-700 col-span-4 rounded-sm">
                     <div className="relative">
                         <span className="relative -top-4 left-5 bg-white p-2">Tasks</span>
-                        <div>
-                            <Grid cached style={{ width: "100%" }}></Grid>
-                        </div>
-                        <div className="flex flex-row flex-1">
-                            <InputParams />
+
+                        <div class="grid h-full place-items-center">
+                            <Grid
+                                className="tasks-grid"
+                                cached
+                                style={{ width: "80%" }}
+                                records-bind="$page.someList"
+                                row={{
+                                    line1: {
+                                        columns: [
+                                            {
+                                                header: "Name",
+                                                field: "name",
+                                            },
+                                            {
+                                                header: {
+                                                    items: (
+                                                        <cx>
+                                                            <cx>
+                                                                <Button
+                                                                    mod="hollow"
+                                                                    icon="search"
+                                                                    onClick={(e, { store }) => {
+                                                                        store.toggle("$page.showGridFilter");
+                                                                    }}
+                                                                />
+                                                            </cx>
+                                                        </cx>
+                                                    ),
+                                                },
+                                                align: "right",
+                                                items: (
+                                                    <cx>
+                                                        <cx>
+                                                            <Button
+                                                                mod="hollow"
+                                                                icon="drop-down"
+                                                                onClick={(e, { store }) => {
+                                                                    store.toggle("$record.showDescription");
+                                                                }}
+                                                            />
+                                                        </cx>
+                                                    </cx>
+                                                ),
+                                            },
+                                        ],
+                                    },
+                                    line2: {
+                                        visible: { expr: "{$record.showDescription}" },
+                                        columns: [
+                                            {
+                                                colSpan: 2,
+                                                items: <WorkflowTaskProperties />,
+                                            },
+                                        ],
+                                    },
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
@@ -115,3 +171,42 @@ const highlightEnabledBackgroundColor = "background:#00FF00";
 
 const defaultStatusColor = "text-white bg-black";
 const highlightStatusColor = "text-white bg-green-600";
+
+const gridColumns = [
+    {
+        header: "Name",
+        field: "name",
+    },
+    {
+        header: {
+            items: (
+                <cx>
+                    <cx>
+                        <Button
+                            mod="hollow"
+                            icon="search"
+                            onClick={(e, { store }) => {
+                                store.toggle("$page.showGridFilter");
+                            }}
+                        />
+                    </cx>
+                </cx>
+            ),
+        },
+        align: "right",
+        items: (
+            <cx>
+                <cx>
+                    <Button
+                        mod="hollow"
+                        icon="drop-down"
+                        onClick={(e, { store }) => {
+                            console.log("Doslo ...");
+                            store.toggle("$record.description");
+                        }}
+                    />
+                </cx>
+            </cx>
+        ),
+    },
+] as GridColumnConfig[];

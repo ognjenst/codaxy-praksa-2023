@@ -16,6 +16,7 @@ export default class extends Controller {
                         text: "two",
                     },
                 ],
+
                 param: [
                     {
                         id: 1,
