@@ -1,5 +1,5 @@
 import { Controller } from "cx/ui";
-import { DeviceLogItem, DevicesPageModel } from "./page";
+import { DeviceLogItem, DevicesPageModel } from "./brightness-component";
 import { showErrorToast, showInfoToast } from "../../util/toasts";
 import { append, createAccessorModelProxy } from "cx/data";
 import { Status } from "../../types/status";

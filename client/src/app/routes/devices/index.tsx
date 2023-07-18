@@ -1,6 +1,6 @@
 import Controller from "./Controller";
 import { createAccessorModelProxy } from "cx/data";
-import { DevicesPageModel } from "./page";
+import { DevicesPageModel } from "./brightness-component";
 import { FirstVisibleChildLayout, Instance, PureContainer, Repeater, expr } from "cx/ui";
 import { Button, Icon, LookupField, Section, TextArea } from "cx/widgets";
 import { Status } from "../../types/status";
