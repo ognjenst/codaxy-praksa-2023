@@ -1,7 +1,17 @@
+import { Repeater, bind, computable } from "cx/ui";
+import { Button, LabeledContainer } from "cx/widgets";
+
 export const ColorComponent = () => (
     <cx>
-        <div className="flex gap-16">
-            <div className="text-xl">Color</div>
-        </div>
+        <LabeledContainer
+            label={{
+                text: "Color",
+                className: "text-xl",
+            }}
+        >
+            <Repeater records={computable("$page.colors", (colors) => Object.keys(colors))}>
+                <Button style={{ backgroundColor: computable("$record", (record) => record) }} />
+            </Repeater>
+        </LabeledContainer>
     </cx>
 );

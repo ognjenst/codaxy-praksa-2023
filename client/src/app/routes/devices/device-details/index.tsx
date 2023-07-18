@@ -1,4 +1,4 @@
-import { PureContainer } from "cx/ui";
+import { LabelsLeftLayout, PureContainer, UseParentLayout } from "cx/ui";
 import { Heading } from "cx/widgets";
 import Controller from "./Controller";
 import { BrightnessComponent } from "./BrightnessComponent";
@@ -10,15 +10,17 @@ export default () => (
         <div controller={Controller} className="p-4">
             <Heading level="1" text-bind="$page.device.id" className="text-4xl" />
             <div className="p-8">
-                <div visible-bind="$page.device.state">
-                    <StateComponent />
-                </div>
-                <div visible-bind="$page.device.light">
-                    <BrightnessComponent />
-                </div>
-                <div visible-bind="$page.device.colorXy">
-                    <ColorComponent />
-                </div>
+                <LabelsLeftLayout>
+                    <PureContainer layout={UseParentLayout} visible-expr="{$page.device.state} !== null">
+                        <StateComponent />
+                    </PureContainer>
+                    <PureContainer layout={UseParentLayout} visible-bind="$page.device.light">
+                        <BrightnessComponent />
+                    </PureContainer>
+                    <PureContainer layout={UseParentLayout} visible-bind="$page.device.colorXy">
+                        <ColorComponent />
+                    </PureContainer>
+                </LabelsLeftLayout>
             </div>
         </div>
     </cx>
