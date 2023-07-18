@@ -11,7 +11,12 @@ export default () => (
                     <div className="flex-1">
                         <LabelsLeftLayout>
                             <LookupField label="Select trigger" options={triggers} value-bind="$page.automations.triggers" />
-                            <LookupField label="Select workflow" options={workflows} value-bind="$page.automations.workflows" />
+                            <LookupField
+                                label="Select workflow"
+                                options-bind="$page.workflows"
+                                optionTextField="name"
+                                value-bind="$page.automations.workflows1"
+                            />
                             <Button text="Add automation" icon="plus" mod="primary" />
                         </LabelsLeftLayout>
                     </div>
@@ -55,7 +60,7 @@ const triggers = [
     { id: 2, text: "Trigger 2" },
 ];
 
-const workflows = [
+/*const workflows = [
     { id: 1, text: "Workflow 1" },
     { id: 2, text: "Workflow 2" },
-];
+];*/
