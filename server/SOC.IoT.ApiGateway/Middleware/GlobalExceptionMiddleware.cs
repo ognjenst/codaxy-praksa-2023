@@ -61,6 +61,8 @@ namespace SOC.IoT.ApiGateway.Middleware
                 exception
             );
 
+
+            await context.Response.WriteAsync(json);
         }
     }
 }
