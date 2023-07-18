@@ -1,16 +1,14 @@
-import { PropertySelection, PureContainer, bind, computable } from "cx/ui";
+import { Heading } from "cx/widgets";
 import Controller from "./Controller";
-import { Grid, Heading, Label, List, MsgBox } from "cx/widgets";
-import { BrightnessComponent } from "./brightnessComponent";
+import { BrightnessComponent } from "./BrightnessComponent";
 
 export default () => (
     <cx>
-        |
-        <PureContainer controller={Controller}>
+        <div controller={Controller}>
             <Heading level="1" text-bind="$page.device.id" />
             <div visible-bind="$page.device.light">
                 <BrightnessComponent />
             </div>
-        </PureContainer>
+        </div>
     </cx>
 );

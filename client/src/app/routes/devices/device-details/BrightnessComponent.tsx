@@ -1,10 +1,10 @@
-import { Slider } from "cx/widgets";
+import { LabeledContainer, NumberField, Slider } from "cx/widgets";
 
-export const BrightnessComponent = ({}) => (
+export const BrightnessComponent = () => (
     <cx>
-        <div>
+        <div className="flex">
+            <LabeledContainer label="Brightness" />
             <Slider
-                label="Standard"
                 value-bind="$page.device.light.brightness"
                 valueTooltip={{
                     text: { tpl: "{$page.device.light.brightness:n;2}" },
@@ -14,6 +14,7 @@ export const BrightnessComponent = ({}) => (
                 increment={2.5}
                 maxValue={1}
             />
+            <NumberField format="n;0;2" value-bind="$page.device.light.brightness" autoFocus />
         </div>
     </cx>
 );
