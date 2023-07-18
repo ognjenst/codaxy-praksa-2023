@@ -10,14 +10,19 @@ export default () => (
                 <Section title="Add automation">
                     <div className="flex-1">
                         <LabelsLeftLayout>
-                            <LookupField label="Select trigger" options={triggers} value-bind="$page.automations.triggers" />
+                            <LookupField
+                                label="Select trigger"
+                                options-bind="$page.triggers"
+                                optionTextField="name"
+                                value-bind="$page.automations.triggers"
+                            />
                             <LookupField
                                 label="Select workflow"
                                 options-bind="$page.workflows"
                                 optionTextField="name"
-                                value-bind="$page.automations.workflows1"
+                                value-bind="$page.automations.workflows"
                             />
-                            <Button text="Add automation" icon="plus" mod="primary" />
+                            <Button text="Add automation" onClick="addAutomation" icon="plus" mod="primary" />
                         </LabelsLeftLayout>
                     </div>
                 </Section>
@@ -55,10 +60,10 @@ const options = [
     { id: 2, name: "IoT Trigger" },
 ];
 
-const triggers = [
+/*const triggers = [
     { id: 1, text: "Trigger 1" },
     { id: 2, text: "Trigger 2" },
-];
+];*/
 
 /*const workflows = [
     { id: 1, text: "Workflow 1" },
