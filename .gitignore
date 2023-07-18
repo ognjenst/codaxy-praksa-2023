@@ -444,3 +444,6 @@ msbuild.wrn
 
 
 appsettings.Development.json
+/server/SOC.IoT.ApiGateway/appsettings.Development..json
+/.gitignore
+/.gitignore
