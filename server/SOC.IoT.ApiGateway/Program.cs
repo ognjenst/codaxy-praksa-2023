@@ -17,6 +17,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<SOCIoTDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db")));
 
+builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
 builder.Services.Configure<RouteOptions>(options =>
 {
     options.LowercaseUrls = true;

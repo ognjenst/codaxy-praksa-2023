@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SOC.IoT.ApiGateway.Controllers.Examples;
+using SOC.IoT.ApiGateway.Handlers;
 using SOC.IoT.ApiGateway.Models;
+using SOC.IoT.ApiGateway.Models.Requests;
 using SOC.IoT.Base.Interfaces;
 using Swashbuckle.AspNetCore.Filters;
 using System.ComponentModel.DataAnnotations;
@@ -31,9 +33,9 @@ public class DevicesController : ControllerBase
     [HttpGet(Name = "GetDevices")]
     [SwaggerResponseExample(StatusCodes.Status200OK, typeof(DevicesExample))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DeviceDTO>))]
-    public IEnumerable<DeviceDTO> GetDevices()
+    public async Task<IEnumerable<DeviceDTO>> GetDevices()
     {
-        return _deviceManager.GetDevices().Select(d => new DeviceDTO(d));
+        return await _mediator.Send(new GetDevicesQuery());
     }
 
     /// <summary>
@@ -46,11 +48,11 @@ public class DevicesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeviceDTO))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
-    public IResult GetDevice([FromRoute] [RegularExpression(_deviceIdRegexPattern)] string id)
+    public async Task<IResult> GetDevice([FromRoute] [RegularExpression(_deviceIdRegexPattern)] string id)
     {
         try
         {
-            return Results.Ok(new DeviceDTO(_deviceManager.GetDevice(id)));
+            return Results.Ok(await _mediator.Send(new GetDeviceQuery(id)));
         }
         catch (KeyNotFoundException)
         {
@@ -75,7 +77,7 @@ public class DevicesController : ControllerBase
     {
         try
         {
-            await _deviceManager.SetDeviceStateAsync(payload.GetDevice(id));
+            await _mediator.Send(new UpdateDeviceStateQuery(id, payload));
             return Results.NoContent();
         }
         catch (KeyNotFoundException)
