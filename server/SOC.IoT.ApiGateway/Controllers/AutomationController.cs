@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
 
 namespace SOC.IoT.ApiGateway.Controllers
@@ -18,7 +17,7 @@ namespace SOC.IoT.ApiGateway.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAutomationAsync(AutomationDto automationDto)
         {
-            var automation = await _automationService.AutomationAsync(automationDto);
+            var automation = await _automationService.CreateAutomationAsync(automationDto);
 
             await Task.Delay(1000);
 

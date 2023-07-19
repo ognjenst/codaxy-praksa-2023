@@ -59,13 +59,3 @@ const options = [
     { id: 1, name: "Periodic Trigger" },
     { id: 2, name: "IoT Trigger" },
 ];
-
-/*const triggers = [
-    { id: 1, text: "Trigger 1" },
-    { id: 2, text: "Trigger 2" },
-];*/
-
-/*const workflows = [
-    { id: 1, text: "Workflow 1" },
-    { id: 2, text: "Workflow 2" },
-];*/
