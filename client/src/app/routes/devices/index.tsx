@@ -13,6 +13,7 @@ const gridColumns = [
     {
         header: "Type",
         align: "center",
+        field: "$record.type",
         defaultWidth: 60,
         items: (
             <cx>
