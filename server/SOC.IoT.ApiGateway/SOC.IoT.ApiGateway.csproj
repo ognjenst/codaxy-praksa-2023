@@ -33,6 +33,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SOC.Conductor.Client\SOC.Conductor.Client.csproj" />
     <ProjectReference Include="..\SOC.IoT.Base\SOC.IoT.Base.csproj" />
+    <ProjectReference Include="..\SOC.Notifications\SOC.Notifications.csproj" />
   </ItemGroup>
 
 </Project>
