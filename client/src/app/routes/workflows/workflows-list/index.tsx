@@ -1,12 +1,10 @@
+import { Controller } from "cx/ui";
 import { List } from "cx/widgets";
 
 export default () => (
     <cx>
-        <div className="bg-blue-300 flex-1 p-2">
-               <List>
-                  
-               </List>
-            </div> 
+        <div controller={Controller} className="bg-blue-300 flex-1 p-2">
+            Workflows list
+        </div>
     </cx>
 );
-
