@@ -30,6 +30,10 @@ import {
    UsersIcon,
    Bars4Icon,
    XMarkIcon,
+   LightBulbIcon,
+   ClockIcon,
+   ArrowDownCircleIcon,
+   PresentationChartLineIcon
 } from '@heroicons/react/24/outline';
 
 //register all icons that are used within the application
@@ -94,3 +98,13 @@ Icon.register('arrow-left', (props) => <ArrowLeftIcon {...props} />);
 Icon.register('printer', (props) => <PrinterIcon {...props} />);
 
 Icon.register('pencil', (props) => <PencilIcon {...props} />);
+
+Icon.register('light-bulb', (props) => <LightBulbIcon {...props} />);
+
+Icon.register('clock', (props) => <ClockIcon {...props} />);
+
+Icon.register('arrow-down-circle', (props) => <ArrowDownCircleIcon {...props} />);
+
+Icon.register('presentation-chart-line', (props) => <PresentationChartLineIcon {...props} />);
+
+

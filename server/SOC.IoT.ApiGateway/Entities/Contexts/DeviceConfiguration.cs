@@ -24,7 +24,7 @@ namespace SOC.IoT.ApiGateway.Entities.Contexts
             {
                 Id = 2,
                 IoTId = "0x00124b002268b3b2",
-                Name = "Philips Lightbulb",
+                Name = "SONOFF Wireless button",
                 Description = "Wireless button",
                 Manufacturer = "SONOFF",
                 Model = "SNZB-01",
