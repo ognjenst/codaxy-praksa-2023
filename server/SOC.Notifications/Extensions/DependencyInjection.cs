@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using SOC.Notifications.Options;
+using SOC.Notifications.OptionsSetup;
 using SOC.Notifications.Services;
 using System;
 using System.Collections.Generic;
@@ -16,10 +19,19 @@ namespace SOC.Notifications.Extensions
         IConfiguration configuration
     )
         {
-            string accessToken = configuration["SlackAccessToken"]; 
-            string slackChannel = configuration["SlackChannel"];
-            string slackContextBlockImageUrl = configuration["SlackContextBlockImageUrl"];
-            services.AddScoped<ISlackService>(provider => new SlackService(accessToken, slackChannel, slackContextBlockImageUrl));
+            services.RegisterOptions();
+            services.AddScoped<ISlackService>(provider =>
+            {
+                var slackOptions = provider.GetRequiredService<IOptions<SlackOptions>>().Value;
+                return new SlackService(slackOptions);
+            });
+
+            return services;
+        }
+
+        private static IServiceCollection RegisterOptions(this IServiceCollection services)
+        {
+            services.ConfigureOptions<SlackOptionsSetup>();
 
             return services;
         }

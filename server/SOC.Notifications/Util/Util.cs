@@ -9,40 +9,38 @@ namespace SOC.Notifications.Util
 {
     public static class Util
     {
-        public static Block[] GetSlackBlocks(string message, string slackContextBlockImageUrl)
+        public static Block[] GetSlackBlocks(string message, string slackContextBlockImageUrl) =>
+        new Block[]
         {
-            return new Block[]
+            new HeaderBlock
             {
-                new HeaderBlock
+                Text = new PlainText
                 {
-                    Text = new PlainText
+                    Text = ":tada: *SOC: NEW MESSAGE!* :tada:",
+                    Emoji = true
+                }
+            },
+            new DividerBlock(),
+            new SectionBlock
+            {
+                Text = message
+            },
+            new DividerBlock(),
+            new ContextBlock
+            {
+                Elements = new IContextElement[]
+                {
+                    new Image
                     {
-                        Text = ":tada: *SOC: NEW MESSAGE!* :tada:",
-                        Emoji = true
-                    }
-                },
-                new DividerBlock(),
-                new SectionBlock
-                {
-                    Text = message
-                },
-                new DividerBlock(),
-                new ContextBlock
-                {
-                    Elements = new IContextElement[]
+                        ImageUrl = slackContextBlockImageUrl,
+                        AltText = "Codaxy",
+                    },
+                    new PlainText
                     {
-                        new Image
-                        {
-                            ImageUrl = slackContextBlockImageUrl,
-                            AltText = "Codaxy",
-                        },
-                        new PlainText
-                        {
-                            Text = "Codaxy Praksa 2023"
-                        }
+                        Text = "Codaxy Praksa 2023"
                     }
                 }
-            };
-        }
+            }
+        };
     }
 }
