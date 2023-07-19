@@ -1,5 +1,6 @@
 import { Controller } from "cx/ui";
 import { GET } from "../../../api/util/methods";
+import { HexXYColorMap } from "../../../api/util/colors";
 
 export default class extends Controller {
     onInit(): void {
