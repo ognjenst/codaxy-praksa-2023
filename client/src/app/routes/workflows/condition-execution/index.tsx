@@ -3,16 +3,6 @@ import Controller from "./Controller";
 import { LabelsTopLayout, bind } from "cx/ui";
 import { openDryRunWindow } from "../dry-run";
 
-export const showWWW = ({ task }) => {
-    let w = (
-        <cx>
-            <div>Sta ima?</div>
-        </cx>
-    );
-
-    return w;
-};
-
 export default () => (
     <cx>
         <div class="w-full mt-3 bg-white border-2 border-gray-700 col-span-4 rounded-sm">
@@ -23,14 +13,17 @@ export default () => (
             <div className="p-4 grid grid-cols-1 gap-4" controller={Controller}>
                 <div>
                     <div className="flex flex-1 mt-4">
-                        <Repeater records={bind("$task.conditions")} recordAlias="$con" indexAlias="$index">
-                            <Tab
-                                text-bind="$con.tab"
-                                tab-bind="$con.tab"
-                                value-bind="$task.selectedTab"
-                                default-expr="{$index} == 0? true : false"
-                            />
-                        </Repeater>
+                        <div className="overflow-y-auto h-14">
+                            <Repeater records={bind("$task.conditions")} recordAlias="$con" indexAlias="$index">
+                                <Tab
+                                    text-bind="$con.tab"
+                                    tab-bind="$con.tab"
+                                    value-bind="$task.selectedTab"
+                                    default-expr="{$index} == 0? true : false"
+                                    mod="classic"
+                                />
+                            </Repeater>
+                        </div>
 
                         <Button
                             icon="plus"
@@ -61,7 +54,7 @@ export default () => (
                                         },
                                     ],
                                 });
-                                store.set("$page.conditions", [...conditions]);
+                                store.set("$task.conditions", [...conditions]);
                             }}
                         />
                     </div>

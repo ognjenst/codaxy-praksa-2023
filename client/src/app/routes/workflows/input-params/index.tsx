@@ -9,14 +9,17 @@ export default () => (
             <div styles="margin:10px">
                 <span className="p-2">Input parameter bindings:</span>
                 <div className="flex flex-1 mt-4" styles="padding-left:10px;white-space:nowrap;">
-                    <Repeater records={bind("$task.inputs")} indexAlias="$index">
-                        <Tab
-                            text-bind="$record.tab"
-                            tab-bind="$record.tab"
-                            value-bind="$task.selectedInputTab"
-                            default-expr="{$index} == 0? true : false"
-                        />
-                    </Repeater>
+                    <div className="overflow-x-auto w-30">
+                        <Repeater records={bind("$task.inputs")} indexAlias="$index">
+                            <Tab
+                                text-bind="$record.tab"
+                                tab-bind="$record.tab"
+                                value-bind="$task.selectedInputTab"
+                                default-expr="{$index} == 0? true : false"
+                                mod="classic"
+                            />
+                        </Repeater>
+                    </div>
                 </div>
                 <div className="flex flex-1" styles="border: 1px solid lightgray; background: white; padding: 20px">
                     <Repeater records={bind("$task.inputs")} recordAlias="$con">
