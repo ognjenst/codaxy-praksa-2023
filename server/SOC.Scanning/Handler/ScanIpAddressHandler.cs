@@ -1,6 +1,8 @@
-﻿using ConductorSharp.Engine.Interface;
+﻿using Autofac.Core;
+using ConductorSharp.Engine.Interface;
 using ConductorSharp.Engine.Util;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace SOC.Scanning.Handler;
 
@@ -19,6 +21,13 @@ internal class ScanIpAddressResponse
 internal class ScanIpAddressHandler
     : ITaskRequestHandler<ScanIpAddressRequest, ScanIpAddressResponse>
 {
+    private readonly ILogger _logger;
+
+    public ScanIpAddressHandler(ILogger<ScanIpAddressHandler> logger)
+    {
+        _logger = logger;
+    }
+
     public Task<ScanIpAddressResponse> Handle(
         ScanIpAddressRequest request,
         CancellationToken cancellationToken
