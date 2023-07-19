@@ -18,7 +18,7 @@ export default () => (
                         <BrightnessComponent />
                     </PureContainer>
                     <PureContainer layout={UseParentLayout} visible-bind="$page.device.colorXy">
-                        <ColorComponent />
+                        <ColorComponent controller={Controller} />
                     </PureContainer>
                 </LabelsLeftLayout>
             </div>
