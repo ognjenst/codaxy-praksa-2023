@@ -8,33 +8,33 @@ namespace SOC.Conductor.Repositories
     public class RepositoryBase<T> : IRepositoryBase<T>
         where T : class
     {
-        public SOCDbContext SOCDbContext;
-        public RepositoryBase(SOCDbContext SOCDbContext)
+        private readonly SOCDbContext _SOCDbContext;
+
+        protected RepositoryBase(SOCDbContext _SOCDbContext)
         {
-            this.SOCDbContext = SOCDbContext;
+            this._SOCDbContext = _SOCDbContext;
         }
-        //public async Task<ICollection< T> GetAllAsync()
-        //{
-        //    return await SOCDbContext.Set<T>();
-        //}
+
+        public async Task<List<T>> GetAllAsync()
+        {
+            return await _SOCDbContext.Set<T>().ToListAsync();
+        }
+
         public async Task<T> CreateAsync(T entity, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return (await _SOCDbContext.AddAsync(entity, cancellationToken)).Entity; 
         }
 
-        public Task<T> DeleteAsync(T entity, CancellationToken cancellationToken = default)
+        public async Task<T> DeleteAsync(T entity, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            _SOCDbContext.Remove(entity);
+            return await Task.FromResult(entity);
         }
 
-        public Task<T> GetAllAsync()
+        public async Task<T> UpdateAsync(T entity, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> UpdateAsync(T entity, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
+            _SOCDbContext.Update(entity);
+            return await Task.FromResult(entity);
         }
     }
 }

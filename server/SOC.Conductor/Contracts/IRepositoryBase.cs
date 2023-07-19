@@ -5,6 +5,6 @@
         Task<T> CreateAsync(T entity, CancellationToken cancellationToken = default);
         Task<T> UpdateAsync(T entity, CancellationToken cancellationToken = default);
         Task<T> DeleteAsync(T entity, CancellationToken cancellationToken = default);
-        Task<T> GetAllAsync();
+        Task<List<T>> GetAllAsync();
     }
 }
