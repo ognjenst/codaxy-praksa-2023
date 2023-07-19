@@ -28,7 +28,7 @@ export default () => (
                         <Button
                             icon="plus"
                             className="rounded-full h-8 w-8"
-                            onClick={(e, { store }) => {
+                            onClick={(_e, { store }) => {
                                 let conditions = store.get("$task.conditions");
                                 conditions.push({
                                     tab: "Input" + (store.get("$task.conditions").length + 1),
