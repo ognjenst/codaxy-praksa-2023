@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using SOC.Conductor.Entities.Contexts;
 using SOC.Conductor.Extensions;
+using Swashbuckle.AspNetCore.Filters;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +14,13 @@ builder.Services.AddDbContext<SOCDbContext>(options => options.UseNpgsql(builder
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(opts =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    opts.IncludeXmlComments(xmlPath);
+
+});
 
 var app = builder.Build();
 

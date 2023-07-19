@@ -1,5 +1,4 @@
 import { Controller } from "cx/ui";
-
 import { showErrorToast, showInfoToast } from "../../util/toasts";
 import { append, createAccessorModelProxy } from "cx/data";
 import { Status } from "../../types/status";

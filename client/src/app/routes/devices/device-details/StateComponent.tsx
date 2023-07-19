@@ -7,8 +7,8 @@ export const StateComponent = () => (
                 text: "State",
                 className: "text-xl",
             }}
-            on-bind="$page.device.state"
-            text-expr="{$page.device.state} ? 'ON' : 'OFF'"
+            value-bind="$page.device.state.state"
+            text-expr="{$page.device.state.state} ? 'ON' : 'OFF'"
         />
     </cx>
 );

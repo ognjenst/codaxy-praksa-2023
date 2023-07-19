@@ -29,12 +29,47 @@ public static class DependencyInjection
                 );
             }
         );
+
+        services.AddScoped<ITriggersService, TriggersService>(
+            (serviceProvider) =>
+            {
+                var conductorClientOptions = serviceProvider.GetRequiredService<
+                    IOptions<ConductorClientOpitons>
+                >();
+
+                var clientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
+
+                return new TriggersService(
+                    baseUrl: conductorClientOptions.Value.BaseUrl,
+                    clientFactory.CreateClient()
+                );
+            }
+        );
+
+        services.AddScoped<IAutomationService, AutomationService>(
+            (serviceProvider) =>
+            {
+                var conductorClientOptions = serviceProvider.GetRequiredService<
+                    IOptions<ConductorClientOpitons>
+                >();
+
+                var clientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
+
+                return new AutomationService(
+                    baseUrl: conductorClientOptions.Value.BaseUrl,
+                    clientFactory.CreateClient()
+                );
+            }
+        );
+
         return services;
     }
 
     private static IServiceCollection RegisterHttpClients(this IServiceCollection services)
     {
         services.AddHttpClient<WorkflowsService>();
+        services.AddHttpClient<TriggersService>();
+        services.AddHttpClient<AutomationService>();
         return services;
     }
 
