@@ -17,7 +17,14 @@ const gridColumns = [
         defaultWidth: 60,
         items: (
             <cx>
-                <Icon name="light-bulb" />
+                <Icon
+                    name={computable("$record.type", (type) => {
+                        if (type === "SOCKET") return "pause-circle";
+                        else if (type === "LIGHTBULB") return "light-bulb";
+                        else if (type === "SENSOR") return "signal";
+                        else if (type === "BUTTON") return "play-circle";
+                    })}
+                />
             </cx>
         ),
     },
