@@ -14,10 +14,15 @@ namespace SOC.IoT.ApiGateway.Controllers
             _triggersService = triggersService;
         }
 
+
+        /// <summary>
+        /// Returns all triggers.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetAllTriggersAsync()
         {
-            var triggers = await _triggersService.TriggersAsync();
+            var triggers = await _triggersService.GetAllTriggersAsync();
 
             await Task.Delay(1000);
 

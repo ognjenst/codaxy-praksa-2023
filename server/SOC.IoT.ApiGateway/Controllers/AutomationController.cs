@@ -14,6 +14,10 @@ namespace SOC.IoT.ApiGateway.Controllers
             _automationService = automationService;
         }
 
+        /// <summary>
+        /// Create new automation.
+        /// </summary>
+        /// <posts></posts>
         [HttpPost]
         public async Task<IActionResult> CreateAutomationAsync(AutomationDto automationDto)
         {
