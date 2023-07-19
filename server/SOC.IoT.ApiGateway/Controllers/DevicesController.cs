@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using SOC.IoT.ApiGateway.Controllers.Examples;
 using SOC.IoT.ApiGateway.Models;
 using SOC.IoT.Base.Interfaces;
@@ -12,12 +13,15 @@ namespace SOC.IoT.ApiGateway.Controllers;
 [Produces("application/json")]
 public class DevicesController : ControllerBase
 {
+    private readonly IMediator _mediator;
+
     private readonly IDeviceManager _deviceManager;
     private const string _deviceIdRegexPattern = "0[xX][0-9a-fA-F]+";
 
-    public DevicesController(IDeviceManager deviceManager)
+    public DevicesController(IDeviceManager deviceManager, IMediator mediator)
     {
         _deviceManager = deviceManager;
+        _mediator = mediator;
     }
 
     /// <summary>
