@@ -199,6 +199,7 @@ export const CheckerLayout = ({ children, nav }) => (
                 </GroupItem>
                 <NavItem text="About" icon="information-circle" href="~/about" />
                 <NavItem text="Devices" icon="puzzle" href="~/devices" />
+                <NavItem text="Automations" icon="puzzle" href="~/automations" />
             </div>
             {children}
         </div>

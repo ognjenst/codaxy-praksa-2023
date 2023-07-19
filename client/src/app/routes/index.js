@@ -10,6 +10,7 @@ import { SandboxedRoute } from "../components/SandboxedRoute";
 import InvoiceRoutes from "./invoices";
 import { PageNotImplemented } from "../components/PageNotImplemented";
 import Devices from "./devices";
+import Automations from "./automations";
 
 export default () => (
     <cx>
@@ -44,6 +45,9 @@ export default () => (
                 </Route>
                 <Route route="~/devices" url-bind="url">
                     <Devices />
+                </Route>
+                <Route route="~/automations" url-bind="url">
+                    <Automations />
                 </Route>
             </CheckerLayout>
         </FirstVisibleChildLayout>
