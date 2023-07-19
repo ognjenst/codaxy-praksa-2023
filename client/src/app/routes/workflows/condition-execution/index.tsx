@@ -1,6 +1,17 @@
-import { LookupField, Repeater, Tab, TextField } from "cx/widgets";
+import { Button, LookupField, Repeater, Tab, ValidationGroup, TextField } from "cx/widgets";
 import Controller from "./Controller";
 import { LabelsTopLayout, bind } from "cx/ui";
+import { openDryRunWindow } from "../dry-run";
+
+export const showWWW = ({ task }) => {
+    let w = (
+        <cx>
+            <div>Sta ima?</div>
+        </cx>
+    );
+
+    return w;
+};
 
 export default () => (
     <cx>
@@ -9,41 +20,111 @@ export default () => (
                 <span className="relative -top-4 left-5 bg-white p-2" text="Condition for execution" />
             </div>
 
-            <div className="p-10 grid grid-rows-2" controller={Controller}>
+            <div className="p-4 grid grid-cols-1 gap-4" controller={Controller}>
                 <div>
-                    <div className="flex flex-1 mt-4" styles="padding-left:10px;white-space:nowrap;">
-                        <Repeater records={bind("$page.condition.arr")} indexAlias="$index">
+                    <div className="flex flex-1 mt-4">
+                        <Repeater records={bind("$task.conditions")} recordAlias="$con" indexAlias="$index">
                             <Tab
-                                text-bind="$record.tab"
-                                tab-bind="$record.tab"
-                                value-bind="$record.selecteTab"
-                                default-expr="{$index} == 0"
+                                text-bind="$con.tab"
+                                tab-bind="$con.tab"
+                                value-bind="$task.selectedTab"
+                                default-expr="{$index} == 0? true : false"
                             />
                         </Repeater>
+
+                        <Button
+                            icon="plus"
+                            className="rounded-full h-8 w-8"
+                            onClick={(e, { store }) => {
+                                let conditions = store.get("$task.conditions");
+                                conditions.push({
+                                    tab: "Input" + (store.get("$task.conditions").length + 1),
+                                    source: [
+                                        {
+                                            id: 1,
+                                            text: "one 3",
+                                        },
+                                        {
+                                            id: 2,
+                                            text: "two 3",
+                                        },
+                                    ],
+
+                                    param: [
+                                        {
+                                            id: 1,
+                                            text: "one 3",
+                                        },
+                                        {
+                                            id: 2,
+                                            text: "two 3",
+                                        },
+                                    ],
+                                });
+                                store.set("$page.conditions", [...conditions]);
+                            }}
+                        />
                     </div>
                     <div className="flex flex-1" styles="border: 1px solid lightgray; background: white; padding: 20px">
-                        <Repeater records={bind("$page.condition.arr")}>
+                        {/* $task.conditions { name: "Task 1", showDescription: false, conditions: [
+                                {
+                                    id: 1,
+                                    source:
+                                }] }, 
+                        */}
+                        <Repeater records={bind("$task.conditions")} recordAlias="$con">
                             <div
-                                visible-expr="{$record.selecteTab} == {$record.tab}"
-                                className="flex flex-1 lg:flex-row md:flex-col sm:flex-col"
+                                visible-expr="{$task.selectedTab} == {$con.tab}"
+                                className="flex flex-1 flex-col items-center justify-middle"
                             >
                                 <div className="flex flex-1" layout={LabelsTopLayout}>
-                                    <LookupField label="Source" options-bind="$record.source" value-bind="$page.inputParam.decision1" />
+                                    <LookupField
+                                        label="Source"
+                                        options-bind="$con.source"
+                                        value-bind="$con.sourceDecision"
+                                        className="!w-full"
+                                    />
                                 </div>
-                                <div className="flex flex-1 ml-0 md:ml-0 lg:ml-2" layout={LabelsTopLayout}>
-                                    <LookupField label="Param" options-bind="$record.param" value-bind="$page.inputParam.decision2" />
+                                <div className="flex flex-1" layout={LabelsTopLayout}>
+                                    <LookupField
+                                        label="Param"
+                                        options-bind="$con.param"
+                                        value-bind="$con.paramDecision"
+                                        className="!w-full"
+                                    />
                                 </div>
                             </div>
                         </Repeater>
                     </div>
                 </div>
                 <div>
-                    <TextField
+                    <ValidationGroup invalid-bind="$task.validExpression">
+                        <TextField
+                            className="w-full"
+                            label="Expression: "
+                            value-bind="$task.expression"
+                            placeholder="$.Input1 > 27 && $.Input2 < 20ms"
+                            required
+                            minLength={1}
+                            maxLength={100}
+                        />
+                    </ValidationGroup>
+                </div>
+                <div>
+                    <Button
+                        disabled-bind="$task.validExpression"
+                        text="Dry run"
                         className="w-full"
-                        label="Expression: "
-                        value-bind="$page.condition.expression"
-                        required
-                        placeholder="$.Input1 > 27 && $.Input2 < 20ms"
+                        onClick={(e, { store }) => {
+                            console.log(store.get("$task.validExpression"));
+                            // ges Task
+                            openDryRunWindow({
+                                task: {
+                                    inputs: store.get("$task.conditions"),
+                                    expression: store.get("$task.expression"),
+                                },
+                            });
+                        }}
                     />
                 </div>
             </div>

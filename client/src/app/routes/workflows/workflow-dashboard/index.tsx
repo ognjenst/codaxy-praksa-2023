@@ -105,10 +105,11 @@ export default () => (
 
                         <div class="grid h-full place-items-center">
                             <Grid
+                                recordAlias="$task"
                                 className="tasks-grid"
                                 cached
                                 style={{ width: "80%" }}
-                                records-bind="$page.someList"
+                                records-bind="$page.arrTasks"
                                 row={{
                                     line1: {
                                         columns: [
@@ -140,7 +141,7 @@ export default () => (
                                                                 mod="hollow"
                                                                 icon="drop-down"
                                                                 onClick={(e, { store }) => {
-                                                                    store.toggle("$record.showDescription");
+                                                                    store.toggle("$task.flagShow");
                                                                 }}
                                                             />
                                                         </cx>
@@ -150,7 +151,7 @@ export default () => (
                                         ],
                                     },
                                     line2: {
-                                        visible: { expr: "{$record.showDescription}" },
+                                        visible: { expr: "{$task.flagShow}" },
                                         columns: [
                                             {
                                                 colSpan: 2,

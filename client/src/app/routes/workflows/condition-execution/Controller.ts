@@ -8,22 +8,22 @@ export default class extends Controller {
                 tab: "Input1",
                 source: [
                     {
-                        id: this.getRandomNumber(1, 1000),
+                        id: 1,
                         text: "one",
                     },
                     {
-                        id: this.getRandomNumber(1, 1000),
+                        id: 2,
                         text: "two",
                     },
                 ],
 
                 param: [
                     {
-                        id: this.getRandomNumber(1, 1000),
+                        id: 1,
                         text: "one",
                     },
                     {
-                        id: this.getRandomNumber(1, 1000),
+                        id: 2,
                         text: "two",
                     },
                 ],
@@ -32,27 +32,28 @@ export default class extends Controller {
                 tab: "Input2",
                 source: [
                     {
-                        id: this.getRandomNumber(1, 1000),
-                        text: "one",
+                        id: 1,
+                        text: "one 2",
                     },
                     {
-                        id: this.getRandomNumber(1, 1000),
-                        text: "two",
+                        id: 2,
+                        text: "two 2",
                     },
                 ],
                 param: [
                     {
-                        id: this.getRandomNumber(1, 1000),
-                        text: "one",
+                        id: 1,
+                        text: "one 2",
                     },
                     {
-                        id: this.getRandomNumber(1, 1000),
-                        text: "two",
+                        id: 2,
+                        text: "two 2",
                     },
                 ],
             },
         ];
 
+        this.store.set("$page.selecteTab", "Input1");
         this.store.set("$page.condition.arr", arr);
     }
 

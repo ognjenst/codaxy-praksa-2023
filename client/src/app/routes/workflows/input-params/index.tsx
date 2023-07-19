@@ -5,22 +5,35 @@ import { LabelsTopLayout, bind } from "cx/ui";
 
 export default () => (
     <cx>
-        <div controller={Controller}>
+        <div controller={Controller} className="align-top">
             <div styles="margin:10px">
                 <span className="p-2">Input parameter bindings:</span>
                 <div className="flex flex-1 mt-4" styles="padding-left:10px;white-space:nowrap;">
-                    <Repeater records={bind("intro.core.inputBindings")}>
-                        <Tab text-bind="$record.tab" tab-bind="$record.tab" value-bind="$page.tab" mod="classic" />
+                    <Repeater records={bind("$task.inputs")} indexAlias="$index">
+                        <Tab
+                            text-bind="$record.tab"
+                            tab-bind="$record.tab"
+                            value-bind="$task.selectedInputTab"
+                            default-expr="{$index} == 0? true : false"
+                        />
                     </Repeater>
                 </div>
                 <div className="flex flex-1" styles="border: 1px solid lightgray; background: white; padding: 20px">
-                    <Repeater records={bind("intro.core.inputBindings")}>
-                        <div visible-expr="{$page.tab}=={$record.tab}" className="flex flex-1 lg:flex-row md:flex-col sm:flex-col">
+                    <Repeater records={bind("$task.inputs")} recordAlias="$con">
+                        <div
+                            visible-expr="{$task.selectedInputTab}=={$con.tab}"
+                            className="flex flex-1 flex-col items-center justify-middle"
+                        >
                             <div className="flex flex-1" layout={LabelsTopLayout}>
-                                <LookupField label="Source" options-bind="$record.source" value-bind="$page.inputParam.decision1" />
+                                <LookupField
+                                    label="Source"
+                                    options-bind="$con.source"
+                                    value-bind="$con.sourceDecision"
+                                    className="!w-full"
+                                />
                             </div>
-                            <div className="flex flex-1 ml-0 md:ml-0 lg:ml-2" layout={LabelsTopLayout}>
-                                <LookupField label="Param" options-bind="$record.param" value-bind="$page.inputParam.decision2" />
+                            <div className="flex flex-1" layout={LabelsTopLayout}>
+                                <LookupField label="Param" options-bind="$con.param" value-bind="$con.paramDecision" className="!w-full" />
                             </div>
                         </div>
                     </Repeater>

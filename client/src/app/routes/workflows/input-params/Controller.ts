@@ -52,6 +52,7 @@ export default class extends Controller {
                 ],
             },
         ];
+
         this.store.set("intro.core.inputBindings", inputBindings);
     }
 }
