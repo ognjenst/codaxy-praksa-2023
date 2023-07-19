@@ -19,7 +19,10 @@ namespace SOC.IoT.ApiGateway.Controllers
         /// Returns all triggers.
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet(Name = "GetAllTriggersAsync")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IList<CommonTriggerDto>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
         public async Task<IActionResult> GetAllTriggersAsync()
         {
             var triggers = await _triggersService.GetAllTriggersAsync();

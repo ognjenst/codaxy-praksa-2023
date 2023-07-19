@@ -15,10 +15,15 @@ namespace SOC.IoT.ApiGateway.Controllers
         }
 
         /// <summary>
-        /// Create new automation.
+        /// Create automation entity
         /// </summary>
-        /// <posts></posts>
-        [HttpPost]
+        /// <param name="automationDto"></param>
+        /// <returns></returns>
+        [HttpPost(Name = "CreateAutomationAsync")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AutomationDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
         public async Task<IActionResult> CreateAutomationAsync(AutomationDto automationDto)
         {
             var automation = await _automationService.CreateAutomationAsync(automationDto);
