@@ -17,12 +17,10 @@ public class DevicesController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    private readonly IDeviceManager _deviceManager;
     private const string _deviceIdRegexPattern = "0[xX][0-9a-fA-F]+";
 
-    public DevicesController(IDeviceManager deviceManager, IMediator mediator)
+    public DevicesController(IMediator mediator)
     {
-        _deviceManager = deviceManager;
         _mediator = mediator;
     }
 
