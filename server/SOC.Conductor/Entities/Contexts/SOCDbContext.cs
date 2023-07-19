@@ -8,7 +8,6 @@ namespace SOC.Conductor.Entities.Contexts
     {
         public DbSet<Workflow> Workflows { get; set; }
         public DbSet<Trigger> Triggers { get; set; }
-        public DbSet<DeviceHistory> DevicesHistory { get; set; }
         public DbSet<Automation> Automations { get; set; }
         public DbSet<PeriodicTrigger> PeriodicTriggers { get; set; }
         public DbSet<IoTTrigger> IoTTriggers { get; set; }
@@ -35,15 +34,6 @@ namespace SOC.Conductor.Entities.Contexts
             });
 
             modelBuilder.Entity<Trigger>().UseTptMappingStrategy();
-
-            modelBuilder.Entity<DeviceHistory>(entity =>
-            {
-                entity.HasKey(entity => entity.Id);
-
-                entity.Property(e => e.Configuration).HasConversion(
-                    v => JsonConvert.SerializeObject(v),
-                    v => JsonConvert.DeserializeObject<JObject>(v)).HasColumnType("jsonb");
-            });
 
             modelBuilder.Entity<Automation>(entity =>
             {
