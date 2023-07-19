@@ -7,6 +7,6 @@ namespace SOC.Conductor.Repositories
 {
     public class TriggerRepository : RepositoryBase<Trigger>, ITriggerRepository
     {
-        protected TriggerRepository(SOCDbContext _SOCDbContext) : base(_SOCDbContext) { }
+        public TriggerRepository(SOCDbContext _SOCDbContext) : base(_SOCDbContext) { }
     }
 }

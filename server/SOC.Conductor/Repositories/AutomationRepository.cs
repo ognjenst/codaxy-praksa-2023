@@ -6,6 +6,6 @@ namespace SOC.Conductor.Repositories
 {
     public class AutomationRepository : RepositoryBase<Automation>, IAutomationRepository
     {
-        protected AutomationRepository(SOCDbContext _SOCDbContext) : base(_SOCDbContext) { }
+        public AutomationRepository(SOCDbContext _SOCDbContext) : base(_SOCDbContext) { }
     }
 }

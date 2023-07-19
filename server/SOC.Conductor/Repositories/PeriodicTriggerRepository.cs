@@ -6,6 +6,6 @@ namespace SOC.Conductor.Repositories
 {
     public class PeriodicTriggerRepository : RepositoryBase<PeriodicTrigger>, IPeriodicTriggerRepository
     {
-        protected PeriodicTriggerRepository(SOCDbContext _SOCDbContext) : base(_SOCDbContext) { }
+        public PeriodicTriggerRepository(SOCDbContext _SOCDbContext) : base(_SOCDbContext) { }
     }
 }
