@@ -1,5 +1,4 @@
 import { Controller } from "cx/ui";
-import { GET } from "../../../api/util/methods";
 
 export default class extends Controller {
     onInit(): void {
@@ -111,48 +110,14 @@ export default class extends Controller {
                 inputs: arrInput,
             },
             { name: "Task 2", flagShow: false, conditions: arrFill, inputs: arrInput },
+            { name: "Task 3", flagShow: false, conditions: arrFill, inputs: arrInput },
             { name: "Task 4", flagShow: false, conditions: arrFill, inputs: arrInput },
+            { name: "Task 5", flagShow: false, conditions: arrFill, inputs: arrInput },
             { name: "Task 6", flagShow: false, conditions: arrFill, inputs: arrInput },
         ];
 
-        let workflows = [
-            {
-                name: "Morning routine",
-                version: 0,
-                enabled: false,
-                createdAt: "0001-01-01T00:00:00",
-                updatedAt: "0001-01-01T00:00:00",
-                tasks: arr,
-            },
-            {
-                name: "Mail received",
-                version: 0,
-                enabled: false,
-                createdAt: "0001-01-01T00:00:00",
-                updatedAt: "0001-01-01T00:00:00",
-                tasks: arr,
-            },
-            {
-                name: "Locked lab mode",
-                version: 0,
-                enabled: false,
-                createdAt: "0001-01-01T00:00:00",
-                updatedAt: "0001-01-01T00:00:00",
-                tasks: arr,
-            },
-        ];
-
-        this.store.set("$page.workflows", workflows);
-        this.store.set("$page.currentWorkflow", workflows[0]);
-    }
-
-    async loadData() {
-        console.log("load data");
-        try {
-            let resp = await GET("/workflows");
-            this.store.set("$page.workflows", resp);
-        } catch (err) {
-            console.log(err);
-        }
+        this.store.set("$insert.arrTasks", arr);
+        this.store.set("$insert.workflowParamNames", []);
+        this.store.set("$insert.workflowTasks", []);
     }
 }

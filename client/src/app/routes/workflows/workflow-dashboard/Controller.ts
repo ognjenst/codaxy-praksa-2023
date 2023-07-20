@@ -111,48 +111,23 @@ export default class extends Controller {
                 inputs: arrInput,
             },
             { name: "Task 2", flagShow: false, conditions: arrFill, inputs: arrInput },
-            { name: "Task 4", flagShow: false, conditions: arrFill, inputs: arrInput },
-            { name: "Task 6", flagShow: false, conditions: arrFill, inputs: arrInput },
+            { name: "Task 3", flagShow: false, conditions: arrFill, inputs: arrInput },
         ];
 
-        let workflows = [
-            {
-                name: "Morning routine",
-                version: 0,
-                enabled: false,
-                createdAt: "0001-01-01T00:00:00",
-                updatedAt: "0001-01-01T00:00:00",
-                tasks: arr,
-            },
-            {
-                name: "Mail received",
-                version: 0,
-                enabled: false,
-                createdAt: "0001-01-01T00:00:00",
-                updatedAt: "0001-01-01T00:00:00",
-                tasks: arr,
-            },
-            {
-                name: "Locked lab mode",
-                version: 0,
-                enabled: false,
-                createdAt: "0001-01-01T00:00:00",
-                updatedAt: "0001-01-01T00:00:00",
-                tasks: arr,
-            },
-        ];
-
-        this.store.set("$page.workflows", workflows);
-        this.store.set("$page.currentWorkflow", workflows[0]);
+        this.store.set("$page.arrTasks", arr);
     }
 
-    async loadData() {
-        console.log("load data");
-        try {
-            let resp = await GET("/workflows");
-            this.store.set("$page.workflows", resp);
-        } catch (err) {
-            console.log(err);
-        }
+    deleteUndoneWorkflow() {
+        var arrUndone = this.store.get("$page.undoneWorkflows").filter((value, index, arr) => {
+            if (value.name == this.store.get("$page.currentWorkflow.name")) return false;
+
+            return true;
+        });
+
+        this.store.set("$page.undoneWorkflows", arrUndone);
+    }
+
+    deleteWorkflow() {
+        console.log("http delete workflow ...");
     }
 }
