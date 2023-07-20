@@ -546,7 +546,7 @@ public partial class InputCreateCase
     [Newtonsoft.Json.JsonProperty("assignee", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Assignee { get; set; } = default!;
 
-    [Newtonsoft.Json.JsonProperty("customFields", Required = Newtonsoft.Json.Required.Always)]
+    [Newtonsoft.Json.JsonProperty("customFields", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     [System.ComponentModel.DataAnnotations.Required]
     public System.Collections.Generic.IDictionary<string, object> CustomFields { get; set; } = default!;
 
