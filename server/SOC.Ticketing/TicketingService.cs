@@ -34,13 +34,14 @@ namespace SOC.Ticketing
             Console.WriteLine($"Connecting ...");
             
             Case _case = new Case();
-            _case.Title = "aaa";
-            _case.Description = "bbb";
+            _case.Title = "title2";
+            _case.Description = "desc3";
             var content = new StringContent(JsonConvert.SerializeObject(_case), new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"));
             var res1 = await httpClient.PostAsync("v1/case", content);
             Console.WriteLine(res1);
             Console.WriteLine("***************");
-            var res2 = await httpClient.GetAsync("v1/case/1");
+
+            var res2 = await httpClient.GetAsync("v1/case/3");
             var content2 = await res2.Content.ReadAsStringAsync();
             Console.WriteLine(content2);
         }
