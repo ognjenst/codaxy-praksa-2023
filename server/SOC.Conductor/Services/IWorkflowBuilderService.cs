@@ -1,7 +1,9 @@
-﻿namespace SOC.Conductor.Services
+﻿using SOC.Conductor.DTOs;
+
+namespace SOC.Conductor.Services
 {
     public interface IWorkflowBuilderService
     {
-        public void Build()
+        public Task Build(CreateWorkflowDto workflowDto);
     }
 }
