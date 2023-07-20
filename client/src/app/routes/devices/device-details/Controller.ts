@@ -25,7 +25,7 @@ export default class extends Controller {
                     { timestamp: date.toLocaleString(), configuration: JSON.stringify(item, null, 4) },
                     ...this.store.get("$page.deviceHistory"),
                 ]);
-                this.store.set("$page.device", { ...this.store.get("$page.device"), ...item });
+                this.store.set("$page.device", { ...this.store.get("$page.device"), item });
             },
             complete: () => {
                 console.log("END");
