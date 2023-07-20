@@ -27,6 +27,9 @@ export default () => (
                 <Route route="~/devices" url-bind="url">
                     <Devices />
                 </Route>
+                <Route route="~/automations" url-bind="url">
+                    <Automations />
+                </Route>
             </CheckerLayout>
         </FirstVisibleChildLayout>
 

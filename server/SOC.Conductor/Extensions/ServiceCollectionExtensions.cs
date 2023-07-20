@@ -1,7 +1,11 @@
 ﻿using IoT.Conductor.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using SOC.Conductor.Contracts;
+using SOC.Conductor.Entities.Contexts;
 using SOC.Conductor.Options;
 using SOC.Conductor.OptionsSetup;
+using SOC.Conductor.Repositories;
 
 namespace SOC.Conductor.Extensions;
 
@@ -20,6 +24,8 @@ public static class ServiceCollectionExtensions
         services.RegisterOptions();
         services.RegisterConductorHttpClients();
         services.AddHttpClientConfig();
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }
@@ -64,5 +70,28 @@ public static class ServiceCollectionExtensions
         );
 
         return services;
+    }
+
+    public static WebApplication MigrateDatabase(this WebApplication application)
+    {
+        using (var scope = application.Services.CreateScope())
+        {
+            using var dbContext =
+                scope.ServiceProvider.GetRequiredService<SOCDbContext>();
+
+            try
+            {
+                dbContext.Database.Migrate();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(
+                    $"Failed applying DB migrations for DB {nameof(SOCDbContext)}",
+                    ex
+                );
+            }
+        }
+
+        return application;
     }
 }

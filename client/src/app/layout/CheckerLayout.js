@@ -178,9 +178,11 @@ export const CheckerLayout = ({ children, nav }) => (
             </div>
             <div class="border-r pt-3">
                 <div class="px-6 py-3 text-gray-400 text-sm">Main Menu</div>
+
                 <NavItem text="Devices" icon="light-bulb" href="~/devices" />
                 <NavItem text="Automations" icon="presentation-chart-line" href="~/automations" />
                 <NavItem text="Workflows" icon="arrow-down-circle" href="~/workflows" />
+
             </div>
             {children}
         </div>
