@@ -420,7 +420,7 @@ public partial class InputCreateAlert
     [Newtonsoft.Json.JsonProperty("pap", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public InputCreateAlertPap? Pap { get; set; } = default!;
 
-    [Newtonsoft.Json.JsonProperty("customFields", Required = Newtonsoft.Json.Required.Always)]
+    [Newtonsoft.Json.JsonProperty("customFields", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     [System.ComponentModel.DataAnnotations.Required]
     public System.Collections.Generic.IDictionary<string, object> CustomFields { get; set; } = default!;
 

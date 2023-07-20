@@ -1,8 +1,11 @@
-﻿using SOC.Conductor.Client.Generated;
+﻿using Newtonsoft.Json;
+using SOC.Conductor.Client.Generated;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,12 +26,29 @@ namespace SOC.Ticketing.Services
              new AuthenticationHeaderValue("Bearer", "u1ikRLJLb4k6xyJV/VPKP8G07doaLpUg");
 
         }
-        public Task<OutputAlert> CreateAlertAsync(InputCreateAlert inputCreateAlert, CancellationToken cancellationToken = default)
+        public async Task<OutputAlert> CreateAlertAsync(InputCreateAlert inputCreateAlert, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var serializedAlert = JsonConvert.SerializeObject(inputCreateAlert);
+
+            var content = new StringContent(serializedAlert, new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"));
+            var response = await httpClient.PostAsync("v1/alert", content);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var outputAlertString = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(outputAlertString);
+                OutputAlert outputAlert = JsonConvert.DeserializeObject<OutputAlert>(outputAlertString);
+                return outputAlert;
+            }
+            else
+            {
+                //dodati
+                Console.WriteLine(response);
+                return new OutputAlert();
+            }
+            
         }
 
-        public Task<OutputCase> CreateCaseAsync(InputCreateCase inputCreateCase, CancellationToken cancellationToken = default)
+        public async Task<OutputCase> CreateCaseAsync(InputCreateCase inputCreateCase, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -38,39 +58,79 @@ namespace SOC.Ticketing.Services
             throw new NotImplementedException();
         }
 
-        public Task<Response> DeleteAlertAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<Response> DeleteAlertAsync(string id, CancellationToken cancellationToken = default)
+        {
+            var response = await httpClient.DeleteAsync($"v1/alert/{id}");
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(responseString);
+                Response responseOutput = JsonConvert.DeserializeObject<Response>(responseString);
+                return responseOutput;
+            }
+            else
+            {
+                //dodati
+                return new Response();
+            }
+        }
+
+        public Task<Response> DeleteCaseAsync(string id, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> DeleteCaseAsync(int id, CancellationToken cancellationToken = default)
+        public Task<Response> DeleteTaskAsync(string id, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> DeleteTaskAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<OutputAlert> GetAlertAsync(string id, CancellationToken cancellationToken = default)
+        {
+            var response = await httpClient.GetAsync($"v1/alert/{id}");
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var outputAlertString = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(outputAlertString);
+                OutputAlert outputAlert = JsonConvert.DeserializeObject<OutputAlert>(outputAlertString);
+                return outputAlert;
+            }
+            else
+            {
+                //dodati
+                return new OutputAlert();
+            }
+        }
+
+        public Task<OutputCase> GetCaseAsync(string id, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<OutputAlert> GetAlertAsync(int id, CancellationToken cancellationToken = default)
+        public Task<OutputTask> GetTaskAsync(string id, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<OutputCase> GetCaseAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<Response> UpdateAlertAsync(string id, InputUpdateAlert inputUpdateAlert, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
-        }
+            var serializedAlert = JsonConvert.SerializeObject(inputUpdateAlert);
 
-        public Task<OutputTask> GetTaskAsync(int id, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response> UpdateAlertAsync(InputUpdateAlert inputUpdateAlert, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
+            var content = new StringContent(serializedAlert, new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"));
+            var response = await httpClient.PatchAsync($"v1/alert/{id}", content);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var outputAlertString = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(outputAlertString);
+                Response outputAlert = JsonConvert.DeserializeObject<Response>(outputAlertString);
+                return outputAlert;
+            }
+            else
+            {
+                //dodati
+                Console.WriteLine(response);
+                return new Response();
+            }
         }
 
         public Task<Response> UpdateCaseAsync(InputUpdateCase inputUpdateCase, CancellationToken cancellationToken = default)
