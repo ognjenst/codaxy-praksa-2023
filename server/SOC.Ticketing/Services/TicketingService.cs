@@ -30,19 +30,19 @@ namespace SOC.Ticketing.Services
         {
             var serializedAlert = JsonConvert.SerializeObject(inputCreateAlert);
 
-            var content = new StringContent(serializedAlert, new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"));
+            var content = new StringContent(serializedAlert, new MediaTypeHeaderValue("application/json"));
             var response = await httpClient.PostAsync("v1/alert", content);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var outputAlertString = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(outputAlertString);
+               
                 OutputAlert outputAlert = JsonConvert.DeserializeObject<OutputAlert>(outputAlertString);
                 return outputAlert;
             }
             else
             {
-                //dodati
-                Console.WriteLine(response);
+                //todo: add logging
+
                 return new OutputAlert();
             }
             
@@ -64,13 +64,13 @@ namespace SOC.Ticketing.Services
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var responseString = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(responseString);
+                
                 Response responseOutput = JsonConvert.DeserializeObject<Response>(responseString);
                 return responseOutput;
             }
             else
             {
-                //dodati
+                //todo: add logging
                 return new Response();
             }
         }
@@ -80,9 +80,21 @@ namespace SOC.Ticketing.Services
             throw new NotImplementedException();
         }
 
-        public Task<Response> DeleteTaskAsync(string id, CancellationToken cancellationToken = default)
+        public async Task<Response> DeleteTaskAsync(string id, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var response = await httpClient.DeleteAsync($"v1/task/{id}");
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                Response responseOutput = JsonConvert.DeserializeObject<Response>(responseString);
+                return responseOutput;
+            }
+            else
+            {
+                //todo: add logging
+                return new Response();
+            }
         }
 
         public async Task<OutputAlert> GetAlertAsync(string id, CancellationToken cancellationToken = default)
@@ -91,13 +103,13 @@ namespace SOC.Ticketing.Services
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var outputAlertString = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(outputAlertString);
+                
                 OutputAlert outputAlert = JsonConvert.DeserializeObject<OutputAlert>(outputAlertString);
                 return outputAlert;
             }
             else
             {
-                //dodati
+                //todo: add logging
                 return new OutputAlert();
             }
         }
@@ -107,28 +119,40 @@ namespace SOC.Ticketing.Services
             throw new NotImplementedException();
         }
 
-        public Task<OutputTask> GetTaskAsync(string id, CancellationToken cancellationToken = default)
+        public async Task<OutputTask> GetTaskAsync(string id, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var response = await httpClient.GetAsync($"v1/task/{id}");
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var outputTaskString = await response.Content.ReadAsStringAsync();
+
+                OutputTask outputTask = JsonConvert.DeserializeObject<OutputTask>(outputTaskString);
+                return outputTask;
+            }
+            else
+            {
+                //todo: add logging
+                return new OutputTask();
+            }
         }
 
         public async Task<Response> UpdateAlertAsync(string id, InputUpdateAlert inputUpdateAlert, CancellationToken cancellationToken = default)
         {
             var serializedAlert = JsonConvert.SerializeObject(inputUpdateAlert);
 
-            var content = new StringContent(serializedAlert, new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"));
+            var content = new StringContent(serializedAlert, new MediaTypeHeaderValue("application/json"));
             var response = await httpClient.PatchAsync($"v1/alert/{id}", content);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var outputAlertString = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(outputAlertString);
+                
                 Response outputAlert = JsonConvert.DeserializeObject<Response>(outputAlertString);
                 return outputAlert;
             }
             else
             {
-                //dodati
-                Console.WriteLine(response);
+                //todo: add logging
+               
                 return new Response();
             }
         }
@@ -138,9 +162,25 @@ namespace SOC.Ticketing.Services
             throw new NotImplementedException();
         }
 
-        public Task<Response> UpdateTaskAsync(InputUpdateTask inputUpdateTask, CancellationToken cancellationToken = default)
+        public async Task<Response> UpdateTaskAsync(string id, InputUpdateTask inputUpdateTask, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var serializedTask = JsonConvert.SerializeObject(inputUpdateTask);
+
+            var content = new StringContent(serializedTask, new MediaTypeHeaderValue("application/json"));
+            var response = await httpClient.PatchAsync($"v1/task/{id}", content);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var outputTaskString = await response.Content.ReadAsStringAsync();
+
+                Response outputTask = JsonConvert.DeserializeObject<Response>(outputTaskString);
+                return outputTask;
+            }
+            else
+            {
+                //todo: add logging
+
+                return new Response();
+            }
         }
     }
 }

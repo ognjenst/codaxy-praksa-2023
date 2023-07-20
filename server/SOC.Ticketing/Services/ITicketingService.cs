@@ -1,5 +1,5 @@
 ﻿using SOC.Conductor.Client.Generated;
-using SOC.Ticketing.Models;
+
 
 namespace SOC.Ticketing.Services
 {
@@ -18,7 +18,7 @@ namespace SOC.Ticketing.Services
         Task<OutputTask> GetTaskAsync(string id, CancellationToken cancellationToken = default);
         Task<OutputTask> CreateTaskAsync(InputCreateTask inputCreateTask, CancellationToken cancellationToken = default);
         Task<Response> DeleteTaskAsync(string id, CancellationToken cancellationToken = default);
-        Task<Response> UpdateTaskAsync(InputUpdateTask inputUpdateTask, CancellationToken cancellationToken = default);
+        Task<Response> UpdateTaskAsync(string id, InputUpdateTask inputUpdateTask, CancellationToken cancellationToken = default);
 
     }
 }
