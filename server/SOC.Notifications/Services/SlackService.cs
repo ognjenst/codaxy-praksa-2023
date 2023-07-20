@@ -9,18 +9,19 @@ namespace SOC.Notifications.Services
 {
     public class SlackService : ISlackService
     {
+        private readonly SlackOptions _slackOptions;
         private readonly ISlackApiClient _slackClient;
         private readonly string _slackChannel;
         private readonly string _slackContextBlockImageUrl;
 
         public SlackService(IOptions<SlackOptions> slackOptions)
         {
-            SlackOptions options = slackOptions.Value;
+            _slackOptions = slackOptions.Value;
             _slackClient = new SlackServiceBuilder()
-                .UseApiToken(options.AccessToken)
+                .UseApiToken(_slackOptions.AccessToken)
                 .GetApiClient();
-            _slackChannel = options.Channel;
-            _slackContextBlockImageUrl = options.ContextBlockImageUrl;
+            _slackChannel = _slackOptions.Channel;
+            _slackContextBlockImageUrl = _slackOptions.ContextBlockImageUrl;
         }
 
         public async Task SendMessage(string message)
