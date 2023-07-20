@@ -6,6 +6,7 @@ import InputParams from "../input-params";
 import ConditionExecution from "../condition-execution";
 import { openInsertUpdateWindow } from "../update-insert-workflow";
 import { expr } from "cx/ui";
+import { updateArray } from "cx/data";
 
 export default () => (
     <cx>
@@ -56,7 +57,7 @@ export default () => (
                 onClick={async (e, { store }) => {
                     // ges Task
                     console.log(store.get("$page.currentWorkflow.name"));
-                    let newObj = await openInsertUpdateWindow({
+                    let newObj: any = await openInsertUpdateWindow({
                         props: {
                             action: "Update",
                             name: store.get("$page.currentWorkflow.name"),
@@ -67,7 +68,39 @@ export default () => (
 
                     if (!newObj) return;
 
-                    store.update("$page.undoneWorkflows", (elements) => [...elements, newObj]);
+                    if (store.get("$page.currentWorkflowInUndoneList") == true) {
+                        store.update("$page.undoneWorkflows", (elements) =>
+                            elements.map((el) => (el.name == store.get("$page.currentWorkflow.name") ? newObj : el))
+                        );
+                    } else {
+                        console.log(newObj);
+                        store.update("$page.undoneWorkflows", (elements) => [...elements, newObj]);
+
+                        var arrUndone = store.get("$page.workflows").filter((value, index, arr) => {
+                            if (value.name == store.get("$page.currentWorkflow.name")) return false;
+
+                            return true;
+                        });
+
+                        store.set("$page.workflows", arrUndone);
+                    }
+
+                    // store.update(
+                    //     "$page.undoneWorkflows",
+                    //     updateArray,
+                    //     (el) => newObj,
+                    //     (el) => el.name == newObj.name
+                    // );
+
+                    // var arrUndone = store.get("$page.undoneWorkflows").filter((value, index, arr) => {
+                    //     if (value.name == store.get("$page.currentWorkflow.name")) return false;
+
+                    //     return true;
+                    // });
+
+                    // store.set("$page.undoneWorkflows", arrUndone);
+
+                    // store.update("$page.undoneWorkflows", (elements) => [...elements, newObj]);
                 }}
             >
                 <svg
