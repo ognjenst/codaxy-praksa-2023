@@ -130,14 +130,14 @@ export default () => (
                     </div>
                     <div className="flex-1">
                         <FlexRow align="center" className="h-full">
-                            <Button class="rounded-full p-1 bg-green-600 m-1">
+                            <Button class="rounded-full p-1 m-1">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     strokeWidth={1.5}
                                     stroke="currentColor"
-                                    className="w-6 h-6"
+                                    className="w-6 h-6 text-gray-600"
                                 >
                                     <path
                                         strokeLinecap="round"
@@ -147,27 +147,27 @@ export default () => (
                                 </svg>
                             </Button>
 
-                            <Button class="rounded-full p-1 bg-green-600 m-1">
+                            <Button class="rounded-full p-1 m-1">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     strokeWidth={1.5}
                                     stroke="currentColor"
-                                    className="w-6 h-6"
+                                    className="w-6 h-6 text-gray-600"
                                 >
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
                                 </svg>
                             </Button>
 
-                            <Button class="rounded-full p-1 bg-green-600 m-1">
+                            <Button class="rounded-full p-1 m-1">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     strokeWidth={1.5}
                                     stroke="currentColor"
-                                    className="w-6 h-6"
+                                    className="w-6 h-6 text-gray-600"
                                 >
                                     <path
                                         strokeLinecap="round"
