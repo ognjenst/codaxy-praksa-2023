@@ -28,7 +28,7 @@ public partial interface IAutomationService
     /// </summary>
     /// <returns>Success</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<AutomationDto> AutomationAsync(AutomationDto body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+    System.Threading.Tasks.Task<AutomationDto> CreateAutomationAsync(AutomationDto body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 }
 
@@ -73,7 +73,7 @@ public partial class AutomationService : IAutomationService
     /// </summary>
     /// <returns>Success</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<AutomationDto> AutomationAsync(AutomationDto body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task<AutomationDto> CreateAutomationAsync(AutomationDto body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Automation");
@@ -249,9 +249,12 @@ public partial interface ITriggersService
 {
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <summary>
+    /// Returns all registered workflows from conductor.
+    /// </summary>
     /// <returns>Success</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CommonTriggerDto>> TriggersAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CommonTriggerDto>> GetAllTriggersAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 }
 
@@ -293,7 +296,7 @@ public partial class TriggersService : ITriggersService
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Success</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CommonTriggerDto>> TriggersAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CommonTriggerDto>> GetAllTriggersAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Triggers");
@@ -470,7 +473,7 @@ public partial interface IWorkflowsService
     /// </summary>
     /// <returns>Success</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowDto>> WorkflowsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowDto>> GetAllWorkflowsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 }
 
@@ -515,7 +518,7 @@ public partial class WorkflowsService : IWorkflowsService
     /// </summary>
     /// <returns>Success</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowDto>> WorkflowsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowDto>> GetAllWorkflowsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Workflows");
@@ -681,12 +684,6 @@ public partial class WorkflowsService : IWorkflowsService
         return result == null ? "" : result;
     }
 }
-
-
-
-
-
-
 
 #pragma warning restore 108
 #pragma warning restore 114

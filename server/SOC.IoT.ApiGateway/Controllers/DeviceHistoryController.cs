@@ -23,25 +23,23 @@ namespace SOC.IoT.ApiGateway.Controllers
             _mediator = mediator;
         }
         /// <summary>
-        /// Returns a single device with its last known state
+        /// Returns a list of device states for device with given ID
         /// </summary>
         /// <param name="id">ID of the device</param>
-        /// <returns>Single device with its last known state</returns>
+        /// <returns>List of states of the device with given ID</returns>
         [HttpGet("{id}", Name = "GetDeviceHistory")]
-        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(DeviceExample))]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(DeviceHistoryExample))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeviceHistoryDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
-        public async Task<IResult> GetDevice([FromRoute][RegularExpression(_deviceIdRegexPattern)] string id)
+        public async Task<IResult> GetDeviceHistory([FromRoute][RegularExpression(_deviceIdRegexPattern)] string id)
         {
-            try
-            {
-                return Results.Ok(await _mediator.Send(new GetDeviceHistoryQuery(id)));
-            }
-            catch (Exception)
+            var dto = await _mediator.Send(new GetDeviceHistoryQuery(id));
+            if (dto is null)
             {
                 return Results.NotFound();
             }
+            return Results.Ok(dto);
         }
     }
 }

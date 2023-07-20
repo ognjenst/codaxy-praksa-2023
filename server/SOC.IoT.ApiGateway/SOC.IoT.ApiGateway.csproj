@@ -36,4 +36,8 @@
     <ProjectReference Include="..\SOC.Notifications\SOC.Notifications.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
+
 </Project>

@@ -20,8 +20,8 @@ namespace SOC.IoT.ApiGateway.Handlers
 
         public async Task<IEnumerable<DeviceDTO>> Handle(GetDevicesQuery query, CancellationToken token)
         {
-            List<DeviceDTO> deviceDtos = _deviceManager.GetDevices().Select(d => new DeviceDTO(d)).ToList();
-            List<Device> devices = await _dbContext.Set<Device>().ToListAsync(token);
+            var deviceDtos = _deviceManager.GetDevices().Select(d => new DeviceDTO(d)).ToList();
+            var devices = await _dbContext.Set<Device>().ToListAsync(token);
             
             foreach (var deviceDto in deviceDtos)
             {

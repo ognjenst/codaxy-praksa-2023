@@ -18,10 +18,14 @@ namespace SOC.IoT.ApiGateway.Handlers
             _deviceManager = deviceManager;
         }
     
-        public async Task<DeviceDTO> Handle(GetDeviceQuery request, CancellationToken cancellationToken)
+        public async Task<DeviceDTO?> Handle(GetDeviceQuery request, CancellationToken cancellationToken)
         {
             var deviceDto = new DeviceDTO(_deviceManager.GetDevice(request.id));
-            var device = await _dbContext.Set<Device>().Where(d => d.IoTId == request.id).FirstOrDefaultAsync(cancellationToken);
+            var device = await _dbContext.Devices.Where(d => d.IoTId == request.id).FirstOrDefaultAsync(cancellationToken);
+            if (device is null) 
+            {
+                return null;
+            }
             deviceDto.Name = device.Name;
             deviceDto.Description = device.Description;
             deviceDto.Manufacturer = device.Manufacturer;

@@ -9,6 +9,10 @@ namespace SOC.Conductor.Controllers
 
     public class TriggersController : ControllerBase
     {
+        /// <summary>
+        /// Returns all triggers.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet(Name = "GetAllTriggersAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IList<CommonTriggerDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]

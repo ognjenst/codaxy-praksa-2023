@@ -16,14 +16,18 @@ namespace SOC.IoT.ApiGateway.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<DeviceHistoryDTO>> Handle(GetDeviceHistoryQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<DeviceHistoryDTO>?> Handle(GetDeviceHistoryQuery request, CancellationToken cancellationToken)
         {
-            var device = await _dbContext.Set<Device>().Where(d => d.IoTId == request.id).FirstOrDefaultAsync(cancellationToken) ?? throw new Exception();
-            var deviceHistory = await _dbContext.Set<DeviceHistory>().Where(h => h.DeviceID == device.Id).ToListAsync(cancellationToken);
+            var device = await _dbContext.Devices.Include(d => d.DevicesHistory).Where(d => d.IoTId == request.id).FirstOrDefaultAsync(cancellationToken);
+            if (device is null)
+            {
+                return null;
+            }
+            var deviceHistory = device.DevicesHistory;
             var deviceHistoryDtos = new List<DeviceHistoryDTO>();
             foreach (var history in deviceHistory)
             {
-                deviceHistoryDtos.Add(new DeviceHistoryDTO { Time = history.Time, Configuration = history.Configuration });
+                deviceHistoryDtos.Add(new DeviceHistoryDTO { Time = history.Time, Configuration = history.Configuration.ToString() });
             }
             return deviceHistoryDtos;
         }

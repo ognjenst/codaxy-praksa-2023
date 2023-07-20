@@ -50,7 +50,12 @@ public class DevicesController : ControllerBase
     {
         try
         {
-            return Results.Ok(await _mediator.Send(new GetDeviceQuery(id)));
+            DeviceDTO deviceDTO = await _mediator.Send(new GetDeviceQuery(id));
+            if (deviceDTO is null)
+            {
+                return Results.NotFound();
+            }
+            return Results.Ok(deviceDTO);
         }
         catch (KeyNotFoundException)
         {
