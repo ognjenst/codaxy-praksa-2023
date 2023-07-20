@@ -1,5 +1,3 @@
-import { CodeMirror } from '../../app/components/CodeMirror';
-
 import codemirror from 'codemirror';
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/matchtags';

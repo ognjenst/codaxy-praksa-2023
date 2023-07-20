@@ -7,7 +7,7 @@ export const ColorComponent = () => (
         <LabeledContainer
             label={{
                 text: "Color",
-                className: "text-xl",
+                className: "text-lg text-slate-600",
             }}
         >
             <Repeater records={computable("$page.colors", (colors) => Object.keys(colors))}>

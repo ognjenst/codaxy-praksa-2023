@@ -5,7 +5,7 @@ export const BrightnessComponent = () => (
         <LabeledContainer
             label={{
                 text: "Brightness",
-                className: "text-xl",
+                className: "text-lg text-slate-600",
             }}
         >
             <Slider
@@ -15,10 +15,10 @@ export const BrightnessComponent = () => (
                     placement: "up",
                 }}
                 wheel
-                increment={2.5}
+                increment={0.1}
                 maxValue={1}
             />
-            <NumberField label={{ text: "" }} format="n;0;2" value-bind="$page.device.light.brightness" autoFocus />
+            <NumberField label={{ text: "" }} style={{ width: 100 }} format="n;0;2" value-bind="$page.device.light.brightness" autoFocus />
         </LabeledContainer>
     </cx>
 );
