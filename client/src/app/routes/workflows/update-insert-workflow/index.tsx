@@ -61,14 +61,14 @@ export const openInsertUpdateWindow = ({ props }) => {
                                     />
                                 </ValidationGroup>
 
-                                <List records-bind="$insert.workflowParamNames">
+                                <List records-bind="$insert.workflowParamNames" className="w-full" style={{ textAlign: "center" }}>
                                     <div text-bind="$record"></div>
                                 </List>
                             </div>
                         </div>
                         <div className="grid grid-cols-2">
                             <div>
-                                <List records-bind="$insert.arrTasks">
+                                <List records-bind="$insert.arrTasks" className="w-full" style={{ textAlign: "center" }}>
                                     <span className="mr-2" text-bind="$record.name" />
                                     <Button
                                         icon="plus"

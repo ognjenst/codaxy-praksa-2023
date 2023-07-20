@@ -9,7 +9,7 @@ import { openInsertUpdateWindow } from "../update-insert-workflow";
 export default () => (
     <cx>
         <div className="relative">
-            <span className="relative -top-4 left-5 bg-white p-2" text-bind="$page.currentWorkflow.name" />
+            <span className="relative -top-4 left-5 bg-white p-2 text-gray-600" text-bind="$page.currentWorkflow.name" />
             <Button className="absolute top-2 right-2 p-0" mod="hollow">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -149,9 +149,9 @@ export default () => (
             </div>
 
             <div className="flex flex-col flex-1 mt-10">
-                <div class="mt-3 md:mt-0 lg:mt-0 bg-white border-2 border-gray-700 col-span-4 rounded-sm">
+                <div class="mt-3 md:mt-0 lg:mt-0 bg-white border border-gray-200 col-span-4 rounded-sm">
                     <div className="relative">
-                        <span className="relative -top-4 left-5 bg-white p-2">Tasks</span>
+                        <span className="relative -top-4 left-5 bg-white p-2 text-gray-600">Tasks</span>
 
                         <div class="grid h-full place-items-center">
                             <Grid
