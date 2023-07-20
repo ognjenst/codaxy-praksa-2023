@@ -8,7 +8,7 @@ namespace SOC.Ticketing.Services
         Task<OutputCase> GetCaseAsync(string id, CancellationToken cancellationToken = default);
         Task<OutputCase> CreateCaseAsync(InputCreateCase inputCreateCase, CancellationToken cancellationToken = default);
         Task<Response> DeleteCaseAsync(string id, CancellationToken cancellationToken = default);
-        Task<Response> UpdateCaseAsync(InputUpdateCase inputUpdateCase, CancellationToken cancellationToken = default);
+        Task<Response> UpdateCaseAsync(string id, InputUpdateCase inputUpdateCase, CancellationToken cancellationToken = default);
 
         Task<OutputAlert> GetAlertAsync(string id, CancellationToken cancellationToken = default);
         Task<OutputAlert> CreateAlertAsync(InputCreateAlert inputCreateAlert, CancellationToken cancellationToken = default);
@@ -18,7 +18,7 @@ namespace SOC.Ticketing.Services
         Task<OutputTask> GetTaskAsync(string id, CancellationToken cancellationToken = default);
         Task<OutputTask> CreateTaskAsync(InputCreateTask inputCreateTask, CancellationToken cancellationToken = default);
         Task<Response> DeleteTaskAsync(string id, CancellationToken cancellationToken = default);
-        Task<Response> UpdateTaskAsync(InputUpdateTask inputUpdateTask, CancellationToken cancellationToken = default);
+        Task<Response> UpdateTaskAsync(string id, InputUpdateTask inputUpdateTask, CancellationToken cancellationToken = default);
 
     }
 }

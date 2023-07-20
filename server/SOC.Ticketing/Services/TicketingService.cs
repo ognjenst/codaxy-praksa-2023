@@ -1,4 +1,5 @@
-﻿using SOC.Conductor.Client.Generated;
+﻿using Newtonsoft.Json;
+using SOC.Conductor.Client.Generated;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -49,7 +50,23 @@ namespace SOC.Ticketing.Services
 
         public async Task<OutputCase> CreateCaseAsync(InputCreateCase inputCreateCase, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var serializedCase = JsonConvert.SerializeObject(inputCreateCase);
+
+            var content = new StringContent(serializedCase, new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"));
+            var response = await httpClient.PostAsync("v1/case", content);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var outputCaseString = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(outputCaseString);
+                OutputCase outputCase = JsonConvert.DeserializeObject<OutputCase>(outputCaseString);
+                return outputCase;
+            }
+            else
+            {
+                //dodati
+                Console.WriteLine(response);
+                return new OutputCase();
+            }
         }
 
         public Task<OutputTask> CreateTaskAsync(InputCreateTask inputCreateTask, CancellationToken cancellationToken = default)
@@ -74,9 +91,21 @@ namespace SOC.Ticketing.Services
             }
         }
 
-        public Task<Response> DeleteCaseAsync(string id, CancellationToken cancellationToken = default)
+        public async Task<Response> DeleteCaseAsync(string id, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var response = await httpClient.DeleteAsync($"v1/case/{id}");
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(responseString);
+                Response responseOutput = JsonConvert.DeserializeObject<Response>(responseString);
+                return responseOutput;
+            }
+            else
+            {
+                //dodati
+                return new Response();
+            }
         }
 
         public Task<Response> DeleteTaskAsync(string id, CancellationToken cancellationToken = default)
@@ -101,9 +130,20 @@ namespace SOC.Ticketing.Services
             }
         }
 
-        public Task<OutputCase> GetCaseAsync(string id, CancellationToken cancellationToken = default)
+        public async Task<OutputCase> GetCaseAsync(string id, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var response = await httpClient.GetAsync($"v1/case/{id}");
+            if(response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var outputCaseString = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(outputCaseString);
+                OutputCase outputCase = JsonConvert.DeserializeObject<OutputCase> (outputCaseString);
+                return outputCase;
+            }
+            else
+            {
+                return new OutputCase();
+            }
         }
 
         public Task<OutputTask> GetTaskAsync(string id, CancellationToken cancellationToken = default)
@@ -132,12 +172,33 @@ namespace SOC.Ticketing.Services
             }
         }
 
-        public Task<Response> UpdateCaseAsync(InputUpdateCase inputUpdateCase, CancellationToken cancellationToken = default)
+        public async Task<Response> UpdateCaseAsync(string id, InputUpdateCase inputUpdateCase, CancellationToken cancellationToken = default)
+        {
+            var serializedCase = JsonConvert.SerializeObject(inputUpdateCase);
+
+            var content = new StringContent(serializedCase, new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"));
+            var response = await httpClient.PatchAsync($"v1/case/{id}", content);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var outputCaseString = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(outputCaseString);
+                Response outputCase = JsonConvert.DeserializeObject<Response>(outputCaseString);
+                return outputCase;
+            }
+            else
+            {
+                //dodati
+                Console.WriteLine(response);
+                return new Response();
+            }
+        }
+
+        public Task<Response> UpdateTaskAsync(InputUpdateTask inputUpdateTask, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response> UpdateTaskAsync(InputUpdateTask inputUpdateTask, CancellationToken cancellationToken = default)
+        public Task<Response> UpdateTaskAsync(string id, InputUpdateTask inputUpdateTask, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
