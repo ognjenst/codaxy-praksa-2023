@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SOC.Conductor.Entities.Contexts;
 using SOC.Conductor.Extensions;
+using SOC.Conductor.Services;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 

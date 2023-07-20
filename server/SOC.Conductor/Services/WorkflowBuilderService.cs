@@ -13,6 +13,7 @@ namespace SOC.Conductor.Services
             
             foreach (var task in workflowDto.Tasks)
             {
+                //Decision task wrapper
                 tasks.Add(new WorkflowTask()
                 {
                     Name = task.Name,
@@ -21,6 +22,7 @@ namespace SOC.Conductor.Services
                     Type = task.Type,
                 });
             }
+
 
             var workflowDef = new WorkflowDef()
             {
@@ -35,7 +37,11 @@ namespace SOC.Conductor.Services
                 Tasks = tasks
             };
 
-            await _metadataResourceClient.UpdateAsync(new List<WorkflowDef> { workflowDef });
+            //Check
+            try
+            {
+                await _metadataResourceClient.UpdateAsync(new List<WorkflowDef> { workflowDef });
+            } catch (Exception) { }
         }
     }
 }

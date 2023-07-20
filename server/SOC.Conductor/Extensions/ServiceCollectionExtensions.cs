@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using SOC.Conductor.Entities.Contexts;
 using SOC.Conductor.Options;
 using SOC.Conductor.OptionsSetup;
+using SOC.Conductor.Services;
 
 namespace SOC.Conductor.Extensions;
 
@@ -22,6 +23,8 @@ public static class ServiceCollectionExtensions
         services.RegisterOptions();
         services.RegisterConductorHttpClients();
         services.AddHttpClientConfig();
+
+        services.AddScoped<IWorkflowBuilderService, WorkflowBuilderService>();
 
         return services;
     }
