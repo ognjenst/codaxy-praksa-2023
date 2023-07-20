@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.DTOs;
+using SOC.Conductor.Handlers;
+using SOC.Conductor.Handlers.Queries;
 
 namespace SOC.Conductor.Controllers
 {
@@ -8,6 +11,24 @@ namespace SOC.Conductor.Controllers
     [ApiController]
     public class AutomationController : ControllerBase
     {
+        private readonly IMediator _mediator;
+
+        public AutomationController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        public async Task<IActionResult> GetAllAutomationAsync()
+        {
+            var result = await _mediator.Send(new GetAllAutomationsRequest());
+
+            if(result is not null)
+                return Ok(result);
+
+            return NotFound();
+        }
+
+
         /// <summary>
         /// Create automation entity
         /// </summary>
@@ -30,5 +51,6 @@ namespace SOC.Conductor.Controllers
 
             return Ok(automation);
         }
+
     }
 }
