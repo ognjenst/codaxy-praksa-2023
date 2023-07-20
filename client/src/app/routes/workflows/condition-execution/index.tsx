@@ -5,9 +5,9 @@ import { openDryRunWindow } from "../dry-run";
 
 export default () => (
     <cx>
-        <div class="w-full mt-3 bg-white border-2 border-gray-700 col-span-4 rounded-sm">
+        <div class="w-full mt-3 bg-white border border-gray-200 col-span-4 rounded-sm">
             <div className="relative">
-                <span className="relative -top-4 left-5 bg-white p-2" text="Condition for execution" />
+                <span className="relative -top-4 left-5 bg-white p-2 text-gray-600" text="Condition for execution" />
             </div>
 
             <div className="p-4 grid grid-cols-1 gap-4" controller={Controller}>

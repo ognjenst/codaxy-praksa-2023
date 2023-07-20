@@ -25,13 +25,13 @@ export default () => (
                             store.set("$page.undoneWorkflows", [...store.get("$page.undoneWorkflows"), newObj]);
                         }}
                     />
-                    <div text="Created workflows:" className="pb-2 pt-2" />
+                    <div text="Created workflows:" className="pb-2 pt-2 text-gray-600" />
                     <WorkflowsList />
-                    <div text="Undone workflows:" className="pb-2 pt-2" />
+                    <div text="Undone workflows:" className="pb-2 pt-2 text-gray-600" />
                     <WorkflowsUndoneList />
                 </div>
 
-                <div class="mt-3 md:mt-0 lg:mt-0 bg-white border-2 border-gray-700 col-span-4 rounded-sm">
+                <div class="mt-3 md:mt-0 lg:mt-0 bg-white border border-gray-200 col-span-4 rounded-sm">
                     <WorkflowDashboard />
                 </div>
             </div>

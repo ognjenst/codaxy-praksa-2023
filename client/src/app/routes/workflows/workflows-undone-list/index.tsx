@@ -3,7 +3,7 @@ import Controller from "./Controller";
 
 export default () => (
     <cx>
-        <div controller={Controller} className="border-2 border-gray-700">
+        <div controller={Controller} className="border border-gray-200">
             <List
                 records-bind="$page.undoneWorkflows"
                 mod="bordered"
