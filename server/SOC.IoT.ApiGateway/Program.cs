@@ -4,14 +4,20 @@ using System.Reflection;
 using SOC.IoT.Base;
 using SOC.IoT.ApiGateway.Hubs;
 using SOC.IoT.ApiGateway.Controllers.Examples;
+using SOC.IoT.ApiGateway.Middleware;
 using SOC.IoT.ApiGateway.Extensions;
 using Serilog;
+using Microsoft.EntityFrameworkCore;
+using SOC.IoT.ApiGateway.Entities.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<SOCIoTDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db")));
+
 builder.Services.Configure<RouteOptions>(options =>
 {
     options.LowercaseUrls = true;
@@ -50,6 +56,9 @@ builder.Host.UseSerilog(
     }
 );
 
+app.UseMiddleware<GlobalExceptionMiddleware>();
+
+
 // Disable CORS
 app.UseCors(builder =>
 {
@@ -66,5 +75,7 @@ app.MapControllers();
 app.Services.GetRequiredService<IStartupService>();
 
 app.MapHub<DevicesHub>("/api/hubs/devices");
+
+app.MigrateDatabase();
 
 app.Run();
