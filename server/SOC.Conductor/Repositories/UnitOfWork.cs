@@ -13,11 +13,26 @@ namespace SOC.Conductor.Repositories
         private ITriggerRepository _triggerRepository;
         private IWorkflowRepository _workflowRepository;
 
-        public IAutomationRepository Automations { get => _automationRepository ??= new AutomationRepository(_dbContext); }
-        public IIoTTriggerRepository IoTTriggers { get => _ioTTriggerRepository ??= new IoTTriggerRepository(_dbContext); }
-        public IPeriodicTriggerRepository PeriodicTriggers { get => _periodicTriggerRepository ??= new PeriodicTriggerRepository(_dbContext); }
-        public ITriggerRepository Triggers { get => _triggerRepository ??= new TriggerRepository(_dbContext); }
-        public IWorkflowRepository Workflows { get => _workflowRepository ??= new WorkflowRepository(_dbContext); }
+        public IAutomationRepository Automations
+        {
+            get => _automationRepository ??= new AutomationRepository(_dbContext);
+        }
+        public IIoTTriggerRepository IoTTriggers
+        {
+            get => _ioTTriggerRepository ??= new IoTTriggerRepository(_dbContext);
+        }
+        public IPeriodicTriggerRepository PeriodicTriggers
+        {
+            get => _periodicTriggerRepository ??= new PeriodicTriggerRepository(_dbContext);
+        }
+        public ITriggerRepository Triggers
+        {
+            get => _triggerRepository ??= new TriggerRepository(_dbContext);
+        }
+        public IWorkflowRepository Workflows
+        {
+            get => _workflowRepository ??= new WorkflowRepository(_dbContext);
+        }
 
         public UnitOfWork(SOCDbContext dbContext)
         {
@@ -29,9 +44,15 @@ namespace SOC.Conductor.Repositories
             return _dbContext.SaveChangesAsync();
         }
 
+        protected virtual void Dispose(bool dispose)
+        {
+            _dbContext.Dispose();
+        }
+
         public void Dispose()
         {
-           _dbContext.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }
