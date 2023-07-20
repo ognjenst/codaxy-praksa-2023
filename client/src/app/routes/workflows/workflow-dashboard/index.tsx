@@ -5,6 +5,7 @@ import WorkflowTaskProperties from "./workflow-task-properties";
 import InputParams from "../input-params";
 import ConditionExecution from "../condition-execution";
 import { openInsertUpdateWindow } from "../update-insert-workflow";
+import { expr } from "cx/ui";
 
 export default () => (
     <cx>
@@ -74,7 +75,12 @@ export default () => (
                 </svg>
             </Button>
 
-            <Button text="Save workflow" className="absolute top-4 left-4 p-2" mod="classic" />
+            <Button
+                if-expr="{$page.currentWorkflowInUndoneList} == true"
+                text="Save workflow"
+                className="absolute top-4 left-4 p-2"
+                mod="classic"
+            />
         </div>
 
         <div className="p-10" controller={Controller}>

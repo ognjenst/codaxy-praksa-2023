@@ -26,15 +26,138 @@ export const openInsertUpdateWindow = ({ props }) => {
                     modal
                     draggable
                     closeOnEscape
-                    controller={Controller}
+                    controller={{
+                        onInit(): void {
+                            var arrFill = [
+                                {
+                                    tab: "Input1",
+                                    source: [
+                                        {
+                                            id: 1,
+                                            text: "one",
+                                        },
+                                        {
+                                            id: 2,
+                                            text: "two",
+                                        },
+                                    ],
+
+                                    param: [
+                                        {
+                                            id: 1,
+                                            text: "one",
+                                        },
+                                        {
+                                            id: 2,
+                                            text: "two",
+                                        },
+                                    ],
+                                },
+                                {
+                                    tab: "Input2",
+                                    source: [
+                                        {
+                                            id: 1,
+                                            text: "one 2",
+                                        },
+                                        {
+                                            id: 2,
+                                            text: "two 2",
+                                        },
+                                    ],
+                                    param: [
+                                        {
+                                            id: 1,
+                                            text: "one 2",
+                                        },
+                                        {
+                                            id: 2,
+                                            text: "two 2",
+                                        },
+                                    ],
+                                },
+                            ];
+
+                            let arrInput = [
+                                {
+                                    tab: "DeviceIP",
+                                    source: [
+                                        {
+                                            id: 1,
+                                            text: "one 1",
+                                        },
+                                        {
+                                            id: 2,
+                                            text: "two 1",
+                                        },
+                                    ],
+
+                                    param: [
+                                        {
+                                            id: 1,
+                                            text: "one 1",
+                                        },
+                                        {
+                                            id: 2,
+                                            text: "two 1",
+                                        },
+                                    ],
+                                },
+                                {
+                                    tab: "NumberOfRepetitions",
+                                    source: [
+                                        {
+                                            id: 1,
+                                            text: "one 2",
+                                        },
+                                        {
+                                            id: 2,
+                                            text: "two 2",
+                                        },
+                                    ],
+                                    param: [
+                                        {
+                                            id: 1,
+                                            text: "one 2",
+                                        },
+                                        {
+                                            id: 2,
+                                            text: "two 2",
+                                        },
+                                    ],
+                                },
+                            ];
+
+                            var arr = [
+                                {
+                                    name: "Task 1",
+                                    flagShow: false,
+                                    conditions: arrFill,
+                                    inputs: arrInput,
+                                },
+                                { name: "Task 2", flagShow: false, conditions: arrFill, inputs: arrInput },
+                                { name: "Task 3", flagShow: false, conditions: arrFill, inputs: arrInput },
+                                { name: "Task 4", flagShow: false, conditions: arrFill, inputs: arrInput },
+                                { name: "Task 5", flagShow: false, conditions: arrFill, inputs: arrInput },
+                                { name: "Task 6", flagShow: false, conditions: arrFill, inputs: arrInput },
+                            ];
+
+                            this.store.set("$insert.arrTasks", arr);
+                            this.store.set("$insert.workflowParamNames", []);
+                            this.store.set("$insert.workflowTasks", []);
+                            this.store.set("$page.insertUpdateName", props.name);
+                            this.store.set("$page.insertUpdateDescription", props.description);
+                            this.store.set("$page.insertUpdateVersion", props.version);
+                        },
+                    }}
                     onDestroy={() => reslove(false)}
                 >
                     <div className="grid grid-rows-3" layout={LabelsLeftLayout} styles={{ height: "600px" }}>
                         <div className="grid grid-cols-2 gap-4">
                             <div layout={LabelsLeftLayout}>
-                                <TextField label="Name" value={props.name} value-bind="$page.insertUpdateName" />
-                                <TextField label="Description" value={props.description} value-bind="$page.insertUpdateDescription" />
-                                <NumberField label="Version" value={props.version} value-bind="$page.insertUpdateVersion" />
+                                <TextField label="Name" value-bind="$page.insertUpdateName" />
+                                <TextField label="Description" value-bind="$page.insertUpdateDescription" />
+                                <NumberField label="Version" value-bind="$page.insertUpdateVersion" />
                             </div>
 
                             <div>

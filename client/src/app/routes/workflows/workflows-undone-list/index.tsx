@@ -12,6 +12,7 @@ export default () => (
                     var ind = store.get("$index");
                     store.set("$page.currentWorkflow", currentWorkflow);
                     store.set("$page.arrTasks", store.get(`$page.currentWorkflow.tasks`));
+                    store.set("$page.currentWorkflowInUndoneList", true);
                 }}
             >
                 <p text-tpl="{$record.name}" />
