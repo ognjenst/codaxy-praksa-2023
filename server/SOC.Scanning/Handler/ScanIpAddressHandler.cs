@@ -21,7 +21,7 @@ internal class ScanIpAddressResponse
 internal class ScanIpAddressHandler
     : ITaskRequestHandler<ScanIpAddressRequest, ScanIpAddressResponse>
 {
-    private readonly ILogger _logger;
+    private readonly ILogger<ScanIpAddressHandler> _logger;
 
     public ScanIpAddressHandler(ILogger<ScanIpAddressHandler> logger)
     {

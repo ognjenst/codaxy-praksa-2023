@@ -28,15 +28,11 @@ public static class DependencyInjection
 
         services.AddLogging(loggingBuilder =>
         {
-            loggingBuilder.ClearProviders(); // Remove the default logging providers
-            loggingBuilder.AddSerilog(); // Add Serilog as the logging provider
+            loggingBuilder.ClearProviders();
+            loggingBuilder.AddSerilog();
         });
 
         services.AddTransient<ScanIpAddressHandler>();
-
-        // Register the Test class as a transient service
-        // TODO: Delete, only testing purpose
-        services.AddTransient<Test>();
 
         return services;
     }

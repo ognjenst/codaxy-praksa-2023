@@ -5,6 +5,7 @@ using SOC.IoT.Base;
 using SOC.IoT.ApiGateway.Hubs;
 using SOC.IoT.ApiGateway.Controllers.Examples;
 using SOC.IoT.ApiGateway.Extensions;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +41,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Configure Serilog
+builder.Host.UseSerilog(
+    (context, config) =>
+    {
+        config.WriteTo.Console();
+    }
+);
 
 // Disable CORS
 app.UseCors(builder =>

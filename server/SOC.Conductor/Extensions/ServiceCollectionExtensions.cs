@@ -1,6 +1,8 @@
 ﻿using IoT.Conductor.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Serilog.Events;
+using Serilog;
 using SOC.Conductor.Entities.Contexts;
 using SOC.Conductor.Options;
 using SOC.Conductor.OptionsSetup;
@@ -72,8 +74,7 @@ public static class ServiceCollectionExtensions
     {
         using (var scope = application.Services.CreateScope())
         {
-            using var dbContext =
-                scope.ServiceProvider.GetRequiredService<SOCDbContext>();
+            using var dbContext = scope.ServiceProvider.GetRequiredService<SOCDbContext>();
 
             try
             {
