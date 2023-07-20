@@ -112,9 +112,6 @@ export default class extends Controller {
             },
             { name: "Task 2", flagShow: false, conditions: arrFill, inputs: arrInput },
             { name: "Task 3", flagShow: false, conditions: arrFill, inputs: arrInput },
-            { name: "Task 4", flagShow: false, conditions: arrFill, inputs: arrInput },
-            { name: "Task 5", flagShow: false, conditions: arrFill, inputs: arrInput },
-            { name: "Task 6", flagShow: false, conditions: arrFill, inputs: arrInput },
         ];
 
         this.store.set("$page.arrTasks", arr);

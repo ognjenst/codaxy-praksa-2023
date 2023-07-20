@@ -117,6 +117,7 @@ export default class extends Controller {
         ];
 
         this.store.set("$insert.arrTasks", arr);
+        this.store.set("$insert.workflowParamNames", []);
         this.store.set("$insert.workflowTasks", []);
     }
 }

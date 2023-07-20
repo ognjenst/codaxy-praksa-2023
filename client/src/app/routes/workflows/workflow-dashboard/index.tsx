@@ -43,9 +43,10 @@ export default () => (
             <Button
                 className="absolute top-2 right-12 p-0"
                 mod="hollow"
-                onClick={(e, { store }) => {
+                onClick={async (e, { store }) => {
                     // ges Task
-                    openInsertUpdateWindow({
+                    console.log(store.get("$page.currentWorkflow.name"));
+                    let newObj = await openInsertUpdateWindow({
                         props: {
                             action: "Update",
                             name: store.get("$page.currentWorkflow.name"),
@@ -53,6 +54,8 @@ export default () => (
                             version: 1,
                         },
                     });
+
+                    if (!newObj) return;
                 }}
             >
                 <svg
@@ -70,6 +73,8 @@ export default () => (
                     />
                 </svg>
             </Button>
+
+            <Button text="Save workflow" className="absolute top-4 left-4 p-2" mod="classic" />
         </div>
 
         <div className="p-10" controller={Controller}>
