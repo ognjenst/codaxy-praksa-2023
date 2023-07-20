@@ -11,7 +11,7 @@ export default () => (
                 <div>
                     <Button
                         text="Insert"
-                        className="w-full mb-2"
+                        className="w-full mb-2 text-gray-600"
                         onClick={async (e, { store }) => {
                             // ges Task
                             let newObj = await openInsertUpdateWindow({

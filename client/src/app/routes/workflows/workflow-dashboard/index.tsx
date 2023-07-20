@@ -24,7 +24,7 @@ export default () => (
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-8 h-8"
+                    className="w-6 h-6 text-gray-600"
                 >
                     <path
                         strokeLinecap="round"
@@ -41,7 +41,7 @@ export default () => (
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-8 h-8"
+                    className="w-6 h-6 text-gray-600"
                 >
                     <path
                         strokeLinecap="round"
@@ -52,7 +52,7 @@ export default () => (
             </Button>
 
             <Button
-                className="absolute top-2 right-12 p-0"
+                className="absolute top-2 right-12 p-0 "
                 mod="hollow"
                 onClick={async (e, { store }) => {
                     // ges Task
@@ -84,23 +84,6 @@ export default () => (
 
                         store.set("$page.workflows", arrUndone);
                     }
-
-                    // store.update(
-                    //     "$page.undoneWorkflows",
-                    //     updateArray,
-                    //     (el) => newObj,
-                    //     (el) => el.name == newObj.name
-                    // );
-
-                    // var arrUndone = store.get("$page.undoneWorkflows").filter((value, index, arr) => {
-                    //     if (value.name == store.get("$page.currentWorkflow.name")) return false;
-
-                    //     return true;
-                    // });
-
-                    // store.set("$page.undoneWorkflows", arrUndone);
-
-                    // store.update("$page.undoneWorkflows", (elements) => [...elements, newObj]);
                 }}
             >
                 <svg
@@ -109,7 +92,7 @@ export default () => (
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-8 h-8"
+                    className="w-6 h-6 text-gray-600"
                 >
                     <path
                         strokeLinecap="round"
@@ -122,7 +105,7 @@ export default () => (
             <Button
                 if-expr="{$page.currentWorkflowInUndoneList} == true"
                 text="Save workflow"
-                className="absolute top-4 left-4 p-2"
+                className="absolute top-4 left-4 p-2 text-gray-600"
                 mod="classic"
             />
         </div>
