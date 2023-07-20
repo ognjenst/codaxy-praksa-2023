@@ -5,7 +5,7 @@ export const StateComponent = () => (
         <Switch
             label={{
                 text: "State",
-                className: "text-xl",
+                className: "text-lg text-slate-600",
             }}
             value-bind="$page.device.state.state"
             text-expr="{$page.device.state.state} ? 'ON' : 'OFF'"

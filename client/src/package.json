@@ -17,6 +17,7 @@
         "@heroicons/react": "^2.0.10",
         "@microsoft/signalr": "^7.0.5",
         "casual": "^1.6.2",
+        "codemirror": "5.65.14",
         "core-js": "^3.20.3",
         "cx": "23.5.2",
         "cx-react": "^17.10.0",
