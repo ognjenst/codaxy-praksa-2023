@@ -6,6 +6,7 @@ using SOC.IoT.ApiGateway.Hubs;
 using SOC.IoT.ApiGateway.Controllers.Examples;
 using SOC.IoT.ApiGateway.Middleware;
 using SOC.IoT.ApiGateway.Extensions;
+using Serilog;
 using Microsoft.EntityFrameworkCore;
 using SOC.IoT.ApiGateway.Entities.Contexts;
 
@@ -46,6 +47,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Configure Serilog
+builder.Host.UseSerilog(
+    (context, config) =>
+    {
+        config.WriteTo.Console();
+    }
+);
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
 

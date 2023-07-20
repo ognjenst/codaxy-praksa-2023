@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SOC.Conductor.Entities.Contexts;
 using SOC.Conductor.Extensions;
+using Serilog;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 
@@ -10,7 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<SOCDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db")));
+builder.Services.AddDbContext<SOCDbContext>(
+    options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db"))
+);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -21,6 +24,14 @@ builder.Services.AddSwaggerGen(opts =>
     opts.IncludeXmlComments(xmlPath);
 
 });
+
+// Configure Serilog
+builder.Host.UseSerilog(
+    (context, config) =>
+    {
+        config.WriteTo.Console();
+    }
+);
 
 var app = builder.Build();
 
