@@ -6,7 +6,6 @@ using SOC.IoT.ApiGateway.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.ComponentModel.DataAnnotations;
 using MediatR;
-using SOC.IoT.ApiGateway.Exceptions;
 
 namespace SOC.IoT.ApiGateway.Controllers
 {
@@ -35,14 +34,12 @@ namespace SOC.IoT.ApiGateway.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
         public async Task<IResult> GetDeviceHistory([FromRoute][RegularExpression(_deviceIdRegexPattern)] string id)
         {
-            try
-            {
-                return Results.Ok(await _mediator.Send(new GetDeviceHistoryQuery(id)));
-            }
-            catch (ItemNotFoundException)
+            var dto = await _mediator.Send(new GetDeviceHistoryQuery(id));
+            if (dto is null)
             {
                 return Results.NotFound();
             }
+            return Results.Ok(dto);
         }
     }
 }
