@@ -15,6 +15,8 @@ builder.Services.AddDbContext<SOCDbContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db"))
 );
 
+builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opts =>

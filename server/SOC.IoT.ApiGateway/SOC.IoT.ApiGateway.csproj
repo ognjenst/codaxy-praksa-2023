@@ -25,6 +25,7 @@
 		<PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.6" />
 	</ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.9" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
@@ -46,6 +47,10 @@
     <ProjectReference Include="..\SOC.Conductor.Client\SOC.Conductor.Client.csproj" />
     <ProjectReference Include="..\SOC.IoT.Base\SOC.IoT.Base.csproj" />
     <ProjectReference Include="..\SOC.Notifications\SOC.Notifications.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
   </ItemGroup>
 
 </Project>
