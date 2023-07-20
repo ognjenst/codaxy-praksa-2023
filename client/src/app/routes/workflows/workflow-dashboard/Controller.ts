@@ -116,4 +116,18 @@ export default class extends Controller {
 
         this.store.set("$page.arrTasks", arr);
     }
+
+    deleteUndoneWorkflow() {
+        var arrUndone = this.store.get("$page.undoneWorkflows").filter((value, index, arr) => {
+            if (value.name == this.store.get("$page.currentWorkflow.name")) return false;
+
+            return true;
+        });
+
+        this.store.set("$page.undoneWorkflows", arrUndone);
+    }
+
+    deleteWorkflow() {
+        console.log("http delete workflow ...");
+    }
 }
