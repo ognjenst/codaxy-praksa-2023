@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <Folder Include="Entities\Contexts\" />
+    <Folder Include="Handlers\" />
   </ItemGroup>
 
 </Project>
