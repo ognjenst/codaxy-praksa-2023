@@ -53,9 +53,25 @@ namespace SOC.Ticketing.Services
             throw new NotImplementedException();
         }
 
-        public Task<OutputTask> CreateTaskAsync(InputCreateTask inputCreateTask, CancellationToken cancellationToken = default)
+        public async Task<OutputTask> CreateTaskAsync(InputCreateTask inputCreateTask, string caseId, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var serializedTask = JsonConvert.SerializeObject(inputCreateTask);
+
+            var content = new StringContent(serializedTask, new MediaTypeHeaderValue("application/json"));
+            var response = await httpClient.PostAsync($"v1/case/{caseId}/task", content);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var outputTaskString = await response.Content.ReadAsStringAsync();
+
+                OutputTask outputTask = JsonConvert.DeserializeObject<OutputTask>(outputTaskString);
+                return outputTask;
+            }
+            else
+            {
+                //todo: add logging
+
+                return new OutputTask();
+            }
         }
 
         public async Task<Response> DeleteAlertAsync(string id, CancellationToken cancellationToken = default)

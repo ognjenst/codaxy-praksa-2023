@@ -16,7 +16,7 @@ namespace SOC.Ticketing.Services
         Task<Response> UpdateAlertAsync(string id, InputUpdateAlert inputUpdateAlert, CancellationToken cancellationToken = default);
 
         Task<OutputTask> GetTaskAsync(string id, CancellationToken cancellationToken = default);
-        Task<OutputTask> CreateTaskAsync(InputCreateTask inputCreateTask, CancellationToken cancellationToken = default);
+        Task<OutputTask> CreateTaskAsync(InputCreateTask inputCreateTask, string caseId, CancellationToken cancellationToken = default);
         Task<Response> DeleteTaskAsync(string id, CancellationToken cancellationToken = default);
         Task<Response> UpdateTaskAsync(string id, InputUpdateTask inputUpdateTask, CancellationToken cancellationToken = default);
 
