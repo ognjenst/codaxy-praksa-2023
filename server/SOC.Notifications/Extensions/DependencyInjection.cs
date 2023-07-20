@@ -15,16 +15,12 @@ namespace SOC.Notifications.Extensions
     public static class DependencyInjection
     {
         public static IServiceCollection RegisterServices(
-        this IServiceCollection services,
-        IConfiguration configuration
-    )
+            this IServiceCollection services,
+            IConfiguration configuration
+        )
         {
             services.RegisterOptions();
-            services.AddScoped<ISlackService>(provider =>
-            {
-                var slackOptions = provider.GetRequiredService<IOptions<SlackOptions>>().Value;
-                return new SlackService(slackOptions);
-            });
+            services.AddScoped<ISlackService, SlackService>();
 
             return services;
         }
@@ -35,6 +31,5 @@ namespace SOC.Notifications.Extensions
 
             return services;
         }
-
     }
 }
