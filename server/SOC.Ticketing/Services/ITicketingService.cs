@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SOC.Conductor.Client.Generated;
 
 namespace SOC.Ticketing.Services
 {
     public interface ITicketingService
     {
-        Task CreateTicket(String message);
+        Task<OutputCase> GetCaseAsync(int id, string message);
         Task OpenCases();
     }
 }
