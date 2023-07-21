@@ -6,7 +6,7 @@ using SOC.Conductor.Models.Requests;
 
 namespace SOC.Conductor.Handlers
 {
-    public class GetAllTasksHandler : IRequestHandler<GetAllTasks, List<TaskResponseDto>>
+    public class GetAllTasksHandler : IRequestHandler<GetAllTasks, IEnumerable<TaskResponseDto>>
     {
         private readonly IMetadataResourceClient _client;
         private readonly IMapper _mapper;
@@ -17,11 +17,13 @@ namespace SOC.Conductor.Handlers
             _mapper = mapper;
         }
 
-        public async Task<List<TaskResponseDto>> Handle(GetAllTasks request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<TaskResponseDto>> Handle(GetAllTasks request, CancellationToken cancellationToken)
         {
             var arrTasks = await _client.GetTaskDefsAsync();
 
-            var arrReturn = new List<TaskResponseDto>();
+            var arrReturn = _mapper.Map<IEnumerable<TaskResponseDto>>(arrTasks);
+
+            return arrReturn;
         }
     }
 }
