@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.DTOs;
+using SOC.Conductor.Generated;
+using Task = System.Threading.Tasks.Task;
 
 namespace SOC.Conductor.Controllers;
 
@@ -7,6 +9,13 @@ namespace SOC.Conductor.Controllers;
 [ApiController]
 public class WorkflowsController : ControllerBase
 {
+    private readonly IMetadataResourceClient _metadataResourceClient;
+
+    public WorkflowsController(IMetadataResourceClient metadataResourceClient)
+    {
+        _metadataResourceClient = metadataResourceClient;
+    }
+
     /// <summary>
     /// Returns all registered workflows from conductor.
     /// </summary>
