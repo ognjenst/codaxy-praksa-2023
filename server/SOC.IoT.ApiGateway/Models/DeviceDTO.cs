@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using SOC.IoT.ApiGateway.Entities.Enums;
+using SOC.IoT.ApiGateway.Entities;
 using SOC.IoT.Domain.Entity;
 using System.ComponentModel.DataAnnotations;
 
@@ -57,8 +59,13 @@ public class DeviceDTO
     /// State of the contact sensor
     /// </summary>
     public DeviceContact? Contact { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public string Manufacturer { get; set; }
+    public string Type { get; set; }
+    public string Model { get; set; }
 
-    public DeviceDTO(Device device)
+    public DeviceDTO(Domain.Entity.Device device)
     {
         var converter = new StringEnumConverter { NamingStrategy = new CamelCaseNamingStrategy() };
 

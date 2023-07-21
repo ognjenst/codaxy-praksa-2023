@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Serilog.Events;
+using Serilog;
 using SOC.Notifications.Options;
 using SOC.Notifications.OptionsSetup;
 using SOC.Notifications.Services;
@@ -9,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace SOC.Notifications.Extensions
 {
@@ -21,6 +24,22 @@ namespace SOC.Notifications.Extensions
         {
             services.RegisterOptions();
             services.AddScoped<ISlackService, SlackService>();
+
+            // Configure Serilog
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel
+            .Debug()
+            .MinimumLevel
+            .Override("Microsoft", LogEventLevel.Information)
+            .WriteTo
+            .Console()
+            .CreateLogger();
+
+            services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.ClearProviders();
+                loggingBuilder.AddSerilog();
+            });
 
             return services;
         }
