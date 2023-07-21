@@ -1,18 +1,5 @@
-import { DataProxy, LabelsLeftLayout, PureContainer, Repeater, Text, bind } from "cx/ui";
-import {
-    Button,
-    Checkbox,
-    DateField,
-    HtmlElement,
-    Label,
-    Overlay,
-    TextArea,
-    NumberField,
-    TextField,
-    Window,
-    List,
-    ValidationGroup,
-} from "cx/widgets";
+import { LabelsLeftLayout } from "cx/ui";
+import { Button, List, NumberField, TextField, ValidationGroup, Window } from "cx/widgets";
 import getController from "./Controller";
 
 export const openInsertUpdateWindow = ({ props }) => {
@@ -54,19 +41,14 @@ export const openInsertUpdateWindow = ({ props }) => {
                                     />
                                 </ValidationGroup>
 
-                                <List records-bind="$insert.workflowParamNames" className="w-full" style={{ textAlign: "center" }}>
+                                <List records-bind="$insert.workflowParamNames">
                                     <div text-bind="$record"></div>
                                 </List>
                             </div>
                         </div>
                         <div className="grid grid-cols-2">
                             <div>
-                                <List
-                                    records-bind="$insert.arrTasks"
-                                    className="w-full"
-                                    style={{ textAlign: "center" }}
-                                    controller={getController(reslove, props)}
-                                >
+                                <List records-bind="$insert.arrTasks">
                                     <span className="mr-2" text-bind="$record.name" />
 
                                     <Button
