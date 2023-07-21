@@ -1,9 +1,8 @@
 import { Button } from "cx/widgets";
+import Controller from "./Controller";
 import WorkflowDashboard from "./workflow-dashboard";
 import WorkflowsList from "./workflows-list";
-import { openInsertUpdateWindow } from "./update-insert-workflow";
 import WorkflowsUndoneList from "./workflows-undone-list";
-import Controller from "./Controller";
 
 export default () => (
     <cx>

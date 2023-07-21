@@ -1,53 +1,30 @@
 import { ContentResolver, FirstVisibleChildLayout } from "cx/ui";
-import { DocumentTitle, PureContainer, RedirectRoute, Route } from "cx/widgets";
-import About from "./about";
-import Widgets from "./widgets";
-import Pages from "./pages";
-import Dashboard from "./dashboard";
-import { CheckerLayout } from "../layout/CheckerLayout";
-import SignIn from "./pages/sign-in";
+import { DocumentTitle, RedirectRoute, Route } from "cx/widgets";
 import { SandboxedRoute } from "../components/SandboxedRoute";
-import InvoiceRoutes from "./invoices";
-import { PageNotImplemented } from "../components/PageNotImplemented";
-import Devices from "./devices";
+import { CheckerLayout } from "../layout/CheckerLayout";
 import Workflows from "../routes/workflows";
+import Automations from "./automations";
+import Dashboard from "./dashboard";
+import Devices from "./devices";
 
 export default () => (
     <cx>
         <FirstVisibleChildLayout>
-            <Route route="~/pages" url-bind="url" prefix>
-                <Pages />
-            </Route>
-
-            <SignIn visible-expr="!{user}" />
-
-            <RedirectRoute route="~/" redirect="~/dashboard" url-bind="url" />
+            <RedirectRoute route="~/" redirect="~/devices" url-bind="url" />
 
             <CheckerLayout>
                 <SandboxedRoute route="~/dashboard">
                     <Dashboard />
                 </SandboxedRoute>
-                <Route route="~/customers" url-bind="url" prefix>
-                    <PageNotImplemented />
-                </Route>
-                <Route route="~/settings" url-bind="url" prefix>
-                    <PageNotImplemented />
-                </Route>
-                <Route route="~/users" url-bind="url" prefix>
-                    <PageNotImplemented />
-                </Route>
-                {InvoiceRoutes}
-                <Route route="~/widgets" url-bind="url" prefix>
-                    <Widgets />
-                </Route>
-                <Route route="~/about" url-bind="url">
-                    <About />
-                </Route>
+
                 <Route route="~/devices" url-bind="url">
                     <Devices />
                 </Route>
                 <Route route="~/workflows" url-bind="url">
                     <Workflows />
+                </Route>
+                <Route route="~/automations" url-bind="url">
+                    <Automations />
                 </Route>
             </CheckerLayout>
         </FirstVisibleChildLayout>

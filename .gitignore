@@ -444,3 +444,9 @@ msbuild.wrn
 
 
 appsettings.Development.json
+/server/SOC.IoT.ApiGateway/appsettings.Development..json
+/.gitignore
+/.gitignore
+docker/vol/thehive
+!docker/vol/thehive/etc
+/server/SOC.Conductor/appsettings.Development.json

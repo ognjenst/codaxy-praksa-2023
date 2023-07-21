@@ -178,13 +178,10 @@ export const CheckerLayout = ({ children, nav }) => (
             </div>
             <div class="border-r pt-3">
                 <div class="px-6 py-3 text-gray-400 text-sm">Main Menu</div>
-                <NavItem text="Dashboard" icon="chart-bar" href="~/dashboard" />
-                <NavItem text="Invoices" icon="document-text" href="~/invoices" />
-                <NavItem text="Customers" icon="users" href="~/customers" />
 
-                <div class="mt-4 px-6 py-3 text-gray-400 text-sm">Administration</div>
-                <NavItem text="Settings" icon="cog" href="~/settings" />
-                <NavItem text="User Accounts" icon="user-group" href="~/users" />
+                <NavItem text="Devices" icon="light-bulb" href="~/devices" />
+                <NavItem text="Automations" icon="presentation-chart-line" href="~/automations" />
+                <NavItem text="Workflows" icon="arrow-down-circle" href="~/workflows" />
 
                 <div class="mt-4 px-6 py-3 text-gray-400 text-sm">Misc</div>
 

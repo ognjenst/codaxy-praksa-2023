@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using SOC.IoT.ApiGateway.Controllers.Examples;
+using SOC.IoT.ApiGateway.Handlers;
 using SOC.IoT.ApiGateway.Models;
+using SOC.IoT.ApiGateway.Models.Requests;
 using SOC.IoT.Base.Interfaces;
 using Swashbuckle.AspNetCore.Filters;
 using System.ComponentModel.DataAnnotations;
@@ -12,12 +15,13 @@ namespace SOC.IoT.ApiGateway.Controllers;
 [Produces("application/json")]
 public class DevicesController : ControllerBase
 {
-    private readonly IDeviceManager _deviceManager;
+    private readonly IMediator _mediator;
+
     private const string _deviceIdRegexPattern = "0[xX][0-9a-fA-F]+";
 
-    public DevicesController(IDeviceManager deviceManager)
+    public DevicesController(IMediator mediator)
     {
-        _deviceManager = deviceManager;
+        _mediator = mediator;
     }
 
     /// <summary>
@@ -27,9 +31,9 @@ public class DevicesController : ControllerBase
     [HttpGet(Name = "GetDevices")]
     [SwaggerResponseExample(StatusCodes.Status200OK, typeof(DevicesExample))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DeviceDTO>))]
-    public IEnumerable<DeviceDTO> GetDevices()
+    public async Task<IEnumerable<DeviceDTO>> GetDevices()
     {
-        return _deviceManager.GetDevices().Select(d => new DeviceDTO(d));
+        return await _mediator.Send(new GetDevicesQuery());
     }
 
     /// <summary>
@@ -42,11 +46,16 @@ public class DevicesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeviceDTO))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
-    public IResult GetDevice([FromRoute] [RegularExpression(_deviceIdRegexPattern)] string id)
+    public async Task<IResult> GetDevice([FromRoute] [RegularExpression(_deviceIdRegexPattern)] string id)
     {
         try
         {
-            return Results.Ok(new DeviceDTO(_deviceManager.GetDevice(id)));
+            DeviceDTO deviceDTO = await _mediator.Send(new GetDeviceQuery(id));
+            if (deviceDTO is null)
+            {
+                return Results.NotFound();
+            }
+            return Results.Ok(deviceDTO);
         }
         catch (KeyNotFoundException)
         {
@@ -71,7 +80,7 @@ public class DevicesController : ControllerBase
     {
         try
         {
-            await _deviceManager.SetDeviceStateAsync(payload.GetDevice(id));
+            await _mediator.Send(new UpdateDeviceStateQuery(id, payload));
             return Results.NoContent();
         }
         catch (KeyNotFoundException)
