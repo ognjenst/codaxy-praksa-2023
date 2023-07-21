@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SOC.Conductor.Client.Generated;
+using SOC.Ticketing.Generated;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,17 +33,17 @@ namespace SOC.Ticketing.Services
 
             var content = new StringContent(serializedTask, new MediaTypeHeaderValue("application/json"));
             var response = await httpClient.PostAsync($"v1/case/{caseId}/task", content);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 var outputTaskString = await response.Content.ReadAsStringAsync();
-
+                
                 OutputTask outputTask = JsonConvert.DeserializeObject<OutputTask>(outputTaskString);
+                
                 return outputTask;
             }
             else
             {
                 //todo: add logging
-
                 return new OutputTask();
             }
         }

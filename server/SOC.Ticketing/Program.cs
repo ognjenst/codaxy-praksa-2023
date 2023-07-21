@@ -1,5 +1,4 @@
-﻿using SOC.Conductor.Client.Generated;
-//using SOC.Ticketing;
+﻿using SOC.Ticketing.Generated;
 using SOC.Ticketing.Services;
 
 
@@ -10,11 +9,17 @@ inputCreateAlert.Description = "desc1";
 inputCreateAlert.Type = "string";
 inputCreateAlert.Source = "string";
 inputCreateAlert.SourceRef = "string";
+InputCreateTask inputCreateTask = new InputCreateTask();
 
+/*inputCreateTask.Title = "task";
+inputCreateTask.Description = "desc";
 //var createdAlert = await ticketingService.CreateAsync<InputCreateAlert, OutputAlert>( inputCreateAlert, "alert");
 
-//var a = await ticketingService.GetAlertAsync("~4116592");
-//Console.WriteLine(a);
+var createOutput = await ticketingService.CreateTaskAsync(inputCreateTask, "~8106216");
+Console.WriteLine("id " + createOutput.Id);*/
+
+/*var getOutput = await ticketingService.GetTaskAsync("~4214816");
+Console.WriteLine(getOutput.Id);
 
 //var b = await ticketingService.DeleteAlertAsync("~4116592");
 //Console.WriteLine(b);
