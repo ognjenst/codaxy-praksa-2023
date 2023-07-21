@@ -75,7 +75,7 @@ namespace SOC.Ticketing.Services
 
             var content = new StringContent(serializedTask, new MediaTypeHeaderValue("application/json"));
             var response = await httpClient.PostAsync($"v1/case/{caseId}/task", content);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 var outputTaskString = await response.Content.ReadAsStringAsync();
 
@@ -254,9 +254,5 @@ namespace SOC.Ticketing.Services
             }
         }
 
-        public Task<Response> UpdateTaskAsync(string id, InputUpdateTask inputUpdateTask, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
