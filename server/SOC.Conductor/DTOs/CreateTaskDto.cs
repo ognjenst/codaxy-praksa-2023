@@ -9,7 +9,6 @@ namespace SOC.Conductor.DTOs
         public string TaskReferenceName { get; set; }
         public Dictionary<string, object> InputParameters { get; set; }
         public string Type { get; set; }
-        public string EvaluatorType { get; set; } = "javascript";
         public string? Expression { get; set; }
     }
 }

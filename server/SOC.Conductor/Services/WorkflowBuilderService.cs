@@ -26,9 +26,9 @@ namespace SOC.Conductor.Services
                             TaskReferenceName = task.TaskReferenceName,
                             InputParameters = task.InputParameters,
                             Type = task.Type,
-                            EvaluatorType = task.EvaluatorType,
+                            EvaluatorType = "javascript",
                             Expression = task.Expression,
-                            DecisionCases = new Dictionary<string, List<WorkflowTask>> {
+                            DecisionCases = new Dictionary<string, ICollection<WorkflowTask>> {
                             { "true", new List<WorkflowTask>
                                 { new WorkflowTask()
                                     {
@@ -61,11 +61,8 @@ namespace SOC.Conductor.Services
                 Name = workflowDto.Name,
                 Description = workflowDto.Description,
                 Version = workflowDto.Version,
-                Restartable = workflowDto.Restartable,
-                WorkflowStatusListenerEnabled = workflowDto.WorkflowStatusListenerEnabled,
-                OwnerEmail = workflowDto.OwnerEmail,
-                TimeoutPolicy = (WorkflowDefTimeoutPolicy) Enum.Parse(typeof(WorkflowDefTimeoutPolicy), workflowDto.TimeoutPolicy),
-                TimeoutSeconds = workflowDto.TimeoutSeconds,
+                OwnerEmail = "praksa@codaxy.com",
+                TimeoutSeconds = 0,
                 Tasks = tasks
             };
 
