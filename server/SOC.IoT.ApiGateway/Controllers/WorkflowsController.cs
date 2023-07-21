@@ -19,7 +19,7 @@ public class WorkflowsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet(Name = "GetAllWorkflowsAsync")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkflowDto))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<WorkflowResponseDto>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
     public async Task<IActionResult> GetAllWorkflowsAsync()
@@ -28,4 +28,19 @@ public class WorkflowsController : ControllerBase
 
         return Ok(data);
     }
+
+	/// <summary>
+	/// Returns all registered workflows from conductor.
+	/// </summary>
+	/// <returns></returns>
+	[HttpGet("GetAllTasks", Name = "GetAllTasksAsync")]
+	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<TaskResponseDto>))]
+	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+	[ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
+	public async Task<IActionResult> GetAllTasksAsync()
+	{
+        var data = await _workflowsService.GetAllTasksAsync();
+
+		return Ok(data);
+	}
 }
