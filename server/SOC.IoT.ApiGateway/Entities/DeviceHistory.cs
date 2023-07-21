@@ -1,13 +1,13 @@
 ﻿using Newtonsoft.Json.Linq;
-using System.Text.Json;
 
-namespace SOC.Conductor.Entities
+namespace SOC.IoT.ApiGateway.Entities
 {
     public class DeviceHistory
     {
-        public int Id { get; set; } 
-        public string DeviceID { get; set; }
+        public int Id { get; set; }
+        public int DeviceID { get; set; }
         public DateTime Time { get; set; }
         public JObject? Configuration { get; set; }
+        public virtual Device Device { get; set; } 
     }
 }

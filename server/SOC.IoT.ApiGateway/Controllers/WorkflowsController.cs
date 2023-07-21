@@ -24,7 +24,7 @@ public class WorkflowsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
     public async Task<IActionResult> GetAllWorkflowsAsync()
     {
-        var data = await _workflowsService.WorkflowsAsync();
+        var data = await _workflowsService.GetAllWorkflowsAsync();
 
         return Ok(data);
     }

@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using SOC.Conductor.Client.Generated;
+using SOC.IoT.ApiGateway.Entities.Contexts;
 using SOC.IoT.ApiGateway.Options;
 using SOC.IoT.ApiGateway.OptionsSetup;
 
@@ -27,12 +29,47 @@ public static class DependencyInjection
                 );
             }
         );
+
+        services.AddScoped<ITriggersService, TriggersService>(
+            (serviceProvider) =>
+            {
+                var conductorClientOptions = serviceProvider.GetRequiredService<
+                    IOptions<ConductorClientOpitons>
+                >();
+
+                var clientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
+
+                return new TriggersService(
+                    baseUrl: conductorClientOptions.Value.BaseUrl,
+                    clientFactory.CreateClient()
+                );
+            }
+        );
+
+        services.AddScoped<IAutomationService, AutomationService>(
+            (serviceProvider) =>
+            {
+                var conductorClientOptions = serviceProvider.GetRequiredService<
+                    IOptions<ConductorClientOpitons>
+                >();
+
+                var clientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
+
+                return new AutomationService(
+                    baseUrl: conductorClientOptions.Value.BaseUrl,
+                    clientFactory.CreateClient()
+                );
+            }
+        );
+
         return services;
     }
 
     private static IServiceCollection RegisterHttpClients(this IServiceCollection services)
     {
         services.AddHttpClient<WorkflowsService>();
+        services.AddHttpClient<TriggersService>();
+        services.AddHttpClient<AutomationService>();
         return services;
     }
 
@@ -40,5 +77,28 @@ public static class DependencyInjection
     {
         services.ConfigureOptions<ConductorClientOpitonsSetup>();
         return services;
+    }
+
+    public static WebApplication MigrateDatabase(this WebApplication application)
+    {
+        using (var scope = application.Services.CreateScope())
+        {
+            using var dbContext =
+                scope.ServiceProvider.GetRequiredService<SOCIoTDbContext>();
+
+            try
+            {
+                dbContext.Database.Migrate();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(
+                    $"Failed applying DB migrations for DB {nameof(SOCIoTDbContext)}",
+                    ex
+                );
+            }
+        }
+
+        return application;
     }
 }

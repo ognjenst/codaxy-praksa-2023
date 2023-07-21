@@ -37,29 +37,6 @@ namespace SOC.Conductor.Migrations
                     b.ToTable("Automations");
                 });
 
-            modelBuilder.Entity("SOC.Conductor.Entities.DeviceHistory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Configuration")
-                        .HasColumnType("jsonb");
-
-                    b.Property<string>("DeviceID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DevicesHistory");
-                });
-
             modelBuilder.Entity("SOC.Conductor.Entities.Trigger", b =>
                 {
                     b.Property<int>("Id")

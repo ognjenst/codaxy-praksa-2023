@@ -449,3 +449,4 @@ appsettings.Development.json
 /.gitignore
 docker/vol/thehive
 !docker/vol/thehive/etc
+/server/SOC.Conductor/appsettings.Development.json
