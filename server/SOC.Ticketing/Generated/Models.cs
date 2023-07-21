@@ -16,7 +16,7 @@
 #pragma warning disable 3016 // Disable "CS3016 Arrays as attribute arguments is not CLS-compliant"
 #pragma warning disable 8603 // Disable "CS8603 Possible null reference return"
 
-namespace SOC.Conductor.Client.Generated;
+namespace SOC.Ticketing.Generated;
 
 using System = global::System;
 
@@ -513,7 +513,7 @@ public partial class InputCreateCase
     public string Description { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("severity", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public InputCreateCaseSeverity? Severity { get; set; } = SOC.Conductor.Client.Generated.InputCreateCaseSeverity._2;
+    public InputCreateCaseSeverity? Severity { get; set; } = SOC.Ticketing.Generated.InputCreateCaseSeverity._2;
 
     [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public int? StartDate { get; set; } = default!;
@@ -528,10 +528,10 @@ public partial class InputCreateCase
     public bool? Flag { get; set; } /*= false;*/
 
     [Newtonsoft.Json.JsonProperty("tlp", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public InputCreateCaseTlp? Tlp { get; set; } /*= SOC.Conductor.Client.Generated.InputCreateCaseTlp._2;*/
+    public InputCreateCaseTlp? Tlp { get; set; } /*= SOC.Ticketing.Generated.InputCreateCaseTlp._2;*/
 
     [Newtonsoft.Json.JsonProperty("pap", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public InputCreateCasePap? Pap { get; set; } /*= SOC.Conductor.Client.Generated.InputCreateCasePap._2;*/
+    public InputCreateCasePap? Pap { get; set; } /*= SOC.Ticketing.Generated.InputCreateCasePap._2;*/
 
     [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Status { get; set; } /*= "New";*/
@@ -5102,10 +5102,10 @@ public partial class OutputTask
     public string? UpdatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int CreatedAt { get; set; } = default!;
+    public long CreatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? UpdatedAt { get; set; } = default!;
+    public long? UpdatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -5126,10 +5126,10 @@ public partial class OutputTask
     public bool Flag { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? StartDate { get; set; } = default!;
+    public long? StartDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? EndDate { get; set; } = default!;
+    public long? EndDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("assignee", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Assignee { get; set; } = default!;

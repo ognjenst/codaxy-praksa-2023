@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SOC.Conductor.Client.Generated;
+using SOC.Ticketing.Generated;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -78,14 +78,14 @@ namespace SOC.Ticketing.Services
             if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 var outputTaskString = await response.Content.ReadAsStringAsync();
-
+                
                 OutputTask outputTask = JsonConvert.DeserializeObject<OutputTask>(outputTaskString);
+                
                 return outputTask;
             }
             else
             {
                 //todo: add logging
-
                 return new OutputTask();
             }
         }
@@ -113,7 +113,7 @@ namespace SOC.Ticketing.Services
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var responseString = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(responseString);
+                
                 Response responseOutput = JsonConvert.DeserializeObject<Response>(responseString);
                 return responseOutput;
             }
@@ -164,7 +164,7 @@ namespace SOC.Ticketing.Services
             if(response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var outputCaseString = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(outputCaseString);
+                
                 OutputCase outputCase = JsonConvert.DeserializeObject<OutputCase> (outputCaseString);
                 return outputCase;
             }
@@ -180,7 +180,7 @@ namespace SOC.Ticketing.Services
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var outputTaskString = await response.Content.ReadAsStringAsync();
-
+                
                 OutputTask outputTask = JsonConvert.DeserializeObject<OutputTask>(outputTaskString);
                 return outputTask;
             }
@@ -216,19 +216,19 @@ namespace SOC.Ticketing.Services
         {
             var serializedCase = JsonConvert.SerializeObject(inputUpdateCase);
 
-            var content = new StringContent(serializedCase, new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"));
+            var content = new StringContent(serializedCase, new MediaTypeHeaderValue("application/json"));
             var response = await httpClient.PatchAsync($"v1/case/{id}", content);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var outputCaseString = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(outputCaseString);
+                
                 Response outputCase = JsonConvert.DeserializeObject<Response>(outputCaseString);
                 return outputCase;
             }
             else
             {
                 //dodati
-                Console.WriteLine(response);
+                
                 return new Response();
             }
         }

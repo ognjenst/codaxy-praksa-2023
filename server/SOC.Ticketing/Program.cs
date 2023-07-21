@@ -1,29 +1,22 @@
-﻿using SOC.Conductor.Client.Generated;
-//using SOC.Ticketing;
+﻿using SOC.Ticketing.Generated;
 using SOC.Ticketing.Services;
 
 
 TicketingService ticketingService = new TicketingService();
-InputCreateAlert inputCreateAlert = new InputCreateAlert();
-inputCreateAlert.Title = "alert";
-inputCreateAlert.Description = "desc1";
-inputCreateAlert.Type = "string";
-inputCreateAlert.Source = "string";
-inputCreateAlert.SourceRef = "string";
+InputCreateTask inputCreateTask = new InputCreateTask();
 
-await ticketingService.CreateAlertAsync(inputCreateAlert);
+/*inputCreateTask.Title = "task";
+inputCreateTask.Description = "desc";
 
-//var a = await ticketingService.GetAlertAsync("~4116592");
-//Console.WriteLine(a);
+var createOutput = await ticketingService.CreateTaskAsync(inputCreateTask, "~8106216");
+Console.WriteLine("id " + createOutput.Id);*/
 
-//var b = await ticketingService.DeleteAlertAsync("~4116592");
-//Console.WriteLine(b);
-/*
-InputUpdateAlert inputUpdateAlert = new InputUpdateAlert();
-inputUpdateAlert.Title = "alert";
-inputUpdateAlert.Description = "desc1";
-inputUpdateAlert.Type = "string";
-inputUpdateAlert.Source = "aaaaaaaaaaaaa";
-inputUpdateAlert.SourceRef = "string";
+/*var getOutput = await ticketingService.GetTaskAsync("~4214816");
+Console.WriteLine(getOutput.Id);
 
-await ticketingService.UpdateAlertAsync("~4411528", inputUpdateAlert);*/
+await ticketingService.DeleteTaskAsync("~4214816");
+*/
+
+InputUpdateTask inputUpdateTask = new InputUpdateTask();
+inputUpdateTask.Title = "updatedTitle";
+await ticketingService.UpdateTaskAsync("~4116624", inputUpdateTask);

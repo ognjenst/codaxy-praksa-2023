@@ -1,4 +1,4 @@
-﻿using SOC.Conductor.Client.Generated;
+﻿using SOC.Ticketing.Generated;
 
 
 namespace SOC.Ticketing.Services
