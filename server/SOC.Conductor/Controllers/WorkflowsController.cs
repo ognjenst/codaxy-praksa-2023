@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.DTOs;
 using SOC.Conductor.Generated;
+using Task = System.Threading.Tasks.Task;
 
 namespace SOC.Conductor.Controllers;
 
@@ -45,7 +46,7 @@ public class WorkflowsController : ControllerBase
 			}
 		};
 
-		await System.Threading.Tasks.Task.Delay(2000);
+        await Task.Delay(2000);
 
 		return Ok(wf);
 	}

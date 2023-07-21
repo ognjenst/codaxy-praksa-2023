@@ -4,8 +4,9 @@ using SOC.Conductor.Entities.Contexts;
 
 namespace SOC.Conductor.Repositories
 {
-	public class WorkflowRepository : RepositoryBase<Workflow>, IWorkflowRepository
-	{
-		public WorkflowRepository(SOCDbContext _SOCDbContext) : base(_SOCDbContext) { }
-	}
+    public class WorkflowRepository : RepositoryBase<Workflow>, IWorkflowRepository
+    {
+        public WorkflowRepository(SOCDbContext _SOCDbContext)
+            : base(_SOCDbContext) { }
+    }
 }

@@ -25,10 +25,9 @@ builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Pro
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opts =>
 {
-	var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-	var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-	opts.IncludeXmlComments(xmlPath);
-
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    opts.IncludeXmlComments(xmlPath);
 });
 
 // Configure Serilog
