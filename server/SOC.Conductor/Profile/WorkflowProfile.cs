@@ -10,6 +10,7 @@ namespace SOC.Conductor.Profile
         {
 			CreateMap<WorkflowDef, WorkflowResponseDto>();
 			CreateMap<WorkflowTask, WorkflowTaskDto>();
+            CreateMap<PlayRequestDto, StartWorkflowRequest>();
 		}
     }
 }
