@@ -5,7 +5,7 @@ export const BrightnessComponent = () => (
         <LabeledContainer
             label={{
                 text: "Brightness",
-                className: "text-lg text-slate-600",
+                className: "text-base text-slate-600",
             }}
         >
             <Slider
