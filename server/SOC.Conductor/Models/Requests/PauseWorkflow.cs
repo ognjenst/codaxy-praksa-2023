@@ -1,6 +1,6 @@
-﻿namespace SOC.Conductor.Models.Requests
+﻿using MediatR;
+
+namespace SOC.Conductor.Models.Requests
 {
-    public class PauseWorkflow
-    {
-    }
+    public record PauseWorkflow(PauseWorkflowRequestDto pauseDto) : IRequest;
 }

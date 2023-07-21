@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.DTOs;
 using SOC.Conductor.Generated;
+using SOC.Conductor.Models;
 using SOC.Conductor.Models.Requests;
 using Task = System.Threading.Tasks.Task;
 
@@ -31,8 +32,25 @@ public class WorkflowsController : ControllerBase
 	}
 
 	[HttpPut("PauseWorkflowAsync")]
-	public async Task<IActionResult> PauseWorkflowAsync()
+	public async Task<IActionResult> PauseWorkflowAsync([FromBody] PauseWorkflowRequestDto pauseDto)
 	{
-		return NotFound();
+		await _mediator.Send(new PauseWorkflow(pauseDto));
+
+		return NoContent();
+	}
+
+	[HttpPut("ResumeWorkflowAsync")]
+	public async Task<IActionResult> ResumeWorkflowAsync([FromBody] ResumeWorkflowRequestDto resumeDto)
+	{
+		await _mediator.Send(new ResumeWorkflow(resumeDto));
+
+		return NoContent();
+	}
+
+	[HttpPost("PlayWorkflowAsync")]
+	public async Task<IActionResult> PlayWorkflowAsync([FromBody] PlayRequestDto playDto)
+	{
+		await _mediator.Send(new PlayWorkflow(playDto));
+		return Ok();
 	}
 }
