@@ -6,7 +6,7 @@
 
 #nullable enable
 
-#pragma warning disable 108 // Disable "CS0108 '{derivedDto}.ToJson()' hides inherited member '{dtoBase}.ToJson()'. Use the new keyword if hiding was intended."
+#pragma warning disable 108 // Disable "CS0108 '{derivedDto}.ToJson()' hides inherited member '{dtoBase}.ToJson()'. Use the new keyword if hiding was longended."
 #pragma warning disable 114 // Disable "CS0114 '{derivedDto}.RaisePropertyChanged(String)' hides inherited member 'dtoBase.RaisePropertyChanged(String)'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword."
 #pragma warning disable 472 // Disable "CS0472 The result of the expression is always 'false' since a value of type 'Int32' is never equal to 'null' of type 'Int32?'
 #pragma warning disable 612 // Disable "CS0612 '...' is obsolete"
@@ -72,7 +72,7 @@ public partial class Imported
     public string Namespace { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("numberOfTags", Required = Newtonsoft.Json.Required.Always)]
-    public int NumberOfTags { get; set; } = default!;
+    public long NumberOfTags { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -111,7 +111,7 @@ public partial class InputAction
     public JsObject? Parameters { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("tlp", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Tlp { get; set; } = default!;
+    public long? Tlp { get; set; } = default!;
 
     private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
 
@@ -406,7 +406,7 @@ public partial class InputCreateAlert
     public InputCreateAlertSeverity? Severity { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("date", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Date { get; set; } = default!;
+    public long? Date { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<string>? Tags { get; set; } = default!;
@@ -473,7 +473,7 @@ public partial class InputCreateAlertStatus
     /// Used to order the values in the ui
     /// </summary>
     [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Order { get; set; } = default!;
+    public long? Order { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     [System.ComponentModel.DataAnnotations.StringLength(1048576)]
@@ -516,10 +516,10 @@ public partial class InputCreateCase
     public InputCreateCaseSeverity? Severity { get; set; } = SOC.Ticketing.Generated.InputCreateCaseSeverity._2;
 
     [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? StartDate { get; set; } = default!;
+    public long? StartDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? EndDate { get; set; } = default!;
+    public long? EndDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<string>? Tags { get; set; } = default!;
@@ -596,10 +596,10 @@ public partial class InputCreateCaseFromAlert
     public InputCreateCaseFromAlertSeverity? Severity { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? StartDate { get; set; } = default!;
+    public long? StartDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? EndDate { get; set; } = default!;
+    public long? EndDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<string>? Tags { get; set; } = default!;
@@ -680,7 +680,7 @@ public partial class InputCreateCaseStatus
     /// Used to order the values in the ui
     /// </summary>
     [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Order { get; set; } = default!;
+    public long? Order { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     [System.ComponentModel.DataAnnotations.StringLength(1048576)]
@@ -708,7 +708,7 @@ public partial class InputCreateCaseStatus
 public partial class InputCreateCaseTemplate
 {
     /// <summary>
-    /// Name of the CaseTemplate, must be unique in your organisation. This name can be used in your integrations, for instance when creating a case
+    /// Name of the CaseTemplate, must be unique in your organisation. This name can be used in your longegrations, for instance when creating a case
     /// </summary>
     [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -792,7 +792,7 @@ public partial class InputCreateDashboard
     public JsObject Definition { get; set; } = new JsObject();
 
     [Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Version { get; set; } = default!;
+    public long? Version { get; set; } = default!;
 
     private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
 
@@ -814,10 +814,10 @@ public partial class InputCreateLog
     public string Message { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? StartDate { get; set; } = default!;
+    public long? StartDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("includeInTimeline", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? IncludeInTimeline { get; set; } = default!;
+    public long? IncludeInTimeline { get; set; } = default!;
 
     private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
 
@@ -846,7 +846,7 @@ public partial class InputCreateObservable
     public string? Message { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? StartDate { get; set; } = default!;
+    public long? StartDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("attachment", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required]
@@ -868,7 +868,7 @@ public partial class InputCreateObservable
     public bool? Sighted { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("sightedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? SightedAt { get; set; } = default!;
+    public long? SightedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("ignoreSimilarity", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public bool? IgnoreSimilarity { get; set; } = default!;
@@ -935,7 +935,7 @@ public partial class InputCreatePage
     public string Content { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Order { get; set; } = default!;
+    public long? Order { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("category", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -1031,16 +1031,16 @@ public partial class InputCreateTask
     public bool? Flag { get; set; } = false;
 
     [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? StartDate { get; set; } = default!;
+    public long? StartDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? EndDate { get; set; } = default!;
+    public long? EndDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Order { get; set; } = 0;
+    public long? Order { get; set; } = 0;
 
     [Newtonsoft.Json.JsonProperty("dueDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? DueDate { get; set; } = default!;
+    public long? DueDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("assignee", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Assignee { get; set; } = default!;
@@ -1108,10 +1108,10 @@ public partial class InputCreateUser
 public partial class InputCustomEvent
 {
     [Newtonsoft.Json.JsonProperty("date", Required = Newtonsoft.Json.Required.Always)]
-    public int Date { get; set; } = default!;
+    public long Date { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? EndDate { get; set; } = default!;
+    public long? EndDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -1190,7 +1190,7 @@ public partial class InputCustomFieldValue
     public object Value { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Order { get; set; } = default!;
+    public long? Order { get; set; } = default!;
 
     private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
 
@@ -1240,7 +1240,7 @@ public partial class InputEntry
     public string? Description { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("numerical_value", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Numerical_value { get; set; } = default!;
+    public long? Numerical_value { get; set; } = default!;
 
     private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
 
@@ -1532,7 +1532,7 @@ public partial class InputProcedure
     public string PatternId { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("occurDate", Required = Newtonsoft.Json.Required.Always)]
-    public int OccurDate { get; set; } = default!;
+    public long OccurDate { get; set; } = default!;
 
     /// <summary>
     /// Name of the tactic, useful if the technique belongs to several tactics
@@ -1614,10 +1614,10 @@ public partial class InputQueryGenericOperation
 public partial class InputQueryPagingOperation
 {
     [Newtonsoft.Json.JsonProperty("from", Required = Newtonsoft.Json.Required.Always)]
-    public int From { get; set; } = default!;
+    public long From { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("to", Required = Newtonsoft.Json.Required.Always)]
-    public int To { get; set; } = default!;
+    public long To { get; set; } = default!;
 
     private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
 
@@ -1675,10 +1675,10 @@ public partial class InputSearch
     public string Query { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("from", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? From { get; set; } = 0;
+    public long? From { get; set; } = 0;
 
     [Newtonsoft.Json.JsonProperty("to", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? To { get; set; } = 10;
+    public long? To { get; set; } = 10;
 
     private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
 
@@ -1775,7 +1775,7 @@ public partial class InputShare
 public partial class InputTOTPCode
 {
     [Newtonsoft.Json.JsonProperty("code", Required = Newtonsoft.Json.Required.Always)]
-    public int Code { get; set; } = default!;
+    public long Code { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("secret", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -1805,7 +1805,7 @@ public partial class InputTaxonomy
     public string Description { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.Always)]
-    public int Version { get; set; } = default!;
+    public long Version { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("exclusive", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public bool? Exclusive { get; set; } = default!;
@@ -1871,10 +1871,10 @@ public partial class InputUpdateAlert
     public InputUpdateAlertSeverity? Severity { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("date", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Date { get; set; } = default!;
+    public long? Date { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("lastSyncDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? LastSyncDate { get; set; } = default!;
+    public long? LastSyncDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<string>? Tags { get; set; } = default!;
@@ -1913,7 +1913,7 @@ public partial class InputUpdateAlert
 public partial class InputUpdateAlertStatus
 {
     [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Order { get; set; } = default!;
+    public long? Order { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     [System.ComponentModel.DataAnnotations.StringLength(1048576)]
@@ -1964,10 +1964,10 @@ public partial class InputUpdateAlertWithIds
     public InputUpdateAlertWithIdsSeverity? Severity { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("date", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Date { get; set; } = default!;
+    public long? Date { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("lastSyncDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? LastSyncDate { get; set; } = default!;
+    public long? LastSyncDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<string>? Tags { get; set; } = default!;
@@ -2016,10 +2016,10 @@ public partial class InputUpdateCase
     public InputUpdateCaseSeverity? Severity { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? StartDate { get; set; } = default!;
+    public long? StartDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? EndDate { get; set; } = default!;
+    public long? EndDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<string>? Tags { get; set; } = default!;
@@ -2070,7 +2070,7 @@ public partial class InputUpdateCase
 public partial class InputUpdateCaseStatus
 {
     [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Order { get; set; } = default!;
+    public long? Order { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     [System.ComponentModel.DataAnnotations.StringLength(1048576)]
@@ -2161,10 +2161,10 @@ public partial class InputUpdateCaseWithIds
     public InputUpdateCaseWithIdsSeverity? Severity { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? StartDate { get; set; } = default!;
+    public long? StartDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? EndDate { get; set; } = default!;
+    public long? EndDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<string>? Tags { get; set; } = default!;
@@ -2239,10 +2239,10 @@ public partial class InputUpdateCatalogOfPattern
 public partial class InputUpdateCustomEvent
 {
     [Newtonsoft.Json.JsonProperty("date", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Date { get; set; } = default!;
+    public long? Date { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? EndDate { get; set; } = default!;
+    public long? EndDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Title { get; set; } = default!;
@@ -2313,7 +2313,7 @@ public partial class InputUpdateDashboard
     public DashboardStatus? Status { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Version { get; set; } = default!;
+    public long? Version { get; set; } = default!;
 
     private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
 
@@ -2334,7 +2334,7 @@ public partial class InputUpdateLog
     public string? Message { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("includeInTimeline", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? IncludeInTimeline { get; set; } = default!;
+    public long? IncludeInTimeline { get; set; } = default!;
 
     private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
 
@@ -2373,7 +2373,7 @@ public partial class InputUpdateObservable
     public bool? Sighted { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("sightedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? SightedAt { get; set; } = default!;
+    public long? SightedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("ignoreSimilarity", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public bool? IgnoreSimilarity { get; set; } = default!;
@@ -2419,7 +2419,7 @@ public partial class InputUpdateObservableWithIds
     public bool? Sighted { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("sightedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? SightedAt { get; set; } = default!;
+    public long? SightedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("ignoreSimilarity", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public bool? IgnoreSimilarity { get; set; } = default!;
@@ -2479,7 +2479,7 @@ public partial class InputUpdatePage
     public string? Content { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Order { get; set; } = default!;
+    public long? Order { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("category", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Category { get; set; } = default!;
@@ -2503,7 +2503,7 @@ public partial class InputUpdateProcedure
     public string? Description { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("occurDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? OccurDate { get; set; } = default!;
+    public long? OccurDate { get; set; } = default!;
 
     private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
 
@@ -2574,16 +2574,16 @@ public partial class InputUpdateTask
     public bool? Flag { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? StartDate { get; set; } = default!;
+    public long? StartDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? EndDate { get; set; } = default!;
+    public long? EndDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Order { get; set; } = default!;
+    public long? Order { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("dueDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? DueDate { get; set; } = default!;
+    public long? DueDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("assignee", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Assignee { get; set; } = default!;
@@ -2623,16 +2623,16 @@ public partial class InputUpdateTaskWithIds
     public bool? Flag { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? StartDate { get; set; } = default!;
+    public long? StartDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? EndDate { get; set; } = default!;
+    public long? EndDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Order { get; set; } = default!;
+    public long? Order { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("dueDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? DueDate { get; set; } = default!;
+    public long? DueDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("assignee", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Assignee { get; set; } = default!;
@@ -2818,7 +2818,7 @@ public partial class LoginInput
     public string Password { get; set; } = default!;
 
     /// <summary>
-    /// Organisation id or name to logged into
+    /// Organisation id or name to logged longo
     /// </summary>
     [Newtonsoft.Json.JsonProperty("organisation", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Organisation { get; set; } = "Uses user default organisation or first joined organisation";
@@ -3005,19 +3005,19 @@ public partial class OutputAlert
     public string Description { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("severity", Required = Newtonsoft.Json.Required.Always)]
-    public int Severity { get; set; } = default!;
+    public long Severity { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("date", Required = Newtonsoft.Json.Required.Always)]
-    public int Date { get; set; } = default!;
+    public long Date { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<string>? Tags { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("tlp", Required = Newtonsoft.Json.Required.Always)]
-    public int Tlp { get; set; } = default!;
+    public long Tlp { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("pap", Required = Newtonsoft.Json.Required.Always)]
-    public int Pap { get; set; } = default!;
+    public long Pap { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("follow", Required = Newtonsoft.Json.Required.Always)]
     public bool Follow { get; set; } = default!;
@@ -3050,16 +3050,16 @@ public partial class OutputAlert
     public JsObject ExtraData { get; set; } = new JsObject();
 
     [Newtonsoft.Json.JsonProperty("newDate", Required = Newtonsoft.Json.Required.Always)]
-    public int NewDate { get; set; } = default!;
+    public long NewDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("inProgressDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? InProgressDate { get; set; } = default!;
+    public long? InProgressDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("closedDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? ClosedDate { get; set; } = default!;
+    public long? ClosedDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("importedDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? ImportedDate { get; set; } = default!;
+    public long? ImportedDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("timeToDetect", Required = Newtonsoft.Json.Required.Always)]
     public long TimeToDetect { get; set; } = default!;
@@ -3096,13 +3096,13 @@ public partial class OutputAlertStatus
     public string _type { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedBy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdBy", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -3117,7 +3117,7 @@ public partial class OutputAlertStatus
     public string Stage { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Order { get; set; } = default!;
+    public long? Order { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Description { get; set; } = default!;
@@ -3185,10 +3185,10 @@ public partial class OutputAttachment
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -3255,10 +3255,10 @@ public partial class OutputAudit
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("action", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -3327,7 +3327,7 @@ public partial class OutputCase
     /// An incremental number to reference the case. This field can be used in the apis in place of the _id
     /// </summary>
     [Newtonsoft.Json.JsonProperty("number", Required = Newtonsoft.Json.Required.Always)]
-    public int Number { get; set; } = default!;
+    public long Number { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -3338,7 +3338,7 @@ public partial class OutputCase
     public string Description { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("severity", Required = Newtonsoft.Json.Required.Always)]
-    public int Severity { get; set; } = default!;
+    public long Severity { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.Always)]
     public long StartDate { get; set; } = default!;
@@ -3353,10 +3353,10 @@ public partial class OutputCase
     public bool Flag { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("tlp", Required = Newtonsoft.Json.Required.Always)]
-    public int Tlp { get; set; } = default!;
+    public long Tlp { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("pap", Required = Newtonsoft.Json.Required.Always)]
-    public int Pap { get; set; } = default!;
+    public long Pap { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -3407,7 +3407,7 @@ public partial class OutputCase
     public long? AlertNewDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("alertInProgressDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? AlertInProgressDate { get; set; } = default!;
+    public long? AlertInProgressDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("alertImportedDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public long? AlertImportedDate { get; set; } = default!;
@@ -3453,13 +3453,13 @@ public partial class OutputCaseStatus
     public string _type { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedBy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdBy", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -3474,7 +3474,7 @@ public partial class OutputCaseStatus
     public string Stage { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Order { get; set; } = default!;
+    public long? Order { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Description { get; set; } = default!;
@@ -3516,10 +3516,10 @@ public partial class OutputCaseTemplate
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -3536,7 +3536,7 @@ public partial class OutputCaseTemplate
     public string? Description { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("severity", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Severity { get; set; } = default!;
+    public long? Severity { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<string>? Tags { get; set; } = default!;
@@ -3545,10 +3545,10 @@ public partial class OutputCaseTemplate
     public bool Flag { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("tlp", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Tlp { get; set; } = default!;
+    public long? Tlp { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("pap", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Pap { get; set; } = default!;
+    public long? Pap { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("summary", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Summary { get; set; } = default!;
@@ -3586,10 +3586,10 @@ public partial class OutputCatalogOfPattern
     public string CreatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int CreatedAt { get; set; } = default!;
+    public long CreatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? UpdatedAt { get; set; } = default!;
+    public long? UpdatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -3632,10 +3632,10 @@ public partial class OutputComment
     public string CreatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int CreatedAt { get; set; } = default!;
+    public long CreatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? UpdatedAt { get; set; } = default!;
+    public long? UpdatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("message", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -3674,16 +3674,16 @@ public partial class OutputCustomEvent
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("date", Required = Newtonsoft.Json.Required.Always)]
-    public int Date { get; set; } = default!;
+    public long Date { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? EndDate { get; set; } = default!;
+    public long? EndDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -3722,10 +3722,10 @@ public partial class OutputCustomField
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -3792,7 +3792,7 @@ public partial class OutputCustomFieldValue
     public object Value { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.Always)]
-    public int Order { get; set; } = default!;
+    public long Order { get; set; } = default!;
 
     private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
 
@@ -3824,10 +3824,10 @@ public partial class OutputDashboard
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -3849,7 +3849,7 @@ public partial class OutputDashboard
     public bool Writable { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.Always)]
-    public int Version { get; set; } = default!;
+    public long Version { get; set; } = default!;
 
     private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
 
@@ -3989,7 +3989,7 @@ public partial class OutputLicense
     public string _id { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdBy", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -4016,10 +4016,10 @@ public partial class OutputLicense
     public string Kind { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("validFrom", Required = Newtonsoft.Json.Required.Always)]
-    public int ValidFrom { get; set; } = default!;
+    public long ValidFrom { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("expiresAt", Required = Newtonsoft.Json.Required.Always)]
-    public int ExpiresAt { get; set; } = default!;
+    public long ExpiresAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("current", Required = Newtonsoft.Json.Required.Always)]
     public bool Current { get; set; } = default!;
@@ -4029,7 +4029,7 @@ public partial class OutputLicense
 
     [Newtonsoft.Json.JsonProperty("quotas", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required]
-    public System.Collections.Generic.IDictionary<string, int> Quotas { get; set; } = new System.Collections.Generic.Dictionary<string, int>();
+    public System.Collections.Generic.IDictionary<string, long> Quotas { get; set; } = new System.Collections.Generic.Dictionary<string, long>();
 
     private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
 
@@ -4107,10 +4107,10 @@ public partial class OutputLicenseCurrentOk
 public partial class OutputLicenseQuota
 {
     [Newtonsoft.Json.JsonProperty("current", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? Current { get; set; } = default!;
+    public long? Current { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("quota", Required = Newtonsoft.Json.Required.Always)]
-    public int Quota { get; set; } = default!;
+    public long Quota { get; set; } = default!;
 
     private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
 
@@ -4147,10 +4147,10 @@ public partial class OutputLicenseStatus
     public string Kind { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("validFrom", Required = Newtonsoft.Json.Required.Always)]
-    public int ValidFrom { get; set; } = default!;
+    public long ValidFrom { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("expiresAt", Required = Newtonsoft.Json.Required.Always)]
-    public int ExpiresAt { get; set; } = default!;
+    public long ExpiresAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("capabilities", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<string>? Capabilities { get; set; } = default!;
@@ -4195,17 +4195,17 @@ public partial class OutputLog
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("message", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
     public string Message { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("date", Required = Newtonsoft.Json.Required.Always)]
-    public int Date { get; set; } = default!;
+    public long Date { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("attachments", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<OutputAttachment>? Attachments { get; set; } = default!;
@@ -4215,7 +4215,7 @@ public partial class OutputLog
     public string Owner { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("includeInTimeline", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? IncludeInTimeline { get; set; } = default!;
+    public long? IncludeInTimeline { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("extraData", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required]
@@ -4239,19 +4239,19 @@ public partial class OutputMergeCases
     /// Number of observables left untouched
     /// </summary>
     [Newtonsoft.Json.JsonProperty("untouched", Required = Newtonsoft.Json.Required.Always)]
-    public int Untouched { get; set; } = default!;
+    public long Untouched { get; set; } = default!;
 
     /// <summary>
     /// Number of observables updated
     /// </summary>
     [Newtonsoft.Json.JsonProperty("updated", Required = Newtonsoft.Json.Required.Always)]
-    public int Updated { get; set; } = default!;
+    public long Updated { get; set; } = default!;
 
     /// <summary>
     /// Number of observables deleted
     /// </summary>
     [Newtonsoft.Json.JsonProperty("deleted", Required = Newtonsoft.Json.Required.Always)]
-    public int Deleted { get; set; } = default!;
+    public long Deleted { get; set; } = default!;
 
     private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
 
@@ -4283,10 +4283,10 @@ public partial class OutputObservable
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("dataType", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -4296,16 +4296,16 @@ public partial class OutputObservable
     public string? Data { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.Always)]
-    public int StartDate { get; set; } = default!;
+    public long StartDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("attachment", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public OutputAttachment? Attachment { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("tlp", Required = Newtonsoft.Json.Required.Always)]
-    public int Tlp { get; set; } = default!;
+    public long Tlp { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("pap", Required = Newtonsoft.Json.Required.Always)]
-    public int Pap { get; set; } = default!;
+    public long Pap { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<string>? Tags { get; set; } = default!;
@@ -4317,7 +4317,7 @@ public partial class OutputObservable
     public bool Sighted { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("sightedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? SightedAt { get; set; } = default!;
+    public long? SightedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("reports", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required]
@@ -4356,13 +4356,13 @@ public partial class OutputObservableType
     public string _type { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedBy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdBy", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -4405,10 +4405,10 @@ public partial class OutputOrganisation
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     /// <summary>
     /// This field can be used to reference an organisation instead of its _id
@@ -4530,10 +4530,10 @@ public partial class OutputPage
     public string? UpdatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int CreatedAt { get; set; } = default!;
+    public long CreatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? UpdatedAt { get; set; } = default!;
+    public long? UpdatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -4552,7 +4552,7 @@ public partial class OutputPage
     public string Slug { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.Always)]
-    public int Order { get; set; } = default!;
+    public long Order { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("category", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -4588,10 +4588,10 @@ public partial class OutputPattern
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("patternId", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -4674,14 +4674,14 @@ public partial class OutputProcedure
     public string _id { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdBy", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
     public string _createdBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedBy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? _updatedBy { get; set; } = default!;
@@ -4690,7 +4690,7 @@ public partial class OutputProcedure
     public string? Description { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("occurDate", Required = Newtonsoft.Json.Required.Always)]
-    public int OccurDate { get; set; } = default!;
+    public long OccurDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("patternId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? PatternId { get; set; } = default!;
@@ -4740,10 +4740,10 @@ public partial class OutputProfile
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -4864,10 +4864,10 @@ public partial class OutputShare
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("caseId", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -5045,10 +5045,10 @@ public partial class OutputTag
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("namespace", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -5135,10 +5135,10 @@ public partial class OutputTask
     public string? Assignee { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("order", Required = Newtonsoft.Json.Required.Always)]
-    public int Order { get; set; } = default!;
+    public long Order { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("dueDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? DueDate { get; set; } = default!;
+    public long? DueDate { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("extraData", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required]
@@ -5174,10 +5174,10 @@ public partial class OutputTaxonomy
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("namespace", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -5188,7 +5188,7 @@ public partial class OutputTaxonomy
     public string Description { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.Always)]
-    public int Version { get; set; } = default!;
+    public long Version { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("tags", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<OutputTag>? Tags { get; set; } = default!;
@@ -5229,7 +5229,7 @@ public partial class OutputTimeline
 public partial class OutputTimelineEvent
 {
     [Newtonsoft.Json.JsonProperty("date", Required = Newtonsoft.Json.Required.Always)]
-    public int Date { get; set; } = default!;
+    public long Date { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("kind", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -5248,7 +5248,7 @@ public partial class OutputTimelineEvent
     public JsObject Details { get; set; } = new JsObject();
 
     [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? EndDate { get; set; } = default!;
+    public long? EndDate { get; set; } = default!;
 
     private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
 
@@ -5276,10 +5276,10 @@ public partial class OutputUser
     public string? _updatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int _createdAt { get; set; } = default!;
+    public long _createdAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? _updatedAt { get; set; } = default!;
+    public long? _updatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("login", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -27198,7 +27198,7 @@ public partial class FileResponse : System.IDisposable
     private System.IDisposable? _client;
     private System.IDisposable? _response;
 
-    public int StatusCode { get; private set; }
+    public long StatusCode { get; private set; }
 
     public System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> Headers { get; private set; }
 
@@ -27209,7 +27209,7 @@ public partial class FileResponse : System.IDisposable
         get { return StatusCode == 206; }
     }
 
-    public FileResponse(int statusCode, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.IO.Stream stream, System.IDisposable? client, System.IDisposable? response)
+    public FileResponse(long statusCode, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.IO.Stream stream, System.IDisposable? client, System.IDisposable? response)
     {
         StatusCode = statusCode;
         Headers = headers;

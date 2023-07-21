@@ -24,4 +24,10 @@
 		<PackageReference Include="MediatR.Extensions.Autofac.DependencyInjection" Version="8.2.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<None Update="appsettings.Development.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
 </Project>
