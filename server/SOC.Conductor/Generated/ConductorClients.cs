@@ -8551,7 +8551,7 @@ public partial class TaskDef
     public long TimeoutSeconds { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("inputKeys", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<string> InputKeys { get; } = default!;
+    public System.Collections.Generic.ICollection<string> InputKeys { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("outputKeys", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<string> OutputKeys { get; } = default!;
