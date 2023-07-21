@@ -9,6 +9,7 @@ namespace SOC.Conductor.Profile
         public TaskProfile()
         {
             CreateMap<TaskDef, TaskResponseDto>();
+
         }
     }
 }

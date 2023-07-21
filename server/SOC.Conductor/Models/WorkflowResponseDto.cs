@@ -11,6 +11,6 @@ namespace SOC.Conductor.Models
         [JsonProperty("version")]
         public int Version { get; set; }
         [JsonProperty("tasks")]
-        public ICollection<WorkflowTaskDto> Tasks { get; set; }
+        public IEnumerable<WorkflowTaskDto> Tasks { get; set; }
     } 
 }

@@ -8,10 +8,10 @@ namespace SOC.Conductor.Models
 		public string Name { get; set; }
 		[JsonProperty("taskReferenceName")]
 		public string TaskReferenceName { get; set; }
-		[JsonProperty("type")]
-		public string Type { get; set; }
+		
 		[JsonProperty("inputParameters")]
 		public Dictionary<string, string> InputParameters { get; set; }
-
+		[JsonProperty("type")]
+		public string Type { get; set; }
 	}
 }
