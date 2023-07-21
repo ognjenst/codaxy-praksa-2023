@@ -1,8 +1,6 @@
-﻿using IoT.Conductor.Services;
+﻿using SOC.Conductor.Entities;
 
 namespace SOC.Conductor.Contracts
 {
-    public interface IWorkflowRepository : IRepositoryBase<Workflow>
-    {
-    }
+    public interface IWorkflowRepository : IRepositoryBase<Workflow> { }
 }

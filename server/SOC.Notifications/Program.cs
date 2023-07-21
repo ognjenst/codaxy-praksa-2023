@@ -12,6 +12,7 @@ using SOC.Notifications.Extensions;
 using SOC.Notifications.Services;
 using Autofac.Core;
 using SOC.Notifications.Handler;
+using SOC.Notifications.Options;
 
 var builder = Host.CreateDefaultBuilder()
     .ConfigureAppConfiguration(
@@ -61,12 +62,6 @@ var builder = Host.CreateDefaultBuilder()
     );
 
 using var host = builder.Build();
-
-/*var slackService = host.Services.GetRequiredService<ISlackService>();
-
-string channel = "#soc";
-string message = "This message is formated using SlackNet.";
-await slackService.SendMessage(message);*/
 
 await host.RunAsync();
 
