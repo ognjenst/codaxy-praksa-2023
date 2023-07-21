@@ -25,12 +25,6 @@ using System = global::System;
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
 public partial interface IWorkflowResourceClient
 {
-    /// <summary>
-    /// Skips a given task from a current running workflow
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task SkipTaskFromWorkflowAsync(string workflowId, string taskReferenceName, SkipTaskRequest skipTaskRequest);
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -38,14 +32,7 @@ public partial interface IWorkflowResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task SkipTaskFromWorkflowAsync(string workflowId, string taskReferenceName, SkipTaskRequest skipTaskRequest, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Resumes the workflow
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task ResumeWorkflowAsync(string workflowId);
+    System.Threading.Tasks.Task SkipTaskFromWorkflowAsync(string workflowId, string taskReferenceName, SkipTaskRequest skipTaskRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -53,14 +40,7 @@ public partial interface IWorkflowResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task ResumeWorkflowAsync(string workflowId, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Pauses the workflow
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task PauseWorkflowAsync(string workflowId);
+    System.Threading.Tasks.Task ResumeWorkflowAsync(string workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -68,14 +48,7 @@ public partial interface IWorkflowResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task PauseWorkflowAsync(string workflowId, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Starts the decision task for a workflow
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task DecideAsync(string workflowId);
+    System.Threading.Tasks.Task PauseWorkflowAsync(string workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -83,29 +56,7 @@ public partial interface IWorkflowResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task DecideAsync(string workflowId, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Start a new workflow with StartWorkflowRequest, which allows task to be executed in a domain
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<string> StartWorkflowAsync(StartWorkflowRequest body);
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Start a new workflow with StartWorkflowRequest, which allows task to be executed in a domain
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<string> StartWorkflowAsync(StartWorkflowRequest body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Retries the last failed task
-    /// </summary>
-    /// <returns>No Content</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task RetryAsync(string workflowId, bool? resumeSubworkflowTasks);
+    System.Threading.Tasks.Task DecideAsync(string workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -113,14 +64,7 @@ public partial interface IWorkflowResourceClient
     /// </summary>
     /// <returns>No Content</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task RetryAsync(string workflowId, bool? resumeSubworkflowTasks, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Restarts a completed workflow
-    /// </summary>
-    /// <returns>No Content</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task RestartAsync(string workflowId, bool? useLatestDefinitions);
+    System.Threading.Tasks.Task RetryAsync(string workflowId, bool? resumeSubworkflowTasks = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -128,14 +72,7 @@ public partial interface IWorkflowResourceClient
     /// </summary>
     /// <returns>No Content</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task RestartAsync(string workflowId, bool? useLatestDefinitions, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Resets callback times of all non-terminal SIMPLE tasks to 0
-    /// </summary>
-    /// <returns>No Content</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task ResetWorkflowAsync(string workflowId);
+    System.Threading.Tasks.Task RestartAsync(string workflowId, bool? useLatestDefinitions = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -143,14 +80,7 @@ public partial interface IWorkflowResourceClient
     /// </summary>
     /// <returns>No Content</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task ResetWorkflowAsync(string workflowId, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Reruns the workflow from a specific task
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<string> RerunAsync(string workflowId, RerunWorkflowRequest body);
+    System.Threading.Tasks.Task ResetWorkflowAsync(string workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -158,29 +88,7 @@ public partial interface IWorkflowResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<string> RerunAsync(string workflowId, RerunWorkflowRequest body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Start a new workflow. Returns the ID of the workflow instance that can be later used for tracking
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<string> StartWorkflow_1Async(string name, int? version, string? correlationId, int? priority, System.Collections.Generic.IDictionary<string, object> body);
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Start a new workflow. Returns the ID of the workflow instance that can be later used for tracking
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<string> StartWorkflow_1Async(string name, int? version, string? correlationId, int? priority, System.Collections.Generic.IDictionary<string, object> body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Lists workflows for the given correlation id list
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, System.Collections.Generic.ICollection<Workflow>>> GetWorkflowsAsync(string name, bool? includeClosed, bool? includeTasks, System.Collections.Generic.IEnumerable<string> body);
+    System.Threading.Tasks.Task<string> RerunAsync(string workflowId, RerunWorkflowRequest body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -188,29 +96,23 @@ public partial interface IWorkflowResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, System.Collections.Generic.ICollection<Workflow>>> GetWorkflowsAsync(string name, bool? includeClosed, bool? includeTasks, System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Test workflow execution using mock data
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<Workflow> TestWorkflowAsync(WorkflowTestRequest body);
+    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, System.Collections.Generic.ICollection<Workflow>>> GetWorkflowsAsync(string name, System.Collections.Generic.IEnumerable<string> body, bool? includeClosed = null, bool? includeTasks = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
-    /// Test workflow execution using mock data
+    /// Start a new workflow. Returns the ID of the workflow instance that can be later used for tracking
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<Workflow> TestWorkflowAsync(WorkflowTestRequest body, System.Threading.CancellationToken cancellationToken);
+    System.Threading.Tasks.Task<string> StartWorkflowAsync(string name, System.Collections.Generic.IDictionary<string, object> body, int? version = null, string? correlationId = null, int? priority = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
-    /// Gets the workflow by workflow id
+    /// Start a new workflow with StartWorkflowRequest, which allows task to be executed in a domain
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<Workflow> GetExecutionStatusAsync(string workflowId, bool? includeTasks);
+    System.Threading.Tasks.Task<string> StartWorkflow_1Async(StartWorkflowRequest body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -218,14 +120,7 @@ public partial interface IWorkflowResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<Workflow> GetExecutionStatusAsync(string workflowId, bool? includeTasks, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Terminate workflow execution
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task Terminate_1Async(string workflowId, string? reason);
+    System.Threading.Tasks.Task<Workflow> GetExecutionStatusAsync(string workflowId, bool? includeTasks = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -233,14 +128,7 @@ public partial interface IWorkflowResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task Terminate_1Async(string workflowId, string? reason, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Lists workflows for the given correlation id
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Workflow>> GetWorkflows_1Async(string name, string correlationId, bool? includeClosed, bool? includeTasks);
+    System.Threading.Tasks.Task Terminate_1Async(string workflowId, string? reason = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -248,17 +136,7 @@ public partial interface IWorkflowResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Workflow>> GetWorkflows_1Async(string name, string correlationId, bool? includeClosed, bool? includeTasks, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Search for workflows based on payload and other parameters
-    /// </summary>
-    /// <remarks>
-    /// use sort options as sort=&lt;field&gt;:ASC|DESC e.g. sort=name&amp;sort=workflowId:DESC. If order is not specified, defaults to ASC.
-    /// </remarks>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<SearchResultWorkflowSummary> SearchAsync(int? start, int? size, string? sort, string? freeText, string? query);
+    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Workflow>> GetWorkflows_1Async(string name, string correlationId, bool? includeClosed = null, bool? includeTasks = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -269,17 +147,7 @@ public partial interface IWorkflowResourceClient
     /// </remarks>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<SearchResultWorkflowSummary> SearchAsync(int? start, int? size, string? sort, string? freeText, string? query, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Search for workflows based on payload and other parameters
-    /// </summary>
-    /// <remarks>
-    /// use sort options as sort=&lt;field&gt;:ASC|DESC e.g. sort=name&amp;sort=workflowId:DESC. If order is not specified, defaults to ASC.
-    /// </remarks>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<SearchResultWorkflow> SearchV2Async(int? start, int? size, string? sort, string? freeText, string? query);
+    System.Threading.Tasks.Task<SearchResultWorkflowSummary> SearchAsync(int? start = null, int? size = null, string? sort = null, string? freeText = null, string? query = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -290,17 +158,7 @@ public partial interface IWorkflowResourceClient
     /// </remarks>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<SearchResultWorkflow> SearchV2Async(int? start, int? size, string? sort, string? freeText, string? query, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Search for workflows based on task parameters
-    /// </summary>
-    /// <remarks>
-    /// use sort options as sort=&lt;field&gt;:ASC|DESC e.g. sort=name&amp;sort=workflowId:DESC. If order is not specified, defaults to ASC
-    /// </remarks>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<SearchResultWorkflowSummary> SearchWorkflowsByTasksAsync(int? start, int? size, string? sort, string? freeText, string? query);
+    System.Threading.Tasks.Task<SearchResultWorkflow> SearchV2Async(int? start = null, int? size = null, string? sort = null, string? freeText = null, string? query = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -311,17 +169,7 @@ public partial interface IWorkflowResourceClient
     /// </remarks>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<SearchResultWorkflowSummary> SearchWorkflowsByTasksAsync(int? start, int? size, string? sort, string? freeText, string? query, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Search for workflows based on task parameters
-    /// </summary>
-    /// <remarks>
-    /// use sort options as sort=&lt;field&gt;:ASC|DESC e.g. sort=name&amp;sort=workflowId:DESC. If order is not specified, defaults to ASC
-    /// </remarks>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<SearchResultWorkflow> SearchWorkflowsByTasksV2Async(int? start, int? size, string? sort, string? freeText, string? query);
+    System.Threading.Tasks.Task<SearchResultWorkflowSummary> SearchWorkflowsByTasksAsync(int? start = null, int? size = null, string? sort = null, string? freeText = null, string? query = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -332,14 +180,7 @@ public partial interface IWorkflowResourceClient
     /// </remarks>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<SearchResultWorkflow> SearchWorkflowsByTasksV2Async(int? start, int? size, string? sort, string? freeText, string? query, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Retrieve all the running workflows
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> GetRunningWorkflowAsync(string name, int? version, long? startTime, long? endTime);
+    System.Threading.Tasks.Task<SearchResultWorkflow> SearchWorkflowsByTasksV2Async(int? start = null, int? size = null, string? sort = null, string? freeText = null, string? query = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -347,14 +188,7 @@ public partial interface IWorkflowResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> GetRunningWorkflowAsync(string name, int? version, long? startTime, long? endTime, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Get the uri and path of the external storage where the workflow payload is to be stored
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<ExternalStorageLocation> GetExternalStorageLocationAsync(string path, string operation, string payloadType);
+    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> GetRunningWorkflowAsync(string name, int? version = null, long? startTime = null, long? endTime = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -362,14 +196,7 @@ public partial interface IWorkflowResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<ExternalStorageLocation> GetExternalStorageLocationAsync(string path, string operation, string payloadType, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Removes the workflow from the system
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task DeleteAsync(string workflowId, bool? archiveWorkflow);
+    System.Threading.Tasks.Task<ExternalStorageLocation> GetExternalStorageLocationAsync(string path, string operation, string payloadType, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -377,7 +204,7 @@ public partial interface IWorkflowResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task DeleteAsync(string workflowId, bool? archiveWorkflow, System.Threading.CancellationToken cancellationToken);
+    System.Threading.Tasks.Task DeleteAsync(string workflowId, bool? archiveWorkflow = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 }
 
@@ -397,7 +224,7 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
 
     private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
     {
-        var settings = new Newtonsoft.Json.JsonSerializerSettings { PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.All };
+        var settings = new Newtonsoft.Json.JsonSerializerSettings();
         UpdateJsonSerializerSettings(settings);
         return settings;
     }
@@ -416,23 +243,13 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
     partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
     partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
-    /// <summary>
-    /// Skips a given task from a current running workflow
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task SkipTaskFromWorkflowAsync(string workflowId, string taskReferenceName, SkipTaskRequest skipTaskRequest)
-    {
-        return SkipTaskFromWorkflowAsync(workflowId, taskReferenceName, skipTaskRequest, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Skips a given task from a current running workflow
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task SkipTaskFromWorkflowAsync(string workflowId, string taskReferenceName, SkipTaskRequest skipTaskRequest, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task SkipTaskFromWorkflowAsync(string workflowId, string taskReferenceName, SkipTaskRequest skipTaskRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -504,23 +321,13 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Resumes the workflow
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task ResumeWorkflowAsync(string workflowId)
-    {
-        return ResumeWorkflowAsync(workflowId, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Resumes the workflow
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task ResumeWorkflowAsync(string workflowId, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task ResumeWorkflowAsync(string workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -583,23 +390,13 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Pauses the workflow
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task PauseWorkflowAsync(string workflowId)
-    {
-        return PauseWorkflowAsync(workflowId, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Pauses the workflow
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task PauseWorkflowAsync(string workflowId, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task PauseWorkflowAsync(string workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -662,23 +459,13 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Starts the decision task for a workflow
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task DecideAsync(string workflowId)
-    {
-        return DecideAsync(workflowId, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Starts the decision task for a workflow
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task DecideAsync(string workflowId, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task DecideAsync(string workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -741,107 +528,13 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Start a new workflow with StartWorkflowRequest, which allows task to be executed in a domain
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<string> StartWorkflowAsync(StartWorkflowRequest body)
-    {
-        return StartWorkflowAsync(body, System.Threading.CancellationToken.None);
-    }
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Start a new workflow with StartWorkflowRequest, which allows task to be executed in a domain
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<string> StartWorkflowAsync(StartWorkflowRequest body, System.Threading.CancellationToken cancellationToken)
-    {
-        if (body == null)
-            throw new System.ArgumentNullException("body");
-
-        var urlBuilder_ = new System.Text.StringBuilder();
-        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflow");
-
-        var client_ = _httpClient;
-        var disposeClient_ = false;
-        try
-        {
-            using (var request_ = new System.Net.Http.HttpRequestMessage())
-            {
-                var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
-                var content_ = new System.Net.Http.StringContent(json_);
-                content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new System.Net.Http.HttpMethod("POST");
-                request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
-
-                PrepareRequest(client_, request_, urlBuilder_);
-
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                PrepareRequest(client_, request_, url_);
-
-                var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                var disposeResponse_ = true;
-                try
-                {
-                    var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                    if (response_.Content != null && response_.Content.Headers != null)
-                    {
-                        foreach (var item_ in response_.Content.Headers)
-                            headers_[item_.Key] = item_.Value;
-                    }
-
-                    ProcessResponse(client_, response_);
-
-                    var status_ = (int)response_.StatusCode;
-                    if (status_ == 200)
-                    {
-                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        var result_ = (string)System.Convert.ChangeType(responseData_, typeof(string));
-                        return result_;
-                    }
-                    else
-                    {
-                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                    }
-                }
-                finally
-                {
-                    if (disposeResponse_)
-                        response_.Dispose();
-                }
-            }
-        }
-        finally
-        {
-            if (disposeClient_)
-                client_.Dispose();
-        }
-    }
-
-    /// <summary>
-    /// Retries the last failed task
-    /// </summary>
-    /// <returns>No Content</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task RetryAsync(string workflowId, bool? resumeSubworkflowTasks)
-    {
-        return RetryAsync(workflowId, resumeSubworkflowTasks, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Retries the last failed task
     /// </summary>
     /// <returns>No Content</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task RetryAsync(string workflowId, bool? resumeSubworkflowTasks, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task RetryAsync(string workflowId, bool? resumeSubworkflowTasks = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -909,23 +602,13 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Restarts a completed workflow
-    /// </summary>
-    /// <returns>No Content</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task RestartAsync(string workflowId, bool? useLatestDefinitions)
-    {
-        return RestartAsync(workflowId, useLatestDefinitions, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Restarts a completed workflow
     /// </summary>
     /// <returns>No Content</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task RestartAsync(string workflowId, bool? useLatestDefinitions, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task RestartAsync(string workflowId, bool? useLatestDefinitions = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -993,23 +676,13 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Resets callback times of all non-terminal SIMPLE tasks to 0
-    /// </summary>
-    /// <returns>No Content</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task ResetWorkflowAsync(string workflowId)
-    {
-        return ResetWorkflowAsync(workflowId, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Resets callback times of all non-terminal SIMPLE tasks to 0
     /// </summary>
     /// <returns>No Content</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task ResetWorkflowAsync(string workflowId, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task ResetWorkflowAsync(string workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -1072,23 +745,13 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Reruns the workflow from a specific task
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<string> RerunAsync(string workflowId, RerunWorkflowRequest body)
-    {
-        return RerunAsync(workflowId, body, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Reruns the workflow from a specific task
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<string> RerunAsync(string workflowId, RerunWorkflowRequest body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<string> RerunAsync(string workflowId, RerunWorkflowRequest body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -1160,14 +823,94 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
+    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
-    /// Start a new workflow. Returns the ID of the workflow instance that can be later used for tracking
+    /// Lists workflows for the given correlation id list
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<string> StartWorkflow_1Async(string name, int? version, string? correlationId, int? priority, System.Collections.Generic.IDictionary<string, object> body)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, System.Collections.Generic.ICollection<Workflow>>> GetWorkflowsAsync(string name, System.Collections.Generic.IEnumerable<string> body, bool? includeClosed = null, bool? includeTasks = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
-        return StartWorkflow_1Async(name, version, correlationId, priority, body, System.Threading.CancellationToken.None);
+        if (name == null)
+            throw new System.ArgumentNullException("name");
+
+        if (body == null)
+            throw new System.ArgumentNullException("body");
+
+        var urlBuilder_ = new System.Text.StringBuilder();
+        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflow/{name}/correlated?");
+        urlBuilder_.Replace("{name}", System.Uri.EscapeDataString(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture)));
+        if (includeClosed != null)
+        {
+            urlBuilder_.Append(System.Uri.EscapeDataString("includeClosed") + "=").Append(System.Uri.EscapeDataString(ConvertToString(includeClosed, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+        }
+        if (includeTasks != null)
+        {
+            urlBuilder_.Append(System.Uri.EscapeDataString("includeTasks") + "=").Append(System.Uri.EscapeDataString(ConvertToString(includeTasks, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+        }
+        urlBuilder_.Length--;
+
+        var client_ = _httpClient;
+        var disposeClient_ = false;
+        try
+        {
+            using (var request_ = new System.Net.Http.HttpRequestMessage())
+            {
+                var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
+                var content_ = new System.Net.Http.StringContent(json_);
+                content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                request_.Content = content_;
+                request_.Method = new System.Net.Http.HttpMethod("POST");
+                request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("*/*"));
+
+                PrepareRequest(client_, request_, urlBuilder_);
+
+                var url_ = urlBuilder_.ToString();
+                request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                PrepareRequest(client_, request_, url_);
+
+                var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var disposeResponse_ = true;
+                try
+                {
+                    var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                    if (response_.Content != null && response_.Content.Headers != null)
+                    {
+                        foreach (var item_ in response_.Content.Headers)
+                            headers_[item_.Key] = item_.Value;
+                    }
+
+                    ProcessResponse(client_, response_);
+
+                    var status_ = (int)response_.StatusCode;
+                    if (status_ == 200)
+                    {
+                        var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IDictionary<string, System.Collections.Generic.ICollection<Workflow>>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                        if (objectResponse_.Object == null)
+                        {
+                            throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        }
+                        return objectResponse_.Object;
+                    }
+                    else
+                    {
+                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    }
+                }
+                finally
+                {
+                    if (disposeResponse_)
+                        response_.Dispose();
+                }
+            }
+        }
+        finally
+        {
+            if (disposeClient_)
+                client_.Dispose();
+        }
     }
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -1176,7 +919,7 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<string> StartWorkflow_1Async(string name, int? version, string? correlationId, int? priority, System.Collections.Generic.IDictionary<string, object> body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<string> StartWorkflowAsync(string name, System.Collections.Generic.IDictionary<string, object> body, int? version = null, string? correlationId = null, int? priority = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (name == null)
             throw new System.ArgumentNullException("name");
@@ -1261,42 +1004,19 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Lists workflows for the given correlation id list
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, System.Collections.Generic.ICollection<Workflow>>> GetWorkflowsAsync(string name, bool? includeClosed, bool? includeTasks, System.Collections.Generic.IEnumerable<string> body)
-    {
-        return GetWorkflowsAsync(name, includeClosed, includeTasks, body, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
-    /// Lists workflows for the given correlation id list
+    /// Start a new workflow with StartWorkflowRequest, which allows task to be executed in a domain
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, System.Collections.Generic.ICollection<Workflow>>> GetWorkflowsAsync(string name, bool? includeClosed, bool? includeTasks, System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<string> StartWorkflow_1Async(StartWorkflowRequest body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
-        if (name == null)
-            throw new System.ArgumentNullException("name");
-
         if (body == null)
             throw new System.ArgumentNullException("body");
 
         var urlBuilder_ = new System.Text.StringBuilder();
-        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflow/{name}/correlated?");
-        urlBuilder_.Replace("{name}", System.Uri.EscapeDataString(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture)));
-        if (includeClosed != null)
-        {
-            urlBuilder_.Append(System.Uri.EscapeDataString("includeClosed") + "=").Append(System.Uri.EscapeDataString(ConvertToString(includeClosed, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-        }
-        if (includeTasks != null)
-        {
-            urlBuilder_.Append(System.Uri.EscapeDataString("includeTasks") + "=").Append(System.Uri.EscapeDataString(ConvertToString(includeTasks, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-        }
-        urlBuilder_.Length--;
+        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflow");
 
         var client_ = _httpClient;
         var disposeClient_ = false;
@@ -1309,7 +1029,7 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
                 content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                 request_.Content = content_;
                 request_.Method = new System.Net.Http.HttpMethod("POST");
-                request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("*/*"));
+                request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                 PrepareRequest(client_, request_, urlBuilder_);
 
@@ -1334,12 +1054,9 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
                     var status_ = (int)response_.StatusCode;
                     if (status_ == 200)
                     {
-                        var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IDictionary<string, System.Collections.Generic.ICollection<Workflow>>>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                        if (objectResponse_.Object == null)
-                        {
-                            throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                        }
-                        return objectResponse_.Object;
+                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        var result_ = (string)System.Convert.ChangeType(responseData_, typeof(string));
+                        return result_;
                     }
                     else
                     {
@@ -1361,110 +1078,13 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Test workflow execution using mock data
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<Workflow> TestWorkflowAsync(WorkflowTestRequest body)
-    {
-        return TestWorkflowAsync(body, System.Threading.CancellationToken.None);
-    }
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Test workflow execution using mock data
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<Workflow> TestWorkflowAsync(WorkflowTestRequest body, System.Threading.CancellationToken cancellationToken)
-    {
-        if (body == null)
-            throw new System.ArgumentNullException("body");
-
-        var urlBuilder_ = new System.Text.StringBuilder();
-        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflow/test");
-
-        var client_ = _httpClient;
-        var disposeClient_ = false;
-        try
-        {
-            using (var request_ = new System.Net.Http.HttpRequestMessage())
-            {
-                var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
-                var content_ = new System.Net.Http.StringContent(json_);
-                content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new System.Net.Http.HttpMethod("POST");
-                request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-
-                PrepareRequest(client_, request_, urlBuilder_);
-
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                PrepareRequest(client_, request_, url_);
-
-                var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                var disposeResponse_ = true;
-                try
-                {
-                    var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                    if (response_.Content != null && response_.Content.Headers != null)
-                    {
-                        foreach (var item_ in response_.Content.Headers)
-                            headers_[item_.Key] = item_.Value;
-                    }
-
-                    ProcessResponse(client_, response_);
-
-                    var status_ = (int)response_.StatusCode;
-                    if (status_ == 200)
-                    {
-                        var objectResponse_ = await ReadObjectResponseAsync<Workflow>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                        if (objectResponse_.Object == null)
-                        {
-                            throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                        }
-                        return objectResponse_.Object;
-                    }
-                    else
-                    {
-                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                    }
-                }
-                finally
-                {
-                    if (disposeResponse_)
-                        response_.Dispose();
-                }
-            }
-        }
-        finally
-        {
-            if (disposeClient_)
-                client_.Dispose();
-        }
-    }
-
-    /// <summary>
-    /// Gets the workflow by workflow id
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<Workflow> GetExecutionStatusAsync(string workflowId, bool? includeTasks)
-    {
-        return GetExecutionStatusAsync(workflowId, includeTasks, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Gets the workflow by workflow id
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<Workflow> GetExecutionStatusAsync(string workflowId, bool? includeTasks, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<Workflow> GetExecutionStatusAsync(string workflowId, bool? includeTasks = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -1537,23 +1157,13 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Terminate workflow execution
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task Terminate_1Async(string workflowId, string? reason)
-    {
-        return Terminate_1Async(workflowId, reason, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Terminate workflow execution
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task Terminate_1Async(string workflowId, string? reason, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task Terminate_1Async(string workflowId, string? reason = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -1620,23 +1230,13 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Lists workflows for the given correlation id
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Workflow>> GetWorkflows_1Async(string name, string correlationId, bool? includeClosed, bool? includeTasks)
-    {
-        return GetWorkflows_1Async(name, correlationId, includeClosed, includeTasks, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Lists workflows for the given correlation id
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Workflow>> GetWorkflows_1Async(string name, string correlationId, bool? includeClosed, bool? includeTasks, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Workflow>> GetWorkflows_1Async(string name, string correlationId, bool? includeClosed = null, bool? includeTasks = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (name == null)
             throw new System.ArgumentNullException("name");
@@ -1717,19 +1317,6 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Search for workflows based on payload and other parameters
-    /// </summary>
-    /// <remarks>
-    /// use sort options as sort=&lt;field&gt;:ASC|DESC e.g. sort=name&amp;sort=workflowId:DESC. If order is not specified, defaults to ASC.
-    /// </remarks>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<SearchResultWorkflowSummary> SearchAsync(int? start, int? size, string? sort, string? freeText, string? query)
-    {
-        return SearchAsync(start, size, sort, freeText, query, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Search for workflows based on payload and other parameters
@@ -1739,7 +1326,7 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
     /// </remarks>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<SearchResultWorkflowSummary> SearchAsync(int? start, int? size, string? sort, string? freeText, string? query, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<SearchResultWorkflowSummary> SearchAsync(int? start = null, int? size = null, string? sort = null, string? freeText = null, string? query = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflow/search?");
@@ -1824,19 +1411,6 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Search for workflows based on payload and other parameters
-    /// </summary>
-    /// <remarks>
-    /// use sort options as sort=&lt;field&gt;:ASC|DESC e.g. sort=name&amp;sort=workflowId:DESC. If order is not specified, defaults to ASC.
-    /// </remarks>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<SearchResultWorkflow> SearchV2Async(int? start, int? size, string? sort, string? freeText, string? query)
-    {
-        return SearchV2Async(start, size, sort, freeText, query, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Search for workflows based on payload and other parameters
@@ -1846,7 +1420,7 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
     /// </remarks>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<SearchResultWorkflow> SearchV2Async(int? start, int? size, string? sort, string? freeText, string? query, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<SearchResultWorkflow> SearchV2Async(int? start = null, int? size = null, string? sort = null, string? freeText = null, string? query = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflow/search-v2?");
@@ -1931,19 +1505,6 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Search for workflows based on task parameters
-    /// </summary>
-    /// <remarks>
-    /// use sort options as sort=&lt;field&gt;:ASC|DESC e.g. sort=name&amp;sort=workflowId:DESC. If order is not specified, defaults to ASC
-    /// </remarks>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<SearchResultWorkflowSummary> SearchWorkflowsByTasksAsync(int? start, int? size, string? sort, string? freeText, string? query)
-    {
-        return SearchWorkflowsByTasksAsync(start, size, sort, freeText, query, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Search for workflows based on task parameters
@@ -1953,7 +1514,7 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
     /// </remarks>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<SearchResultWorkflowSummary> SearchWorkflowsByTasksAsync(int? start, int? size, string? sort, string? freeText, string? query, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<SearchResultWorkflowSummary> SearchWorkflowsByTasksAsync(int? start = null, int? size = null, string? sort = null, string? freeText = null, string? query = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflow/search-by-tasks?");
@@ -2038,19 +1599,6 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Search for workflows based on task parameters
-    /// </summary>
-    /// <remarks>
-    /// use sort options as sort=&lt;field&gt;:ASC|DESC e.g. sort=name&amp;sort=workflowId:DESC. If order is not specified, defaults to ASC
-    /// </remarks>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<SearchResultWorkflow> SearchWorkflowsByTasksV2Async(int? start, int? size, string? sort, string? freeText, string? query)
-    {
-        return SearchWorkflowsByTasksV2Async(start, size, sort, freeText, query, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Search for workflows based on task parameters
@@ -2060,7 +1608,7 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
     /// </remarks>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<SearchResultWorkflow> SearchWorkflowsByTasksV2Async(int? start, int? size, string? sort, string? freeText, string? query, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<SearchResultWorkflow> SearchWorkflowsByTasksV2Async(int? start = null, int? size = null, string? sort = null, string? freeText = null, string? query = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflow/search-by-tasks-v2?");
@@ -2145,23 +1693,13 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Retrieve all the running workflows
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> GetRunningWorkflowAsync(string name, int? version, long? startTime, long? endTime)
-    {
-        return GetRunningWorkflowAsync(name, version, startTime, endTime, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Retrieve all the running workflows
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> GetRunningWorkflowAsync(string name, int? version, long? startTime, long? endTime, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> GetRunningWorkflowAsync(string name, int? version = null, long? startTime = null, long? endTime = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (name == null)
             throw new System.ArgumentNullException("name");
@@ -2242,23 +1780,13 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Get the uri and path of the external storage where the workflow payload is to be stored
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<ExternalStorageLocation> GetExternalStorageLocationAsync(string path, string operation, string payloadType)
-    {
-        return GetExternalStorageLocationAsync(path, operation, payloadType, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Get the uri and path of the external storage where the workflow payload is to be stored
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<ExternalStorageLocation> GetExternalStorageLocationAsync(string path, string operation, string payloadType, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<ExternalStorageLocation> GetExternalStorageLocationAsync(string path, string operation, string payloadType, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (path == null)
             throw new System.ArgumentNullException("path");
@@ -2335,23 +1863,13 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
         }
     }
 
-    /// <summary>
-    /// Removes the workflow from the system
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task DeleteAsync(string workflowId, bool? archiveWorkflow)
-    {
-        return DeleteAsync(workflowId, archiveWorkflow, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Removes the workflow from the system
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task DeleteAsync(string workflowId, bool? archiveWorkflow, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task DeleteAsync(string workflowId, bool? archiveWorkflow = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -2524,12 +2042,6 @@ public partial class WorkflowResourceClient : IWorkflowResourceClient
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
 public partial interface IWorkflowBulkResourceClient
 {
-    /// <summary>
-    /// Resume the list of workflows
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<BulkResponse> ResumeWorkflow_1Async(System.Collections.Generic.IEnumerable<string> body);
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -2537,14 +2049,7 @@ public partial interface IWorkflowBulkResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<BulkResponse> ResumeWorkflow_1Async(System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Pause the list of workflows
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<BulkResponse> PauseWorkflow_1Async(System.Collections.Generic.IEnumerable<string> body);
+    System.Threading.Tasks.Task<BulkResponse> ResumeWorkflow_1Async(System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -2552,14 +2057,7 @@ public partial interface IWorkflowBulkResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<BulkResponse> PauseWorkflow_1Async(System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Terminate workflows execution
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<BulkResponse> TerminateAsync(string? reason, System.Collections.Generic.IEnumerable<string> body);
+    System.Threading.Tasks.Task<BulkResponse> PauseWorkflow_1Async(System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -2567,14 +2065,7 @@ public partial interface IWorkflowBulkResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<BulkResponse> TerminateAsync(string? reason, System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Retry the last failed task for each workflow from the list
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<BulkResponse> Retry_1Async(System.Collections.Generic.IEnumerable<string> body);
+    System.Threading.Tasks.Task<BulkResponse> TerminateAsync(System.Collections.Generic.IEnumerable<string> body, string? reason = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -2582,14 +2073,7 @@ public partial interface IWorkflowBulkResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<BulkResponse> Retry_1Async(System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Restart the list of completed workflow
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<BulkResponse> Restart_1Async(bool? useLatestDefinitions, System.Collections.Generic.IEnumerable<string> body);
+    System.Threading.Tasks.Task<BulkResponse> Retry_1Async(System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -2597,14 +2081,14 @@ public partial interface IWorkflowBulkResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<BulkResponse> Restart_1Async(bool? useLatestDefinitions, System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken);
+    System.Threading.Tasks.Task<BulkResponse> Restart_1Async(System.Collections.Generic.IEnumerable<string> body, bool? useLatestDefinitions = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 }
 
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
 public partial class WorkflowBulkResourceClient : IWorkflowBulkResourceClient
 {
-    private string _baseUrl = "http://localhost:8080";
+    private string _baseUrl = string.Empty;
     private System.Net.Http.HttpClient _httpClient;
     private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
@@ -2616,7 +2100,7 @@ public partial class WorkflowBulkResourceClient : IWorkflowBulkResourceClient
 
     private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
     {
-        var settings = new Newtonsoft.Json.JsonSerializerSettings { PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.All };
+        var settings = new Newtonsoft.Json.JsonSerializerSettings();
         UpdateJsonSerializerSettings(settings);
         return settings;
     }
@@ -2635,23 +2119,13 @@ public partial class WorkflowBulkResourceClient : IWorkflowBulkResourceClient
     partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
     partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
-    /// <summary>
-    /// Resume the list of workflows
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<BulkResponse> ResumeWorkflow_1Async(System.Collections.Generic.IEnumerable<string> body)
-    {
-        return ResumeWorkflow_1Async(body, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Resume the list of workflows
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<BulkResponse> ResumeWorkflow_1Async(System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<BulkResponse> ResumeWorkflow_1Async(System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (body == null)
             throw new System.ArgumentNullException("body");
@@ -2722,23 +2196,13 @@ public partial class WorkflowBulkResourceClient : IWorkflowBulkResourceClient
         }
     }
 
-    /// <summary>
-    /// Pause the list of workflows
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<BulkResponse> PauseWorkflow_1Async(System.Collections.Generic.IEnumerable<string> body)
-    {
-        return PauseWorkflow_1Async(body, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Pause the list of workflows
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<BulkResponse> PauseWorkflow_1Async(System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<BulkResponse> PauseWorkflow_1Async(System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (body == null)
             throw new System.ArgumentNullException("body");
@@ -2809,23 +2273,13 @@ public partial class WorkflowBulkResourceClient : IWorkflowBulkResourceClient
         }
     }
 
-    /// <summary>
-    /// Terminate workflows execution
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<BulkResponse> TerminateAsync(string? reason, System.Collections.Generic.IEnumerable<string> body)
-    {
-        return TerminateAsync(reason, body, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Terminate workflows execution
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<BulkResponse> TerminateAsync(string? reason, System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<BulkResponse> TerminateAsync(System.Collections.Generic.IEnumerable<string> body, string? reason = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (body == null)
             throw new System.ArgumentNullException("body");
@@ -2901,23 +2355,13 @@ public partial class WorkflowBulkResourceClient : IWorkflowBulkResourceClient
         }
     }
 
-    /// <summary>
-    /// Retry the last failed task for each workflow from the list
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<BulkResponse> Retry_1Async(System.Collections.Generic.IEnumerable<string> body)
-    {
-        return Retry_1Async(body, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Retry the last failed task for each workflow from the list
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<BulkResponse> Retry_1Async(System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<BulkResponse> Retry_1Async(System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (body == null)
             throw new System.ArgumentNullException("body");
@@ -2988,23 +2432,13 @@ public partial class WorkflowBulkResourceClient : IWorkflowBulkResourceClient
         }
     }
 
-    /// <summary>
-    /// Restart the list of completed workflow
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<BulkResponse> Restart_1Async(bool? useLatestDefinitions, System.Collections.Generic.IEnumerable<string> body)
-    {
-        return Restart_1Async(useLatestDefinitions, body, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Restart the list of completed workflow
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<BulkResponse> Restart_1Async(bool? useLatestDefinitions, System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<BulkResponse> Restart_1Async(System.Collections.Generic.IEnumerable<string> body, bool? useLatestDefinitions = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (body == null)
             throw new System.ArgumentNullException("body");
@@ -3186,12 +2620,6 @@ public partial class WorkflowBulkResourceClient : IWorkflowBulkResourceClient
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
 public partial interface IMetadataResourceClient
 {
-    /// <summary>
-    /// Retrieves all workflow definition along with blueprint
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowDef>> GetAllAsync();
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -3199,14 +2627,7 @@ public partial interface IMetadataResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowDef>> GetAllAsync(System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Create or update workflow definition
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<BulkResponse> UpdateAsync(System.Collections.Generic.IEnumerable<WorkflowDef> body);
+    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowDef>> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -3214,14 +2635,7 @@ public partial interface IMetadataResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<BulkResponse> UpdateAsync(System.Collections.Generic.IEnumerable<WorkflowDef> body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Create a new workflow definition
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task CreateAsync(WorkflowDef body);
+    System.Threading.Tasks.Task UpdateAsync(System.Collections.Generic.IEnumerable<WorkflowDef> body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -3229,14 +2643,7 @@ public partial interface IMetadataResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task CreateAsync(WorkflowDef body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Gets all task definition
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskDef>> GetTaskDefsAsync();
+    System.Threading.Tasks.Task CreateAsync(WorkflowDef body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -3244,14 +2651,7 @@ public partial interface IMetadataResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskDef>> GetTaskDefsAsync(System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Update an existing task
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task RegisterTaskDefAsync(TaskDef body);
+    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskDef>> GetTaskDefsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -3259,14 +2659,7 @@ public partial interface IMetadataResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task RegisterTaskDefAsync(TaskDef body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Create new task definition(s)
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task RegisterTaskDef_1Async(System.Collections.Generic.IEnumerable<TaskDef> body);
+    System.Threading.Tasks.Task RegisterTaskDefAsync(TaskDef body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -3274,29 +2667,7 @@ public partial interface IMetadataResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task RegisterTaskDef_1Async(System.Collections.Generic.IEnumerable<TaskDef> body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Validates a new workflow definition
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task ValidateAsync(WorkflowDef body);
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Validates a new workflow definition
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task ValidateAsync(WorkflowDef body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Retrieves workflow definition along with blueprint
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<WorkflowDef> GetAsync(string name, int? version);
+    System.Threading.Tasks.Task RegisterTaskDef_1Async(System.Collections.Generic.IEnumerable<TaskDef> body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -3304,44 +2675,7 @@ public partial interface IMetadataResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<WorkflowDef> GetAsync(string name, int? version, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Returns workflow names and versions only (no definition bodies)
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> GetWorkflowNamesAndVersionsAsync();
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Returns workflow names and versions only (no definition bodies)
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> GetWorkflowNamesAndVersionsAsync(System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Returns only the latest version of all workflow definitions
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowDef>> GetAllWorkflowsWithLatestVersionsAsync();
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Returns only the latest version of all workflow definitions
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowDef>> GetAllWorkflowsWithLatestVersionsAsync(System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Gets the task definition
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<TaskDef> GetTaskDefAsync(string tasktype);
+    System.Threading.Tasks.Task<WorkflowDef> GetAsync(string name, int? version = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -3349,14 +2683,7 @@ public partial interface IMetadataResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<TaskDef> GetTaskDefAsync(string tasktype, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Remove a task definition
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task UnregisterTaskDefAsync(string tasktype);
+    System.Threading.Tasks.Task<TaskDef> GetTaskDefAsync(string tasktype, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -3364,14 +2691,7 @@ public partial interface IMetadataResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task UnregisterTaskDefAsync(string tasktype, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Removes workflow definition. It does not remove workflows associated with the definition.
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task UnregisterWorkflowDefAsync(string name, int version);
+    System.Threading.Tasks.Task UnregisterTaskDefAsync(string tasktype, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -3379,7 +2699,7 @@ public partial interface IMetadataResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task UnregisterWorkflowDefAsync(string name, int version, System.Threading.CancellationToken cancellationToken);
+    System.Threading.Tasks.Task UnregisterWorkflowDefAsync(string name, int version, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 }
 
@@ -3392,14 +2712,14 @@ public partial class MetadataResourceClient : IMetadataResourceClient
 
     public MetadataResourceClient(IHttpClientFactory httpClientFactory, IOptions<ConductorOptions> options)
     {
-        _httpClient = httpClientFactory.CreateClient();
         _baseUrl = options.Value.ConductorUrl;
+        _httpClient = httpClientFactory.CreateClient();
         _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
     }
 
     private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
     {
-        var settings = new Newtonsoft.Json.JsonSerializerSettings { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore };
+        var settings = new Newtonsoft.Json.JsonSerializerSettings();
         UpdateJsonSerializerSettings(settings);
         return settings;
     }
@@ -3418,23 +2738,13 @@ public partial class MetadataResourceClient : IMetadataResourceClient
     partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
     partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
-    /// <summary>
-    /// Retrieves all workflow definition along with blueprint
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowDef>> GetAllAsync()
-    {
-        return GetAllAsync(System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Retrieves all workflow definition along with blueprint
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowDef>> GetAllAsync(System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowDef>> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/metadata/workflow");
@@ -3498,23 +2808,13 @@ public partial class MetadataResourceClient : IMetadataResourceClient
         }
     }
 
-    /// <summary>
-    /// Create or update workflow definition
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<BulkResponse> UpdateAsync(System.Collections.Generic.IEnumerable<WorkflowDef> body)
-    {
-        return UpdateAsync(body, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Create or update workflow definition
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<BulkResponse> UpdateAsync(System.Collections.Generic.IEnumerable<WorkflowDef> body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task UpdateAsync(System.Collections.Generic.IEnumerable<WorkflowDef> body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (body == null)
             throw new System.ArgumentNullException("body");
@@ -3533,7 +2833,6 @@ public partial class MetadataResourceClient : IMetadataResourceClient
                 content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                 request_.Content = content_;
                 request_.Method = new System.Net.Http.HttpMethod("PUT");
-                request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("*/*"));
 
                 PrepareRequest(client_, request_, urlBuilder_);
 
@@ -3558,12 +2857,7 @@ public partial class MetadataResourceClient : IMetadataResourceClient
                     var status_ = (int)response_.StatusCode;
                     if (status_ == 200)
                     {
-                        var objectResponse_ = await ReadObjectResponseAsync<BulkResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                        if (objectResponse_.Object == null)
-                        {
-                            throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                        }
-                        return objectResponse_.Object;
+                        return;
                     }
                     else
                     {
@@ -3585,23 +2879,13 @@ public partial class MetadataResourceClient : IMetadataResourceClient
         }
     }
 
-    /// <summary>
-    /// Create a new workflow definition
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task CreateAsync(WorkflowDef body)
-    {
-        return CreateAsync(body, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Create a new workflow definition
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task CreateAsync(WorkflowDef body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task CreateAsync(WorkflowDef body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (body == null)
             throw new System.ArgumentNullException("body");
@@ -3666,23 +2950,13 @@ public partial class MetadataResourceClient : IMetadataResourceClient
         }
     }
 
-    /// <summary>
-    /// Gets all task definition
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskDef>> GetTaskDefsAsync()
-    {
-        return GetTaskDefsAsync(System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Gets all task definition
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskDef>> GetTaskDefsAsync(System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskDef>> GetTaskDefsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/metadata/taskdefs");
@@ -3746,23 +3020,13 @@ public partial class MetadataResourceClient : IMetadataResourceClient
         }
     }
 
-    /// <summary>
-    /// Update an existing task
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task RegisterTaskDefAsync(TaskDef body)
-    {
-        return RegisterTaskDefAsync(body, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Update an existing task
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task RegisterTaskDefAsync(TaskDef body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task RegisterTaskDefAsync(TaskDef body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (body == null)
             throw new System.ArgumentNullException("body");
@@ -3827,23 +3091,13 @@ public partial class MetadataResourceClient : IMetadataResourceClient
         }
     }
 
-    /// <summary>
-    /// Create new task definition(s)
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task RegisterTaskDef_1Async(System.Collections.Generic.IEnumerable<TaskDef> body)
-    {
-        return RegisterTaskDef_1Async(body, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Create new task definition(s)
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task RegisterTaskDef_1Async(System.Collections.Generic.IEnumerable<TaskDef> body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task RegisterTaskDef_1Async(System.Collections.Generic.IEnumerable<TaskDef> body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (body == null)
             throw new System.ArgumentNullException("body");
@@ -3908,104 +3162,13 @@ public partial class MetadataResourceClient : IMetadataResourceClient
         }
     }
 
-    /// <summary>
-    /// Validates a new workflow definition
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task ValidateAsync(WorkflowDef body)
-    {
-        return ValidateAsync(body, System.Threading.CancellationToken.None);
-    }
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Validates a new workflow definition
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task ValidateAsync(WorkflowDef body, System.Threading.CancellationToken cancellationToken)
-    {
-        if (body == null)
-            throw new System.ArgumentNullException("body");
-
-        var urlBuilder_ = new System.Text.StringBuilder();
-        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/metadata/workflow/validate");
-
-        var client_ = _httpClient;
-        var disposeClient_ = false;
-        try
-        {
-            using (var request_ = new System.Net.Http.HttpRequestMessage())
-            {
-                var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
-                var content_ = new System.Net.Http.StringContent(json_);
-                content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new System.Net.Http.HttpMethod("POST");
-
-                PrepareRequest(client_, request_, urlBuilder_);
-
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                PrepareRequest(client_, request_, url_);
-
-                var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                var disposeResponse_ = true;
-                try
-                {
-                    var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                    if (response_.Content != null && response_.Content.Headers != null)
-                    {
-                        foreach (var item_ in response_.Content.Headers)
-                            headers_[item_.Key] = item_.Value;
-                    }
-
-                    ProcessResponse(client_, response_);
-
-                    var status_ = (int)response_.StatusCode;
-                    if (status_ == 200)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                    }
-                }
-                finally
-                {
-                    if (disposeResponse_)
-                        response_.Dispose();
-                }
-            }
-        }
-        finally
-        {
-            if (disposeClient_)
-                client_.Dispose();
-        }
-    }
-
-    /// <summary>
-    /// Retrieves workflow definition along with blueprint
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<WorkflowDef> GetAsync(string name, int? version)
-    {
-        return GetAsync(name, version, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Retrieves workflow definition along with blueprint
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<WorkflowDef> GetAsync(string name, int? version, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<WorkflowDef> GetAsync(string name, int? version = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (name == null)
             throw new System.ArgumentNullException("name");
@@ -4078,183 +3241,13 @@ public partial class MetadataResourceClient : IMetadataResourceClient
         }
     }
 
-    /// <summary>
-    /// Returns workflow names and versions only (no definition bodies)
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> GetWorkflowNamesAndVersionsAsync()
-    {
-        return GetWorkflowNamesAndVersionsAsync(System.Threading.CancellationToken.None);
-    }
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Returns workflow names and versions only (no definition bodies)
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> GetWorkflowNamesAndVersionsAsync(System.Threading.CancellationToken cancellationToken)
-    {
-        var urlBuilder_ = new System.Text.StringBuilder();
-        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/metadata/workflow/names-and-versions");
-
-        var client_ = _httpClient;
-        var disposeClient_ = false;
-        try
-        {
-            using (var request_ = new System.Net.Http.HttpRequestMessage())
-            {
-                request_.Method = new System.Net.Http.HttpMethod("GET");
-                request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("*/*"));
-
-                PrepareRequest(client_, request_, urlBuilder_);
-
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                PrepareRequest(client_, request_, url_);
-
-                var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                var disposeResponse_ = true;
-                try
-                {
-                    var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                    if (response_.Content != null && response_.Content.Headers != null)
-                    {
-                        foreach (var item_ in response_.Content.Headers)
-                            headers_[item_.Key] = item_.Value;
-                    }
-
-                    ProcessResponse(client_, response_);
-
-                    var status_ = (int)response_.StatusCode;
-                    if (status_ == 200)
-                    {
-                        var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IDictionary<string, object>>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                        if (objectResponse_.Object == null)
-                        {
-                            throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                        }
-                        return objectResponse_.Object;
-                    }
-                    else
-                    {
-                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                    }
-                }
-                finally
-                {
-                    if (disposeResponse_)
-                        response_.Dispose();
-                }
-            }
-        }
-        finally
-        {
-            if (disposeClient_)
-                client_.Dispose();
-        }
-    }
-
-    /// <summary>
-    /// Returns only the latest version of all workflow definitions
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowDef>> GetAllWorkflowsWithLatestVersionsAsync()
-    {
-        return GetAllWorkflowsWithLatestVersionsAsync(System.Threading.CancellationToken.None);
-    }
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Returns only the latest version of all workflow definitions
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowDef>> GetAllWorkflowsWithLatestVersionsAsync(System.Threading.CancellationToken cancellationToken)
-    {
-        var urlBuilder_ = new System.Text.StringBuilder();
-        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/metadata/workflow/latest-versions");
-
-        var client_ = _httpClient;
-        var disposeClient_ = false;
-        try
-        {
-            using (var request_ = new System.Net.Http.HttpRequestMessage())
-            {
-                request_.Method = new System.Net.Http.HttpMethod("GET");
-                request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("*/*"));
-
-                PrepareRequest(client_, request_, urlBuilder_);
-
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                PrepareRequest(client_, request_, url_);
-
-                var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                var disposeResponse_ = true;
-                try
-                {
-                    var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                    if (response_.Content != null && response_.Content.Headers != null)
-                    {
-                        foreach (var item_ in response_.Content.Headers)
-                            headers_[item_.Key] = item_.Value;
-                    }
-
-                    ProcessResponse(client_, response_);
-
-                    var status_ = (int)response_.StatusCode;
-                    if (status_ == 200)
-                    {
-                        var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<WorkflowDef>>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                        if (objectResponse_.Object == null)
-                        {
-                            throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                        }
-                        return objectResponse_.Object;
-                    }
-                    else
-                    {
-                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                    }
-                }
-                finally
-                {
-                    if (disposeResponse_)
-                        response_.Dispose();
-                }
-            }
-        }
-        finally
-        {
-            if (disposeClient_)
-                client_.Dispose();
-        }
-    }
-
-    /// <summary>
-    /// Gets the task definition
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<TaskDef> GetTaskDefAsync(string tasktype)
-    {
-        return GetTaskDefAsync(tasktype, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Gets the task definition
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<TaskDef> GetTaskDefAsync(string tasktype, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<TaskDef> GetTaskDefAsync(string tasktype, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (tasktype == null)
             throw new System.ArgumentNullException("tasktype");
@@ -4322,23 +3315,13 @@ public partial class MetadataResourceClient : IMetadataResourceClient
         }
     }
 
-    /// <summary>
-    /// Remove a task definition
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task UnregisterTaskDefAsync(string tasktype)
-    {
-        return UnregisterTaskDefAsync(tasktype, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Remove a task definition
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task UnregisterTaskDefAsync(string tasktype, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task UnregisterTaskDefAsync(string tasktype, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (tasktype == null)
             throw new System.ArgumentNullException("tasktype");
@@ -4400,23 +3383,13 @@ public partial class MetadataResourceClient : IMetadataResourceClient
         }
     }
 
-    /// <summary>
-    /// Removes workflow definition. It does not remove workflows associated with the definition.
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task UnregisterWorkflowDefAsync(string name, int version)
-    {
-        return UnregisterWorkflowDefAsync(name, version, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Removes workflow definition. It does not remove workflows associated with the definition.
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task UnregisterWorkflowDefAsync(string name, int version, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task UnregisterWorkflowDefAsync(string name, int version, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (name == null)
             throw new System.ArgumentNullException("name");
@@ -4588,12 +3561,6 @@ public partial class MetadataResourceClient : IMetadataResourceClient
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
 public partial interface IEventResourceClient
 {
-    /// <summary>
-    /// Get all the event handlers
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EventHandler>> GetEventHandlersAsync();
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -4601,14 +3568,7 @@ public partial interface IEventResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EventHandler>> GetEventHandlersAsync(System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Update an existing event handler.
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task UpdateEventHandlerAsync(EventHandler body);
+    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EventHandler>> GetEventHandlersAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -4616,14 +3576,7 @@ public partial interface IEventResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task UpdateEventHandlerAsync(EventHandler body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Add a new event handler.
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task AddEventHandlerAsync(EventHandler body);
+    System.Threading.Tasks.Task UpdateEventHandlerAsync(EventHandler body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -4631,14 +3584,7 @@ public partial interface IEventResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task AddEventHandlerAsync(EventHandler body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Get event handlers for a given event
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EventHandler>> GetEventHandlersForEventAsync(string @event, bool? activeOnly);
+    System.Threading.Tasks.Task AddEventHandlerAsync(EventHandler body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -4646,14 +3592,7 @@ public partial interface IEventResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EventHandler>> GetEventHandlersForEventAsync(string @event, bool? activeOnly, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Remove an event handler
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task RemoveEventHandlerStatusAsync(string name);
+    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EventHandler>> GetEventHandlersForEventAsync(string @event, bool? activeOnly = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -4661,14 +3600,14 @@ public partial interface IEventResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task RemoveEventHandlerStatusAsync(string name, System.Threading.CancellationToken cancellationToken);
+    System.Threading.Tasks.Task RemoveEventHandlerStatusAsync(string name, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 }
 
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
 public partial class EventResourceClient : IEventResourceClient
 {
-    private string _baseUrl = "http://localhost:8080";
+    private string _baseUrl = string.Empty;
     private System.Net.Http.HttpClient _httpClient;
     private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
@@ -4680,7 +3619,7 @@ public partial class EventResourceClient : IEventResourceClient
 
     private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
     {
-        var settings = new Newtonsoft.Json.JsonSerializerSettings { PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.All };
+        var settings = new Newtonsoft.Json.JsonSerializerSettings();
         UpdateJsonSerializerSettings(settings);
         return settings;
     }
@@ -4699,23 +3638,13 @@ public partial class EventResourceClient : IEventResourceClient
     partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
     partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
-    /// <summary>
-    /// Get all the event handlers
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EventHandler>> GetEventHandlersAsync()
-    {
-        return GetEventHandlersAsync(System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Get all the event handlers
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EventHandler>> GetEventHandlersAsync(System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EventHandler>> GetEventHandlersAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/event");
@@ -4779,23 +3708,13 @@ public partial class EventResourceClient : IEventResourceClient
         }
     }
 
-    /// <summary>
-    /// Update an existing event handler.
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task UpdateEventHandlerAsync(EventHandler body)
-    {
-        return UpdateEventHandlerAsync(body, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Update an existing event handler.
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task UpdateEventHandlerAsync(EventHandler body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task UpdateEventHandlerAsync(EventHandler body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (body == null)
             throw new System.ArgumentNullException("body");
@@ -4860,23 +3779,13 @@ public partial class EventResourceClient : IEventResourceClient
         }
     }
 
-    /// <summary>
-    /// Add a new event handler.
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task AddEventHandlerAsync(EventHandler body)
-    {
-        return AddEventHandlerAsync(body, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Add a new event handler.
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task AddEventHandlerAsync(EventHandler body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task AddEventHandlerAsync(EventHandler body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (body == null)
             throw new System.ArgumentNullException("body");
@@ -4941,23 +3850,13 @@ public partial class EventResourceClient : IEventResourceClient
         }
     }
 
-    /// <summary>
-    /// Get event handlers for a given event
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EventHandler>> GetEventHandlersForEventAsync(string @event, bool? activeOnly)
-    {
-        return GetEventHandlersForEventAsync(@event, activeOnly, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Get event handlers for a given event
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EventHandler>> GetEventHandlersForEventAsync(string @event, bool? activeOnly, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<EventHandler>> GetEventHandlersForEventAsync(string @event, bool? activeOnly = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (@event == null)
             throw new System.ArgumentNullException("@event");
@@ -5030,23 +3929,13 @@ public partial class EventResourceClient : IEventResourceClient
         }
     }
 
-    /// <summary>
-    /// Remove an event handler
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task RemoveEventHandlerStatusAsync(string name)
-    {
-        return RemoveEventHandlerStatusAsync(name, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Remove an event handler
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task RemoveEventHandlerStatusAsync(string name, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task RemoveEventHandlerStatusAsync(string name, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (name == null)
             throw new System.ArgumentNullException("name");
@@ -5214,27 +4103,6 @@ public partial class EventResourceClient : IEventResourceClient
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
 public partial interface ITaskResourceClient
 {
-    /// <summary>
-    /// Update a task
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<string> UpdateTaskAsync(TaskResult body);
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Update a task
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<string> UpdateTaskAsync(TaskResult body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Get Task Execution Logs
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskExecLog>> GetTaskLogsAsync(string taskId);
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -5242,14 +4110,7 @@ public partial interface ITaskResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskExecLog>> GetTaskLogsAsync(string taskId, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Log Task Execution Details
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task LogAsync(string taskId, string body);
+    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskExecLog>> GetTaskLogsAsync(string taskId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -5257,14 +4118,7 @@ public partial interface ITaskResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task LogAsync(string taskId, string body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Requeue pending tasks
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<string> RequeuePendingTaskAsync(string taskType);
+    System.Threading.Tasks.Task LogAsync(string taskId, string body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -5272,14 +4126,15 @@ public partial interface ITaskResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<string> RequeuePendingTaskAsync(string taskType, System.Threading.CancellationToken cancellationToken);
+    System.Threading.Tasks.Task<string> RequeuePendingTaskAsync(string taskType, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
+    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
-    /// Get task by Id
+    /// Update a task
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<Task> GetTaskAsync(string taskId);
+    System.Threading.Tasks.Task<string> UpdateTaskAsync(TaskResult body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -5287,17 +4142,7 @@ public partial interface ITaskResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<Task> GetTaskAsync(string taskId, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Search for tasks based in payload and other parameters
-    /// </summary>
-    /// <remarks>
-    /// use sort options as sort=&lt;field&gt;:ASC|DESC e.g. sort=name&amp;sort=workflowId:DESC. If order is not specified, defaults to ASC
-    /// </remarks>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<SearchResultTaskSummary> Search_1Async(int? start, int? size, string? sort, string? freeText, string? query);
+    System.Threading.Tasks.Task<Task> GetTaskAsync(string taskId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -5308,17 +4153,7 @@ public partial interface ITaskResourceClient
     /// </remarks>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<SearchResultTaskSummary> Search_1Async(int? start, int? size, string? sort, string? freeText, string? query, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Search for tasks based in payload and other parameters
-    /// </summary>
-    /// <remarks>
-    /// use sort options as sort=&lt;field&gt;:ASC|DESC e.g. sort=name&amp;sort=workflowId:DESC. If order is not specified, defaults to ASC
-    /// </remarks>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<SearchResultTask> SearchV2_1Async(int? start, int? size, string? sort, string? freeText, string? query);
+    System.Threading.Tasks.Task<SearchResultTaskSummary> Search_1Async(int? start = null, int? size = null, string? sort = null, string? freeText = null, string? query = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -5329,46 +4164,15 @@ public partial interface ITaskResourceClient
     /// </remarks>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<SearchResultTask> SearchV2_1Async(int? start, int? size, string? sort, string? freeText, string? query, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Deprecated. Please use /tasks/queue/size endpoint
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    [System.Obsolete]
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, int>> SizeAsync(System.Collections.Generic.IEnumerable<string>? taskType);
+    System.Threading.Tasks.Task<SearchResultTask> SearchV2_1Async(int? start = null, int? size = null, string? sort = null, string? freeText = null, string? query = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
-    /// Deprecated. Please use /tasks/queue/size endpoint
+    /// Get Task type queue sizes
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    [System.Obsolete]
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, int>> SizeAsync(System.Collections.Generic.IEnumerable<string>? taskType, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Get queue size for a task type.
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<int> TaskDepthAsync(string taskType, string? domain, string? isolationGroupId, string? executionNamespace);
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Get queue size for a task type.
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<int> TaskDepthAsync(string taskType, string? domain, string? isolationGroupId, string? executionNamespace, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Get the last poll data for a given task type
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<PollData>> GetPollDataAsync(string taskType);
+    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, int>> SizeAsync(System.Collections.Generic.IEnumerable<string>? taskType = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -5376,14 +4180,7 @@ public partial interface ITaskResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<PollData>> GetPollDataAsync(string taskType, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Get the last poll data for all task types
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<PollData>> GetAllPollDataAsync();
+    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<PollData>> GetPollDataAsync(string taskType, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -5391,14 +4188,7 @@ public partial interface ITaskResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<PollData>> GetAllPollDataAsync(System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Get the details about each queue
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, long>> AllAsync();
+    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<PollData>> GetAllPollDataAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -5406,14 +4196,7 @@ public partial interface ITaskResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, long>> AllAsync(System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Get the details about each queue
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, System.Collections.Generic.IDictionary<string, System.Collections.Generic.IDictionary<string, long>>>> AllVerboseAsync();
+    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, long>> AllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -5421,14 +4204,7 @@ public partial interface ITaskResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, System.Collections.Generic.IDictionary<string, System.Collections.Generic.IDictionary<string, long>>>> AllVerboseAsync(System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Poll for a task of a certain type
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<Task> PollAsync(string tasktype, string? workerid, string? domain);
+    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, System.Collections.Generic.IDictionary<string, System.Collections.Generic.IDictionary<string, long>>>> AllVerboseAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -5436,14 +4212,7 @@ public partial interface ITaskResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<Task> PollAsync(string tasktype, string? workerid, string? domain, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Batch poll for a task of a certain type
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Task>> BatchPollAsync(string tasktype, string? workerid, string? domain, int? count, int? timeout);
+    System.Threading.Tasks.Task<Task> PollAsync(string tasktype, string? workerid = null, string? domain = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -5451,14 +4220,7 @@ public partial interface ITaskResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Task>> BatchPollAsync(string tasktype, string? workerid, string? domain, int? count, int? timeout, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Get the external uri where the task payload is to be stored
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<ExternalStorageLocation> GetExternalStorageLocation_1Async(string path, string operation, string payloadType);
+    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Task>> BatchPollAsync(string tasktype, string? workerid = null, string? domain = null, int? count = null, int? timeout = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -5466,14 +4228,14 @@ public partial interface ITaskResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<ExternalStorageLocation> GetExternalStorageLocation_1Async(string path, string operation, string payloadType, System.Threading.CancellationToken cancellationToken);
+    System.Threading.Tasks.Task<ExternalStorageLocation> GetExternalStorageLocation_1Async(string path, string operation, string payloadType, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 }
 
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
 public partial class TaskResourceClient : ITaskResourceClient
 {
-    private string _baseUrl = "http://localhost:8080";
+    private string _baseUrl = string.Empty;
     private System.Net.Http.HttpClient _httpClient;
     private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
@@ -5485,7 +4247,7 @@ public partial class TaskResourceClient : ITaskResourceClient
 
     private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
     {
-        var settings = new Newtonsoft.Json.JsonSerializerSettings { PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.All };
+        var settings = new Newtonsoft.Json.JsonSerializerSettings();
         UpdateJsonSerializerSettings(settings);
         return settings;
     }
@@ -5504,107 +4266,13 @@ public partial class TaskResourceClient : ITaskResourceClient
     partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
     partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
-    /// <summary>
-    /// Update a task
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<string> UpdateTaskAsync(TaskResult body)
-    {
-        return UpdateTaskAsync(body, System.Threading.CancellationToken.None);
-    }
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Update a task
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<string> UpdateTaskAsync(TaskResult body, System.Threading.CancellationToken cancellationToken)
-    {
-        if (body == null)
-            throw new System.ArgumentNullException("body");
-
-        var urlBuilder_ = new System.Text.StringBuilder();
-        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/tasks");
-
-        var client_ = _httpClient;
-        var disposeClient_ = false;
-        try
-        {
-            using (var request_ = new System.Net.Http.HttpRequestMessage())
-            {
-                var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
-                var content_ = new System.Net.Http.StringContent(json_);
-                content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-                request_.Content = content_;
-                request_.Method = new System.Net.Http.HttpMethod("POST");
-                request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
-
-                PrepareRequest(client_, request_, urlBuilder_);
-
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                PrepareRequest(client_, request_, url_);
-
-                var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                var disposeResponse_ = true;
-                try
-                {
-                    var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                    if (response_.Content != null && response_.Content.Headers != null)
-                    {
-                        foreach (var item_ in response_.Content.Headers)
-                            headers_[item_.Key] = item_.Value;
-                    }
-
-                    ProcessResponse(client_, response_);
-
-                    var status_ = (int)response_.StatusCode;
-                    if (status_ == 200)
-                    {
-                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        var result_ = (string)System.Convert.ChangeType(responseData_, typeof(string));
-                        return result_;
-                    }
-                    else
-                    {
-                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                    }
-                }
-                finally
-                {
-                    if (disposeResponse_)
-                        response_.Dispose();
-                }
-            }
-        }
-        finally
-        {
-            if (disposeClient_)
-                client_.Dispose();
-        }
-    }
-
-    /// <summary>
-    /// Get Task Execution Logs
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskExecLog>> GetTaskLogsAsync(string taskId)
-    {
-        return GetTaskLogsAsync(taskId, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Get Task Execution Logs
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskExecLog>> GetTaskLogsAsync(string taskId, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskExecLog>> GetTaskLogsAsync(string taskId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (taskId == null)
             throw new System.ArgumentNullException("taskId");
@@ -5672,23 +4340,13 @@ public partial class TaskResourceClient : ITaskResourceClient
         }
     }
 
-    /// <summary>
-    /// Log Task Execution Details
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task LogAsync(string taskId, string body)
-    {
-        return LogAsync(taskId, body, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Log Task Execution Details
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task LogAsync(string taskId, string body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task LogAsync(string taskId, string body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (taskId == null)
             throw new System.ArgumentNullException("taskId");
@@ -5757,23 +4415,13 @@ public partial class TaskResourceClient : ITaskResourceClient
         }
     }
 
-    /// <summary>
-    /// Requeue pending tasks
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<string> RequeuePendingTaskAsync(string taskType)
-    {
-        return RequeuePendingTaskAsync(taskType, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Requeue pending tasks
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<string> RequeuePendingTaskAsync(string taskType, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<string> RequeuePendingTaskAsync(string taskType, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (taskType == null)
             throw new System.ArgumentNullException("taskType");
@@ -5839,14 +4487,78 @@ public partial class TaskResourceClient : ITaskResourceClient
         }
     }
 
+    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
-    /// Get task by Id
+    /// Update a task
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<Task> GetTaskAsync(string taskId)
+    public virtual async System.Threading.Tasks.Task<string> UpdateTaskAsync(TaskResult body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
-        return GetTaskAsync(taskId, System.Threading.CancellationToken.None);
+        if (body == null)
+            throw new System.ArgumentNullException("body");
+
+        var urlBuilder_ = new System.Text.StringBuilder();
+        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/tasks");
+
+        var client_ = _httpClient;
+        var disposeClient_ = false;
+        try
+        {
+            using (var request_ = new System.Net.Http.HttpRequestMessage())
+            {
+                var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
+                var content_ = new System.Net.Http.StringContent(json_);
+                content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                request_.Content = content_;
+                request_.Method = new System.Net.Http.HttpMethod("POST");
+                request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                PrepareRequest(client_, request_, urlBuilder_);
+
+                var url_ = urlBuilder_.ToString();
+                request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                PrepareRequest(client_, request_, url_);
+
+                var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var disposeResponse_ = true;
+                try
+                {
+                    var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                    if (response_.Content != null && response_.Content.Headers != null)
+                    {
+                        foreach (var item_ in response_.Content.Headers)
+                            headers_[item_.Key] = item_.Value;
+                    }
+
+                    ProcessResponse(client_, response_);
+
+                    var status_ = (int)response_.StatusCode;
+                    if (status_ == 200)
+                    {
+                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        var result_ = (string)System.Convert.ChangeType(responseData_, typeof(string));
+                        return result_;
+                    }
+                    else
+                    {
+                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    }
+                }
+                finally
+                {
+                    if (disposeResponse_)
+                        response_.Dispose();
+                }
+            }
+        }
+        finally
+        {
+            if (disposeClient_)
+                client_.Dispose();
+        }
     }
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -5855,7 +4567,7 @@ public partial class TaskResourceClient : ITaskResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<Task> GetTaskAsync(string taskId, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<Task> GetTaskAsync(string taskId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (taskId == null)
             throw new System.ArgumentNullException("taskId");
@@ -5923,19 +4635,6 @@ public partial class TaskResourceClient : ITaskResourceClient
         }
     }
 
-    /// <summary>
-    /// Search for tasks based in payload and other parameters
-    /// </summary>
-    /// <remarks>
-    /// use sort options as sort=&lt;field&gt;:ASC|DESC e.g. sort=name&amp;sort=workflowId:DESC. If order is not specified, defaults to ASC
-    /// </remarks>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<SearchResultTaskSummary> Search_1Async(int? start, int? size, string? sort, string? freeText, string? query)
-    {
-        return Search_1Async(start, size, sort, freeText, query, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Search for tasks based in payload and other parameters
@@ -5945,7 +4644,7 @@ public partial class TaskResourceClient : ITaskResourceClient
     /// </remarks>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<SearchResultTaskSummary> Search_1Async(int? start, int? size, string? sort, string? freeText, string? query, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<SearchResultTaskSummary> Search_1Async(int? start = null, int? size = null, string? sort = null, string? freeText = null, string? query = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/tasks/search?");
@@ -6030,19 +4729,6 @@ public partial class TaskResourceClient : ITaskResourceClient
         }
     }
 
-    /// <summary>
-    /// Search for tasks based in payload and other parameters
-    /// </summary>
-    /// <remarks>
-    /// use sort options as sort=&lt;field&gt;:ASC|DESC e.g. sort=name&amp;sort=workflowId:DESC. If order is not specified, defaults to ASC
-    /// </remarks>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<SearchResultTask> SearchV2_1Async(int? start, int? size, string? sort, string? freeText, string? query)
-    {
-        return SearchV2_1Async(start, size, sort, freeText, query, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Search for tasks based in payload and other parameters
@@ -6052,7 +4738,7 @@ public partial class TaskResourceClient : ITaskResourceClient
     /// </remarks>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<SearchResultTask> SearchV2_1Async(int? start, int? size, string? sort, string? freeText, string? query, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<SearchResultTask> SearchV2_1Async(int? start = null, int? size = null, string? sort = null, string? freeText = null, string? query = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/tasks/search-v2?");
@@ -6137,25 +4823,13 @@ public partial class TaskResourceClient : ITaskResourceClient
         }
     }
 
-    /// <summary>
-    /// Deprecated. Please use /tasks/queue/size endpoint
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    [System.Obsolete]
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, int>> SizeAsync(System.Collections.Generic.IEnumerable<string>? taskType)
-    {
-        return SizeAsync(taskType, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
-    /// Deprecated. Please use /tasks/queue/size endpoint
+    /// Get Task type queue sizes
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    [System.Obsolete]
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, int>> SizeAsync(System.Collections.Generic.IEnumerable<string>? taskType, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, int>> SizeAsync(System.Collections.Generic.IEnumerable<string>? taskType = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/tasks/queue/sizes?");
@@ -6224,120 +4898,13 @@ public partial class TaskResourceClient : ITaskResourceClient
         }
     }
 
-    /// <summary>
-    /// Get queue size for a task type.
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<int> TaskDepthAsync(string taskType, string? domain, string? isolationGroupId, string? executionNamespace)
-    {
-        return TaskDepthAsync(taskType, domain, isolationGroupId, executionNamespace, System.Threading.CancellationToken.None);
-    }
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Get queue size for a task type.
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<int> TaskDepthAsync(string taskType, string? domain, string? isolationGroupId, string? executionNamespace, System.Threading.CancellationToken cancellationToken)
-    {
-        if (taskType == null)
-            throw new System.ArgumentNullException("taskType");
-
-        var urlBuilder_ = new System.Text.StringBuilder();
-        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/tasks/queue/size?");
-        urlBuilder_.Append(System.Uri.EscapeDataString("taskType") + "=").Append(System.Uri.EscapeDataString(ConvertToString(taskType, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-        if (domain != null)
-        {
-            urlBuilder_.Append(System.Uri.EscapeDataString("domain") + "=").Append(System.Uri.EscapeDataString(ConvertToString(domain, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-        }
-        if (isolationGroupId != null)
-        {
-            urlBuilder_.Append(System.Uri.EscapeDataString("isolationGroupId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(isolationGroupId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-        }
-        if (executionNamespace != null)
-        {
-            urlBuilder_.Append(System.Uri.EscapeDataString("executionNamespace") + "=").Append(System.Uri.EscapeDataString(ConvertToString(executionNamespace, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-        }
-        urlBuilder_.Length--;
-
-        var client_ = _httpClient;
-        var disposeClient_ = false;
-        try
-        {
-            using (var request_ = new System.Net.Http.HttpRequestMessage())
-            {
-                request_.Method = new System.Net.Http.HttpMethod("GET");
-                request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("*/*"));
-
-                PrepareRequest(client_, request_, urlBuilder_);
-
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                PrepareRequest(client_, request_, url_);
-
-                var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                var disposeResponse_ = true;
-                try
-                {
-                    var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                    if (response_.Content != null && response_.Content.Headers != null)
-                    {
-                        foreach (var item_ in response_.Content.Headers)
-                            headers_[item_.Key] = item_.Value;
-                    }
-
-                    ProcessResponse(client_, response_);
-
-                    var status_ = (int)response_.StatusCode;
-                    if (status_ == 200)
-                    {
-                        var objectResponse_ = await ReadObjectResponseAsync<int>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                        if (objectResponse_.Object == null)
-                        {
-                            throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                        }
-                        return objectResponse_.Object;
-                    }
-                    else
-                    {
-                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                    }
-                }
-                finally
-                {
-                    if (disposeResponse_)
-                        response_.Dispose();
-                }
-            }
-        }
-        finally
-        {
-            if (disposeClient_)
-                client_.Dispose();
-        }
-    }
-
-    /// <summary>
-    /// Get the last poll data for a given task type
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<PollData>> GetPollDataAsync(string taskType)
-    {
-        return GetPollDataAsync(taskType, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Get the last poll data for a given task type
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<PollData>> GetPollDataAsync(string taskType, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<PollData>> GetPollDataAsync(string taskType, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (taskType == null)
             throw new System.ArgumentNullException("taskType");
@@ -6406,23 +4973,13 @@ public partial class TaskResourceClient : ITaskResourceClient
         }
     }
 
-    /// <summary>
-    /// Get the last poll data for all task types
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<PollData>> GetAllPollDataAsync()
-    {
-        return GetAllPollDataAsync(System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Get the last poll data for all task types
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<PollData>> GetAllPollDataAsync(System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<PollData>> GetAllPollDataAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/tasks/queue/polldata/all");
@@ -6486,23 +5043,13 @@ public partial class TaskResourceClient : ITaskResourceClient
         }
     }
 
-    /// <summary>
-    /// Get the details about each queue
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, long>> AllAsync()
-    {
-        return AllAsync(System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Get the details about each queue
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, long>> AllAsync(System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, long>> AllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/tasks/queue/all");
@@ -6566,23 +5113,13 @@ public partial class TaskResourceClient : ITaskResourceClient
         }
     }
 
-    /// <summary>
-    /// Get the details about each queue
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, System.Collections.Generic.IDictionary<string, System.Collections.Generic.IDictionary<string, long>>>> AllVerboseAsync()
-    {
-        return AllVerboseAsync(System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Get the details about each queue
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, System.Collections.Generic.IDictionary<string, System.Collections.Generic.IDictionary<string, long>>>> AllVerboseAsync(System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, System.Collections.Generic.IDictionary<string, System.Collections.Generic.IDictionary<string, long>>>> AllVerboseAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/tasks/queue/all/verbose");
@@ -6646,23 +5183,13 @@ public partial class TaskResourceClient : ITaskResourceClient
         }
     }
 
-    /// <summary>
-    /// Poll for a task of a certain type
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<Task> PollAsync(string tasktype, string? workerid, string? domain)
-    {
-        return PollAsync(tasktype, workerid, domain, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Poll for a task of a certain type
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<Task> PollAsync(string tasktype, string? workerid, string? domain, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<Task> PollAsync(string tasktype, string? workerid = null, string? domain = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (tasktype == null)
             throw new System.ArgumentNullException("tasktype");
@@ -6739,23 +5266,13 @@ public partial class TaskResourceClient : ITaskResourceClient
         }
     }
 
-    /// <summary>
-    /// Batch poll for a task of a certain type
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Task>> BatchPollAsync(string tasktype, string? workerid, string? domain, int? count, int? timeout)
-    {
-        return BatchPollAsync(tasktype, workerid, domain, count, timeout, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Batch poll for a task of a certain type
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Task>> BatchPollAsync(string tasktype, string? workerid, string? domain, int? count, int? timeout, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Task>> BatchPollAsync(string tasktype, string? workerid = null, string? domain = null, int? count = null, int? timeout = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (tasktype == null)
             throw new System.ArgumentNullException("tasktype");
@@ -6840,23 +5357,13 @@ public partial class TaskResourceClient : ITaskResourceClient
         }
     }
 
-    /// <summary>
-    /// Get the external uri where the task payload is to be stored
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<ExternalStorageLocation> GetExternalStorageLocation_1Async(string path, string operation, string payloadType)
-    {
-        return GetExternalStorageLocation_1Async(path, operation, payloadType, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Get the external uri where the task payload is to be stored
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<ExternalStorageLocation> GetExternalStorageLocation_1Async(string path, string operation, string payloadType, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<ExternalStorageLocation> GetExternalStorageLocation_1Async(string path, string operation, string payloadType, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (path == null)
             throw new System.ArgumentNullException("path");
@@ -7039,12 +5546,6 @@ public partial class TaskResourceClient : ITaskResourceClient
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
 public partial interface IQueueAdminResourceClient
 {
-    /// <summary>
-    /// Publish a message in queue to mark a wait task as completed.
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task Update_1Async(string workflowId, string taskRefName, Status status, System.Collections.Generic.IDictionary<string, object> body);
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -7052,14 +5553,7 @@ public partial interface IQueueAdminResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task Update_1Async(string workflowId, string taskRefName, Status status, System.Collections.Generic.IDictionary<string, object> body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Publish a message in queue to mark a wait task (by taskId) as completed.
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task UpdateByTaskIdAsync(string workflowId, string taskId, Status2 status, System.Collections.Generic.IDictionary<string, object> body);
+    System.Threading.Tasks.Task Update_1Async(string workflowId, string taskRefName, Status status, System.Collections.Generic.IDictionary<string, object> body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -7067,29 +5561,7 @@ public partial interface IQueueAdminResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task UpdateByTaskIdAsync(string workflowId, string taskId, Status2 status, System.Collections.Generic.IDictionary<string, object> body, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Get the queue length
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, long>> Size_1Async();
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Get the queue length
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, long>> Size_1Async(System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Get Queue Names
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, string>> NamesAsync();
+    System.Threading.Tasks.Task UpdateByTaskIdAsync(string workflowId, string taskId, Status2 status, System.Collections.Generic.IDictionary<string, object> body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -7097,14 +5569,22 @@ public partial interface IQueueAdminResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, string>> NamesAsync(System.Threading.CancellationToken cancellationToken);
+    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, string>> NamesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <summary>
+    /// Get the queue length
+    /// </summary>
+    /// <returns>OK</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, long>> Size_1Async(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 }
 
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
 public partial class QueueAdminResourceClient : IQueueAdminResourceClient
 {
-    private string _baseUrl = "http://localhost:8080";
+    private string _baseUrl = string.Empty;
     private System.Net.Http.HttpClient _httpClient;
     private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
@@ -7116,7 +5596,7 @@ public partial class QueueAdminResourceClient : IQueueAdminResourceClient
 
     private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
     {
-        var settings = new Newtonsoft.Json.JsonSerializerSettings { PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.All };
+        var settings = new Newtonsoft.Json.JsonSerializerSettings();
         UpdateJsonSerializerSettings(settings);
         return settings;
     }
@@ -7135,23 +5615,13 @@ public partial class QueueAdminResourceClient : IQueueAdminResourceClient
     partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
     partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
-    /// <summary>
-    /// Publish a message in queue to mark a wait task as completed.
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task Update_1Async(string workflowId, string taskRefName, Status status, System.Collections.Generic.IDictionary<string, object> body)
-    {
-        return Update_1Async(workflowId, taskRefName, status, body, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Publish a message in queue to mark a wait task as completed.
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task Update_1Async(string workflowId, string taskRefName, Status status, System.Collections.Generic.IDictionary<string, object> body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task Update_1Async(string workflowId, string taskRefName, Status status, System.Collections.Generic.IDictionary<string, object> body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -7228,23 +5698,13 @@ public partial class QueueAdminResourceClient : IQueueAdminResourceClient
         }
     }
 
-    /// <summary>
-    /// Publish a message in queue to mark a wait task (by taskId) as completed.
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task UpdateByTaskIdAsync(string workflowId, string taskId, Status2 status, System.Collections.Generic.IDictionary<string, object> body)
-    {
-        return UpdateByTaskIdAsync(workflowId, taskId, status, body, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Publish a message in queue to mark a wait task (by taskId) as completed.
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task UpdateByTaskIdAsync(string workflowId, string taskId, Status2 status, System.Collections.Generic.IDictionary<string, object> body, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task UpdateByTaskIdAsync(string workflowId, string taskId, Status2 status, System.Collections.Generic.IDictionary<string, object> body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -7321,103 +5781,13 @@ public partial class QueueAdminResourceClient : IQueueAdminResourceClient
         }
     }
 
-    /// <summary>
-    /// Get the queue length
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, long>> Size_1Async()
-    {
-        return Size_1Async(System.Threading.CancellationToken.None);
-    }
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Get the queue length
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, long>> Size_1Async(System.Threading.CancellationToken cancellationToken)
-    {
-        var urlBuilder_ = new System.Text.StringBuilder();
-        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/queue/size");
-
-        var client_ = _httpClient;
-        var disposeClient_ = false;
-        try
-        {
-            using (var request_ = new System.Net.Http.HttpRequestMessage())
-            {
-                request_.Method = new System.Net.Http.HttpMethod("GET");
-                request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("*/*"));
-
-                PrepareRequest(client_, request_, urlBuilder_);
-
-                var url_ = urlBuilder_.ToString();
-                request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                PrepareRequest(client_, request_, url_);
-
-                var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                var disposeResponse_ = true;
-                try
-                {
-                    var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                    if (response_.Content != null && response_.Content.Headers != null)
-                    {
-                        foreach (var item_ in response_.Content.Headers)
-                            headers_[item_.Key] = item_.Value;
-                    }
-
-                    ProcessResponse(client_, response_);
-
-                    var status_ = (int)response_.StatusCode;
-                    if (status_ == 200)
-                    {
-                        var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IDictionary<string, long>>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                        if (objectResponse_.Object == null)
-                        {
-                            throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                        }
-                        return objectResponse_.Object;
-                    }
-                    else
-                    {
-                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                    }
-                }
-                finally
-                {
-                    if (disposeResponse_)
-                        response_.Dispose();
-                }
-            }
-        }
-        finally
-        {
-            if (disposeClient_)
-                client_.Dispose();
-        }
-    }
-
-    /// <summary>
-    /// Get Queue Names
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, string>> NamesAsync()
-    {
-        return NamesAsync(System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Get Queue Names
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, string>> NamesAsync(System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, string>> NamesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/queue/");
@@ -7455,6 +5825,76 @@ public partial class QueueAdminResourceClient : IQueueAdminResourceClient
                     if (status_ == 200)
                     {
                         var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IDictionary<string, string>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                        if (objectResponse_.Object == null)
+                        {
+                            throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                        }
+                        return objectResponse_.Object;
+                    }
+                    else
+                    {
+                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                    }
+                }
+                finally
+                {
+                    if (disposeResponse_)
+                        response_.Dispose();
+                }
+            }
+        }
+        finally
+        {
+            if (disposeClient_)
+                client_.Dispose();
+        }
+    }
+
+    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <summary>
+    /// Get the queue length
+    /// </summary>
+    /// <returns>OK</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, long>> Size_1Async(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    {
+        var urlBuilder_ = new System.Text.StringBuilder();
+        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/queue/size");
+
+        var client_ = _httpClient;
+        var disposeClient_ = false;
+        try
+        {
+            using (var request_ = new System.Net.Http.HttpRequestMessage())
+            {
+                request_.Method = new System.Net.Http.HttpMethod("GET");
+                request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("*/*"));
+
+                PrepareRequest(client_, request_, urlBuilder_);
+
+                var url_ = urlBuilder_.ToString();
+                request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                PrepareRequest(client_, request_, url_);
+
+                var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                var disposeResponse_ = true;
+                try
+                {
+                    var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                    if (response_.Content != null && response_.Content.Headers != null)
+                    {
+                        foreach (var item_ in response_.Content.Headers)
+                            headers_[item_.Key] = item_.Value;
+                    }
+
+                    ProcessResponse(client_, response_);
+
+                    var status_ = (int)response_.StatusCode;
+                    if (status_ == 200)
+                    {
+                        var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IDictionary<string, long>>(response_, headers_, cancellationToken).ConfigureAwait(false);
                         if (objectResponse_.Object == null)
                         {
                             throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -7587,12 +6027,6 @@ public partial class QueueAdminResourceClient : IQueueAdminResourceClient
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
 public partial interface IAdminResourceClient
 {
-    /// <summary>
-    /// Queue up all the running workflows for sweep
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<string> RequeueSweepAsync(string workflowId);
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -7600,14 +6034,7 @@ public partial interface IAdminResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<string> RequeueSweepAsync(string workflowId, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Verify and repair workflow consistency
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<string> VerifyAndRepairWorkflowConsistencyAsync(string workflowId);
+    System.Threading.Tasks.Task<string> RequeueSweepAsync(string workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -7615,14 +6042,7 @@ public partial interface IAdminResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<string> VerifyAndRepairWorkflowConsistencyAsync(string workflowId, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Get the list of pending tasks for a given task type
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Task>> ViewAsync(string tasktype, int? start, int? count);
+    System.Threading.Tasks.Task<string> VerifyAndRepairWorkflowConsistencyAsync(string workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -7630,14 +6050,7 @@ public partial interface IAdminResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Task>> ViewAsync(string tasktype, int? start, int? count, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Get registered queues
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> GetEventQueuesAsync(bool? verbose);
+    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Task>> ViewAsync(string tasktype, int? start = null, int? count = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -7645,14 +6058,7 @@ public partial interface IAdminResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> GetEventQueuesAsync(bool? verbose, System.Threading.CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Get all the configuration parameters
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> GetAllConfigAsync();
+    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> GetEventQueuesAsync(bool? verbose = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -7660,14 +6066,14 @@ public partial interface IAdminResourceClient
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> GetAllConfigAsync(System.Threading.CancellationToken cancellationToken);
+    System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> GetAllConfigAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 }
 
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
 public partial class AdminResourceClient : IAdminResourceClient
 {
-    private string _baseUrl = "http://localhost:8080";
+    private string _baseUrl = string.Empty;
     private System.Net.Http.HttpClient _httpClient;
     private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
@@ -7679,7 +6085,7 @@ public partial class AdminResourceClient : IAdminResourceClient
 
     private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
     {
-        var settings = new Newtonsoft.Json.JsonSerializerSettings { PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.All };
+        var settings = new Newtonsoft.Json.JsonSerializerSettings();
         UpdateJsonSerializerSettings(settings);
         return settings;
     }
@@ -7698,23 +6104,13 @@ public partial class AdminResourceClient : IAdminResourceClient
     partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
     partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
-    /// <summary>
-    /// Queue up all the running workflows for sweep
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<string> RequeueSweepAsync(string workflowId)
-    {
-        return RequeueSweepAsync(workflowId, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Queue up all the running workflows for sweep
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<string> RequeueSweepAsync(string workflowId, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<string> RequeueSweepAsync(string workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -7780,23 +6176,13 @@ public partial class AdminResourceClient : IAdminResourceClient
         }
     }
 
-    /// <summary>
-    /// Verify and repair workflow consistency
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<string> VerifyAndRepairWorkflowConsistencyAsync(string workflowId)
-    {
-        return VerifyAndRepairWorkflowConsistencyAsync(workflowId, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Verify and repair workflow consistency
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<string> VerifyAndRepairWorkflowConsistencyAsync(string workflowId, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<string> VerifyAndRepairWorkflowConsistencyAsync(string workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -7862,23 +6248,13 @@ public partial class AdminResourceClient : IAdminResourceClient
         }
     }
 
-    /// <summary>
-    /// Get the list of pending tasks for a given task type
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Task>> ViewAsync(string tasktype, int? start, int? count)
-    {
-        return ViewAsync(tasktype, start, count, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Get the list of pending tasks for a given task type
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Task>> ViewAsync(string tasktype, int? start, int? count, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Task>> ViewAsync(string tasktype, int? start = null, int? count = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (tasktype == null)
             throw new System.ArgumentNullException("tasktype");
@@ -7955,23 +6331,13 @@ public partial class AdminResourceClient : IAdminResourceClient
         }
     }
 
-    /// <summary>
-    /// Get registered queues
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> GetEventQueuesAsync(bool? verbose)
-    {
-        return GetEventQueuesAsync(verbose, System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Get registered queues
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> GetEventQueuesAsync(bool? verbose, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> GetEventQueuesAsync(bool? verbose = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/admin/queues?");
@@ -8040,23 +6406,13 @@ public partial class AdminResourceClient : IAdminResourceClient
         }
     }
 
-    /// <summary>
-    /// Get all the configuration parameters
-    /// </summary>
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> GetAllConfigAsync()
-    {
-        return GetAllConfigAsync(System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
     /// Get all the configuration parameters
     /// </summary>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> GetAllConfigAsync(System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, object>> GetAllConfigAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/admin/config");
@@ -8226,33 +6582,31 @@ public partial class AdminResourceClient : IAdminResourceClient
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
 public partial interface IHealthCheckResourceClient
 {
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<HealthCheckStatus> DoCheckAsync();
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<HealthCheckStatus> DoCheckAsync(System.Threading.CancellationToken cancellationToken);
+    System.Threading.Tasks.Task<HealthCheckStatus> DoCheckAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 }
 
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
 public partial class HealthCheckResourceClient : IHealthCheckResourceClient
 {
-    private string _baseUrl = "http://localhost:8080";
+    private string _baseUrl = string.Empty;
     private System.Net.Http.HttpClient _httpClient;
     private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
-    public HealthCheckResourceClient(System.Net.Http.HttpClient httpClient)
+    public HealthCheckResourceClient(IHttpClientFactory httpClientFactory, IOptions<ConductorOptions> options)
     {
-        _httpClient = httpClient;
+        _httpClient = httpClientFactory.CreateClient();
+        _baseUrl = options.Value.ConductorUrl;
         _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
     }
 
     private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
     {
-        var settings = new Newtonsoft.Json.JsonSerializerSettings { PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.All };
+        var settings = new Newtonsoft.Json.JsonSerializerSettings();
         UpdateJsonSerializerSettings(settings);
         return settings;
     }
@@ -8271,17 +6625,10 @@ public partial class HealthCheckResourceClient : IHealthCheckResourceClient
     partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
     partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
-    /// <returns>OK</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<HealthCheckStatus> DoCheckAsync()
-    {
-        return DoCheckAsync(System.Threading.CancellationToken.None);
-    }
-
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>OK</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<HealthCheckStatus> DoCheckAsync(System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<HealthCheckStatus> DoCheckAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
         urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/health");
@@ -8445,1640 +6792,6 @@ public partial class HealthCheckResourceClient : IHealthCheckResourceClient
 
         var result = System.Convert.ToString(value, cultureInfo);
         return result == null ? "" : result;
-    }
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class SkipTaskRequest
-{
-    [Newtonsoft.Json.JsonProperty("taskInput", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> TaskInput { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskOutput", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> TaskOutput { get; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class BulkResponse
-{
-    [Newtonsoft.Json.JsonProperty("bulkErrorResults", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, string> BulkErrorResults { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("bulkSuccessfulResults", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<string> BulkSuccessfulResults { get; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class SubWorkflowParams
-{
-    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
-    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-    public string Name { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int Version { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskToDomain", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, string> TaskToDomain { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowDefinition", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public WorkflowDef WorkflowDefinition { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class TaskDef
-{
-    [Newtonsoft.Json.JsonProperty("ownerApp", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string OwnerApp { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("createTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long CreateTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("updateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long UpdateTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("createdBy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string CreatedBy { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("updatedBy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string UpdatedBy { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("accessPolicy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, string> AccessPolicy { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
-    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-    public string Name { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Description { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("retryCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [System.ComponentModel.DataAnnotations.Range(0, 10)]
-    public int RetryCount { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("timeoutSeconds", Required = Newtonsoft.Json.Required.Always)]
-    public long TimeoutSeconds { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("inputKeys", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<string> InputKeys { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("outputKeys", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<string> OutputKeys { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("timeoutPolicy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public TaskDefTimeoutPolicy TimeoutPolicy { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("retryLogic", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public TaskDefRetryLogic RetryLogic { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("retryDelaySeconds", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int RetryDelaySeconds { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("responseTimeoutSeconds", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [System.ComponentModel.DataAnnotations.Range(1D, double.MaxValue)]
-    public long ResponseTimeoutSeconds { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("concurrentExecLimit", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int ConcurrentExecLimit { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("inputTemplate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> InputTemplate { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("rateLimitPerFrequency", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int RateLimitPerFrequency { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("rateLimitFrequencyInSeconds", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int RateLimitFrequencyInSeconds { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("isolationGroupId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string IsolationGroupId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("executionNameSpace", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ExecutionNameSpace { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("ownerEmail", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string OwnerEmail { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("pollTimeoutSeconds", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [System.ComponentModel.DataAnnotations.Range(0, int.MaxValue)]
-    public int PollTimeoutSeconds { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("backoffScaleFactor", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [System.ComponentModel.DataAnnotations.Range(1, int.MaxValue)]
-    public int BackoffScaleFactor { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class WorkflowDef
-{
-    [Newtonsoft.Json.JsonProperty("ownerApp", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string OwnerApp { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("createTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long CreateTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("updateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long UpdateTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("createdBy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string CreatedBy { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("updatedBy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string UpdatedBy { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("accessPolicy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, string> AccessPolicy { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
-    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-    public string Name { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Description { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int Version { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("tasks", Required = Newtonsoft.Json.Required.Always)]
-    [System.ComponentModel.DataAnnotations.Required]
-    public System.Collections.Generic.ICollection<WorkflowTask> Tasks { get; set; } = new System.Collections.ObjectModel.Collection<WorkflowTask>();
-
-    [Newtonsoft.Json.JsonProperty("inputParameters", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<string> InputParameters { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("outputParameters", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> OutputParameters { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("failureWorkflow", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string FailureWorkflow { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("schemaVersion", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [System.ComponentModel.DataAnnotations.Range(2, 2)]
-    public int SchemaVersion { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("restartable", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public bool Restartable { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowStatusListenerEnabled", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public bool WorkflowStatusListenerEnabled { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("ownerEmail", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string OwnerEmail { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("timeoutPolicy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public WorkflowDefTimeoutPolicy TimeoutPolicy { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("timeoutSeconds", Required = Newtonsoft.Json.Required.Always)]
-    public long TimeoutSeconds { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("variables", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> Variables { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("inputTemplate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> InputTemplate { get; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class WorkflowTask
-{
-    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
-    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-    public string Name { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskReferenceName", Required = Newtonsoft.Json.Required.Always)]
-    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-    public string TaskReferenceName { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Description { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("inputParameters", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> InputParameters { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Type { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("dynamicTaskNameParam", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string DynamicTaskNameParam { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("caseValueParam", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [System.Obsolete]
-    public string CaseValueParam { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("caseExpression", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [System.Obsolete]
-    public string CaseExpression { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("scriptExpression", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ScriptExpression { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("decisionCases", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<WorkflowTask>> DecisionCases { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("dynamicForkJoinTasksParam", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [System.Obsolete]
-    public string DynamicForkJoinTasksParam { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("dynamicForkTasksParam", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string DynamicForkTasksParam { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("dynamicForkTasksInputParamName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string DynamicForkTasksInputParamName { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("defaultCase", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<WorkflowTask> DefaultCase { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("forkTasks", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<System.Collections.Generic.ICollection<WorkflowTask>> ForkTasks { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("startDelay", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int StartDelay { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("subWorkflowParam", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public SubWorkflowParams SubWorkflowParam { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("joinOn", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<string> JoinOn { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("sink", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Sink { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("optional", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public bool Optional { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskDefinition", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public TaskDef TaskDefinition { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("rateLimited", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public bool RateLimited { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("defaultExclusiveJoinTask", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<string> DefaultExclusiveJoinTask { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("asyncComplete", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public bool AsyncComplete { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("loopCondition", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string LoopCondition { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("loopOver", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<WorkflowTask> LoopOver { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("retryCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int RetryCount { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("evaluatorType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string EvaluatorType { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("expression", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Expression { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowTaskType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public WorkflowTaskType WorkflowTaskType { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class Action
-{
-    [Newtonsoft.Json.JsonProperty("action", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public Action1 Action1 { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("start_workflow", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public StartWorkflow Start_workflow { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("complete_task", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public TaskDetails Complete_task { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("fail_task", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public TaskDetails Fail_task { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("expandInlineJSON", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public bool ExpandInlineJSON { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class EventHandler
-{
-    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
-    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-    public string Name { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("event", Required = Newtonsoft.Json.Required.Always)]
-    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-    public string Event { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("condition", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Condition { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("actions", Required = Newtonsoft.Json.Required.Always)]
-    [System.ComponentModel.DataAnnotations.Required]
-    public System.Collections.Generic.ICollection<Action> Actions { get; } = new System.Collections.ObjectModel.Collection<Action>();
-
-    [Newtonsoft.Json.JsonProperty("active", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public bool Active { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("evaluatorType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string EvaluatorType { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class StartWorkflow
-{
-    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Name { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int Version { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("correlationId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string CorrelationId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("input", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> Input { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskToDomain", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, string> TaskToDomain { get; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class TaskDetails
-{
-    [Newtonsoft.Json.JsonProperty("workflowId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string WorkflowId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskRefName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string TaskRefName { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("output", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> Output { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string TaskId { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class StartWorkflowRequest
-{
-    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
-    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-    public string Name { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int Version { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("correlationId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string CorrelationId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("input", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> Input { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskToDomain", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, string> TaskToDomain { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowDef", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public WorkflowDef WorkflowDef { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("externalInputPayloadStoragePath", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ExternalInputPayloadStoragePath { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("priority", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [System.ComponentModel.DataAnnotations.Range(0, 99)]
-    public int Priority { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class RerunWorkflowRequest
-{
-    [Newtonsoft.Json.JsonProperty("reRunFromWorkflowId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ReRunFromWorkflowId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowInput", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> WorkflowInput { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("reRunFromTaskId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ReRunFromTaskId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskInput", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> TaskInput { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("correlationId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string CorrelationId { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class Task
-{
-    [Newtonsoft.Json.JsonProperty("taskType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string TaskType { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public TaskStatus Status { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("inputData", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> InputData { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("referenceTaskName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ReferenceTaskName { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("retryCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int RetryCount { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("seq", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int Seq { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("correlationId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string CorrelationId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("pollCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int PollCount { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskDefName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string TaskDefName { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("scheduledTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long ScheduledTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("startTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long StartTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("endTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long EndTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("updateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long UpdateTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("startDelayInSeconds", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int StartDelayInSeconds { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("retriedTaskId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string RetriedTaskId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("retried", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public bool Retried { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("executed", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public bool Executed { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("callbackFromWorker", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public bool CallbackFromWorker { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("responseTimeoutSeconds", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long ResponseTimeoutSeconds { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowInstanceId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string WorkflowInstanceId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string WorkflowType { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string TaskId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("reasonForIncompletion", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ReasonForIncompletion { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("callbackAfterSeconds", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long CallbackAfterSeconds { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workerId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string WorkerId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("outputData", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> OutputData { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowTask", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public WorkflowTask WorkflowTask { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("domain", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Domain { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("rateLimitPerFrequency", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int RateLimitPerFrequency { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("rateLimitFrequencyInSeconds", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int RateLimitFrequencyInSeconds { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("externalInputPayloadStoragePath", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ExternalInputPayloadStoragePath { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("externalOutputPayloadStoragePath", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ExternalOutputPayloadStoragePath { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowPriority", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int WorkflowPriority { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("executionNameSpace", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ExecutionNameSpace { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("isolationGroupId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string IsolationGroupId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("iteration", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int Iteration { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("subWorkflowId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string SubWorkflowId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("subworkflowChanged", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public bool SubworkflowChanged { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskDefinition", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public TaskDef TaskDefinition { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("queueWaitTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long QueueWaitTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("loopOverTask", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public bool LoopOverTask { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class Workflow
-{
-    [Newtonsoft.Json.JsonProperty("ownerApp", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string OwnerApp { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("createTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long CreateTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("updateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long UpdateTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("createdBy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string CreatedBy { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("updatedBy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string UpdatedBy { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public WorkflowStatus Status { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("endTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long EndTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string WorkflowId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("parentWorkflowId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ParentWorkflowId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("parentWorkflowTaskId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ParentWorkflowTaskId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("tasks", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<Task> Tasks { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("input", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> Input { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("output", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> Output { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("correlationId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string CorrelationId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("reRunFromWorkflowId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ReRunFromWorkflowId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("reasonForIncompletion", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ReasonForIncompletion { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("event", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Event { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskToDomain", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, string> TaskToDomain { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("failedReferenceTaskNames", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<string> FailedReferenceTaskNames { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowDefinition", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public WorkflowDef WorkflowDefinition { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("externalInputPayloadStoragePath", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ExternalInputPayloadStoragePath { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("externalOutputPayloadStoragePath", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ExternalOutputPayloadStoragePath { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("priority", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [System.ComponentModel.DataAnnotations.Range(0, 99)]
-    public int Priority { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("variables", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> Variables { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("lastRetriedTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long LastRetriedTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("failedTaskNames", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<string> FailedTaskNames { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("startTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long StartTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowVersion", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int WorkflowVersion { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string WorkflowName { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class TaskMock
-{
-    [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public TaskMockStatus Status { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("output", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> Output { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("executionTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long ExecutionTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("queueWaitTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long QueueWaitTime { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class WorkflowTestRequest
-{
-    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
-    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-    public string Name { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int Version { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("correlationId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string CorrelationId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("input", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> Input { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskToDomain", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, string> TaskToDomain { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowDef", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public WorkflowDef WorkflowDef { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("externalInputPayloadStoragePath", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ExternalInputPayloadStoragePath { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("priority", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [System.ComponentModel.DataAnnotations.Range(0, 99)]
-    public int Priority { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskRefToMockOutput", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, System.Collections.Generic.ICollection<TaskMock>> TaskRefToMockOutput { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("subWorkflowTestRequest", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, WorkflowTestRequest> SubWorkflowTestRequest { get; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class TaskExecLog
-{
-    [Newtonsoft.Json.JsonProperty("log", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Log { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string TaskId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("createdTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long CreatedTime { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class TaskResult
-{
-    [Newtonsoft.Json.JsonProperty("workflowInstanceId", Required = Newtonsoft.Json.Required.Always)]
-    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-    public string WorkflowInstanceId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskId", Required = Newtonsoft.Json.Required.Always)]
-    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-    public string TaskId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("reasonForIncompletion", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ReasonForIncompletion { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("callbackAfterSeconds", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long CallbackAfterSeconds { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workerId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string WorkerId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public TaskResultStatus Status { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("outputData", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> OutputData { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("logs", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<TaskExecLog> Logs { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("externalOutputPayloadStoragePath", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ExternalOutputPayloadStoragePath { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("subWorkflowId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string SubWorkflowId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("extendLease", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public bool ExtendLease { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class Health
-{
-    [Newtonsoft.Json.JsonProperty("details", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.IDictionary<string, object> Details { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("errorMessage", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ErrorMessage { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("healthy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public bool Healthy { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class HealthCheckStatus
-{
-    [Newtonsoft.Json.JsonProperty("healthResults", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<Health> HealthResults { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("suppressedHealthResults", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<Health> SuppressedHealthResults { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("healthy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public bool Healthy { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class SearchResultWorkflowSummary
-{
-    [Newtonsoft.Json.JsonProperty("totalHits", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long TotalHits { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("results", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<WorkflowSummary> Results { get; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class WorkflowSummary
-{
-    [Newtonsoft.Json.JsonProperty("workflowType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string WorkflowType { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int Version { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string WorkflowId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("correlationId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string CorrelationId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("startTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string StartTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("updateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string UpdateTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("endTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string EndTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public WorkflowSummaryStatus Status { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("input", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Input { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("output", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Output { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("reasonForIncompletion", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ReasonForIncompletion { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("executionTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long ExecutionTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("event", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Event { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("failedReferenceTaskNames", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string FailedReferenceTaskNames { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("externalInputPayloadStoragePath", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ExternalInputPayloadStoragePath { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("externalOutputPayloadStoragePath", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ExternalOutputPayloadStoragePath { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("priority", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int Priority { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("failedTaskNames", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<string> FailedTaskNames { get; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("outputSize", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long OutputSize { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("inputSize", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long InputSize { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class SearchResultWorkflow
-{
-    [Newtonsoft.Json.JsonProperty("totalHits", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long TotalHits { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("results", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<Workflow> Results { get; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class ExternalStorageLocation
-{
-    [Newtonsoft.Json.JsonProperty("uri", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Uri { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("path", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Path { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class SearchResultTaskSummary
-{
-    [Newtonsoft.Json.JsonProperty("totalHits", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long TotalHits { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("results", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<TaskSummary> Results { get; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class TaskSummary
-{
-    [Newtonsoft.Json.JsonProperty("workflowId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string WorkflowId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string WorkflowType { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("correlationId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string CorrelationId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("scheduledTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ScheduledTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("startTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string StartTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("updateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string UpdateTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("endTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string EndTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public TaskSummaryStatus Status { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("reasonForIncompletion", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ReasonForIncompletion { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("executionTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long ExecutionTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("queueWaitTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long QueueWaitTime { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskDefName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string TaskDefName { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string TaskType { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("input", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Input { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("output", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Output { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("taskId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string TaskId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("externalInputPayloadStoragePath", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ExternalInputPayloadStoragePath { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("externalOutputPayloadStoragePath", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string ExternalOutputPayloadStoragePath { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workflowPriority", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int WorkflowPriority { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("domain", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Domain { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class SearchResultTask
-{
-    [Newtonsoft.Json.JsonProperty("totalHits", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long TotalHits { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("results", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<Task> Results { get; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class PollData
-{
-    [Newtonsoft.Json.JsonProperty("queueName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string QueueName { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("domain", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string Domain { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("workerId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string WorkerId { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("lastPollTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public long LastPollTime { get; set; } = default!;
-
-    private System.Collections.Generic.IDictionary<string, object>? _additionalProperties;
-
-    [Newtonsoft.Json.JsonExtensionData]
-    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-    {
-        get { return _additionalProperties ?? (_additionalProperties = new System.Collections.Generic.Dictionary<string, object>()); }
-        set { _additionalProperties = value; }
-    }
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public enum Status
-{
-
-    [System.Runtime.Serialization.EnumMember(Value = @"IN_PROGRESS")]
-    IN_PROGRESS = 0,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"CANCELED")]
-    CANCELED = 1,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FAILED")]
-    FAILED = 2,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FAILED_WITH_TERMINAL_ERROR")]
-    FAILED_WITH_TERMINAL_ERROR = 3,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"COMPLETED")]
-    COMPLETED = 4,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"COMPLETED_WITH_ERRORS")]
-    COMPLETED_WITH_ERRORS = 5,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"SCHEDULED")]
-    SCHEDULED = 6,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"TIMED_OUT")]
-    TIMED_OUT = 7,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"SKIPPED")]
-    SKIPPED = 8,
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public enum Status2
-{
-
-    [System.Runtime.Serialization.EnumMember(Value = @"IN_PROGRESS")]
-    IN_PROGRESS = 0,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"CANCELED")]
-    CANCELED = 1,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FAILED")]
-    FAILED = 2,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FAILED_WITH_TERMINAL_ERROR")]
-    FAILED_WITH_TERMINAL_ERROR = 3,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"COMPLETED")]
-    COMPLETED = 4,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"COMPLETED_WITH_ERRORS")]
-    COMPLETED_WITH_ERRORS = 5,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"SCHEDULED")]
-    SCHEDULED = 6,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"TIMED_OUT")]
-    TIMED_OUT = 7,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"SKIPPED")]
-    SKIPPED = 8,
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public enum TaskDefTimeoutPolicy
-{
-
-    [System.Runtime.Serialization.EnumMember(Value = @"RETRY")]
-    RETRY = 0,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"TIME_OUT_WF")]
-    TIME_OUT_WF = 1,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"ALERT_ONLY")]
-    ALERT_ONLY = 2,
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public enum TaskDefRetryLogic
-{
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FIXED")]
-    FIXED = 0,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"EXPONENTIAL_BACKOFF")]
-    EXPONENTIAL_BACKOFF = 1,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"LINEAR_BACKOFF")]
-    LINEAR_BACKOFF = 2,
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public enum WorkflowDefTimeoutPolicy
-{
-
-    [System.Runtime.Serialization.EnumMember(Value = @"TIME_OUT_WF")]
-    TIME_OUT_WF = 0,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"ALERT_ONLY")]
-    ALERT_ONLY = 1,
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public enum WorkflowTaskType
-{
-
-    [System.Runtime.Serialization.EnumMember(Value = @"SIMPLE")]
-    SIMPLE = 0,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"DYNAMIC")]
-    DYNAMIC = 1,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FORK_JOIN")]
-    FORK_JOIN = 2,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FORK_JOIN_DYNAMIC")]
-    FORK_JOIN_DYNAMIC = 3,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"DECISION")]
-    DECISION = 4,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"SWITCH")]
-    SWITCH = 5,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"JOIN")]
-    JOIN = 6,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"DO_WHILE")]
-    DO_WHILE = 7,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"SUB_WORKFLOW")]
-    SUB_WORKFLOW = 8,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"START_WORKFLOW")]
-    START_WORKFLOW = 9,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"EVENT")]
-    EVENT = 10,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"WAIT")]
-    WAIT = 11,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"HUMAN")]
-    HUMAN = 12,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"USER_DEFINED")]
-    USER_DEFINED = 13,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"HTTP")]
-    HTTP = 14,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"LAMBDA")]
-    LAMBDA = 15,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"INLINE")]
-    INLINE = 16,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"EXCLUSIVE_JOIN")]
-    EXCLUSIVE_JOIN = 17,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"TERMINATE")]
-    TERMINATE = 18,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"KAFKA_PUBLISH")]
-    KAFKA_PUBLISH = 19,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"JSON_JQ_TRANSFORM")]
-    JSON_JQ_TRANSFORM = 20,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"SET_VARIABLE")]
-    SET_VARIABLE = 21,
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public enum Action1
-{
-
-    [System.Runtime.Serialization.EnumMember(Value = @"start_workflow")]
-    Start_workflow = 0,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"complete_task")]
-    Complete_task = 1,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"fail_task")]
-    Fail_task = 2,
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public enum TaskStatus
-{
-
-    [System.Runtime.Serialization.EnumMember(Value = @"IN_PROGRESS")]
-    IN_PROGRESS = 0,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"CANCELED")]
-    CANCELED = 1,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FAILED")]
-    FAILED = 2,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FAILED_WITH_TERMINAL_ERROR")]
-    FAILED_WITH_TERMINAL_ERROR = 3,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"COMPLETED")]
-    COMPLETED = 4,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"COMPLETED_WITH_ERRORS")]
-    COMPLETED_WITH_ERRORS = 5,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"SCHEDULED")]
-    SCHEDULED = 6,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"TIMED_OUT")]
-    TIMED_OUT = 7,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"SKIPPED")]
-    SKIPPED = 8,
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public enum WorkflowStatus
-{
-
-    [System.Runtime.Serialization.EnumMember(Value = @"RUNNING")]
-    RUNNING = 0,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"COMPLETED")]
-    COMPLETED = 1,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FAILED")]
-    FAILED = 2,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"TIMED_OUT")]
-    TIMED_OUT = 3,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"TERMINATED")]
-    TERMINATED = 4,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"PAUSED")]
-    PAUSED = 5,
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public enum TaskMockStatus
-{
-
-    [System.Runtime.Serialization.EnumMember(Value = @"IN_PROGRESS")]
-    IN_PROGRESS = 0,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FAILED")]
-    FAILED = 1,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FAILED_WITH_TERMINAL_ERROR")]
-    FAILED_WITH_TERMINAL_ERROR = 2,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"COMPLETED")]
-    COMPLETED = 3,
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public enum TaskResultStatus
-{
-
-    [System.Runtime.Serialization.EnumMember(Value = @"IN_PROGRESS")]
-    IN_PROGRESS = 0,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FAILED")]
-    FAILED = 1,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FAILED_WITH_TERMINAL_ERROR")]
-    FAILED_WITH_TERMINAL_ERROR = 2,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"COMPLETED")]
-    COMPLETED = 3,
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public enum WorkflowSummaryStatus
-{
-
-    [System.Runtime.Serialization.EnumMember(Value = @"RUNNING")]
-    RUNNING = 0,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"COMPLETED")]
-    COMPLETED = 1,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FAILED")]
-    FAILED = 2,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"TIMED_OUT")]
-    TIMED_OUT = 3,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"TERMINATED")]
-    TERMINATED = 4,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"PAUSED")]
-    PAUSED = 5,
-
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public enum TaskSummaryStatus
-{
-
-    [System.Runtime.Serialization.EnumMember(Value = @"IN_PROGRESS")]
-    IN_PROGRESS = 0,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"CANCELED")]
-    CANCELED = 1,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FAILED")]
-    FAILED = 2,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"FAILED_WITH_TERMINAL_ERROR")]
-    FAILED_WITH_TERMINAL_ERROR = 3,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"COMPLETED")]
-    COMPLETED = 4,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"COMPLETED_WITH_ERRORS")]
-    COMPLETED_WITH_ERRORS = 5,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"SCHEDULED")]
-    SCHEDULED = 6,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"TIMED_OUT")]
-    TIMED_OUT = 7,
-
-    [System.Runtime.Serialization.EnumMember(Value = @"SKIPPED")]
-    SKIPPED = 8,
-
-}
-
-
-
-[System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class ApiException : System.Exception
-{
-    public int StatusCode { get; private set; }
-
-    public string? Response { get; private set; }
-
-    public System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> Headers { get; private set; }
-
-    public ApiException(string message, int statusCode, string? response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Exception? innerException)
-        : base(message + "\n\nStatus: " + statusCode + "\nResponse: \n" + ((response == null) ? "(null)" : response.Substring(0, response.Length >= 512 ? 512 : response.Length)), innerException)
-    {
-        StatusCode = statusCode;
-        Response = response;
-        Headers = headers;
-    }
-
-    public override string ToString()
-    {
-        return string.Format("HTTP Response: \n\n{0}\n\n{1}", Response, base.ToString());
-    }
-}
-
-[System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class ApiException<TResult> : ApiException
-{
-    public TResult Result { get; private set; }
-
-    public ApiException(string message, int statusCode, string? response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, TResult result, System.Exception? innerException)
-        : base(message, statusCode, response, headers, innerException)
-    {
-        Result = result;
     }
 }
 
