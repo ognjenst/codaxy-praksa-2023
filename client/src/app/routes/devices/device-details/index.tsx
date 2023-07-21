@@ -42,13 +42,13 @@ export default () => (
                         <PureContainer layout={UseParentLayout} visible-bind="$page.device.colorXy">
                             <ColorComponent />
                         </PureContainer>
-                        <PureContainer layout={UseParentLayout} visible-bind="$page.device.energy">
+                        <PureContainer layout={UseParentLayout} visible-bind="$page.device.energy.power">
                             <EnergyComponent />
                         </PureContainer>
                     </LabelsLeftLayout>
                 </div>
                 <div className="flex items-center flex-1">
-                    <PureContainer layout={UseParentLayout} visible-bind="$page.device.energy">
+                    <PureContainer layout={UseParentLayout} visible-bind="$page.device.energy.power">
                         <Svg style="width:600px; height:300px;">
                             <Chart
                                 offset="20 -10 -60 40"
