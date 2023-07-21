@@ -2976,10 +2976,10 @@ public partial class OutputAlert
     public string? UpdatedBy { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_createdAt", Required = Newtonsoft.Json.Required.Always)]
-    public int CreatedAt { get; set; } = default!;
+    public long CreatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("_updatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int? UpdatedAt { get; set; } = default!;
+    public long? UpdatedAt { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]

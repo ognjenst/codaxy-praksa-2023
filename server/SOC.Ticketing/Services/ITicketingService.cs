@@ -5,20 +5,13 @@ namespace SOC.Ticketing.Services
 {
     public interface ITicketingService
     {
-        Task<OutputCase> GetCaseAsync(string id, CancellationToken cancellationToken = default);
-        Task<OutputCase> CreateCaseAsync(InputCreateCase inputCreateCase, CancellationToken cancellationToken = default);
-        Task<Response> DeleteCaseAsync(string id, CancellationToken cancellationToken = default);
-        Task<Response> UpdateCaseAsync(string id, InputUpdateCase inputUpdateCase, CancellationToken cancellationToken = default);
 
-        Task<OutputAlert> GetAlertAsync(string id, CancellationToken cancellationToken = default);
-        Task<OutputAlert> CreateAlertAsync(InputCreateAlert inputCreateAlert, CancellationToken cancellationToken = default);
-        Task<Response> DeleteAlertAsync(string id, CancellationToken cancellationToken = default);
-        Task<Response> UpdateAlertAsync(string id, InputUpdateAlert inputUpdateAlert, CancellationToken cancellationToken = default);
-
-        Task<OutputTask> GetTaskAsync(string id, CancellationToken cancellationToken = default);
         Task<OutputTask> CreateTaskAsync(InputCreateTask inputCreateTask, string caseId, CancellationToken cancellationToken = default);
-        Task<Response> DeleteTaskAsync(string id, CancellationToken cancellationToken = default);
-        Task<Response> UpdateTaskAsync(string id, InputUpdateTask inputUpdateTask, CancellationToken cancellationToken = default);
+
+        Task<TOutput> GetAsync<TOutput>(string id, string type, CancellationToken cancellationToken = default);
+        Task<TOutput> CreateAsync<TInput, TOutput>(TInput input, string type, CancellationToken cancellationToken = default);
+        Task<Response> DeleteAsync(string id, string type, CancellationToken cancellationToken = default);
+        Task<Response> UpdateAsync<TInput>(string id, TInput input, string type, CancellationToken cancellationToken = default);
 
     }
 }
