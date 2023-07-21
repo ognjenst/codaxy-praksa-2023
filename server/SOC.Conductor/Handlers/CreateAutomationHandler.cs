@@ -10,9 +10,9 @@ namespace SOC.Conductor.Handlers
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public CreateAutomationHandler(IUnitOfWork _unitOfWork)
+        public CreateAutomationHandler(IUnitOfWork unitOfWork)
         {
-            this._unitOfWork = _unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Automation> Handle(CreateAutomationRequest request, CancellationToken cancellationToken)

@@ -9,11 +9,11 @@ namespace SOC.Conductor.Handlers
 
     public class UpdateWorkflowHandler : IRequestHandler<UpdateWorkflowRequest, Workflow>
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateWorkflowHandler(IUnitOfWork _unitOfWork)
+        public UpdateWorkflowHandler(IUnitOfWork unitOfWork)
         {
-            this._unitOfWork = _unitOfWork;          
+            _unitOfWork = unitOfWork;          
         }
 
         public async Task<Workflow> Handle(UpdateWorkflowRequest request, CancellationToken cancellationToken)

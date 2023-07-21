@@ -8,11 +8,11 @@ namespace SOC.Conductor.Handlers
 
     public class UpdateTriggerHandler : IRequestHandler<UpdateTriggerRequest, Trigger>
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateTriggerHandler(IUnitOfWork _unitOfWork)
+        public UpdateTriggerHandler(IUnitOfWork unitOfWork)
         {
-            this._unitOfWork = _unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Trigger> Handle(UpdateTriggerRequest request, CancellationToken cancellationToken)

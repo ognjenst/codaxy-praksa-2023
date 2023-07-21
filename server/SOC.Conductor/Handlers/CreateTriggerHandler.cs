@@ -11,9 +11,9 @@ namespace SOC.Conductor.Handlers
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public CreateTriggerHandler(IUnitOfWork _unitOfWork)
+        public CreateTriggerHandler(IUnitOfWork unitOfWork)
         {
-            this._unitOfWork = _unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Trigger> Handle(CreateTriggerRequest request, CancellationToken cancellationToken)

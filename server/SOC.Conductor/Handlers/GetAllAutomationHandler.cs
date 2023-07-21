@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using SOC.Conductor.Contracts;
+using SOC.Conductor.DTOs;
 using SOC.Conductor.Entities;
 using SOC.Conductor.Repositories;
 
@@ -11,13 +12,14 @@ namespace SOC.Conductor.Handlers
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public GetAllAutomationHandler(IUnitOfWork _unitOfWork)
+        public GetAllAutomationHandler(IUnitOfWork unitOfWork)
         {
-            this._unitOfWork = _unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<Automation>> Handle(GetAllAutomationsRequest request, CancellationToken cancellationToken)
         {
+            // uraditi mapiranje u dto
             return await _unitOfWork.Automations.GetAllAsync(cancellationToken);
         }
     }

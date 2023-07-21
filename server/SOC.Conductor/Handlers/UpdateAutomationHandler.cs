@@ -11,9 +11,9 @@ namespace SOC.Conductor.Handlers
     {
         private IUnitOfWork _unitOfWork;
 
-        public UpdateAutomationHandler(IUnitOfWork _unitOfWork)
+        public UpdateAutomationHandler(IUnitOfWork unitOfWork)
         {
-            this._unitOfWork = _unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         public Task<Automation> Handle(UpdateAutomationRequest request, CancellationToken cancellationToken)

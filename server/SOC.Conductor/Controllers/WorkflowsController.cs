@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.DTOs;
+using SOC.Conductor.Entities;
 using SOC.Conductor.Generated;
+using SOC.Conductor.Handlers;
+using System.Linq.Expressions;
 using Task = System.Threading.Tasks.Task;
 
 namespace SOC.Conductor.Controllers;
@@ -9,47 +13,78 @@ namespace SOC.Conductor.Controllers;
 [ApiController]
 public class WorkflowsController : ControllerBase
 {
-    private readonly IMetadataResourceClient _metadataResourceClient;
+    private readonly IMediator _mediator;
 
-    public WorkflowsController(IMetadataResourceClient metadataResourceClient)
+    public WorkflowsController(IMediator mediator)
     {
-        _metadataResourceClient = metadataResourceClient;
+        _mediator = mediator;
     }
 
+
     /// <summary>
-    /// Returns all registered workflows from conductor.
+    /// Gets all workflows from a database.
     /// </summary>
     /// <returns></returns>
-    [HttpGet(Name = "GetAllWorkflowsAsync")]
+    [HttpGet(Name = "GetAllWorkflowsFromDB")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IList<WorkflowDto>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
-    public async Task<IActionResult> GetAllWorkflowsAsync()
+    public async Task<IActionResult> GetAllWorkflowsFromDBAsync()
     {
-        var wf = new List<WorkflowDto>
-        {
-            new WorkflowDto
-            {
-                Id = 1,
-                Name = "IOT_scan_hosts",
-                Version = 1,
-                CreateDate = DateTime.UtcNow,
-                UpdateDate = DateTime.UtcNow,
-                Enabled = true,
-            },
-            new WorkflowDto
-            {
-                Id = 2,
-                Name = "IOT_set_morning_routine",
-                Version = 1,
-                CreateDate = DateTime.UtcNow,
-                UpdateDate = DateTime.UtcNow,
-                Enabled = true,
-            }
-        };
+        var result = await _mediator.Send(new GetAllWorkflowsRequest());
 
-        await Task.Delay(2000);
+        if (result is not null)
+            return Ok(result);
 
-        return Ok(wf);
+        return NotFound();
+    }
+
+    [HttpDelete(Name = "DeleteWorkflow")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Trigger))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
+    public async Task<IActionResult> DeleteWorkflowAsync([FromBody] WorkflowDto entity)
+    {
+        var result = await _mediator.Send(new DeleteWorkflowRequest(entity.Id));
+
+        if (result is not null)
+            return Ok(result);
+
+        return NotFound();
+    }
+
+    [HttpPost(Name = "CreateWorkflow")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Entities.Workflow))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+    public async Task<IActionResult> CreateWorkflowAsync([FromBody] CreateWorkflowDto entity)
+    {
+        var result = await _mediator.Send(new CreateWorkflowRequest(entity));
+
+        if (result is not null)
+            return Ok(result);
+
+        return NotFound();
+    }
+
+
+    /// <summary>
+    /// Updates a workflow.
+    /// </summary>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    [HttpPut(Name = "UpdateWorkflow")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Entities.Workflow))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+    public async Task<IActionResult> UpdateWorkflowAsync([FromBody] Entities.Workflow entity)
+    {
+        var result = await _mediator.Send(new UpdateWorkflowRequest(entity));
+        if (result is not null)
+            return Ok(result);
+
+        return NotFound();
     }
 }

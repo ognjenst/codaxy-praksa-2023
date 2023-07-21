@@ -1,27 +1,30 @@
 ﻿using MediatR;
 using SOC.Conductor.Contracts;
+using SOC.Conductor.Entities;
 
 namespace SOC.Conductor.Handlers
 {
-    public record DeleteTriggerRequest(int TriggerId) : IRequest { }
+    public record DeleteTriggerRequest(int TriggerId) : IRequest<Trigger> { }
 
-    public class DeleteTriggerHandler : IRequestHandler<DeleteTriggerRequest>
+    public class DeleteTriggerHandler : IRequestHandler<DeleteTriggerRequest, Trigger>
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public DeleteTriggerHandler(IUnitOfWork _unitOfWork)
+        public DeleteTriggerHandler(IUnitOfWork unitOfWork)
         {
-            this._unitOfWork = _unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task Handle(DeleteTriggerRequest request, CancellationToken cancellationToken)
+        public async Task<Trigger> Handle(DeleteTriggerRequest request, CancellationToken cancellationToken)
         {
             var trigger = (await _unitOfWork.Triggers.GetByCondition(x => x.Id == request.TriggerId, cancellationToken)).FirstOrDefault();
             if (trigger is not null) 
             {
-                await _unitOfWork.Triggers.DeleteAsync(trigger, cancellationToken);
+                var result = await _unitOfWork.Triggers.DeleteAsync(trigger, cancellationToken);
                 await _unitOfWork.SaveAllAsync();
+                return result;
             }
+            return null;
         }
     }
 }

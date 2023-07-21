@@ -9,11 +9,11 @@ namespace SOC.Conductor.Handlers
 
     public class GetAllWorkflowHandler : IRequestHandler<GetAllWorkflowsRequest, IEnumerable<Workflow>>
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GetAllWorkflowHandler(IUnitOfWork _unitOfWork)
+        public GetAllWorkflowHandler(IUnitOfWork unitOfWork)
         {
-            this._unitOfWork = _unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<Workflow>> Handle(GetAllWorkflowsRequest request, CancellationToken cancellationToken)
