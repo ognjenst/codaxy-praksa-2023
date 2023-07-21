@@ -23,7 +23,7 @@ namespace SOC.Ticketing.Handler
 
         public Task<NoOutput> Handle(TicketingRequest request, CancellationToken cancellationToken)
         {
-           
+          
             return Task.FromResult(new NoOutput());
         }
     }
