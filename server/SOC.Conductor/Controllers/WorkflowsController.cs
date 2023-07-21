@@ -22,13 +22,17 @@ public class WorkflowsController : ControllerBase
 	[HttpGet("GetAllTasksAsync")]
 	public async Task<IActionResult> GetAllTasksAsync()
 	{
-		return Ok(await _mediator.Send(new GetAllTasks()));
+		var response = await _mediator.Send(new GetAllTasks());
+		if (response == null) return NotFound();
+		return Ok(response);
 	}
 
 	[HttpGet("GetAllWorkflowsAsync")]
 	public async Task<IActionResult> GetAllWorkflows()
 	{
-		return Ok(await _mediator.Send(new GetAllWorkflows()));
+		var response = await _mediator.Send(new GetAllWorkflows());
+		if (response == null) return NotFound();
+		return Ok(response);
 	}
 
 	[HttpPut("PauseWorkflowAsync")]

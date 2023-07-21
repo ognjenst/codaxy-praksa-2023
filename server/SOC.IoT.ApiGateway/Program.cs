@@ -51,12 +51,12 @@ if (app.Environment.IsDevelopment())
 }
 
 // Configure Serilog
-builder.Host.UseSerilog(
+/*builder.Host.UseSerilog(
     (context, config) =>
     {
         config.WriteTo.Console();
     }
-);
+);*/
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
