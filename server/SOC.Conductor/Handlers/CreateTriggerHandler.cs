@@ -9,7 +9,7 @@ namespace SOC.Conductor.Handlers
 
     public class CreateTriggerHandler : IRequestHandler<CreateTriggerRequest, Trigger>
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public CreateTriggerHandler(IUnitOfWork _unitOfWork)
         {

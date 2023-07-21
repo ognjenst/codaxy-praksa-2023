@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.DTOs;
 using SOC.Conductor.Handlers;
-using SOC.Conductor.Handlers.Queries;
 
 namespace SOC.Conductor.Controllers
 {

@@ -9,7 +9,7 @@ namespace SOC.Conductor.Handlers
 
     public class GetAllAutomationHandler : IRequestHandler<GetAllAutomationsRequest, IEnumerable<Automation>>
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public GetAllAutomationHandler(IUnitOfWork _unitOfWork)
         {

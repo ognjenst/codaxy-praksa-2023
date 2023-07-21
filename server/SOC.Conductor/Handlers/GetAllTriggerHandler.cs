@@ -9,7 +9,7 @@ namespace SOC.Conductor.Handlers
 
     public class GetAllTriggerHandler : IRequestHandler<GetAllTriggersRequest, IEnumerable<Trigger>>
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public GetAllTriggerHandler(IUnitOfWork _unitOfWork)
         {

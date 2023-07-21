@@ -9,7 +9,7 @@ namespace SOC.Conductor.Handlers
 
     public class CreateWorkflowHandler : IRequestHandler<CreateWorkflowRequest, Workflow>
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public CreateWorkflowHandler(IUnitOfWork _unitOfWork)
         {
