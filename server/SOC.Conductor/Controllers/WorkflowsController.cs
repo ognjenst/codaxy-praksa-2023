@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.DTOs;
 using SOC.Conductor.Generated;
+using SOC.Conductor.Models.Requests;
 using Task = System.Threading.Tasks.Task;
 
 namespace SOC.Conductor.Controllers;
@@ -9,22 +11,28 @@ namespace SOC.Conductor.Controllers;
 [ApiController]
 public class WorkflowsController : ControllerBase
 {
-	private readonly IMetadataResourceClient _client;
+	private readonly IMediator _mediator;
 	
-	public WorkflowsController(IMetadataResourceClient client)
+	public WorkflowsController(IMediator mediator)
 	{
-		_client = client;
+		_mediator = mediator;
 	}
 
 	[HttpGet("GetAllTasksAsync")]
 	public async Task<IActionResult> GetAllTasksAsync()
 	{
-		return Ok(await _client.GetTaskDefsAsync());
+		return Ok(await _mediator.Send(new GetAllTasks()));
 	}
 
 	[HttpGet("GetAllWorkflowsAsync")]
 	public async Task<IActionResult> GetAllWorkflows()
 	{
-		return Ok(await _client.GetAllAsync());
+		return Ok(await _mediator.Send(new GetAllWorkflows()));
+	}
+
+	[HttpPut("PauseWorkflowAsync")]
+	public async Task<IActionResult> PauseWorkflowAsync()
+	{
+		return NotFound();
 	}
 }
