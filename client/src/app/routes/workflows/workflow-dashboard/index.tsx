@@ -51,41 +51,7 @@ export default () => (
                 </svg>
             </Button>
 
-            <Button
-                className="absolute top-2 right-12 p-0 "
-                mod="hollow"
-                onClick={async (e, { store }) => {
-                    // ges Task
-                    console.log(store.get("$page.currentWorkflow.name"));
-                    let newObj: any = await openInsertUpdateWindow({
-                        props: {
-                            action: "Update",
-                            name: store.get("$page.currentWorkflow.name"),
-                            description: "desc",
-                            version: 1,
-                        },
-                    });
-
-                    if (!newObj) return;
-
-                    if (store.get("$page.currentWorkflowInUndoneList") == true) {
-                        store.update("$page.undoneWorkflows", (elements) =>
-                            elements.map((el) => (el.name == store.get("$page.currentWorkflow.name") ? newObj : el))
-                        );
-                    } else {
-                        console.log(newObj);
-                        store.update("$page.undoneWorkflows", (elements) => [...elements, newObj]);
-
-                        var arrUndone = store.get("$page.workflows").filter((value, index, arr) => {
-                            if (value.name == store.get("$page.currentWorkflow.name")) return false;
-
-                            return true;
-                        });
-
-                        store.set("$page.workflows", arrUndone);
-                    }
-                }}
-            >
+            <Button className="absolute top-2 right-12 p-0 " mod="hollow" onClick="updateWorkflow">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -286,7 +252,6 @@ const gridColumns = [
                         mod="hollow"
                         icon="drop-down"
                         onClick={(e, { store }) => {
-                            console.log("Doslo ...");
                             store.toggle("$record.description");
                         }}
                     />

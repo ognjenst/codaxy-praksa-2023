@@ -147,12 +147,17 @@ export default class extends Controller {
     }
 
     async loadData() {
-        console.log("load data");
         try {
             let resp = await GET("/workflows");
             this.store.set("$page.workflows", resp);
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
+    }
+
+    itemClicked(currentWorkflow) {
+        this.store.set("$page.currentWorkflow", currentWorkflow);
+        this.store.set("$page.arrTasks", this.store.get("$page.currentWorkflow.tasks"));
+        this.store.set("$page.currentWorkflowInUndoneList", false);
     }
 }
