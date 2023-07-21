@@ -5,17 +5,17 @@ import { HexXYColorMap } from "../../../api/util/colors";
 import { openHistoryWindow } from "./showHistoryWindow";
 import * as signalR from "@microsoft/signalr";
 
+const deviceUrl = "http://127.0.0.1:5288/api/hubs/devices";
+
 export default class extends Controller {
     async onInit() {
         await this.loadData();
         this.store.set("$page.colors", HexXYColorMap);
-        this.addTrigger("save-device", ["$page.device"], debounce(this.saveData, 300));
-        this.store.set("$page.deviceHistory", []);
 
-        const connection = new signalR.HubConnectionBuilder()
-            .withUrl("http://127.0.0.1:5288/api/hubs/devices")
-            .configureLogging(signalR.LogLevel.Information)
-            .build();
+        this.store.init("$page.deviceHistory", []);
+        this.store.init("$page.powerChart", []);
+
+        const connection = new signalR.HubConnectionBuilder().withUrl(deviceUrl).configureLogging(signalR.LogLevel.Information).build();
 
         await connection.start();
         connection.stream("DeviceStream", this.store.get("$page.device.id")).subscribe({
@@ -25,7 +25,16 @@ export default class extends Controller {
                     { timestamp: date.toLocaleString(), configuration: JSON.stringify(item, null, 4) },
                     ...this.store.get("$page.deviceHistory"),
                 ]);
-                this.store.set("$page.device", { ...this.store.get("$page.device"), item });
+
+                this.store.set(
+                    "$page.powerChart",
+                    [
+                        ...this.store.get("$page.powerChart"),
+                        { x: date.toLocaleTimeString(), y: this.store.get("$page.device.energy.power") },
+                    ].slice(-30)
+                );
+
+                this.loadData();
             },
             complete: () => {
                 console.log("END");
@@ -37,12 +46,16 @@ export default class extends Controller {
     }
 
     async loadData() {
+        this.removeTrigger("save-device");
+
         let id = this.store.get("$route.id");
         try {
             let device = await GET(`/devices/${id}`);
             this.store.set("$page.device", device);
         } catch (err) {
             console.error(err);
+        } finally {
+            this.addTrigger("save-device", ["$page.device"], debounce(this.saveData, 300));
         }
     }
 
