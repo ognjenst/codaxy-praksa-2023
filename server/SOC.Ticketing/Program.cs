@@ -8,9 +8,6 @@ using ConductorSharp.Engine.Health;
 using MediatR.Extensions.Autofac.DependencyInjection;
 using SOC.Ticketing.Extensions;
 using SOC.Ticketing.Handler;
-using SOC.Ticketing.Services;
-using Microsoft.Extensions.DependencyInjection;
-using SOC.Ticketing.Generated;
 
 var builder = Host.CreateDefaultBuilder()
     .ConfigureAppConfiguration(
@@ -60,6 +57,5 @@ var builder = Host.CreateDefaultBuilder()
     );
 
 using var host = builder.Build();
-
 
 await host.RunAsync();

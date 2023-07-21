@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using SOC.Ticketing.Exceptions;
 using SOC.Ticketing.Generated;
 using SOC.Ticketing.Options;
+using System.Net.Http;
 using System.Net.Http.Headers;
 
 namespace SOC.Ticketing.Services
@@ -10,18 +11,11 @@ namespace SOC.Ticketing.Services
     public class TicketingService : ITicketingService
     {
         private readonly HttpClient _httpClient;
-        private readonly TicketingOptions _ticketingOptions;
 
 
-        public TicketingService(IOptions<TicketingOptions> ticketingOptions)
+        public TicketingService(IHttpClientFactory httpClientFactory)
         {
-            _ticketingOptions = ticketingOptions.Value;
-            _httpClient = new HttpClient()
-            {
-                BaseAddress = new Uri(_ticketingOptions.BaseUri)
-            };
-            _httpClient.DefaultRequestHeaders.Authorization =
-             new AuthenticationHeaderValue("Bearer", _ticketingOptions.HiveApiKey);
+            _httpClient = httpClientFactory.CreateClient("TicketingApiClient");
         }
 
         public async Task<OutputTask> CreateTaskAsync(InputCreateTask inputCreateTask, string caseId, CancellationToken cancellationToken = default)
