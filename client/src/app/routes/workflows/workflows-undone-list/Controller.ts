@@ -111,13 +111,15 @@ export default class extends Controller {
                 inputs: arrInput,
             },
             { name: "Task 2", flagShow: false, conditions: arrFill, inputs: arrInput },
+            { name: "Task 3", flagShow: false, conditions: arrFill, inputs: arrInput },
             { name: "Task 4", flagShow: false, conditions: arrFill, inputs: arrInput },
+            { name: "Task 5", flagShow: false, conditions: arrFill, inputs: arrInput },
             { name: "Task 6", flagShow: false, conditions: arrFill, inputs: arrInput },
         ];
 
         let workflows = [
             {
-                name: "Morning routine",
+                name: "Morning routine 1",
                 version: 0,
                 enabled: false,
                 createdAt: "0001-01-01T00:00:00",
@@ -125,7 +127,7 @@ export default class extends Controller {
                 tasks: arr,
             },
             {
-                name: "Mail received",
+                name: "Mail received 2",
                 version: 0,
                 enabled: false,
                 createdAt: "0001-01-01T00:00:00",
@@ -133,7 +135,7 @@ export default class extends Controller {
                 tasks: arr,
             },
             {
-                name: "Locked lab mode",
+                name: "Locked lab mode 3",
                 version: 0,
                 enabled: false,
                 createdAt: "0001-01-01T00:00:00",
@@ -142,8 +144,7 @@ export default class extends Controller {
             },
         ];
 
-        this.store.set("$page.workflows", workflows);
-        this.store.set("$page.currentWorkflow", workflows[0]);
+        this.store.set("$page.undoneWorkflows", workflows);
     }
 
     async loadData() {
@@ -157,7 +158,7 @@ export default class extends Controller {
 
     itemClicked(currentWorkflow) {
         this.store.set("$page.currentWorkflow", currentWorkflow);
-        this.store.set("$page.arrTasks", this.store.get("$page.currentWorkflow.tasks"));
-        this.store.set("$page.currentWorkflowInUndoneList", false);
+        this.store.set("$page.arrTasks", this.store.get(`$page.currentWorkflow.tasks`)); //$page.arrTasks shows tasks to the client which belong to the selected workflow($page.currentWorkflow)
+        this.store.set("$page.currentWorkflowInUndoneList", true); //used for button save workflow
     }
 }

@@ -1,5 +1,6 @@
 import { Controller } from "cx/ui";
 import { GET } from "../../../api/util/methods";
+import { openInsertUpdateWindow } from "../update-insert-workflow";
 
 export default class extends Controller {
     onInit(): void {
@@ -111,53 +112,52 @@ export default class extends Controller {
                 inputs: arrInput,
             },
             { name: "Task 2", flagShow: false, conditions: arrFill, inputs: arrInput },
-            { name: "Task 4", flagShow: false, conditions: arrFill, inputs: arrInput },
-            { name: "Task 6", flagShow: false, conditions: arrFill, inputs: arrInput },
+            { name: "Task 3", flagShow: false, conditions: arrFill, inputs: arrInput },
         ];
 
-        let workflows = [
-            {
-                name: "Morning routine",
-                version: 0,
-                enabled: false,
-                createdAt: "0001-01-01T00:00:00",
-                updatedAt: "0001-01-01T00:00:00",
-                tasks: arr,
-            },
-            {
-                name: "Mail received",
-                version: 0,
-                enabled: false,
-                createdAt: "0001-01-01T00:00:00",
-                updatedAt: "0001-01-01T00:00:00",
-                tasks: arr,
-            },
-            {
-                name: "Locked lab mode",
-                version: 0,
-                enabled: false,
-                createdAt: "0001-01-01T00:00:00",
-                updatedAt: "0001-01-01T00:00:00",
-                tasks: arr,
-            },
-        ];
-
-        this.store.set("$page.workflows", workflows);
-        this.store.set("$page.currentWorkflow", workflows[0]);
+        this.store.set("$page.arrTasks", arr);
     }
 
-    async loadData() {
-        try {
-            let resp = await GET("/workflows");
-            this.store.set("$page.workflows", resp);
-        } catch (err) {
-            console.error(err);
+    deleteUndoneWorkflow() {
+        var arrUndone = this.store.get("$page.undoneWorkflows").filter((value, index, arr) => {
+            if (value.name == this.store.get("$page.currentWorkflow.name")) return false;
+
+            return true;
+        });
+
+        this.store.set("$page.undoneWorkflows", arrUndone);
+    }
+
+    deleteWorkflow() {
+        console.log("http delete workflow ...");
+    }
+
+    async updateWorkflow() {
+        let newObj: any = await openInsertUpdateWindow({
+            props: {
+                action: "Update",
+                name: this.store.get("$page.currentWorkflow.name"),
+                description: "desc",
+                version: 1,
+            },
+        });
+
+        if (!newObj) return;
+
+        if (this.store.get("$page.currentWorkflowInUndoneList") == true) {
+            this.store.update("$page.undoneWorkflows", (elements) =>
+                elements.map((el) => (el.name == this.store.get("$page.currentWorkflow.name") ? newObj : el))
+            );
+        } else {
+            this.store.update("$page.undoneWorkflows", (elements) => [...elements, newObj]);
+
+            var arrUndone = this.store.get("$page.workflows").filter((value, index, arr) => {
+                if (value.name == this.store.get("$page.currentWorkflow.name")) return false;
+
+                return true;
+            });
+
+            this.store.set("$page.workflows", arrUndone);
         }
-    }
-
-    itemClicked(currentWorkflow) {
-        this.store.set("$page.currentWorkflow", currentWorkflow);
-        this.store.set("$page.arrTasks", this.store.get("$page.currentWorkflow.tasks"));
-        this.store.set("$page.currentWorkflowInUndoneList", false);
     }
 }
