@@ -5,5 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SOC.IoT.Options; 
-internal class DeviceOptions {
+public sealed class DeviceOptions {
+    public static readonly string SectionName = "DeviceOptions";
+
+    public string BaseUrl { get; set; }
 }
