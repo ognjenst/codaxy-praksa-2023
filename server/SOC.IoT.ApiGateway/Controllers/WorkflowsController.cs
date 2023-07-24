@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
-using SOC.Ticketing.Services;
 
 namespace SOC.IoT.ApiGateway.Controllers;
 
