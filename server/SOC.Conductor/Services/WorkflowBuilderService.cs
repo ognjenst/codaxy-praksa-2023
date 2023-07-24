@@ -6,8 +6,13 @@ namespace SOC.Conductor.Services
 {
     public class WorkflowBuilderService : IWorkflowBuilderService
     {
-        public IMetadataResourceClient _metadataResourceClient { get; set; }
-        public WorkflowBuilderService(IMetadataResourceClient metadataResourceClient) { _metadataResourceClient = metadataResourceClient; }
+        private readonly IMetadataResourceClient _metadataResourceClient;
+        private readonly ILogger _logger;
+        public WorkflowBuilderService(IMetadataResourceClient metadataResourceClient, ILogger logger) 
+        { 
+            _metadataResourceClient = metadataResourceClient;
+            _logger = logger;
+        }
         public async System.Threading.Tasks.Task Build(CreateWorkflowDto workflowDto)
         {
             var tasks = new List<WorkflowTask>();
@@ -69,7 +74,10 @@ namespace SOC.Conductor.Services
             try
             {
                 await _metadataResourceClient.UpdateAsync(new List<WorkflowDef> { workflowDef });
-            } catch (Exception) { }
+            } catch (Exception ex) 
+            {
+                _logger.LogError($"Registering workflow on conductor failed. {ex.Message}");
+            }
         }
     }
 }
