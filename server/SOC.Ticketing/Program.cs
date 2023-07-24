@@ -67,11 +67,16 @@ using var host = builder.Build();
 var mediator = host.Services.GetRequiredService<IMediator>();
 var ticketingRequest = new TicketingRequest
 {
-    Message = "My message",
-    Type = "Type1, Type2, Type3",
-    Priority = "High",
-    Tite = "New incident"
+    Message = "My message4",
+    //Priority = "High",
+    Title = "New incident4",
+    Severity = InputCreateCaseSeverity._4
 };
+
+var service = host.Services.GetRequiredService<ITicketingService>();
+
+//var response = await service.GetAsync<OutputCase>("~12456", "case");
+//Console.WriteLine(response.Severity);
 
 try
 {
