@@ -48,6 +48,14 @@ builder.Host.UseSerilog(
 	}
 );
 
+// Configure Serilog
+builder.Host.UseSerilog(
+    (context, config) =>
+    {
+        config.WriteTo.Console();
+    }
+);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
