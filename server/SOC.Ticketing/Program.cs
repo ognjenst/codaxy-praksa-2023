@@ -11,6 +11,8 @@ using SOC.Ticketing.Handler;
 using Microsoft.Extensions.DependencyInjection;
 using SOC.Ticketing.Services;
 using SOC.Ticketing.Generated;
+using MediatR;
+using System.ComponentModel.Design;
 
 var builder = Host.CreateDefaultBuilder()
     .ConfigureAppConfiguration(
@@ -61,5 +63,22 @@ var builder = Host.CreateDefaultBuilder()
 
 using var host = builder.Build();
 
+
+var mediator = host.Services.GetRequiredService<IMediator>();
+var ticketingRequest = new TicketingRequest
+{
+    Message = "My message",
+    Type = "Type1, Type2, Type3",
+    Priority = "High",
+    Tite = "New incident"
+};
+
+try
+{
+    await mediator.Send(ticketingRequest);
+}catch(Exception ex)
+{
+    Console.WriteLine(ex);
+}
 
 await host.RunAsync();
