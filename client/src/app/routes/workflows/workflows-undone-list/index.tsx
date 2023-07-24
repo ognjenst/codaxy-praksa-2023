@@ -5,7 +5,7 @@ export default () => (
     <cx>
         <div controller={Controller} className="border border-gray-200">
             <List
-                records-bind="$page.workflows"
+                records-bind="$page.undoneWorkflows"
                 mod="bordered"
                 onItemClick={(e, { controller, store }) => {
                     controller.invokeMethod("itemClicked", store.get("$record"));
