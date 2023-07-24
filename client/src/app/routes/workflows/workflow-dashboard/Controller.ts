@@ -1,5 +1,6 @@
 import { Controller } from "cx/ui";
 import { GET } from "../../../api/util/methods";
+import { openInsertUpdateWindow } from "../update-insert-workflow";
 
 export default class extends Controller {
     onInit(): void {
@@ -129,5 +130,34 @@ export default class extends Controller {
 
     deleteWorkflow() {
         console.log("http delete workflow ...");
+    }
+
+    async updateWorkflow() {
+        let newObj: any = await openInsertUpdateWindow({
+            props: {
+                action: "Update",
+                name: this.store.get("$page.currentWorkflow.name"),
+                description: "desc",
+                version: 1,
+            },
+        });
+
+        if (!newObj) return;
+
+        if (this.store.get("$page.currentWorkflowInUndoneList") == true) {
+            this.store.update("$page.undoneWorkflows", (elements) =>
+                elements.map((el) => (el.name == this.store.get("$page.currentWorkflow.name") ? newObj : el))
+            );
+        } else {
+            this.store.update("$page.undoneWorkflows", (elements) => [...elements, newObj]);
+
+            var arrUndone = this.store.get("$page.workflows").filter((value, index, arr) => {
+                if (value.name == this.store.get("$page.currentWorkflow.name")) return false;
+
+                return true;
+            });
+
+            this.store.set("$page.workflows", arrUndone);
+        }
     }
 }

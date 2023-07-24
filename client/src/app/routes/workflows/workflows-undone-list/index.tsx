@@ -7,15 +7,11 @@ export default () => (
             <List
                 records-bind="$page.undoneWorkflows"
                 mod="bordered"
-                onItemClick={(e, { store }) => {
-                    let currentWorkflow = store.get("$record");
-                    var ind = store.get("$index");
-                    store.set("$page.currentWorkflow", currentWorkflow);
-                    store.set("$page.arrTasks", store.get(`$page.currentWorkflow.tasks`));
-                    store.set("$page.currentWorkflowInUndoneList", true);
+                onItemClick={(e, { controller, store }) => {
+                    controller.invokeMethod("itemClicked", store.get("$record"));
                 }}
             >
-                <p text-tpl="{$record.name}" />
+                <p text-bind="$record.name" />
             </List>
         </div>
     </cx>

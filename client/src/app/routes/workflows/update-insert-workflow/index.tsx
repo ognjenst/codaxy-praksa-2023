@@ -1,19 +1,6 @@
-import { DataProxy, LabelsLeftLayout, PureContainer, Repeater, Text, bind } from "cx/ui";
-import {
-    Button,
-    Checkbox,
-    DateField,
-    HtmlElement,
-    Label,
-    Overlay,
-    TextArea,
-    NumberField,
-    TextField,
-    Window,
-    List,
-    ValidationGroup,
-} from "cx/widgets";
-import Controller from "./Controller";
+import { LabelsLeftLayout } from "cx/ui";
+import { Button, List, NumberField, TextField, ValidationGroup, Window } from "cx/widgets";
+import getController from "./Controller";
 
 export const openInsertUpdateWindow = ({ props }) => {
     return new Promise((reslove) => {
@@ -26,130 +13,7 @@ export const openInsertUpdateWindow = ({ props }) => {
                     modal
                     draggable
                     closeOnEscape
-                    controller={{
-                        onInit(): void {
-                            var arrFill = [
-                                {
-                                    tab: "Input1",
-                                    source: [
-                                        {
-                                            id: 1,
-                                            text: "one",
-                                        },
-                                        {
-                                            id: 2,
-                                            text: "two",
-                                        },
-                                    ],
-
-                                    param: [
-                                        {
-                                            id: 1,
-                                            text: "one",
-                                        },
-                                        {
-                                            id: 2,
-                                            text: "two",
-                                        },
-                                    ],
-                                },
-                                {
-                                    tab: "Input2",
-                                    source: [
-                                        {
-                                            id: 1,
-                                            text: "one 2",
-                                        },
-                                        {
-                                            id: 2,
-                                            text: "two 2",
-                                        },
-                                    ],
-                                    param: [
-                                        {
-                                            id: 1,
-                                            text: "one 2",
-                                        },
-                                        {
-                                            id: 2,
-                                            text: "two 2",
-                                        },
-                                    ],
-                                },
-                            ];
-
-                            let arrInput = [
-                                {
-                                    tab: "DeviceIP",
-                                    source: [
-                                        {
-                                            id: 1,
-                                            text: "one 1",
-                                        },
-                                        {
-                                            id: 2,
-                                            text: "two 1",
-                                        },
-                                    ],
-
-                                    param: [
-                                        {
-                                            id: 1,
-                                            text: "one 1",
-                                        },
-                                        {
-                                            id: 2,
-                                            text: "two 1",
-                                        },
-                                    ],
-                                },
-                                {
-                                    tab: "NumberOfRepetitions",
-                                    source: [
-                                        {
-                                            id: 1,
-                                            text: "one 2",
-                                        },
-                                        {
-                                            id: 2,
-                                            text: "two 2",
-                                        },
-                                    ],
-                                    param: [
-                                        {
-                                            id: 1,
-                                            text: "one 2",
-                                        },
-                                        {
-                                            id: 2,
-                                            text: "two 2",
-                                        },
-                                    ],
-                                },
-                            ];
-
-                            var arr = [
-                                {
-                                    name: "Task 1",
-                                    flagShow: false,
-                                    conditions: arrFill,
-                                    inputs: arrInput,
-                                },
-                                { name: "Task 2", flagShow: false, conditions: arrFill, inputs: arrInput },
-                                { name: "Task 3", flagShow: false, conditions: arrFill, inputs: arrInput },
-                                { name: "Task 4", flagShow: false, conditions: arrFill, inputs: arrInput },
-                                { name: "Task 5", flagShow: false, conditions: arrFill, inputs: arrInput },
-                                { name: "Task 6", flagShow: false, conditions: arrFill, inputs: arrInput },
-                            ];
-
-                            this.store.set("$insert.arrTasks", arr);
-                            this.store.set("$insert.workflowParamNames", []);
-                            this.store.set("$insert.workflowTasks", []);
-                            this.store.set("$page.insertUpdateName", props.name);
-                            this.store.set("$page.insertUpdateDescription", props.description);
-                            this.store.set("$page.insertUpdateVersion", props.version);
-                        },
-                    }}
+                    controller={getController(reslove, props)}
                     onDestroy={() => reslove(false)}
                 >
                     <div className="grid grid-rows-3" layout={LabelsLeftLayout} styles={{ height: "600px" }}>
@@ -173,14 +37,7 @@ export const openInsertUpdateWindow = ({ props }) => {
                                         disabled-bind="$insert.flagValidParamName"
                                         text="Add param"
                                         className="ml-2"
-                                        onClick={(e, { store }) => {
-                                            console.log(store.get("$insert.workflowParamNames"));
-                                            store.set("$insert.workflowParamNames", [
-                                                ...store.get("$insert.workflowParamNames"),
-                                                store.get("$insert.singleParamName"),
-                                            ]);
-                                            store.set("$insert.singleParamName", "");
-                                        }}
+                                        onClick="addParam"
                                     />
                                 </ValidationGroup>
 
@@ -193,13 +50,11 @@ export const openInsertUpdateWindow = ({ props }) => {
                             <div>
                                 <List records-bind="$insert.arrTasks">
                                     <span className="mr-2" text-bind="$record.name" />
+
                                     <Button
                                         icon="plus"
-                                        onClick={(e, { store }) => {
-                                            store.set("$insert.workflowTasks", [
-                                                ...store.get("$insert.workflowTasks"),
-                                                store.get("$record"),
-                                            ]);
+                                        onClick={(e, { controller, store }) => {
+                                            controller.invokeMethod("addTaskToController", store.get("$record"));
                                         }}
                                     ></Button>
                                 </List>
@@ -207,21 +62,11 @@ export const openInsertUpdateWindow = ({ props }) => {
                             <div>
                                 <List records-bind="$insert.workflowTasks">
                                     <span className="mr-2" text-bind="$record.name" />
+
                                     <Button
                                         className="p-0 pl-2 pr-2"
-                                        onClick={(e, { store }) => {
-                                            var ind = store.get("$index");
-
-                                            store.set(
-                                                "$insert.workflowTasks",
-                                                store.get("$insert.workflowTasks").filter((value, index, arr) => {
-                                                    if (index === ind) {
-                                                        return false;
-                                                    }
-
-                                                    return true;
-                                                })
-                                            );
+                                        onClick={(e, { controller, store }) => {
+                                            controller.invokeMethod("deleteTaskFromController", store.get("$index"));
                                         }}
                                     >
                                         <svg
@@ -241,15 +86,8 @@ export const openInsertUpdateWindow = ({ props }) => {
                         <div>
                             <Button
                                 className="w-full"
-                                onClick={(e, { store }) => {
-                                    var arrObject = {
-                                        name: store.get("$page.insertUpdateName"),
-                                        description: store.get("$page.insertUpdateDescription"),
-                                        version: store.get("$page.insertUpdateVersion"),
-                                        tasks: store.get("$insert.workflowTasks"),
-                                    };
-
-                                    reslove(arrObject);
+                                onClick={(e, { controller, store }) => {
+                                    controller.invokeMethod("createWorkflowInfo");
                                 }}
                                 text="Submit"
                             />

@@ -37,6 +37,9 @@ import {
     PauseCircleIcon,
     SignalIcon,
     PlayCircleIcon,
+    PlayIcon,
+    StopCircleIcon,
+    TrashIcon,
 } from "@heroicons/react/24/outline";
 
 //register all icons that are used within the application
@@ -80,6 +83,8 @@ Icon.register("user", (props) => <UserIcon {...props} />);
 
 Icon.register("user-group", (props) => <UserGroupIcon {...props} />);
 
+Icon.register("trash", (props) => <TrashIcon {...props} />);
+
 Icon.register("currency-dollar", (props) => <CurrencyDollarIcon {...props} />);
 
 Icon.register("currency-euro", (props) => <CurrencyEuroIcon {...props} />);
@@ -115,3 +120,5 @@ Icon.register("pause-circle", (props) => <PauseCircleIcon {...props} />);
 Icon.register("signal", (props) => <SignalIcon {...props} />);
 
 Icon.register("play-circle", (props) => <PlayCircleIcon {...props} />);
+
+Icon.register("stop-circle", (props) => <StopCircleIcon {...props} />);

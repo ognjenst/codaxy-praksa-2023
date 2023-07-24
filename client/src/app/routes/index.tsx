@@ -2,6 +2,7 @@ import { ContentResolver, FirstVisibleChildLayout } from "cx/ui";
 import { DocumentTitle, RedirectRoute, Route } from "cx/widgets";
 import { SandboxedRoute } from "../components/SandboxedRoute";
 import { CheckerLayout } from "../layout/CheckerLayout";
+import Workflows from "../routes/workflows";
 import Automations from "./automations";
 import Dashboard from "./dashboard";
 import Devices from "./devices";
@@ -20,12 +21,15 @@ export default () => (
                 <Route route="~/devices" url-bind="url">
                     <Devices />
                 </Route>
-                <SandboxedRoute route="~/devices/:id">
-                    <DeviceDetails />
-                </SandboxedRoute>
+                <Route route="~/workflows" url-bind="url">
+                    <Workflows />
+                </Route>
                 <Route route="~/automations" url-bind="url">
                     <Automations />
                 </Route>
+                <SandboxedRoute route="~/devices/:id">
+                    <DeviceDetails />
+                </SandboxedRoute>
             </CheckerLayout>
         </FirstVisibleChildLayout>
 
