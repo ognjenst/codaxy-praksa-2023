@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -35,9 +36,14 @@ namespace SOC.Conductor.Entities.Contexts
 
             modelBuilder.Entity<Trigger>().UseTptMappingStrategy();
 
+            var converter = new ValueConverter<JObject, string>(
+                  v => v.ToString(),
+                  v => JObject.Parse(v));
+
             modelBuilder.Entity<Automation>(entity =>
             {
-                entity.HasKey(e => new { e.WorkflowId, e.TriggerId });
+                entity.HasKey(e => new { e.WorkflowId, e.TriggerId, e.Name });
+                entity.Property(e => e.InputParameters).HasConversion(converter).HasColumnType("jsonb");
             });
 
             base.OnModelCreating(modelBuilder);
