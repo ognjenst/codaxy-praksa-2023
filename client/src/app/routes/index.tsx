@@ -6,6 +6,8 @@ import Workflows from "../routes/workflows";
 import Automations from "./automations";
 import Dashboard from "./dashboard";
 import Devices from "./devices";
+import DeviceDetails from "./devices/device-details";
+import Automations from "./automations";
 
 export default () => (
     <cx>
@@ -26,6 +28,9 @@ export default () => (
                 <Route route="~/automations" url-bind="url">
                     <Automations />
                 </Route>
+                <SandboxedRoute route="~/devices/:id">
+                    <DeviceDetails />
+                </SandboxedRoute>
             </CheckerLayout>
         </FirstVisibleChildLayout>
 
