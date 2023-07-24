@@ -4,9 +4,9 @@ using SOC.Conductor.Entities;
 
 namespace SOC.Conductor.Handlers
 {
-    public record DeleteTriggerRequest(int TriggerId) : IRequest<Trigger> { }
+    public record DeleteTriggerRequest(int TriggerId) : IRequest { }
 
-    public class DeleteTriggerHandler : IRequestHandler<DeleteTriggerRequest, Trigger>
+    public class DeleteTriggerHandler : IRequestHandler<DeleteTriggerRequest>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -15,16 +15,14 @@ namespace SOC.Conductor.Handlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Trigger> Handle(DeleteTriggerRequest request, CancellationToken cancellationToken)
+        public async Task Handle(DeleteTriggerRequest request, CancellationToken cancellationToken)
         {
             var trigger = (await _unitOfWork.Triggers.GetByCondition(x => x.Id == request.TriggerId, cancellationToken)).FirstOrDefault();
             if (trigger is not null) 
             {
                 var result = await _unitOfWork.Triggers.DeleteAsync(trigger, cancellationToken);
                 await _unitOfWork.SaveAllAsync();
-                return result;
             }
-            return null;
         }
     }
 }

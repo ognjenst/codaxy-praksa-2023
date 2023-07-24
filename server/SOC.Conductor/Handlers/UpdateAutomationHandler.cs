@@ -1,13 +1,14 @@
 ﻿using MediatR;
 using SOC.Conductor.Contracts;
+using SOC.Conductor.DTOs;
 using SOC.Conductor.Entities;
 using SOC.Conductor.Repositories;
 
 namespace SOC.Conductor.Handlers
 {
-    public record UpdateAutomationRequest(Automation entity) : IRequest<Automation> { }
+    public record UpdateAutomationRequest(AutomationDto entity) : IRequest<AutomationDto> { }
 
-    public class UpdateAutomationHandler : IRequestHandler<UpdateAutomationRequest, Automation>
+    public class UpdateAutomationHandler : IRequestHandler<UpdateAutomationRequest, AutomationDto>
     {
         private IUnitOfWork _unitOfWork;
 
@@ -16,9 +17,22 @@ namespace SOC.Conductor.Handlers
             _unitOfWork = unitOfWork;
         }
 
-        public Task<Automation> Handle(UpdateAutomationRequest request, CancellationToken cancellationToken)
+        public async Task<AutomationDto> Handle(UpdateAutomationRequest request, CancellationToken cancellationToken)
         {
-            return _unitOfWork.Automations.UpdateAsync(request.entity, cancellationToken);
+            var automation = new Automation()
+            {
+                WorkflowId = request.entity.WorkflowId,
+                TriggerId = request.entity.TriggerId,
+            };
+
+            var result = await _unitOfWork.Automations.UpdateAsync(automation, cancellationToken);
+
+            await _unitOfWork.SaveAllAsync();
+            return new AutomationDto()
+            {
+                WorkflowId = result.WorkflowId,
+                TriggerId = result.TriggerId
+            };
         }
     }
 }

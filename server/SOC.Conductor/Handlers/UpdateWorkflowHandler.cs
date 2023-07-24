@@ -1,13 +1,14 @@
 ﻿using MediatR;
 using MediatR;
 using SOC.Conductor.Contracts;
+using SOC.Conductor.DTOs;
 using SOC.Conductor.Entities;
 
 namespace SOC.Conductor.Handlers
 {
-    public record UpdateWorkflowRequest(Workflow entity) : IRequest<Workflow> { }
+    public record UpdateWorkflowRequest(WorkflowDto workflowDto) : IRequest<WorkflowDto> { }
 
-    public class UpdateWorkflowHandler : IRequestHandler<UpdateWorkflowRequest, Workflow>
+    public class UpdateWorkflowHandler : IRequestHandler<UpdateWorkflowRequest, WorkflowDto>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -16,9 +17,30 @@ namespace SOC.Conductor.Handlers
             _unitOfWork = unitOfWork;          
         }
 
-        public async Task<Workflow> Handle(UpdateWorkflowRequest request, CancellationToken cancellationToken)
+        public async Task<WorkflowDto> Handle(UpdateWorkflowRequest request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.Workflows.UpdateAsync(request.entity, cancellationToken);
+            var workflow = new Workflow()
+            {
+                Id = request.workflowDto.Id,
+                Name = request.workflowDto.Name,
+                Version = request.workflowDto.Version,
+                CreatedAt = request.workflowDto.CreateDate,
+                UpdatedAt = request.workflowDto.UpdateDate,
+                Enabled = request.workflowDto.Enabled,
+            };
+
+            var result = await _unitOfWork.Workflows.UpdateAsync(workflow, cancellationToken);
+
+            await _unitOfWork.SaveAllAsync();
+            return new WorkflowDto()
+            {
+                Id = result.Id,
+                Name = result.Name,
+                Version = result.Version,
+                CreateDate = result.CreatedAt,
+                UpdateDate = result.UpdatedAt,
+                Enabled = result.Enabled,
+            };
         }
     }
 }

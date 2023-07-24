@@ -1,13 +1,14 @@
 ﻿using MediatR;
 using SOC.Conductor.Contracts;
+using SOC.Conductor.DTOs;
 using SOC.Conductor.Entities;
 using SOC.Conductor.Repositories;
 
 namespace SOC.Conductor.Handlers
 {
-    public record GetAllWorkflowsRequest() : IRequest<IEnumerable<Workflow>> { }
+    public record GetAllWorkflowsRequest() : IRequest<IEnumerable<WorkflowDto>> { }
 
-    public class GetAllWorkflowHandler : IRequestHandler<GetAllWorkflowsRequest, IEnumerable<Workflow>>
+    public class GetAllWorkflowHandler : IRequestHandler<GetAllWorkflowsRequest, IEnumerable<WorkflowDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -16,9 +17,19 @@ namespace SOC.Conductor.Handlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Workflow>> Handle(GetAllWorkflowsRequest request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<WorkflowDto>> Handle(GetAllWorkflowsRequest request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.Workflows.GetAllAsync(cancellationToken);
+            var res = await _unitOfWork.Workflows.GetAllAsync(cancellationToken);
+            var dtos = res.Select(workflow => new WorkflowDto
+            {
+                Id = workflow.Id,
+                Name = workflow.Name,
+                CreateDate = workflow.CreatedAt,
+                Version = workflow.Version,
+                Enabled = workflow.Enabled,
+                UpdateDate = workflow.UpdatedAt,               
+            });
+            return dtos;
         }
     }
 }

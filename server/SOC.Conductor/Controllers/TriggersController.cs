@@ -20,57 +20,56 @@ namespace SOC.Conductor.Controllers
         }
 
         /// <summary>
-        /// Returns all triggers.
+        /// Returns all triggers based on type(Periodic or IoT).
         /// </summary>
+        /// <param name="type"></param>
         /// <returns></returns>
-        [HttpGet(Name = "GetAllTriggers")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Trigger))]
+        [HttpGet("{type}" ,Name = "GetAllTriggers")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<CommonTriggerDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
-        public async Task<IActionResult> GetAllTriggersAsync()
+        public async Task<IActionResult> GetAllTriggersAsync([FromRoute] string type)
         {
-            var result = await _mediator.Send(new GetAllTriggersRequest());
+            var result = await _mediator.Send(new GetAllTriggersRequest(type));
 
             if (result is not null)
                 return Ok(result);
 
             return NotFound();
         }
-
+        
 
         /// <summary>
         /// Deletes a trigger.
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="commonTriggerDto"></param>
         /// <returns></returns>
         [HttpDelete(Name = "DeleteTrigger")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Trigger))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CommonTriggerDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
-        public async Task<IActionResult> DeleteTriggerAsync([FromBody] CommonTriggerDto entity)
+        public async Task<IActionResult> DeleteTriggerAsync([FromBody] CommonTriggerDto commonTriggerDto)
         {
-            var result = await _mediator.Send(new DeleteTriggerRequest(entity.Id));
+            await _mediator.Send(new DeleteTriggerRequest(commonTriggerDto.Id));
             
-            if (result is not null)
-                return Ok(result);
-            
-            return NotFound();
+            return NoContent();
         }
 
 
         /// <summary>
         /// Creates a trigger.
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="type"></param>
+        /// <param name="commonTriggerDto"></param>
         /// <returns></returns>
-        [HttpPost(Name = "CreateTrigger")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Trigger))]
+        [HttpPost("{type}", Name = "CreateTrigger")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CommonTriggerDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-        public async Task<IActionResult> CreateTriggerAsync([FromBody] Trigger entity)
+        public async Task<IActionResult> CreateTriggerAsync([FromRoute] string type, [FromBody] CommonTriggerDto commonTriggerDto)
         {
-            var result = await _mediator.Send(new CreateTriggerRequest(entity));
+            var result = await _mediator.Send(new CreateTriggerRequest(type, commonTriggerDto));
 
             if (result is not null)
                 return Ok(result);
@@ -82,16 +81,17 @@ namespace SOC.Conductor.Controllers
         /// <summary>
         /// Updates a trigger.
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="type"></param>
+        /// <param name="commonTriggerDto"></param>
         /// <returns></returns>
-        [HttpPut(Name = "UpdateTrigger")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Trigger))]
+        [HttpPut("{type}", Name = "UpdateTrigger")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CommonTriggerDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-        public async Task<IActionResult> UpdateTriggerAsync([FromBody] Trigger entity)
+        public async Task<IActionResult> UpdateTriggerAsync([FromRoute] string type, [FromBody] CommonTriggerDto commonTriggerDto)
         {
-            var result = await _mediator.Send(new UpdateTriggerRequest(entity));
+            var result = await _mediator.Send(new UpdateTriggerRequest(type, commonTriggerDto));
             if (result is not null)
                 return Ok(result);
 

@@ -20,7 +20,6 @@ public class WorkflowsController : ControllerBase
         _mediator = mediator;
     }
 
-
     /// <summary>
     /// Gets all workflows from a database.
     /// </summary>
@@ -39,28 +38,35 @@ public class WorkflowsController : ControllerBase
         return NotFound();
     }
 
+    /// <summary>
+    /// Deletes a workflow.
+    /// </summary>
+    /// <param name="workflowDto"></param>
+    /// <returns></returns>
     [HttpDelete(Name = "DeleteWorkflow")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Trigger))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkflowDto))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
-    public async Task<IActionResult> DeleteWorkflowAsync([FromBody] WorkflowDto entity)
+    public async Task<IActionResult> DeleteWorkflowAsync([FromBody] WorkflowDto workflowDto)
     {
-        var result = await _mediator.Send(new DeleteWorkflowRequest(entity.Id));
+        await _mediator.Send(new DeleteWorkflowRequest(workflowDto.Id));
 
-        if (result is not null)
-            return Ok(result);
-
-        return NotFound();
+        return NoContent();
     }
 
+    /// <summary>
+    /// Creates new workflow.
+    /// </summary>
+    /// <param name="createWorkflowDto"></param>
+    /// <returns></returns>
     [HttpPost(Name = "CreateWorkflow")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Entities.Workflow))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkflowDto))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-    public async Task<IActionResult> CreateWorkflowAsync([FromBody] CreateWorkflowDto entity)
+    public async Task<IActionResult> CreateWorkflowAsync([FromBody] CreateWorkflowDto createWorkflowDto)
     {
-        var result = await _mediator.Send(new CreateWorkflowRequest(entity));
+        var result = await _mediator.Send(new CreateWorkflowRequest(createWorkflowDto));
 
         if (result is not null)
             return Ok(result);
@@ -72,16 +78,16 @@ public class WorkflowsController : ControllerBase
     /// <summary>
     /// Updates a workflow.
     /// </summary>
-    /// <param name="entity"></param>
+    /// <param name="workflowDto"></param>
     /// <returns></returns>
     [HttpPut(Name = "UpdateWorkflow")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Entities.Workflow))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkflowDto))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-    public async Task<IActionResult> UpdateWorkflowAsync([FromBody] Entities.Workflow entity)
+    public async Task<IActionResult> UpdateWorkflowAsync([FromBody] WorkflowDto workflowDto)
     {
-        var result = await _mediator.Send(new UpdateWorkflowRequest(entity));
+        var result = await _mediator.Send(new UpdateWorkflowRequest(workflowDto));
         if (result is not null)
             return Ok(result);
 
