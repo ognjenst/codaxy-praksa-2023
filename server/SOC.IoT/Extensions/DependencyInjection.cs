@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 using SOC.IoT.Handler;
+using SOC.IoT.OptionsSetup;
 
 namespace SOC.IoT.Extensions;
 public static class DependencyInjection {
@@ -30,7 +31,7 @@ public static class DependencyInjection {
     }
 
     private static IServiceCollection RegisterOptions(this IServiceCollection services) {
-        //services.ConfigureOptions<SshOptionsSetup>();
+        services.ConfigureOptions<DeviceOptionSetup>();
 
         return services;
     }
