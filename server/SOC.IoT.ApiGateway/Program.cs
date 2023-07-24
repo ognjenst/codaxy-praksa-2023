@@ -41,6 +41,14 @@ builder.Services.AddIoTServices();
 
 builder.Services.RegisterServices();
 
+// Configure Serilog
+builder.Host.UseSerilog(
+    (context, config) =>
+    {
+        config.WriteTo.Console();
+    }
+);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -49,14 +57,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-// Configure Serilog
-builder.Host.UseSerilog(
-    (context, config) =>
-    {
-        config.WriteTo.Console();
-    }
-);
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
 

@@ -15,9 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOC.Scanning", "SOC.Scannin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOC.IoT.ApiGateway", "SOC.IoT.ApiGateway\SOC.IoT.ApiGateway.csproj", "{7D399A7B-74B4-4D70-87C4-642A405F8584}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOC.Conductor.Client", "SOC.Conductor.Client\SOC.Conductor.Client.csproj", "{6872241D-071F-4631-8DEC-D98451433B2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOC.Conductor.Client", "SOC.Conductor.Client\SOC.Conductor.Client.csproj", "{6872241D-071F-4631-8DEC-D98451433B2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOC.Notifications", "SOC.Notifications\SOC.Notifications.csproj", "{221B4AA8-C0F1-43C8-8765-E36BA78B20C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOC.Notifications", "SOC.Notifications\SOC.Notifications.csproj", "{221B4AA8-C0F1-43C8-8765-E36BA78B20C5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOC.Ticketing", "SOC.Ticketing\SOC.Ticketing.csproj", "{54FF2D1D-8084-4B45-9B84-7B8751CEAA8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{221B4AA8-C0F1-43C8-8765-E36BA78B20C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{221B4AA8-C0F1-43C8-8765-E36BA78B20C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{221B4AA8-C0F1-43C8-8765-E36BA78B20C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54FF2D1D-8084-4B45-9B84-7B8751CEAA8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54FF2D1D-8084-4B45-9B84-7B8751CEAA8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54FF2D1D-8084-4B45-9B84-7B8751CEAA8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54FF2D1D-8084-4B45-9B84-7B8751CEAA8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
