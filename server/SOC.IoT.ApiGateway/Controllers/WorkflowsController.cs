@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ConductorSharp.Client.Service;
+using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
 
 namespace SOC.IoT.ApiGateway.Controllers;
@@ -7,11 +8,11 @@ namespace SOC.IoT.ApiGateway.Controllers;
 [ApiController]
 public class WorkflowsController : ControllerBase
 {
-    private readonly IWorkflowsService _workflowsService;
+    private readonly IWorkflowsClient _workflowsClient;
 
-    public WorkflowsController(IWorkflowsService workflowsService)
+    public WorkflowsController(IWorkflowsClient workflowsClient)
     {
-        _workflowsService = workflowsService;
+        _workflowsClient = workflowsClient;
     }
 
     /// <summary>
@@ -24,7 +25,7 @@ public class WorkflowsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
     public async Task<IActionResult> GetAllWorkflowsAsync()
     {
-        var data = await _workflowsService.GetAllWorkflowsAsync();
+        var data = await _workflowsClient.GetAllWorkflowsAsync();
 
         return Ok(data);
     }
@@ -39,8 +40,24 @@ public class WorkflowsController : ControllerBase
 	[ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
 	public async Task<IActionResult> GetAllTasksAsync()
 	{
-        var data = await _workflowsService.GetAllTasksAsync();
+        var data = await _workflowsClient.GetAllTasksAsync();
 
 		return Ok(data);
+	}
+
+	/// <summary>
+	/// Play workflow
+	/// </summary>
+	/// <param name="playDto"></param>
+	/// <returns></returns>
+	[HttpPost("PlayWorkflow", Name = "PlayWorkflow")]
+	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+	[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+	[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+	public async Task<IActionResult> PlayWorkflowAsync([FromBody] PlayRequestDto playDto)
+	{
+		await _workflowsClient.PlayWorkflowAsync(playDto);
+		return Ok();
 	}
 }
