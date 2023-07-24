@@ -73,10 +73,3 @@ export default () => (
         </div>
     </cx>
 );
-
-/*
-
-$page.condition.expression
-$page.condition.arr
-
-*/

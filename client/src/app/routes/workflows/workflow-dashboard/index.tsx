@@ -173,11 +173,12 @@ export default () => (
                                                             <cx>
                                                                 <Button
                                                                     mod="hollow"
-                                                                    icon="search"
                                                                     onClick={(e, { store }) => {
                                                                         store.toggle("$page.showGridFilter");
                                                                     }}
-                                                                />
+                                                                >
+                                                                    <Icon name="search" />
+                                                                </Button>
                                                             </cx>
                                                         </cx>
                                                     ),
@@ -188,11 +189,12 @@ export default () => (
                                                         <cx>
                                                             <Button
                                                                 mod="hollow"
-                                                                icon="drop-down"
                                                                 onClick={(e, { store }) => {
                                                                     store.toggle("$task.flagShow");
                                                                 }}
-                                                            />
+                                                            >
+                                                                <Icon name="drop-down" />
+                                                            </Button>
                                                         </cx>
                                                     </cx>
                                                 ),
@@ -219,44 +221,3 @@ export default () => (
 );
 
 const highlightEnabledBackgroundColor = "background:#00FF00";
-
-const defaultStatusColor = "text-white bg-black";
-const highlightStatusColor = "text-white bg-green-600";
-
-const gridColumns = [
-    {
-        header: "Name",
-        field: "name",
-    },
-    {
-        header: {
-            items: (
-                <cx>
-                    <cx>
-                        <Button
-                            mod="hollow"
-                            icon="search"
-                            onClick={(e, { store }) => {
-                                store.toggle("$page.showGridFilter");
-                            }}
-                        />
-                    </cx>
-                </cx>
-            ),
-        },
-        align: "right",
-        items: (
-            <cx>
-                <cx>
-                    <Button
-                        mod="hollow"
-                        icon="drop-down"
-                        onClick={(e, { store }) => {
-                            store.toggle("$record.description");
-                        }}
-                    />
-                </cx>
-            </cx>
-        ),
-    },
-] as GridColumnConfig[];

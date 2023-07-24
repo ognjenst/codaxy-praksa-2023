@@ -50,14 +50,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Configure Serilog
-builder.Host.UseSerilog(
-    (context, config) =>
-    {
-        config.WriteTo.Console();
-    }
-);
-
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
 
