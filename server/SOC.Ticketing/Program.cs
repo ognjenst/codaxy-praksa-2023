@@ -8,8 +8,8 @@ using ConductorSharp.Engine.Health;
 using MediatR.Extensions.Autofac.DependencyInjection;
 using SOC.Ticketing.Extensions;
 using SOC.Ticketing.Handler;
-using SOC.Ticketing.Services;
 using Microsoft.Extensions.DependencyInjection;
+using SOC.Ticketing.Services;
 using SOC.Ticketing.Generated;
 
 var builder = Host.CreateDefaultBuilder()
