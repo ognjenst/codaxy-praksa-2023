@@ -67,10 +67,10 @@ using var host = builder.Build();
 var mediator = host.Services.GetRequiredService<IMediator>();
 var ticketingRequest = new TicketingRequest
 {
-    Message = "My message",
-    Type = "Type1, Type2, Type3",
+    Message = "My message 2",
+    Type = "Type1, Type2",
     Priority = "High",
-    Tite = "New incident"
+    Title = "New incident 2"
 };
 
 try

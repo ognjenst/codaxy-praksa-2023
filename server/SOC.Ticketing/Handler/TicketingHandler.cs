@@ -13,7 +13,7 @@ namespace SOC.Ticketing.Handler
         public string Message { get; set; }
         public string Type { get; set; }
         public string Priority { get; set; }
-        public string Tite { get; set; }
+        public string Title { get; set; }
     }
 
     // TODO
@@ -32,14 +32,14 @@ namespace SOC.Ticketing.Handler
 
             var inputCreateCase = new InputCreateCase()
             {
-                Title = request.Tite,
+                Title = request.Title,
                 Description = request.Message,
                 Tags = tags
             };
 
             var inputCeateTask = new InputCreateTask()
             {
-                Title = request.Tite
+                Title = request.Title
             };
 
             try
