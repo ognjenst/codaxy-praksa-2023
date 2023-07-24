@@ -24,7 +24,7 @@ var builder = Host.CreateDefaultBuilder()
 		{
 			services.RegisterServices(context.Configuration);
 		}
-	).
+	);/*
 	ConfigureContainer<ContainerBuilder>(
 		(context, builder) =>
 		{
@@ -56,7 +56,7 @@ var builder = Host.CreateDefaultBuilder()
 
 			builder.RegisterMediatR(typeof(Program).Assembly);
 		}
-	);
+	);*/
 
 using var host = builder.Build();
 
