@@ -69,9 +69,9 @@ public class IoTTriggerEvaluationService : BackgroundService
         {
             throw new ArgumentException("Trigger property and value must be specified.");
         }
-
+        return true;
         // Check if the actual property value matches the trigger value based on the specified condition
-        if (ioTTrigger.Condition.Equals("Equals", StringComparison.OrdinalIgnoreCase))
+        /*if (ioTTrigger.Condition.Equals("Equals", StringComparison.OrdinalIgnoreCase))
         {
             return actualValue.Equals(ioTTrigger.Value, StringComparison.OrdinalIgnoreCase);
         }
@@ -80,13 +80,13 @@ public class IoTTriggerEvaluationService : BackgroundService
             throw new NotSupportedException(
                 $"Condition '{ioTTrigger.Condition}' is not supported."
             );
-        }
+        }*/
         // TODO: Add checks for all operators, use switch for more elegant code
     }
 
     private async System.Threading.Tasks.Task ProcessWorkflow(Workflow workflow)
     {
-        // TODO: Check if other workflow properties should be passed inside StartWorkflowAsync
+        // TODO: generate body
         await _workflowResourceClient.StartWorkflowAsync(
             workflow.Name,
             new Dictionary<string, object>(),

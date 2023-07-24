@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SOC.Conductor.Entities.Enums;
 
 namespace SOC.Conductor.Entities.Contexts
 {
@@ -38,6 +39,11 @@ namespace SOC.Conductor.Entities.Contexts
             modelBuilder.Entity<Automation>(entity =>
             {
                 entity.HasKey(e => new { e.WorkflowId, e.TriggerId });
+            });
+
+            modelBuilder.Entity<IoTTrigger>(entity =>
+            {
+                entity.Property(p => p.Condition).HasConversion(v => v.ToString(), v => (Operator)Enum.Parse(typeof(Operator), v));
             });
 
             base.OnModelCreating(modelBuilder);

@@ -29,7 +29,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         // Register background service for IoTTrigger evaluation
-        services.AddHostedService<IoTTriggerEvaluationService>();
+        //services.AddHostedService<IoTTriggerEvaluationService>();
 
         return services;
     }
