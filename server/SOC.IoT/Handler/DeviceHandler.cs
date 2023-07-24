@@ -15,6 +15,8 @@ namespace SOC.IoT.Handler;
 
 public class DeviceRequest : IRequest<NoOutput> {
     string id;
+    //here i should add the deviceupdatedto that i wrote below(besides the id)
+    //i don't need the url - beucase all polls will call same endpoint on apiGateway
 }
 
 [OriginalName("device_task")]
