@@ -7,7 +7,6 @@ import Automations from "./automations";
 import Dashboard from "./dashboard";
 import Devices from "./devices";
 import DeviceDetails from "./devices/device-details";
-import Automations from "./automations";
 
 export default () => (
     <cx>
