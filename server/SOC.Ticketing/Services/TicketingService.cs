@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Autofac.Core;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SOC.Ticketing.Exceptions;
 using SOC.Ticketing.Generated;
@@ -13,9 +14,9 @@ namespace SOC.Ticketing.Services
         private readonly HttpClient _httpClient;
 
 
-        public TicketingService(IHttpClientFactory httpClientFactory)
+        public TicketingService(HttpClient httpClient)
         {
-            _httpClient = httpClientFactory.CreateClient("TicketingApiClient");
+            _httpClient = httpClient;
         }
 
         public async Task<OutputTask> CreateTaskAsync(InputCreateTask inputCreateTask, string caseId, CancellationToken cancellationToken = default)

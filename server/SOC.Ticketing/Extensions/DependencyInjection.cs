@@ -17,9 +17,9 @@ public static class DependencyInjection
     {
         services.RegisterOptions();
         services.AddScoped<ITicketingService, TicketingService>();
-
+        
         // Add HttpClient
-        services.AddHttpClient("TicketingApiClient", httpClient =>
+        services.AddHttpClient<ITicketingService,TicketingService>( httpClient =>
         {
             httpClient.BaseAddress = new Uri(configuration["TicketingOptions:BaseUri"]);
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration["TicketingOptions:HiveApiKey"]);                                                                                           
