@@ -3,21 +3,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
-using SOC.Scanning.Handler;
-using SOC.Scanning.OptionsSetup;
+using SOC.IoT.Generated;
+using SOC.IoT.OptionsSetup;
+using MediatR;
 
-namespace SOC.Scanning.Extensions;
-
+namespace SOC.IoT.Extensions;
 public static class DependencyInjection
 {
-    public static IServiceCollection RegisterServices(
-        this IServiceCollection services,
-        IConfiguration configuration
-    )
+    public static IServiceCollection RegisterServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddAutoMapper(typeof(Program).Assembly);
-
         services.RegisterOptions();
+
+        services.AddScoped<IDevicesClient, DevicesClient>();
+        services.AddHttpClient<DevicesClient>();
+
+        services.AddAutoMapper(typeof(Program).Assembly);
 
         // Configure Serilog
         Log.Logger = new LoggerConfiguration().MinimumLevel
@@ -32,14 +32,12 @@ public static class DependencyInjection
             loggingBuilder.AddSerilog();
         });
 
-        //services.AddTransient<ScanIpAddressHandler>();
-
         return services;
     }
 
     private static IServiceCollection RegisterOptions(this IServiceCollection services)
     {
-        services.ConfigureOptions<SshOptionsSetup>();
+        services.ConfigureOptions<DeviceOptionSetup>();
 
         return services;
     }

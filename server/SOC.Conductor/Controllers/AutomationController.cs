@@ -23,7 +23,9 @@ namespace SOC.Conductor.Controllers
             var automation = new AutomationDto
             {
                 TriggerId = automationDto.TriggerId,
-                WorkflowId = automationDto.WorkflowId
+                WorkflowId = automationDto.WorkflowId,
+                Name = automationDto.Name,
+                InputParameters = automationDto.InputParameters,
             };
 
             await Task.Delay(2000);
