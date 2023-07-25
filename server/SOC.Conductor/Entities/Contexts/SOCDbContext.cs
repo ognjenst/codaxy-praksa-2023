@@ -12,8 +12,9 @@ namespace SOC.Conductor.Entities.Contexts
         public DbSet<Automation> Automations { get; set; }
         public DbSet<PeriodicTrigger> PeriodicTriggers { get; set; }
         public DbSet<IoTTrigger> IoTTriggers { get; set; }
-        
-        public SOCDbContext(DbContextOptions<SOCDbContext> options) : base(options) { }
+
+        public SOCDbContext(DbContextOptions<SOCDbContext> options)
+            : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,19 +32,24 @@ namespace SOC.Conductor.Entities.Contexts
                     .WithMany(e => e.Triggers)
                     .UsingEntity<Automation>(
                         l => l.HasOne<Workflow>().WithMany().HasForeignKey(e => e.WorkflowId),
-                        r => r.HasOne<Trigger>().WithMany().HasForeignKey(e => e.TriggerId));
+                        r => r.HasOne<Trigger>().WithMany().HasForeignKey(e => e.TriggerId)
+                    );
             });
 
             modelBuilder.Entity<Trigger>().UseTptMappingStrategy();
 
             var converter = new ValueConverter<JObject, string>(
-                  v => v.ToString(),
-                  v => JObject.Parse(v));
+                v => v.ToString(),
+                v => JObject.Parse(v)
+            );
 
             modelBuilder.Entity<Automation>(entity =>
             {
-                entity.HasKey(e => new { e.WorkflowId, e.TriggerId, e.Name });
-                entity.Property(e => e.InputParameters).HasConversion(converter).HasColumnType("jsonb");
+                entity.HasKey(e => new { e.WorkflowId, e.TriggerId });
+                entity
+                    .Property(e => e.InputParameters)
+                    .HasConversion(converter)
+                    .HasColumnType("jsonb");
             });
 
             base.OnModelCreating(modelBuilder);
