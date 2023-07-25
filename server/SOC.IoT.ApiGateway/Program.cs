@@ -9,6 +9,7 @@ using SOC.IoT.ApiGateway.Extensions;
 using Serilog;
 using Microsoft.EntityFrameworkCore;
 using SOC.IoT.ApiGateway.Entities.Contexts;
+using SOC.IoT.ApiGateway.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,8 @@ builder.Services.AddSwaggerGen(opts =>
 builder.Services.AddSwaggerExamplesFromAssemblyOf<DevicesExample>();
 builder.Services.AddLogging();
 builder.Services.AddSignalR();
+
+builder.Services.AddHostedService<DevicesBackgroundService>();
 
 builder.Services.AddIoTServices();
 
