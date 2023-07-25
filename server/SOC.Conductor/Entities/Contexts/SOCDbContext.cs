@@ -41,6 +41,7 @@ namespace SOC.Conductor.Entities.Contexts
                   v => JObject.Parse(v));
 
             modelBuilder.Entity<Automation>(entity =>
+
             {
                 entity.HasKey(e => new { e.WorkflowId, e.TriggerId, e.Name });
                 entity.Property(e => e.InputParameters).HasConversion(converter).HasColumnType("jsonb");
