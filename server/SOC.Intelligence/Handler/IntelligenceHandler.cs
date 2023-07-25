@@ -26,6 +26,8 @@ public class IntelligenceHandler : ITaskRequestHandler<TicketingRequest, Intelli
     {
         _intelligenceService = intelligenceService;
     }
+	
+	// This method is delegating request handlond to the IntelligenceService
     public async Task<IntelligenceResponseDto> Handle(TicketingRequest request, CancellationToken cancellationToken)
 	{
 		return await _intelligenceService.CheckEndpoint(request.IpAddress, request.MaxDaysInAge);

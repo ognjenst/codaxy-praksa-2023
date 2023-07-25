@@ -24,38 +24,37 @@ var builder = Host.CreateDefaultBuilder()
 		{
 			services.RegisterServices(context.Configuration);
 		}
-	).
-ConfigureContainer<ContainerBuilder>(
-	(context, builder) =>
-	{
-		builder
-			.AddConductorSharp(
-				baseUrl: context.Configuration.GetValue<string>("Conductor:BaseUrl"),
-				apiPath: context.Configuration.GetValue<string>("Conductor:ApiUrl")
-			)
-			.AddExecutionManager(
-				maxConcurrentWorkers: context.Configuration.GetValue<int>(
-					"Conductor:MaxConcurrentWorkers"
-				),
-				sleepInterval: context.Configuration.GetValue<int>("Conductor:SleepInterval"),
-				longPollInterval: context.Configuration.GetValue<int>(
-					"Conductor:LongPollInterval"
-				),
-				domain: context.Configuration.GetValue<string>("Conductor:WorkerDomain"),
-				handlerAssemblies: typeof(Program).Assembly
-			)
-			.SetHealthCheckService<FileHealthService>()
-			.AddPipelines(pipelines =>
-			{
-				pipelines.AddContextLogging();
-				pipelines.AddRequestResponseLogging();
-				pipelines.AddValidation();
-			});
+	).ConfigureContainer<ContainerBuilder>(
+		(context, builder) =>
+		{
+			builder
+				.AddConductorSharp(
+					baseUrl: context.Configuration.GetValue<string>("Conductor:BaseUrl"),
+					apiPath: context.Configuration.GetValue<string>("Conductor:ApiUrl")
+				)
+				.AddExecutionManager(
+					maxConcurrentWorkers: context.Configuration.GetValue<int>(
+						"Conductor:MaxConcurrentWorkers"
+					),
+					sleepInterval: context.Configuration.GetValue<int>("Conductor:SleepInterval"),
+					longPollInterval: context.Configuration.GetValue<int>(
+						"Conductor:LongPollInterval"
+					),
+					domain: context.Configuration.GetValue<string>("Conductor:WorkerDomain"),
+					handlerAssemblies: typeof(Program).Assembly
+				)
+				.SetHealthCheckService<FileHealthService>()
+				.AddPipelines(pipelines =>
+				{
+					pipelines.AddContextLogging();
+					pipelines.AddRequestResponseLogging();
+					pipelines.AddValidation();
+				});
 
-		builder.RegisterWorkerTask<IntelligenceHandler>();
+			builder.RegisterWorkerTask<IntelligenceHandler>();
 
-		builder.RegisterMediatR(typeof(Program).Assembly);
-	}
+			builder.RegisterMediatR(typeof(Program).Assembly);
+		}
 );
 
 using var host = builder.Build();
