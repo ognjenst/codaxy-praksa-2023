@@ -1,4 +1,5 @@
 import { Controller } from "cx/ui";
+import { GET } from "../../../api/util/methods";
 
 export default (reslove, props) =>
     class extends Controller {
@@ -123,6 +124,8 @@ export default (reslove, props) =>
             this.store.set("$page.insertUpdateName", props.name);
             this.store.set("$page.insertUpdateDescription", props.description);
             this.store.set("$page.insertUpdateVersion", props.version);
+
+            this.loadData();
         }
 
         addParam() {
@@ -160,5 +163,15 @@ export default (reslove, props) =>
 
         addTaskToController(taskInfo) {
             this.store.set("$insert.workflowTasks", [...this.store.get("$insert.workflowTasks"), taskInfo]);
+        }
+
+        async loadData() {
+            try {
+                let resp = await GET("/workflows/getalltasks");
+
+                this.store.set("$insert.arrTasks", resp);
+            } catch (err) {
+                console.error(err);
+            }
         }
     };
