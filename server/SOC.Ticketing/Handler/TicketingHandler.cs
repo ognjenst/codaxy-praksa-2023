@@ -2,6 +2,7 @@
 using ConductorSharp.Engine.Model;
 using ConductorSharp.Engine.Util;
 using MediatR;
+using Newtonsoft.Json;
 using SOC.Ticketing.Generated;
 using SOC.Ticketing.Services;
 
@@ -11,8 +12,10 @@ namespace SOC.Ticketing.Handler
     public class TicketingRequest : IRequest<NoOutput>
     {
         public string Message { get; set; }
+
         public string Title { get; set; }
-        public InputCreateCaseSeverity? Severity { get; set; }
+
+        public string Severity { get; set; }
     }
 
     [OriginalName("ticketing")]
@@ -26,13 +29,29 @@ namespace SOC.Ticketing.Handler
 
         public async Task<NoOutput> Handle(TicketingRequest request, CancellationToken cancellationToken)
         {
-            //ICollection<string> tags = request.Priority?.Split(',').Select(tag => tag.Trim()).ToList() ?? new List<string>();
+            InputCreateCaseSeverity inputSeverity;
+            switch (request.Severity){
+                case "LOW":
+                    inputSeverity = InputCreateCaseSeverity._1;
+                    break;
+                case "MEDIUM":
+                    inputSeverity = InputCreateCaseSeverity._2;
+                    break;
+                case "HIGH":
+                    inputSeverity = InputCreateCaseSeverity._3;
+                    break;
+                case "CRITICAL":
+                    inputSeverity = InputCreateCaseSeverity._4;
+                    break;
+                default:
+                    throw new ArgumentException("Invalid severity level provided.");
+            }
 
             var inputCreateCase = new InputCreateCase()
             {
                 Title = request.Title,
                 Description = request.Message,
-                Severity = request.Severity
+                Severity = inputSeverity
             };
 
             var inputCeateTask = new InputCreateTask()
