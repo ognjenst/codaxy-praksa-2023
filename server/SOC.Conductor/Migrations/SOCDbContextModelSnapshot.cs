@@ -30,14 +30,14 @@ namespace SOC.Conductor.Migrations
                     b.Property<int>("TriggerId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
                     b.Property<string>("InputParameters")
-                        .IsRequired()
                         .HasColumnType("jsonb");
 
-                    b.HasKey("WorkflowId", "TriggerId", "Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("WorkflowId", "TriggerId");
 
                     b.HasIndex("TriggerId");
 

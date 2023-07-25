@@ -40,6 +40,13 @@ builder.Services.AddSignalR();
 builder.Services.AddIoTServices();
 
 builder.Services.RegisterServices();
+// Configure Serilog
+builder.Host.UseSerilog(
+	(context, config) =>
+	{
+		config.WriteTo.Console();
+	}
+);
 
 // Configure Serilog
 builder.Host.UseSerilog(
@@ -57,6 +64,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
