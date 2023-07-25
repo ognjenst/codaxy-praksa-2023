@@ -13,7 +13,7 @@ namespace SOC.Conductor.Controllers
         /// </summary>
         /// <param name="automationDto"></param>
         /// <returns></returns>
-        [HttpPost(Name = "CreateAutomationAysnc")]
+        [HttpPost(Name = "CreateAutomation")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AutomationDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
@@ -23,7 +23,9 @@ namespace SOC.Conductor.Controllers
             var automation = new AutomationDto
             {
                 TriggerId = automationDto.TriggerId,
-                WorkflowId = automationDto.WorkflowId
+                WorkflowId = automationDto.WorkflowId,
+                Name = automationDto.Name,
+                InputParameters = automationDto.InputParameters,
             };
 
             await Task.Delay(2000);

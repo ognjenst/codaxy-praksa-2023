@@ -7,11 +7,11 @@ namespace SOC.IoT.ApiGateway.Controllers
     [ApiController]
     public class TriggersController : ControllerBase
     {
-        private readonly ITriggersService _triggersService;
+        private readonly ITriggersClient _triggersClient;
 
-        public TriggersController(ITriggersService triggersService)
+        public TriggersController(ITriggersClient triggersClient)
         {
-            _triggersService = triggersService;
+            _triggersClient = triggersClient;
         }
 
 
@@ -25,7 +25,7 @@ namespace SOC.IoT.ApiGateway.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
         public async Task<IActionResult> GetAllTriggersAsync()
         {
-            var triggers = await _triggersService.GetAllTriggersAsync();
+            var triggers = await _triggersClient.GetAllTriggersAsync();
 
             await Task.Delay(1000);
 
