@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace SOC.Intelligence.Options;
 
+
 public class IntelligenceOptions
 {
-	public static readonly string SectionName = "IntelligenceOptions";
+	public const string SectionName = "IntelligenceOptions";
 	public required string ApiKey { get; set; }
 	public required string AbuseIPDBUrl { get; set; }
 }
