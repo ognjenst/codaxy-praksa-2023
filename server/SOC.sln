@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOC.Ticketing", "SOC.Ticket
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOC.Intelligence", "SOC.Intelligence\SOC.Intelligence.csproj", "{56FFA2A1-D856-4256-9EF4-F8F6ACB9B024}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOC.IoT", "SOC.IoT\SOC.IoT.csproj", "{AD9F05D1-B262-486C-8D46-57784786BF59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{54FF2D1D-8084-4B45-9B84-7B8751CEAA8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54FF2D1D-8084-4B45-9B84-7B8751CEAA8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54FF2D1D-8084-4B45-9B84-7B8751CEAA8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD9F05D1-B262-486C-8D46-57784786BF59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD9F05D1-B262-486C-8D46-57784786BF59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD9F05D1-B262-486C-8D46-57784786BF59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD9F05D1-B262-486C-8D46-57784786BF59}.Release|Any CPU.Build.0 = Release|Any CPU
 		{56FFA2A1-D856-4256-9EF4-F8F6ACB9B024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{56FFA2A1-D856-4256-9EF4-F8F6ACB9B024}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56FFA2A1-D856-4256-9EF4-F8F6ACB9B024}.Release|Any CPU.ActiveCfg = Release|Any CPU
