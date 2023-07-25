@@ -32,7 +32,7 @@ public static class DependencyInjection
             loggingBuilder.AddSerilog();
         });
 
-        //services.AddTransient<ScanIpAddressHandler>();
+        services.AddTransient<ScanIpAddressHandler>();
 
         return services;
     }
