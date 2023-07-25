@@ -6,6 +6,7 @@ using SOC.Conductor.Generated;
 using SOC.Conductor.Options;
 using SOC.Conductor.OptionsSetup;
 using SOC.Conductor.Repositories;
+using SOC.Conductor.Services;
 
 namespace SOC.Conductor.Extensions;
 
@@ -27,8 +28,10 @@ public static class ServiceCollectionExtensions
 
 		services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-		return services;
-	}
+        services.AddScoped<IWorkflowBuilderService, WorkflowBuilderService>();
+
+        return services;
+    }
 
 	private static IServiceCollection RegisterOptions(this IServiceCollection services)
 	{
