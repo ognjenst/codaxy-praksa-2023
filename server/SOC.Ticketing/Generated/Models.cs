@@ -513,7 +513,7 @@ public partial class InputCreateCase
     public string Description { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("severity", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public InputCreateCaseSeverity? Severity { get; set; } = SOC.Ticketing.Generated.InputCreateCaseSeverity._2;
+    public InputCreateCaseSeverity? Severity { get; set; }
 
     [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public long? StartDate { get; set; } = default!;
@@ -5501,9 +5501,9 @@ public enum InputCreateCaseSeverity
 
     _2 = 2,
 
-    _3 = 4,
+    _3 = 3,
 
-    _4 = 8,
+    _4 = 4,
 
 }
 
