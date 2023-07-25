@@ -1,4 +1,5 @@
-﻿using SOC.Conductor.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using SOC.Conductor.Contracts;
 using SOC.Conductor.Entities;
 using SOC.Conductor.Entities.Contexts;
 
@@ -6,6 +7,24 @@ namespace SOC.Conductor.Repositories
 {
     public class AutomationRepository : RepositoryBase<Automation>, IAutomationRepository
     {
-        public AutomationRepository(SOCDbContext _SOCDbContext) : base(_SOCDbContext) { }
+        private readonly SOCDbContext _dbContext;
+        public AutomationRepository(SOCDbContext _SOCDbContext) : base(_SOCDbContext) 
+        {
+            _dbContext = _SOCDbContext;
+        }
+
+        public async Task<Automation> GetAutomationByWorkflowAndTriggerAsync(int workflowId, int triggerId)
+        {
+            return await _dbContext.Automations.Where(a => a.WorkflowId == workflowId && a.TriggerId == triggerId).FirstAsync();
+        }
+
+        public async Task<List<Workflow>> GetWorkflowsByTriggerIdAsync(int triggerId)
+        {
+            var workflowIds = await _dbContext.Automations
+                .Where(a => a.TriggerId == triggerId)
+                .Select(e => e.WorkflowId)
+                .ToListAsync();
+            return await _dbContext.Workflows.Where(e => workflowIds.Contains(e.Id)).ToListAsync();
+        }
     }
 }
