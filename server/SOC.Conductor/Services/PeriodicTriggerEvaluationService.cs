@@ -13,16 +13,14 @@ using Task = System.Threading.Tasks.Task;
 
 public class PeriodicTriggerEvaluationService : BackgroundService, INotificationHandler<TriggerNotification>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IWorkflowResourceClient _workflowResourceClient;
+    private IUnitOfWork _unitOfWork;
+    private IWorkflowResourceClient _workflowResourceClient;
     private readonly ILogger<PeriodicTriggerEvaluationService> _logger;
     private readonly Dictionary<int, Timer> _triggerEvaluators = new();
     public IServiceProvider Services { get; }
-    public PeriodicTriggerEvaluationService(IServiceProvider services, IUnitOfWork unitOfWork, IWorkflowResourceClient workflowResourceClient, ILogger<PeriodicTriggerEvaluationService> logger)
+    public PeriodicTriggerEvaluationService(IServiceProvider services, ILogger<PeriodicTriggerEvaluationService> logger)
     {
         Services = services;
-        _unitOfWork = unitOfWork;
-        _workflowResourceClient = workflowResourceClient;
         _logger = logger;
     }
 
@@ -45,6 +43,9 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
     protected async override Task ExecuteAsync(CancellationToken stoppingToken)
     {
         using var scope = Services.CreateScope();
+
+        _unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
+        _workflowResourceClient = scope.ServiceProvider.GetRequiredService<IWorkflowResourceClient>();
 
         var periodicTriggers = await _unitOfWork.PeriodicTriggers.GetAllAsync();
 

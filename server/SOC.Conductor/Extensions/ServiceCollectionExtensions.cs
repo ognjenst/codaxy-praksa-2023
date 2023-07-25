@@ -30,6 +30,8 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IWorkflowBuilderService, WorkflowBuilderService>();
 
+        services.AddHostedService<PeriodicTriggerEvaluationService>();
+
         return services;
     }
 
