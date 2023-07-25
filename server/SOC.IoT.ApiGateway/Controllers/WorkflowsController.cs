@@ -1,5 +1,4 @@
-﻿using ConductorSharp.Client.Service;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
 
 namespace SOC.IoT.ApiGateway.Controllers;
