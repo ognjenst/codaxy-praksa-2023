@@ -3,6 +3,8 @@ using Serilog;
 using SOC.Conductor.Entities.Contexts;
 using SOC.Conductor.Extensions;
 using System.Reflection;
+using SOC.Conductor.Extensions;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,9 +15,10 @@ builder.Services.AddControllers();
 builder.Services.RegisterServices(builder.Configuration);
 
 builder.Services.AddDbContext<SOCDbContext>(
-    options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db"))
+	options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db"))
 );
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
@@ -31,10 +34,10 @@ builder.Services.AddSwaggerGen(opts =>
 
 // Configure Serilog
 builder.Host.UseSerilog(
-    (context, config) =>
-    {
-        config.WriteTo.Console();
-    }
+	(context, config) =>
+	{
+		config.WriteTo.Console();
+	}
 );
 
 var app = builder.Build();
@@ -42,8 +45,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+	app.UseSwagger();
+	app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
@@ -52,6 +55,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//app.MigrateDatabase();
+app.MigrateDatabase();
 
 app.Run();

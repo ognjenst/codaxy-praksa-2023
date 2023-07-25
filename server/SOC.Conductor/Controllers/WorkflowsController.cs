@@ -1,11 +1,14 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+
 using SOC.Conductor.DTOs;
 using SOC.Conductor.Entities;
 using SOC.Conductor.Generated;
 using SOC.Conductor.Handlers;
 using System.Linq.Expressions;
 using Task = System.Threading.Tasks.Task;
+using SOC.Conductor.Models;
+using SOC.Conductor.Models.Requests;
 
 namespace SOC.Conductor.Controllers;
 
@@ -91,6 +94,19 @@ public class WorkflowsController : ControllerBase
         if (result is not null)
             return Ok(result);
 
-        return NotFound();
-    }
+	/// <summary>
+	/// Play workflow
+	/// </summary>
+	/// <param name="playDto"></param>
+	/// <returns></returns>
+	[HttpPost("PlayWorkflow", Name = "PlayWorkflow")]
+	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+	[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+	[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+	public async Task<IActionResult> PlayWorkflowAsync([FromBody] PlayRequestDto playDto)
+	{
+		await _mediator.Send(new PlayWorkflow(playDto));
+		return Ok();
+	}
 }
