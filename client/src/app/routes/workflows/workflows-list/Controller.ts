@@ -115,41 +115,15 @@ export default class extends Controller {
             { name: "Task 6", flagShow: false, conditions: arrFill, inputs: arrInput },
         ];
 
-        let workflows = [
-            {
-                name: "Morning routine",
-                version: 0,
-                enabled: false,
-                createdAt: "0001-01-01T00:00:00",
-                updatedAt: "0001-01-01T00:00:00",
-                tasks: arr,
-            },
-            {
-                name: "Mail received",
-                version: 0,
-                enabled: false,
-                createdAt: "0001-01-01T00:00:00",
-                updatedAt: "0001-01-01T00:00:00",
-                tasks: arr,
-            },
-            {
-                name: "Locked lab mode",
-                version: 0,
-                enabled: false,
-                createdAt: "0001-01-01T00:00:00",
-                updatedAt: "0001-01-01T00:00:00",
-                tasks: arr,
-            },
-        ];
-
-        this.store.set("$page.workflows", workflows);
-        this.store.set("$page.currentWorkflow", workflows[0]);
+        this.loadData();
+        // this.store.set("$page.currentWorkflow", "$page.workflows");
     }
 
     async loadData() {
         try {
             let resp = await GET("/workflows");
             this.store.set("$page.workflows", resp);
+            this.store.set("$page.currentWorkflow", resp[0]);
         } catch (err) {
             console.error(err);
         }
