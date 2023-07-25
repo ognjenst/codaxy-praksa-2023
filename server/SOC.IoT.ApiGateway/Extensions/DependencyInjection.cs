@@ -14,7 +14,7 @@ public static class DependencyInjection
         services.RegisterOptions();
         services.RegisterHttpClients();
 
-        services.AddScoped<IWorkflowsService, WorkflowsService>(
+        services.AddScoped<IWorkflowsClient, WorkflowsClient>(
             (serviceProvider) =>
             {
                 var conductorClientOptions = serviceProvider.GetRequiredService<
@@ -23,14 +23,14 @@ public static class DependencyInjection
 
                 var clientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
 
-                return new WorkflowsService(
+                return new WorkflowsClient(
                     baseUrl: conductorClientOptions.Value.BaseUrl,
                     clientFactory.CreateClient()
                 );
             }
         );
 
-        services.AddScoped<ITriggersService, TriggersService>(
+        services.AddScoped<ITriggersClient, TriggersClient>(
             (serviceProvider) =>
             {
                 var conductorClientOptions = serviceProvider.GetRequiredService<
@@ -39,14 +39,14 @@ public static class DependencyInjection
 
                 var clientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
 
-                return new TriggersService(
+                return new TriggersClient(
                     baseUrl: conductorClientOptions.Value.BaseUrl,
                     clientFactory.CreateClient()
                 );
             }
         );
 
-        services.AddScoped<IAutomationService, AutomationService>(
+        services.AddScoped<IAutomationClient, AutomationClient>(
             (serviceProvider) =>
             {
                 var conductorClientOptions = serviceProvider.GetRequiredService<
@@ -55,7 +55,7 @@ public static class DependencyInjection
 
                 var clientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
 
-                return new AutomationService(
+                return new AutomationClient(
                     baseUrl: conductorClientOptions.Value.BaseUrl,
                     clientFactory.CreateClient()
                 );
@@ -67,9 +67,9 @@ public static class DependencyInjection
 
     private static IServiceCollection RegisterHttpClients(this IServiceCollection services)
     {
-        services.AddHttpClient<WorkflowsService>();
-        services.AddHttpClient<TriggersService>();
-        services.AddHttpClient<AutomationService>();
+        services.AddHttpClient<WorkflowsClient>();
+        services.AddHttpClient<ITriggersClient>();
+        services.AddHttpClient<AutomationClient>();
         return services;
     }
 
