@@ -6,6 +6,7 @@ using SOC.Conductor.Generated;
 using SOC.Conductor.Options;
 using SOC.Conductor.OptionsSetup;
 using SOC.Conductor.Repositories;
+using SOC.Conductor.Services;
 
 namespace SOC.Conductor.Extensions;
 
@@ -26,6 +27,8 @@ public static class ServiceCollectionExtensions
         services.AddHttpClientConfig();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        services.AddScoped<IWorkflowBuilderService, WorkflowBuilderService>();
 
         return services;
     }
