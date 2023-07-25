@@ -519,6 +519,7 @@ public partial class DevicesClient : IDevicesClient
 
     public DevicesClient(IHttpClientFactory clientFactory, IOptions<DeviceOptions> options)
     {
+        Console.WriteLine(options.Value.BaseUrl);
         BaseUrl = options.Value.BaseUrl;
         _httpClient = clientFactory.CreateClient();
         _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);

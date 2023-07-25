@@ -15,13 +15,15 @@ public class DeviceRequest : IRequest<NoOutput>
     public string Id { get; set; }
 
     [JsonProperty("state")]
-    public DeviceState State { get; set; }
+    public bool State { get; set; }
 
-    [JsonProperty("light")]
-    public DeviceLight Light { get; set; }
+    [JsonProperty("brightness")]
+    public double Brightness { get; set; }
 
-    [JsonProperty("colorXy")]
-    public DeviceColorXy ColorXy { get; set; }
+    [JsonProperty("x")]
+    public double X { get; set; }
+    [JsonProperty("y")]
+    public double Y { get; set; }
 }
 
 [OriginalName("device_update_task")]
@@ -36,7 +38,14 @@ public class DeviceHandler : ITaskRequestHandler<DeviceRequest, NoOutput>
 
     public async Task<NoOutput> Handle(DeviceRequest request, CancellationToken cancellationToken)
     {
-        await _devicesClient.UpdateDeviceAsync(request.Id, new DeviceUpdateDTO { State = request.State, ColorXy = request.ColorXy, Light = request.Light }, cancellationToken);
+        var obj = new DeviceUpdateDTO
+        {
+            State = new DeviceState { State = request.State },
+            ColorXy = new DeviceColorXy { X = request.X, Y = request.Y },
+            Light = new DeviceLight { Brightness = request.Brightness }
+        };
+
+        await _devicesClient.UpdateDeviceAsync(request.Id, obj, cancellationToken);
 
         return await Task.FromResult(new NoOutput());
     }
