@@ -25,7 +25,7 @@ namespace SOC.Conductor.Handlers
                 var periodic = new PeriodicTrigger()
                 {
                     Id = request.commonTriggerDto.Id,
-                    Name = request.commonTriggerDto.Name,
+                    Name = request.commonTriggerDto.Name
                 }; 
 
                 var result = await _unitOfWork.PeriodicTriggers.CreateAsync(periodic);
@@ -35,6 +35,9 @@ namespace SOC.Conductor.Handlers
                 {
                     Id = request.commonTriggerDto.Id,
                     Name = request.commonTriggerDto.Name,
+                    Period = request.commonTriggerDto.Period,
+                    Start = DateTime.Now,
+                    Unit = result.Unit
                 };
             }
 
