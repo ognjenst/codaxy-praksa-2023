@@ -12,8 +12,8 @@ using SOC.Conductor.Entities.Contexts;
 namespace SOC.Conductor.Migrations
 {
     [DbContext(typeof(SOCDbContext))]
-    [Migration("20230725120217_InputParamsNullable")]
-    partial class InputParamsNullable
+    [Migration("20230725122717_InitDb")]
+    partial class InitDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
