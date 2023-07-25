@@ -6,6 +6,7 @@ using SOC.Conductor.Contracts;
 using SOC.Conductor.Entities;
 using SOC.Conductor.Generated;
 using SOC.Conductor.Repositories;
+using SOC.IoT.Base.Interfaces;
 using SOC.IoT.Base.Services;
 using System;
 using System.Net.Http;
@@ -15,11 +16,10 @@ namespace SOC.Conductor.Services;
 
 public class IoTTriggerEvaluationService : BackgroundService
 {
-    private const int VERSION_NUMBER = 1;
     private const string deviceId = "0x00124b0022d2d320"; // TODO: HashMap for different types of sensors, type - deviceId
+    private const int VERSION_NUMBER = 1;
     private readonly IServiceScopeFactory _serviceScopeFactory;
 
-    // TODO: Inject queue this service will subscribe to
     public IoTTriggerEvaluationService(
         IServiceScopeFactory serviceScopeFactory
     )
@@ -34,9 +34,9 @@ public class IoTTriggerEvaluationService : BackgroundService
             using (var scope = _serviceScopeFactory.CreateScope())
             {
                 var serviceProvider = scope.ServiceProvider;
-                IUnitOfWork _unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
-                IWorkflowResourceClient _workflowResourceClient = serviceProvider.GetRequiredService<IWorkflowResourceClient>();
-                DeviceManager deviceManager = serviceProvider.GetRequiredService<DeviceManager>();
+                var _unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
+                var _workflowResourceClient = serviceProvider.GetRequiredService<IWorkflowResourceClient>();
+                var deviceManager = serviceProvider.GetRequiredService<IDeviceManager>();
 
                 // Retrieve all IoT triggers from the database
                 var iotTriggers = await _unitOfWork.IoTTriggers.GetAllAsync();
@@ -47,19 +47,17 @@ public class IoTTriggerEvaluationService : BackgroundService
                     {
                         bool evaluationResult = EvaluateIoTTrigger(
                         iotTrigger,
-                        device.Temperature.Value.ToString() // TODO: Generilize
+                        device.Temperature.Value.ToString() // TODO: Generilize for different types of sensors
                         ); 
 
                         if (evaluationResult)
                         {
                             // Retrieve workflows associated with the IoT trigger
                             var workflows = await _unitOfWork.Automations.GetWorkflowsByTriggerIdAsync(iotTrigger.Id);
-
-                            var automation = (await _unitOfWork.Automations.GetAllAsync()).FirstOrDefault();
-
-                            if (automation != null)
+                            foreach (var workflow in workflows)
                             {
-                                foreach (var workflow in workflows)
+                                var automation = await _unitOfWork.Automations.GetById(iotTrigger.Id, workflow.Id); 
+                                if (automation != null)
                                 {
                                     await ProcessWorkflow(workflow, automation.InputParameters);
                                 }
@@ -69,7 +67,7 @@ public class IoTTriggerEvaluationService : BackgroundService
                 }
             }
             // Delay the execution for some time before checking again
-            await System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
+            await System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(2), cancellationToken);
         }
     }
 
@@ -126,6 +124,8 @@ public class IoTTriggerEvaluationService : BackgroundService
 
     private Dictionary<string, object> GenerateBody(JObject inputParameters)
     {
+        if (inputParameters == null)
+            return new Dictionary<string, object>();
         return inputParameters.ToObject<Dictionary<string, object>>();
     }
 }

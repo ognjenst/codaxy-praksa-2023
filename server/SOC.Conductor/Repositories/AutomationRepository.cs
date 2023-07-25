@@ -15,6 +15,11 @@ namespace SOC.Conductor.Repositories
             _dbContext = _SOCDbContext;
         }
 
+        public async Task<Automation> GetById(int triggerId, int workflowId)
+        {
+            return await _dbContext.Automations.Where((a) => a.WorkflowId == workflowId && a.TriggerId == triggerId).FirstAsync();
+        }
+
         public async Task<List<Workflow>> GetWorkflowsByTriggerIdAsync(int triggerId)
         {
             var workflowIds = await _dbContext.Automations

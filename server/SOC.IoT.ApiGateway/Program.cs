@@ -87,6 +87,6 @@ app.Services.GetRequiredService<IStartupService>();
 
 app.MapHub<DevicesHub>("/api/hubs/devices");
 
-app.MigrateDatabase();
+//app.MigrateDatabase();
 
 app.Run();
