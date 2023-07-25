@@ -2,42 +2,42 @@
 using ConductorSharp.Engine.Model;
 using ConductorSharp.Engine.Util;
 using MediatR;
-using Microsoft.Extensions.Logging;
-using SOC.IoT.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using SOC.IoT.Generated;
+using System.ComponentModel.DataAnnotations;
 
-namespace SOC.IoT.Handler; 
+namespace SOC.IoT.Handler;
 
 
-public class DeviceRequest : IRequest<NoOutput> {
-    string id;
-    //here i should add the deviceupdatedto that i wrote below(besides the id)
-    //i don't need the url - beucase all polls will call same endpoint on apiGateway
+public class DeviceRequest : IRequest<NoOutput>
+{
+    [JsonProperty("id")]
+    public string Id { get; set; }
+
+    [JsonProperty("state")]
+    public DeviceState State { get; set; }
+
+    [JsonProperty("light")]
+    public DeviceLight Light { get; set; }
+
+    [JsonProperty("colorXy")]
+    public DeviceColorXy ColorXy { get; set; }
 }
 
-[OriginalName("device_task")]
-public class DeviceHandler : ITaskRequestHandler<DeviceRequest, NoOutput> {
+[OriginalName("device_update_task")]
+public class DeviceHandler : ITaskRequestHandler<DeviceRequest, NoOutput>
+{
+    private readonly IDevicesClient _devicesClient;
 
-    private readonly IDeviceService _service;
-
-    public DeviceHandler(IDeviceService service) {
-        _service = service;
+    public DeviceHandler(IDevicesClient devicesClient)
+    {
+        _devicesClient = devicesClient;
     }
 
-    public async Task<NoOutput> Handle(DeviceRequest request, CancellationToken cancellationToken) {
-        //here i should call device service
-        //so that it call apigateway and changes the device properties
+    public async Task<NoOutput> Handle(DeviceRequest request, CancellationToken cancellationToken)
+    {
+        await _devicesClient.UpdateDeviceAsync(request.Id, new DeviceUpdateDTO { State = request.State, ColorXy = request.ColorXy, Light = request.Light }, cancellationToken);
 
-        //i should pass deviceId and DeviceUpdateDTO(lookup in apiGateway)
-        
-        //when this method is called then the polling has been done
-        //but the question remains when will it call update?
-        await _service.UpdateDevice("");
-
-        throw new NotImplementedException();
+        return await Task.FromResult(new NoOutput());
     }
 }

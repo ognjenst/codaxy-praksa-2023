@@ -3,15 +3,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
-using SOC.IoT.Handler;
+using SOC.IoT.Generated;
 using SOC.IoT.OptionsSetup;
+using MediatR;
 
 namespace SOC.IoT.Extensions;
-public static class DependencyInjection {
-    public static IServiceCollection RegisterServices(this IServiceCollection services, IConfiguration configuration) {
-        services.AddAutoMapper(typeof(Program).Assembly);
-
+public static class DependencyInjection
+{
+    public static IServiceCollection RegisterServices(this IServiceCollection services, IConfiguration configuration)
+    {
         services.RegisterOptions();
+
+        services.AddScoped<IDevicesClient, DevicesClient>();
+        services.AddHttpClient<DevicesClient>();
+
+        services.AddAutoMapper(typeof(Program).Assembly);
 
         // Configure Serilog
         Log.Logger = new LoggerConfiguration().MinimumLevel
@@ -20,17 +26,17 @@ public static class DependencyInjection {
             .WriteTo.Console()
             .CreateLogger();
 
-        services.AddLogging(loggingBuilder => {
+        services.AddLogging(loggingBuilder =>
+        {
             loggingBuilder.ClearProviders();
             loggingBuilder.AddSerilog();
         });
 
-        services.AddTransient<DeviceHandler>();
-
         return services;
     }
 
-    private static IServiceCollection RegisterOptions(this IServiceCollection services) {
+    private static IServiceCollection RegisterOptions(this IServiceCollection services)
+    {
         services.ConfigureOptions<DeviceOptionSetup>();
 
         return services;

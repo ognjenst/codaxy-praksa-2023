@@ -4,6 +4,7 @@ using ConductorSharp.Engine.Extensions;
 using ConductorSharp.Engine.Health;
 using MediatR.Extensions.Autofac.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SOC.IoT.Extensions;
 using SOC.IoT.Handler;
@@ -47,7 +48,6 @@ var builder = Host.CreateDefaultBuilder()
 
             builder.RegisterWorkerTask<DeviceHandler>();
 
-            builder.RegisterMediatR(typeof(Program).Assembly);
         }
     );
 
