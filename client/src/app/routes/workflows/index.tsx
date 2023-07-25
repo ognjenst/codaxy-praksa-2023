@@ -6,7 +6,7 @@ import WorkflowsUndoneList from "./workflows-undone-list";
 
 export default () => (
     <cx>
-        <div className="m-4 flex flex-col" controller={Controller}>
+        <div className="m-4 flex flex-col mt-6" controller={Controller}>
             <div class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-5 gap-3">
                 <div>
                     <Button text="Insert" className="w-full mb-2 text-gray-600" onClick="openWindow" />

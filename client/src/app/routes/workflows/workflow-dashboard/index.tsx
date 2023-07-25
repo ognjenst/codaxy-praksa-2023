@@ -1,12 +1,6 @@
 import { Button, FlexRow, Grid, GridColumnConfig, GridRowLineConfig, Icon, LookupField, Switch } from "cx/widgets";
 import Controller from "./Controller";
-import { Svg } from "cx/svg";
 import WorkflowTaskProperties from "./workflow-task-properties";
-import InputParams from "../input-params";
-import ConditionExecution from "../condition-execution";
-import { openInsertUpdateWindow } from "../update-insert-workflow";
-import { expr } from "cx/ui";
-import { updateArray } from "cx/data";
 
 export default () => (
     <cx>
@@ -21,7 +15,12 @@ export default () => (
                 <Icon name="trash" className="w-6 h-6 text-gray-600" />
             </Button>
 
-            <Button className="absolute top-2 right-2 p-0" mod="hollow" onClick="deleteWorkflow">
+            <Button
+                className="absolute top-2 right-2 p-0"
+                mod="hollow"
+                confirm="Are you sure, you want to delete this workflow?"
+                onClick="deleteWorkflow"
+            >
                 <Icon name="trash" className="w-6 h-6 text-gray-600" />
             </Button>
 
@@ -57,11 +56,11 @@ export default () => (
                     </div>
                     <div className="flex-1">
                         <FlexRow align="center" className="h-full">
-                            <Button class="rounded-full p-1 m-1">
+                            <Button class="rounded-full p-1 m-1" if-expr="{$page.flagPauseStop} == true">
                                 <Icon name="stop-circle" className="w-6 h-6 text-gray-600" />
                             </Button>
 
-                            <Button class="rounded-full p-1 m-1">
+                            <Button class="rounded-full p-1 m-1" if-expr="{$page.flagPauseStop} == true">
                                 <Icon name="pause-circle" className="w-6 h-6 text-gray-600" />
                             </Button>
 

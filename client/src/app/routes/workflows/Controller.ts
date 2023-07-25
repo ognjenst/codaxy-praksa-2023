@@ -3,7 +3,9 @@ import { GET } from "../../api/util/methods";
 import { openInsertUpdateWindow } from "./update-insert-workflow";
 
 export default class extends Controller {
-    onInit(): void {}
+    onInit(): void {
+        this.store.set("$page.flagPauseStop", false);
+    }
 
     async openWindow() {
         let newObj = await openInsertUpdateWindow({
