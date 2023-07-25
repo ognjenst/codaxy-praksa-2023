@@ -65,7 +65,8 @@ namespace SOC.Ticketing.Handler
                 var caseId = createCaseResponse.Id;
                 await _ticketingService.CreateTaskAsync(inputCeateTask, caseId);
                 return new NoOutput();
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw;
             }

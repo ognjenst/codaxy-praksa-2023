@@ -76,9 +76,11 @@ var ticketingRequest = new TicketingRequest
 try
 {
     await mediator.Send(ticketingRequest);
-}catch(Exception ex)
+}
+catch (Exception ex)
 {
     Console.WriteLine(ex);
-}
+}*/
+
 
 await host.RunAsync();
