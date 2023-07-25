@@ -6,6 +6,7 @@ using SOC.Conductor.Contracts;
 using SOC.Conductor.Entities;
 using SOC.Conductor.Generated;
 using SOC.Conductor.Repositories;
+using SOC.IoT.Base.Services;
 using System;
 using System.Net.Http;
 using Workflow = SOC.Conductor.Entities.Workflow;
@@ -15,6 +16,7 @@ namespace SOC.Conductor.Services;
 public class IoTTriggerEvaluationService : BackgroundService
 {
     private const int VERSION_NUMBER = 1;
+    private const string deviceId = "0x00124b0022d2d320"; // TODO: HashMap for different types of sensors, type - deviceId
     private readonly IServiceScopeFactory _serviceScopeFactory;
 
     // TODO: Inject queue this service will subscribe to
@@ -25,45 +27,49 @@ public class IoTTriggerEvaluationService : BackgroundService
         _serviceScopeFactory = serviceScopeFactory;
     }
 
-    protected override async System.Threading.Tasks.Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async System.Threading.Tasks.Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
+        while (!cancellationToken.IsCancellationRequested)
         {
             using (var scope = _serviceScopeFactory.CreateScope())
             {
                 var serviceProvider = scope.ServiceProvider;
                 IUnitOfWork _unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
                 IWorkflowResourceClient _workflowResourceClient = serviceProvider.GetRequiredService<IWorkflowResourceClient>();
+                DeviceManager deviceManager = serviceProvider.GetRequiredService<DeviceManager>();
 
                 // Retrieve all IoT triggers from the database
                 var iotTriggers = await _unitOfWork.IoTTriggers.GetAllAsync();
 
                 foreach (var iotTrigger in iotTriggers)
                 {
-                    bool evaluationResult = EvaluateIoTTrigger(
-                        iotTrigger,
-                        "actual_value_from_iot_device"
-                    ); // TODO: pass actual value somehow
-
-                    if (evaluationResult)
+                    await foreach (var device in deviceManager.SubscribeAsync(deviceId, cancellationToken))
                     {
-                        // Retrieve workflows associated with the IoT trigger
-                        var workflows = await _unitOfWork.Automations.GetWorkflowsByTriggerIdAsync(iotTrigger.Id);
+                        bool evaluationResult = EvaluateIoTTrigger(
+                        iotTrigger,
+                        device.Temperature.Value.ToString() // TODO: Generilize
+                        ); 
 
-                        var automation = (await _unitOfWork.Automations.GetAllAsync()).FirstOrDefault();
-
-                        if (automation != null)
+                        if (evaluationResult)
                         {
-                            foreach (var workflow in workflows)
+                            // Retrieve workflows associated with the IoT trigger
+                            var workflows = await _unitOfWork.Automations.GetWorkflowsByTriggerIdAsync(iotTrigger.Id);
+
+                            var automation = (await _unitOfWork.Automations.GetAllAsync()).FirstOrDefault();
+
+                            if (automation != null)
                             {
-                                await ProcessWorkflow(workflow, automation.InputParameters);
+                                foreach (var workflow in workflows)
+                                {
+                                    await ProcessWorkflow(workflow, automation.InputParameters);
+                                }
                             }
                         }
                     }
                 }
             }
             // Delay the execution for some time before checking again
-            await System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+            await System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
         }
     }
 
