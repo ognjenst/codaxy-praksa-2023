@@ -5,20 +5,22 @@ using MediatR;
 using Newtonsoft.Json;
 using SOC.Ticketing.Generated;
 using SOC.Ticketing.Services;
+using System.Text.Json;
 
 namespace SOC.Ticketing.Handler
 {
 
     public class TicketingRequest : IRequest<NoOutput>
     {
+        [JsonProperty("message")]
         public string Message { get; set; }
-
+        [JsonProperty("title")]
         public string Title { get; set; }
-
+        [JsonProperty("severity")]
         public string Severity { get; set; }
     }
 
-    [OriginalName("ticketing")]
+    [OriginalName("TICKETING_create_ticket_on_hive")]
     public class TicketingHandler : ITaskRequestHandler<TicketingRequest, NoOutput>
     {
         private readonly ITicketingService _ticketingService;
