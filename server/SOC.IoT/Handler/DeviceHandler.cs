@@ -26,7 +26,7 @@ public class DeviceRequest : IRequest<NoOutput>
     public double Y { get; set; }
 }
 
-[OriginalName("device_update_task")]
+[OriginalName("IoT_device_update")]
 public class DeviceHandler : ITaskRequestHandler<DeviceRequest, NoOutput>
 {
     private readonly IDevicesClient _devicesClient;
