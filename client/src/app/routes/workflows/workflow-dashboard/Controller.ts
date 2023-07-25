@@ -1,6 +1,7 @@
 import { Controller } from "cx/ui";
 import { GET } from "../../../api/util/methods";
 import { openInsertUpdateWindow } from "../update-insert-workflow";
+import { openPlayWorkflowWindow } from "../play-workflow";
 
 export default class extends Controller {
     onInit(): void {
@@ -159,5 +160,9 @@ export default class extends Controller {
 
             this.store.set("$page.workflows", arrUndone);
         }
+    }
+
+    playWorkflow() {
+        openPlayWorkflowWindow();
     }
 }

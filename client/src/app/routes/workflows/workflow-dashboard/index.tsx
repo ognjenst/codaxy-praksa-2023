@@ -64,7 +64,7 @@ export default () => (
                                 <Icon name="pause-circle" className="w-6 h-6 text-gray-600" />
                             </Button>
 
-                            <Button class="rounded-full p-1 m-1">
+                            <Button class="rounded-full p-1 m-1" onClick="playWorkflow">
                                 <Icon name="play-circle" className="w-6 h-6 text-gray-600" />
                             </Button>
                         </FlexRow>
