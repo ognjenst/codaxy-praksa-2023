@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,37 +23,30 @@ public interface IIntelligenceService
 public class IntelligenceService : IIntelligenceService
 {
 	private readonly IntelligenceOptions _options;
+	private readonly HttpClient _client;
 
-    public IntelligenceService(IOptions<IntelligenceOptions> options)
+    public IntelligenceService(IOptions<IntelligenceOptions> options, HttpClient client)
     {
 		_options = options.Value;
+		_client = client;
     }
     public async Task<IntelligenceResponseDto> CheckEndpoint(string ipAddress, string maxAgeInDays)
 	{
-		var client = new RestClient(_options.AbuseIPDBUrl);
-		var request = new RestRequest();
-		request.AddHeader("Key", _options.ApiKey);
-		request.AddHeader("Accept", "application/json");
-		request.AddParameter("ipAddress", ipAddress);
-		request.AddParameter("maxAgeInDays", maxAgeInDays);
-		request.AddParameter("verbose", "");
-		
+		_client.DefaultRequestHeaders.Add("Key", _options.ApiKey);
+		_client.DefaultRequestHeaders.Add("Accept", "application/json");
+		string apiUrl = $"{_options.AbuseIPDBUrl}?ipAddress={ipAddress}&maxAgeInDays={maxAgeInDays}&verbose";
+		HttpResponseMessage response = await _client.GetAsync(apiUrl);
 
-		RestResponse response = await client.ExecuteAsync(request);
-
-		
-		if (response.IsSuccessful && !string.IsNullOrEmpty(response.Content))
+		if(response.IsSuccessStatusCode)
 		{
-			JObject responseJson = JObject.Parse(response.Content);
+			JObject responseJson = JObject.Parse(await response.Content.ReadAsStringAsync());
 			var result = JsonConvert.DeserializeObject<IntelligenceResponseDto>(responseJson["data"].ToString());
 			Console.WriteLine(result.ToString());
 			return result;
 		}
-		else 
+		else
 		{
 			throw new AppException($"Status code for check endpoint {response.StatusCode}");
 		}
 	}
-
-	
 }

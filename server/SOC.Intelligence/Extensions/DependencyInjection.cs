@@ -21,7 +21,7 @@ public static class DependencyInjection
 		services.RegisterOptions();
 		services.AddScoped<IIntelligenceService, IntelligenceService>();
 
-		
+		services.AddHttpClient();
 
 		// Configure Serilog
 		Log.Logger = new LoggerConfiguration()

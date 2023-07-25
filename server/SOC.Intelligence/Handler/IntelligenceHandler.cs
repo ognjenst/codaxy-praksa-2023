@@ -18,7 +18,7 @@ public class TicketingRequest : IRequest<IntelligenceResponseDto>
 	public string MaxDaysInAge { get; set; }
 }
 
-[OriginalName("intelligence")]
+[OriginalName("intelligence_task")]
 public class IntelligenceHandler : ITaskRequestHandler<TicketingRequest, IntelligenceResponseDto>
 {
 	private readonly IIntelligenceService _intelligenceService;
