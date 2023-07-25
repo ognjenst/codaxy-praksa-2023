@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
-using SOC.Ticketing.Services;
 
 namespace SOC.IoT.ApiGateway.Controllers;
 
@@ -15,7 +14,7 @@ public class WorkflowsController : ControllerBase
     {
         _workflowsService = workflowsService;
     }
-    
+
 
     /// <summary>
     /// Returns all registered workflows from conductor.
