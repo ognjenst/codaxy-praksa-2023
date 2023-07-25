@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+
 using SOC.Conductor.DTOs;
 using SOC.Conductor.Generated;
-using Task = System.Threading.Tasks.Task;
+using SOC.Conductor.Models;
+using SOC.Conductor.Models.Requests;
 
 namespace SOC.Conductor.Controllers;
 
@@ -9,47 +12,76 @@ namespace SOC.Conductor.Controllers;
 [ApiController]
 public class WorkflowsController : ControllerBase
 {
-    private readonly IMetadataResourceClient _metadataResourceClient;
+	private readonly IMediator _mediator;
 
-    public WorkflowsController(IMetadataResourceClient metadataResourceClient)
-    {
-        _metadataResourceClient = metadataResourceClient;
-    }
+	public WorkflowsController(IMediator mediator)
+	{
+		_mediator = mediator;
+	}
 
-    /// <summary>
-    /// Returns all registered workflows from conductor.
-    /// </summary>
-    /// <returns></returns>
-    [HttpGet(Name = "GetAllWorkflowsAsync")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IList<WorkflowDto>))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
-    public async Task<IActionResult> GetAllWorkflowsAsync()
-    {
-        var wf = new List<WorkflowDto>
-        {
-            new WorkflowDto
-            {
-                Id = 1,
-                Name = "IOT_scan_hosts",
-                Version = 1,
-                CreateDate = DateTime.UtcNow,
-                UpdateDate = DateTime.UtcNow,
-                Enabled = true,
-            },
-            new WorkflowDto
-            {
-                Id = 2,
-                Name = "IOT_set_morning_routine",
-                Version = 1,
-                CreateDate = DateTime.UtcNow,
-                UpdateDate = DateTime.UtcNow,
-                Enabled = true,
-            }
-        };
+	/// <summary>
+	/// Get all tasks 
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
+	[HttpGet("GetAllTasks", Name = "GetAllTasks")]
+	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<TaskResponseDto>))]
+	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+	[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+	[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+	public async Task<IActionResult> GetAllTasksAsync()
+	{
+		var response = await _mediator.Send(new GetAllTasks());
+		if (response == null) return NotFound();
+		return Ok(response);
+	}
 
-        await Task.Delay(2000);
+	/// <summary>
+	/// Get all workflows
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns></returns>
+	[HttpGet("GetAllWorkflows", Name = "GetAllWorkflows")]
+	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<WorkflowResponseDto>))]
+	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+	[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+	[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+	public async Task<IActionResult> GetAllWorkflows()
+	{
+		var response = await _mediator.Send(new GetAllWorkflows());
+		if (response == null) return NotFound();
+		return Ok(response);
+	}
 
-        return Ok(wf);
-    }
+	[HttpPut("PauseWorkflowAsync")]
+	public async Task<IActionResult> PauseWorkflowAsync([FromBody] PauseWorkflowRequestDto pauseDto)
+	{
+		await _mediator.Send(new PauseWorkflow(pauseDto));
+
+		return NoContent();
+	}
+
+	[HttpPut("ResumeWorkflowAsync")]
+	public async Task<IActionResult> ResumeWorkflowAsync([FromBody] ResumeWorkflowRequestDto resumeDto)
+	{
+		await _mediator.Send(new ResumeWorkflow(resumeDto));
+
+		return NoContent();
+	}
+
+	/// <summary>
+	/// Play workflow
+	/// </summary>
+	/// <param name="playDto"></param>
+	/// <returns></returns>
+	[HttpPost("PlayWorkflow", Name = "PlayWorkflow")]
+	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+	[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+	[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+	public async Task<IActionResult> PlayWorkflowAsync([FromBody] PlayRequestDto playDto)
+	{
+		await _mediator.Send(new PlayWorkflow(playDto));
+		return Ok();
+	}
 }
