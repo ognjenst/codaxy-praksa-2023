@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Primitives;
 using SOC.Conductor.Contracts;
 using SOC.Conductor.Entities;
 using SOC.Conductor.Generated;
+using SOC.Conductor.Repositories;
 using System.Net.Http;
 using Workflow = SOC.Conductor.Entities.Workflow;
 
@@ -9,17 +12,15 @@ namespace SOC.Conductor.Services;
 
 public class IoTTriggerEvaluationService : BackgroundService
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IWorkflowResourceClient _workflowResourceClient;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
+    private IWorkflowResourceClient _workflowResourceClient;
 
     // TODO: Inject queue this service will subscribe to
     public IoTTriggerEvaluationService(
-        IUnitOfWork unitOfWork,
-        IWorkflowResourceClient workflowResourceClient
+        IServiceScopeFactory serviceScopeFactory
     )
     {
-        _unitOfWork = unitOfWork;
-        _workflowResourceClient = workflowResourceClient;
+        _serviceScopeFactory = serviceScopeFactory;
     }
 
     protected override async System.Threading.Tasks.Task ExecuteAsync(
@@ -28,27 +29,34 @@ public class IoTTriggerEvaluationService : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            // Retrieve all IoT triggers from the database
-            var iotTriggers = await _unitOfWork.IoTTriggers.GetAllAsync();
-
-            foreach (var iotTrigger in iotTriggers)
+            using (var scope = _serviceScopeFactory.CreateScope())
             {
-                // Evaluate the IoT trigger
-                bool evaluationResult = EvaluateIoTTrigger(
-                    iotTrigger,
-                    "actual_value_from_iot_device"
-                ); // TODO: pass actual value somehow
+                var serviceProvider = scope.ServiceProvider;
+                IUnitOfWork _unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
+                _workflowResourceClient = serviceProvider.GetRequiredService<IWorkflowResourceClient>();
 
-                if (evaluationResult)
+                // Retrieve all IoT triggers from the database
+                var iotTriggers = await _unitOfWork.IoTTriggers.GetAllAsync();
+
+                foreach (var iotTrigger in iotTriggers)
                 {
-                    // Retrieve workflows associated with the IoT trigger
-                    var workflows = await _unitOfWork.Automations.GetWorkflowsByTriggerIdAsync(
-                        iotTrigger.Id
-                    );
+                    // Evaluate the IoT trigger
+                    bool evaluationResult = EvaluateIoTTrigger(
+                        iotTrigger,
+                        "actual_value_from_iot_device"
+                    ); // TODO: pass actual value somehow
 
-                    foreach (var workflow in workflows)
+                    if (evaluationResult)
                     {
-                        await ProcessWorkflow(workflow);
+                        // Retrieve workflows associated with the IoT trigger
+                        var workflows = await _unitOfWork.Automations.GetWorkflowsByTriggerIdAsync(
+                            iotTrigger.Id
+                        );
+
+                        foreach (var workflow in workflows)
+                        {
+                            await ProcessWorkflow(workflow);
+                        }
                     }
                 }
             }
@@ -69,19 +77,29 @@ public class IoTTriggerEvaluationService : BackgroundService
         {
             throw new ArgumentException("Trigger property and value must be specified.");
         }
-        return true;
-        // Check if the actual property value matches the trigger value based on the specified condition
-        /*if (ioTTrigger.Condition.Equals("Equals", StringComparison.OrdinalIgnoreCase))
+        if(double.TryParse(actualValue, out double actualValueDouble) && double.TryParse(ioTTrigger.Value, out double iotTriggerValueDouble))
         {
-            return actualValue.Equals(ioTTrigger.Value, StringComparison.OrdinalIgnoreCase);
+            // Check if the actual property value matches the trigger value based on the specified condition
+            switch (ioTTrigger.Condition)
+            {
+                case Entities.Enums.Operator.EQ:
+                    return actualValue.Equals(ioTTrigger.Value, StringComparison.OrdinalIgnoreCase);
+                case Entities.Enums.Operator.GT:
+                    return actualValueDouble > iotTriggerValueDouble;
+                case Entities.Enums.Operator.LT: 
+                    return actualValueDouble < iotTriggerValueDouble;
+                case Entities.Enums.Operator.GEQ:
+                    return actualValueDouble >= iotTriggerValueDouble;
+                case Entities.Enums.Operator.LEQ:
+                    return actualValueDouble <= iotTriggerValueDouble;
+                default:
+                    throw new NotSupportedException(
+                    $"Condition '{ioTTrigger.Condition}' is not supported."
+                );
+            }
         }
         else
-        {
-            throw new NotSupportedException(
-                $"Condition '{ioTTrigger.Condition}' is not supported."
-            );
-        }*/
-        // TODO: Add checks for all operators, use switch for more elegant code
+            throw new Exception("Parsing actualValue or iotTrigger.Value as a double failed.");
     }
 
     private async System.Threading.Tasks.Task ProcessWorkflow(Workflow workflow)
