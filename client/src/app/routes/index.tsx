@@ -1,32 +1,28 @@
 import { ContentResolver, FirstVisibleChildLayout } from "cx/ui";
-import { DocumentTitle, PureContainer, RedirectRoute, Route } from "cx/widgets";
-import About from "./about";
-import Widgets from "./widgets";
-import Pages from "./pages";
-import Dashboard from "./dashboard";
-import { CheckerLayout } from "../layout/CheckerLayout";
-import SignIn from "./pages/sign-in";
+import { DocumentTitle, RedirectRoute, Route } from "cx/widgets";
 import { SandboxedRoute } from "../components/SandboxedRoute";
-import InvoiceRoutes from "./invoices";
-import { PageNotImplemented } from "../components/PageNotImplemented";
+import { CheckerLayout } from "../layout/CheckerLayout";
+import Workflows from "../routes/workflows";
+import Automations from "./automations";
+import Dashboard from "./dashboard";
 import Devices from "./devices";
 import DeviceDetails from "./devices/device-details";
-import Automations from "./automations";
 
 export default () => (
     <cx>
         <FirstVisibleChildLayout>
-            
-
             <RedirectRoute route="~/" redirect="~/devices" url-bind="url" />
 
             <CheckerLayout>
                 <SandboxedRoute route="~/dashboard">
                     <Dashboard />
                 </SandboxedRoute>
-                
+
                 <Route route="~/devices" url-bind="url">
                     <Devices />
+                </Route>
+                <Route route="~/workflows" url-bind="url">
+                    <Workflows />
                 </Route>
                 <Route route="~/automations" url-bind="url">
                     <Automations />
