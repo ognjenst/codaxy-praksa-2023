@@ -6,6 +6,7 @@ using SOC.Conductor.Contracts;
 using SOC.Conductor.Entities;
 using SOC.Conductor.Generated;
 using SOC.Conductor.Repositories;
+using System;
 using System.Net.Http;
 using Workflow = SOC.Conductor.Entities.Workflow;
 
@@ -15,7 +16,6 @@ public class IoTTriggerEvaluationService : BackgroundService
 {
     private const int VERSION_NUMBER = 1;
     private readonly IServiceScopeFactory _serviceScopeFactory;
-    private IWorkflowResourceClient _workflowResourceClient;
 
     // TODO: Inject queue this service will subscribe to
     public IoTTriggerEvaluationService(
@@ -33,7 +33,7 @@ public class IoTTriggerEvaluationService : BackgroundService
             {
                 var serviceProvider = scope.ServiceProvider;
                 IUnitOfWork _unitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
-                _workflowResourceClient = serviceProvider.GetRequiredService<IWorkflowResourceClient>();
+                IWorkflowResourceClient _workflowResourceClient = serviceProvider.GetRequiredService<IWorkflowResourceClient>();
 
                 // Retrieve all IoT triggers from the database
                 var iotTriggers = await _unitOfWork.IoTTriggers.GetAllAsync();
@@ -50,8 +50,8 @@ public class IoTTriggerEvaluationService : BackgroundService
                         // Retrieve workflows associated with the IoT trigger
                         var workflows = await _unitOfWork.Automations.GetWorkflowsByTriggerIdAsync(iotTrigger.Id);
 
-                        var automations = await _unitOfWork.Automations.GetAllAsync();
-                        Automation automation = automations.FirstOrDefault();
+                        var automation = (await _unitOfWork.Automations.GetAllAsync()).FirstOrDefault();
+
                         if (automation != null)
                         {
                             foreach (var workflow in workflows)
@@ -107,11 +107,15 @@ public class IoTTriggerEvaluationService : BackgroundService
     private async System.Threading.Tasks.Task ProcessWorkflow(Workflow workflow, JObject inputParameters)
     {
         var body = GenerateBody(inputParameters);
-        await _workflowResourceClient.StartWorkflowAsync(
-            workflow.Name,
-            body,
-            VERSION_NUMBER
-        );
+        using (var scope = _serviceScopeFactory.CreateScope())
+        {
+            IWorkflowResourceClient _workflowResourceClient = scope.ServiceProvider.GetRequiredService<IWorkflowResourceClient>();
+            await _workflowResourceClient.StartWorkflowAsync(
+                workflow.Name,
+                body,
+                VERSION_NUMBER
+            );
+        }
     }
 
     private Dictionary<string, object> GenerateBody(JObject inputParameters)
