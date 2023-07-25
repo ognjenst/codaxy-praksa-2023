@@ -38,17 +38,15 @@ namespace SOC.Conductor.Entities.Contexts
 
             modelBuilder.Entity<Trigger>().UseTptMappingStrategy();
 
-            var converter = new ValueConverter<JObject, string>(
-                v => v.ToString(),
-                v => JObject.Parse(v)
-            );
-
             modelBuilder.Entity<Automation>(entity =>
             {
                 entity.HasKey(e => new { e.WorkflowId, e.TriggerId });
                 entity
                     .Property(e => e.InputParameters)
-                    .HasConversion(converter)
+                    .HasConversion(
+                        v => JsonConvert.SerializeObject(v),
+                        v => JsonConvert.DeserializeObject<JObject?>(v)
+                    )
                     .HasColumnType("jsonb");
             });
 
