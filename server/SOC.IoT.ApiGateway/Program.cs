@@ -10,6 +10,7 @@ using Serilog;
 using Microsoft.EntityFrameworkCore;
 using SOC.IoT.ApiGateway.Entities.Contexts;
 using SOC.IoT.ApiGateway.Services;
+using Autofac.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<SOCIoTDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db")));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
@@ -43,6 +45,8 @@ builder.Services.AddHostedService<DevicesBackgroundService>();
 builder.Services.AddIoTServices();
 
 builder.Services.RegisterServices();
+builder.Services.AddScoped<IUserService, UserService>();
+
 // Configure Serilog
 builder.Host.UseSerilog(
 	(context, config) =>
