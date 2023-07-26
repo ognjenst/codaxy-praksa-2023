@@ -18,7 +18,7 @@ public class IoTTriggerEvaluationService : BackgroundService
     private readonly IServiceScopeFactory _serviceScopeFactory;
     private readonly ILogger<IoTTriggerEvaluationService> _logger;
     private readonly Dictionary<string, Guid> _listeners = new();
-    private List<string> deviceIds = new List<string>() { "0x00124b0022d2d320" };
+    private List<string> deviceIds = new List<string>() { "0x00124b0022d2d320", "0x00124b00226969ac" };
 
     public IoTTriggerEvaluationService(
         IServiceScopeFactory serviceScopeFactory,
