@@ -11,6 +11,8 @@ using SOC.Ticketing.Handler;
 using Microsoft.Extensions.DependencyInjection;
 using SOC.Ticketing.Services;
 using SOC.Ticketing.Generated;
+using MediatR;
+using System.ComponentModel.Design;
 
 var builder = Host.CreateDefaultBuilder()
     .ConfigureAppConfiguration(
@@ -60,6 +62,5 @@ var builder = Host.CreateDefaultBuilder()
     );
 
 using var host = builder.Build();
-
 
 await host.RunAsync();
