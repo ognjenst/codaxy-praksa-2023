@@ -1,0 +1,56 @@
+version: "3.8"
+
+services:
+  
+  soc_iotgateway:
+    image: soc_iotgateway:latest
+    container_name: soc_iotgateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "9002:80"
+    restart: unless-stopped
+    secrets:
+      - source: soc_iotgateway_appsettings
+        target: /app/appsettings.json
+
+  soc_conductor:
+    image: soc_conductor:latest
+    container_name: soc_conductor
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "9003:80"
+    restart: unless-stopped
+    secrets:
+      - source: soc_conductor_appsettings
+        target: /app/appsettings.json
+
+  soc_ticketing:
+    image: soc_ticketing:latest
+    container_name: soc_ticketing
+    ports:
+      - "9004:80"
+    restart: unless-stopped
+    secrets:
+      - source: soc_ticketing_appsettings
+        target: /app/appsettings.json
+
+  soc_notifications:
+    image: soc_ticketing:latest
+    container_name: soc_ticketing
+    ports:
+      - "9004:80"
+    restart: unless-stopped
+    secrets:
+      - source: soc_ticketing_appsettings
+        target: /app/appsettings.json
+
+
+
+secrets:
+  soc_iotgateway_appsettings:
+    file: secrets/local/appsettings.IoTGateway.json
+    
