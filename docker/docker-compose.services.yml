@@ -10,19 +10,23 @@ services:
       - ASPNETCORE_URLS=http://+:80
     ports:
       - "9002:80"
+    networks:
+      - soc
     restart: unless-stopped
     secrets:
       - source: soc_iotgateway_appsettings
         target: /app/appsettings.json
 
   soc_conductor:
-    image: soc_conductor:latest
+    image: soc_conductor:dev
     container_name: soc_conductor
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
     ports:
       - "9003:80"
+    networks:
+      - soc
     restart: unless-stopped
     secrets:
       - source: soc_conductor_appsettings
@@ -31,8 +35,6 @@ services:
   soc_ticketing:
     image: soc_ticketing:latest
     container_name: soc_ticketing
-    ports:
-      - "9004:80"
     restart: unless-stopped
     secrets:
       - source: soc_ticketing_appsettings
@@ -41,16 +43,64 @@ services:
   soc_notifications:
     image: soc_ticketing:latest
     container_name: soc_ticketing
-    ports:
-      - "9004:80"
     restart: unless-stopped
     secrets:
       - source: soc_ticketing_appsettings
+        target: /app/appsettings.json
+
+  soc_intelligence:
+    image: soc_intelligence:latest
+    container_name: soc_intelligence
+    restart: unless-stopped
+    secrets:
+      - source: soc_intelligence_appsettings
+        target: /app/appsettings.json
+
+  soc_scanning:
+    image: soc_scanning:latest
+    container_name: soc_scanning
+    restart: unless-stopped
+    secrets:
+      - source: soc_scanning_appsettings
+        target: /app/appsettings.json
+
+  soc_iot-micro:
+    image: soc_iot-micro:latest
+    container_name: soc_iot-micro
+    restart: unless-stopped
+    secrets:
+      - source: soc_iot-micro_appsettings
+        target: /app/appsettings.json
+
+  soc-scanner:
+    image: soc-scanner:latest
+    container_name: soc-scanner
+    restart: unless-stopped
+    secrets:
+      - source: soc-scanner_appsettings
         target: /app/appsettings.json
 
 
 
 secrets:
   soc_iotgateway_appsettings:
-    file: secrets/local/appsettings.IoTGateway.json
+    file: secrets/local/appsettings.soc_iotgateway.json
+  soc_conductor_appsettings:
+    file: secrets/local/appsettings.soc_conductor.json
+  soc_ticketing_appsettings:
+    file: secrets/local/appsettings.soc_ticketing.json
+  soc_notifications_appsettings:
+    file: secrets/local/appsettings.soc_notifications.json
+  soc_intelligence_appsettings:
+    file: secrets/local/appsettings.soc_intelligence.json
+  soc_scanning_appsettings:
+    file: secrets/local/appsettings.soc_scanning.json
+  soc_iot-micro_appsettings:
+    file: secrets/local/appsettings.soc_iot-micro.json
+  soc-scanner_appsettings:
+    file: secrets/local/appsettings.soc-scanner.json
+
+networks:
+  soc:
+    driver: bridge
     
