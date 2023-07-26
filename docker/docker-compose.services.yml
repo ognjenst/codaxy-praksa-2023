@@ -48,11 +48,11 @@ services:
         target: /app/appsettings.json
 
   soc_notifications:
-    image: soc_ticketing:latest
-    container_name: soc_ticketing
+    image: soc_notifications:latest
+    container_name: soc_notifications
     restart: unless-stopped
     secrets:
-      - source: soc_ticketing_appsettings
+      - source: soc_notifications_appsettings
         target: /app/appsettings.json
 
   soc_intelligence:
