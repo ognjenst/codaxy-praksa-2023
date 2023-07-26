@@ -13,7 +13,6 @@ export default class extends Controller {
         this.store.set("$page.colors", HexXYColorMap);
 
         await this.loadDeviceHistory();
-        this.store.init("$page.deviceHistory", []);
 
         const connection = new signalR.HubConnectionBuilder().withUrl(deviceUrl).configureLogging(signalR.LogLevel.Information).build();
 
@@ -76,6 +75,7 @@ export default class extends Controller {
             if (this.store.get("$page.device.energy") != null) {
                 let powerChart = deviceHistory
                     .map((item) => {
+                        console.log(JSON.parse(item.configuration));
                         return { x: new Date(Date.parse(item.time)), y: JSON.parse(item.configuration).energy.power };
                     })
                     .slice(0, 30);

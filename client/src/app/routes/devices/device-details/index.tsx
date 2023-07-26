@@ -51,13 +51,13 @@ export default () => (
                         <PureContainer layout={UseParentLayout} visible-expr="{$page.device.energy.power} != null">
                             <EnergyComponent />
                         </PureContainer>
-                        <PureContainer layout={UseParentLayout} visible-expr="{$page.device.temperature}">
+                        <PureContainer layout={UseParentLayout} visible-bind="$page.device.temperature">
                             <TemperatureComponent />
                         </PureContainer>
-                        <PureContainer layout={UseParentLayout} visible-expr="{$page.device.humidity}">
+                        <PureContainer layout={UseParentLayout} visible-bind="$page.device.humidity">
                             <HumidityComponent />
                         </PureContainer>
-                        <PureContainer layout={UseParentLayout} visible-bind="{$page.device.contact}">
+                        <PureContainer layout={UseParentLayout} visible-bind="$page.device.contact">
                             <ContactComponent />
                         </PureContainer>
                     </LabelsLeftLayout>
@@ -66,7 +66,7 @@ export default () => (
                     <PureContainer layout={UseParentLayout} visible-expr="{$page.device.energy.power} != null">
                         <PowerGraph />
                     </PureContainer>
-                    <Legend visible-bind="$page.device.energy.power" />
+                    <Legend visible-expr="{$page.device.energy.power} != null" />
                 </div>
                 <div className="flex flex-col">
                     <div className="flex">

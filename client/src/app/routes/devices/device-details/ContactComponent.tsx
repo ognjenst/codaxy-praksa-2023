@@ -8,7 +8,7 @@ export const ContactComponent = () => (
                 className: "text-base text-slate-600",
             }}
         >
-            <div text-tpl="{$page.device.contact}" className="flex-1 text-slate-600 ml-4" />
+            <div text-expr="{$page.device.contact.value} ? 'Open' : 'Closed'" className="flex-1 text-slate-600 ml-4" />
         </LabeledContainer>
     </cx>
 );
