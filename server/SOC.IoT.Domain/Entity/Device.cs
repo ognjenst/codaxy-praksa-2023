@@ -16,4 +16,9 @@ public class Device
     public DeviceHumidity? Humidity { get; set; }
     public DeviceEnergy? Energy { get; set; }
     public DeviceContact? Contact { get; set; }
+
+    public override string? ToString()
+    {
+        return $"Id: {Id}, State: {State}, Light: {Light}, ColorXy: {ColorXy}, Temperature: {Temperature}, Humidity: {Humidity}, Energy: {Energy}, Contact: {Contact}";
+    }
 }

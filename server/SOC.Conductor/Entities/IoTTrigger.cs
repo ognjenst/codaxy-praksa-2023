@@ -8,6 +8,6 @@ namespace SOC.Conductor.Entities
         public string Value { get; set; }
         public Operator Condition { get; set; }
 
-        public int DeviceId { get; set; }
+        public string DeviceId { get; set; }
     }
 }
