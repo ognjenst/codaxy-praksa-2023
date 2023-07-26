@@ -31,7 +31,7 @@ pipeline{
 
         stage('Clonning git') {
           steps {
-              git branch: 'master', credentialsId: 'github-token', url: 'https://github.com/ognjenst/codaxy-praksa-2023'
+              git branch: 'feat/master/jenkins-integration', credentialsId: 'soc-pat', url: 'https://github.com/ognjenst/codaxy-praksa-2023'
           }
         }
 
