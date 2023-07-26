@@ -1,14 +1,14 @@
 import { LabeledContainer } from "cx/widgets";
 
-export const EnergyComponent = () => (
+export const HumidityComponent = () => (
     <cx>
         <LabeledContainer
             label={{
-                text: "Power",
+                text: "Humidity",
                 className: "text-base text-slate-600",
             }}
         >
-            <div text-tpl="{$page.device.energy.power} kWh" className="flex-1 text-slate-600 ml-4" />
+            <div text-tpl="{$page.device.humidity.value} %" className="flex-1 text-slate-600 ml-4" />
         </LabeledContainer>
     </cx>
 );
