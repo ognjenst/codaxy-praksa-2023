@@ -75,8 +75,8 @@ namespace SOC.IoT.ApiGateway.Services
             }
 
             //hash password
-            //user.Password = HashPassword(request.Password, out var salt);
-
+            user.Password = HashPassword(request.Password, out var salt);
+            user.Salt = Convert.ToHexString(salt);
 
             _context.Add(user);
             _context.SaveChanges();

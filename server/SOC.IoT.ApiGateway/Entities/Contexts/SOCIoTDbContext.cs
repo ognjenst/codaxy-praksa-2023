@@ -59,7 +59,8 @@ namespace SOC.IoT.ApiGateway.Entities.Contexts
                 entity.Property(e => e.LastName).HasMaxLength(45).IsRequired();
                 entity.Property(e => e.Username).HasMaxLength(45).IsRequired();
                 entity.Property(e => e.Email).HasMaxLength(45).IsRequired();
-                entity.Property(e => e.Password).HasMaxLength(45).IsRequired();
+                entity.Property(e => e.Password).IsRequired();
+                entity.Property(e => e.Salt).IsRequired();
                 entity.HasIndex(e => e.Username).IsUnique();
             });
 
