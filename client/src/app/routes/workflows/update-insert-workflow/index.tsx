@@ -52,7 +52,7 @@ export const openInsertUpdateWindow = ({ props }) => {
                                 <TextField label="Search Tasks" value-bind="$page.search.query" />
                                 <Checkbox value-bind="$page.search.filter">Filter</Checkbox>
                             </div>
-                            <div className="grid sm:grid-cols-1 md:grid-cols-2 mt-2">
+                            <div className-bind="$page.className">
                                 <div>
                                     <div className="text-gray-600" text="All available tasks: " />
                                     <br />
@@ -78,7 +78,7 @@ export const openInsertUpdateWindow = ({ props }) => {
                                         />
                                     </List>
                                 </div>
-                                <div>
+                                <div if-expr="{$insert.workflowTasks}.length > 0">
                                     <div className="text-gray-600" text="All choosen tasks: " />
                                     <br />
                                     <List

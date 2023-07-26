@@ -12,6 +12,8 @@ export default (reslove, props) =>
             this.store.set("$page.insertUpdateDescription", props.description);
             this.store.set("$page.insertUpdateVersion", props.version);
 
+            this.store.set("$page.className", "grid sm:grid-cols-1 mt-2");
+
             this.loadData();
         }
 
@@ -46,11 +48,15 @@ export default (reslove, props) =>
                     return true;
                 })
             );
+
+            if (this.store.get("$insert.workflowTasks").length == 0) {
+                this.store.set("$page.className", "grid sm:grid-cols-1 mt-2");
+            }
         }
 
         addTaskToController(taskInfo) {
-            console.log(taskInfo);
             this.store.set("$insert.workflowTasks", [...this.store.get("$insert.workflowTasks"), taskInfo]);
+            this.store.set("$page.className", "grid sm:grid-cols-1 md:grid-cols-2 mt-2");
         }
 
         async loadData() {
