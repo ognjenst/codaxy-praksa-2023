@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SOC.Conductor.Contracts;
 using SOC.Conductor.Entities;
 using SOC.Conductor.Entities.Contexts;
@@ -27,13 +28,18 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
         if (notification.Trigger is not PeriodicTrigger) return Task.CompletedTask;
         var task = notification.Trigger as PeriodicTrigger;
 
-        if (notification.Deleted)
+        if (notification.Action == Models.Enums.TriggerNotificationAction.DELETE)
         {
              _triggerEvaluators[task.Id].Change(Timeout.Infinite, Timeout.Infinite);
             _triggerEvaluators.Remove(task.Id);
         }
-        else
+        else if (notification.Action == Models.Enums.TriggerNotificationAction.CREATE)
             _triggerEvaluators.Add(task.Id, Evaluate(task));
+        else
+        {
+            var (delay, minutes) = GetTimerParameters(task);
+            _triggerEvaluators[task.Id].Change(delay, minutes);
+        }
 
         return Task.CompletedTask;
     }
@@ -49,8 +55,9 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
         periodicTriggers.ForEach(periodicTrigger => _triggerEvaluators.Add(periodicTrigger.Id, Evaluate(periodicTrigger)));
     }
 
-    private Timer Evaluate(PeriodicTrigger trigger)
+    private (TimeSpan, TimeSpan) GetTimerParameters(PeriodicTrigger trigger)
     {
+        //TODO: Calculate next moment in future if Start < now
         var now = DateTime.UtcNow;
         var delay = trigger.Start >= now ? trigger.Start.Subtract(now) : TimeSpan.FromSeconds(0);
 
@@ -61,6 +68,13 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
             case Entities.Enums.PeriodTriggerUnit.HOURS: minutes *= 60; break;
             case Entities.Enums.PeriodTriggerUnit.DAYS: minutes *= 60 * 24; break;
         }
+
+        return (delay, TimeSpan.FromMinutes(minutes));
+    }
+
+    private Timer Evaluate(PeriodicTrigger trigger)
+    {
+        var (delay, minutes) = GetTimerParameters(trigger);
 
         return new Timer(async (_) =>
         {
@@ -93,6 +107,6 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
                     _logger.LogError($"Workflow start failed. {ex.Message}");
                 }
             });
-        }, null, delay, TimeSpan.FromMinutes(minutes));
+        }, null, delay, minutes);
     }
 }
