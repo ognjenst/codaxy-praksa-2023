@@ -1,10 +1,7 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.DTOs;
-using SOC.Conductor.Entities;
 using SOC.Conductor.Handlers;
-using System.Linq.Expressions;
 
 namespace SOC.Conductor.Controllers
 {
@@ -38,19 +35,20 @@ namespace SOC.Conductor.Controllers
             return NotFound();
         }
         
+        // TODO: Send TriggerNotification
 
         /// <summary>
         /// Deletes a trigger.
         /// </summary>
-        /// <param name="commonTriggerDto"></param>
+        /// <param name="triggerId"></param>
         /// <returns></returns>
-        [HttpDelete(Name = "DeleteTrigger")]
+        [HttpDelete("{triggerId}", Name = "DeleteTrigger")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CommonTriggerDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
-        public async Task<IActionResult> DeleteTriggerAsync([FromBody] CommonTriggerDto commonTriggerDto)
+        public async Task<IActionResult> DeleteTriggerAsync(int triggerId)
         {
-            await _mediator.Send(new DeleteTriggerRequest(commonTriggerDto.Id));
+            await _mediator.Send(new DeleteTriggerRequest(triggerId));
             
             return NoContent();
         }
@@ -84,14 +82,15 @@ namespace SOC.Conductor.Controllers
         /// <param name="type"></param>
         /// <param name="commonTriggerDto"></param>
         /// <returns></returns>
-        [HttpPut("{type}", Name = "UpdateTrigger")]
+        [HttpPut("{type}/{triggerId}", Name = "UpdateTrigger")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CommonTriggerDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-        public async Task<IActionResult> UpdateTriggerAsync([FromRoute] string type, [FromBody] CommonTriggerDto commonTriggerDto)
+        public async Task<IActionResult> UpdateTriggerAsync([FromRoute] string type, [FromRoute] int triggerId, [FromBody] CommonTriggerDto commonTriggerDto)
         {
-            var result = await _mediator.Send(new UpdateTriggerRequest(type, commonTriggerDto));
+            commonTriggerDto.Id = triggerId;
+            var result = await _mediator.Send(new UpdateTriggerRequest(type, triggerId, commonTriggerDto));
             if (result is not null)
                 return Ok(result);
 

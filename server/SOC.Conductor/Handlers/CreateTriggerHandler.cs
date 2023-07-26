@@ -24,9 +24,10 @@ namespace SOC.Conductor.Handlers
             {
                 var periodic = new PeriodicTrigger()
                 {
+                    Id = request.commonTriggerDto.Id,
                     Name = request.commonTriggerDto.Name,
                     Period = request.commonTriggerDto.Period.GetValueOrDefault(),
-                    Start = request.commonTriggerDto.Start.GetValueOrDefault().DateTime,
+                    Start = request.commonTriggerDto.Start.GetValueOrDefault(),
                     Unit = request.commonTriggerDto.Unit.GetValueOrDefault(),
                 }; 
 
@@ -47,6 +48,7 @@ namespace SOC.Conductor.Handlers
             {
                 var iot = new IoTTrigger()
                 {
+                    Id = request.commonTriggerDto.Id,
                     Name = request.commonTriggerDto.Name,
                     Property = request.commonTriggerDto.Property,
                     Value = request.commonTriggerDto.Value,

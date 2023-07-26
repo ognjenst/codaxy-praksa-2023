@@ -5,7 +5,7 @@ using SOC.Conductor.Entities;
 
 namespace SOC.Conductor.Handlers
 {
-    public record CreateAutomationRequest(AutomationDto entity) : IRequest<AutomationDto> { }
+    public record CreateAutomationRequest(AutomationDto automationDto) : IRequest<AutomationDto> { }
 
     public class CreateAutomationHandler : IRequestHandler<CreateAutomationRequest, AutomationDto>
     {
@@ -20,8 +20,10 @@ namespace SOC.Conductor.Handlers
         {
             var automation = new Automation()
             {
-                WorkflowId = request.entity.WorkflowId,
-                TriggerId = request.entity.TriggerId,
+                WorkflowId = request.automationDto.WorkflowId,
+                TriggerId = request.automationDto.TriggerId,
+                Name = request.automationDto.Name,
+                InputParameters = request.automationDto.InputParameters,
             };
             
             var result = await _unitOfWork.Automations.CreateAsync(automation, cancellationToken);
@@ -30,7 +32,9 @@ namespace SOC.Conductor.Handlers
             return new AutomationDto()
             {
                 WorkflowId = result.WorkflowId,
-                TriggerId = result.TriggerId
+                TriggerId = result.TriggerId,
+                Name = result.Name,
+                InputParameters = result.InputParameters
             };
         }
     }

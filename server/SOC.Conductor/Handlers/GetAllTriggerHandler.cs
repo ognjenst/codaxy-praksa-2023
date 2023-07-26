@@ -19,21 +19,26 @@ namespace SOC.Conductor.Handlers
 
         public async Task<IEnumerable<CommonTriggerDto>> Handle(GetAllTriggersRequest request, CancellationToken cancellationToken)
         {
-            if(request.type == "PeriodicTrigger")
+            if(request.type == nameof(PeriodicTrigger))
             {
                 var res =  await _unitOfWork.PeriodicTriggers.GetAllAsync(cancellationToken);
                 var dtos = res.Select(trigger => new CommonTriggerDto
                 {
                     Id = trigger.Id,    
                     Name = trigger.Name,
+                    Start = trigger.Start,
+                    Period = trigger.Period,
+                    Unit = trigger.Unit,
                 });
                 return dtos;
             }
-            if (request.type == "IoTTrigger")
+            if (request.type == nameof(IoTTrigger))
             {
                 var res = await _unitOfWork.IoTTriggers.GetAllAsync(cancellationToken);
                 var dtos = res.Select(trigger => new CommonTriggerDto
                 {
+                    Id = trigger.Id,
+                    Name = trigger.Name,
                     Property = trigger.Property,
                     Value = trigger.Value,
                     Condition = trigger.Condition,

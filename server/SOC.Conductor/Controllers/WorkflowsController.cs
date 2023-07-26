@@ -1,12 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-
 using SOC.Conductor.DTOs;
-using SOC.Conductor.Entities;
-using SOC.Conductor.Generated;
 using SOC.Conductor.Handlers;
-using System.Linq.Expressions;
-using Task = System.Threading.Tasks.Task;
 using SOC.Conductor.Models;
 using SOC.Conductor.Models.Requests;
 
@@ -44,15 +39,15 @@ public class WorkflowsController : ControllerBase
     /// <summary>
     /// Deletes a workflow.
     /// </summary>
-    /// <param name="workflowDto"></param>
+    /// <param name="workflowId"></param>
     /// <returns></returns>
-    [HttpDelete(Name = "DeleteWorkflow")]
+    [HttpDelete("{workflowId}", Name = "DeleteWorkflow")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkflowDto))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
-    public async Task<IActionResult> DeleteWorkflowAsync([FromBody] WorkflowDto workflowDto)
+    public async Task<IActionResult> DeleteWorkflowAsync(int workflowId)
     {
-        await _mediator.Send(new DeleteWorkflowRequest(workflowDto.Id));
+        await _mediator.Send(new DeleteWorkflowRequest(workflowId));
 
         return NoContent();
     }
@@ -83,16 +78,21 @@ public class WorkflowsController : ControllerBase
     /// </summary>
     /// <param name="workflowDto"></param>
     /// <returns></returns>
-    [HttpPut(Name = "UpdateWorkflow")]
+    [HttpPut("{workflowId}", Name = "UpdateWorkflow")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkflowDto))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-    public async Task<IActionResult> UpdateWorkflowAsync([FromBody] WorkflowDto workflowDto)
+    public async Task<IActionResult> UpdateWorkflowAsync([FromRoute] int workflowId, [FromBody] WorkflowDto workflowDto)
     {
-        var result = await _mediator.Send(new UpdateWorkflowRequest(workflowDto));
+        workflowDto.Id = workflowId;
+        var result = await _mediator.Send(new UpdateWorkflowRequest(workflowId, workflowDto));
+        
         if (result is not null)
             return Ok(result);
+
+        return NotFound();
+    }
 
 	/// <summary>
 	/// Play workflow
