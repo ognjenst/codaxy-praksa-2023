@@ -1,5 +1,5 @@
 import { LabelsLeftLayout, PureContainer, Text, UseParentLayout } from "cx/ui";
-import { CategoryAxis, Chart, ColumnGraph, Gridlines, LineGraph, Marker, NumericAxis, Range, TimeAxis } from "cx/charts";
+import { CategoryAxis, Chart, ColumnGraph, Gridlines, Legend, LineGraph, Marker, NumericAxis, Range, TimeAxis } from "cx/charts";
 import { ClipRect, Rectangle, Svg } from "cx/svg";
 import { Button, Grid, Heading, LabeledContainer, TextField, Window } from "cx/widgets";
 import Controller from "./Controller";
@@ -7,6 +7,12 @@ import { BrightnessComponent } from "./BrightnessComponent";
 import { StateComponent } from "./StateComponent";
 import { ColorComponent } from "./ColorComponent";
 import { EnergyComponent } from "./EnergyComponent";
+import { TemperatureComponent } from "./TemperatureComponent";
+import { HumidityComponent } from "./HumidityComponent";
+import { ContactComponent } from "./ContactComponent";
+import { PowerGraph } from "./PowerGraph";
+import { TemperatureGraph } from "./TemperatureGraph";
+import { HumidityGraph } from "./HumidityGraph";
 
 export default () => (
     <cx>
@@ -45,23 +51,36 @@ export default () => (
                         <PureContainer layout={UseParentLayout} visible-expr="{$page.device.energy.power} != null">
                             <EnergyComponent />
                         </PureContainer>
+                        <PureContainer layout={UseParentLayout} visible-expr="{$page.device.temperature}">
+                            <TemperatureComponent />
+                        </PureContainer>
+                        <PureContainer layout={UseParentLayout} visible-expr="{$page.device.humidity}">
+                            <HumidityComponent />
+                        </PureContainer>
+                        <PureContainer layout={UseParentLayout} visible-bind="{$page.device.contact}">
+                            <ContactComponent />
+                        </PureContainer>
                     </LabelsLeftLayout>
                 </div>
                 <div className="flex items-center flex-1">
                     <PureContainer layout={UseParentLayout} visible-expr="{$page.device.energy.power} != null">
-                        <Svg style="width:600px; height:300px;">
-                            <Chart
-                                offset="20 -10 -60 40"
-                                axes={{
-                                    x: { type: CategoryAxis, labelRotation: -90 },
-                                    y: { type: NumericAxis, vertical: true },
-                                }}
-                            >
-                                <Gridlines />
-                                <LineGraph name="Power" data-bind="$page.powerChart" colorIndex={7} />
-                            </Chart>
-                        </Svg>
+                        <PowerGraph />
                     </PureContainer>
+                </div>
+                <div className="flex flex-col">
+                    <div className="flex">
+                        <div className="flex items-center flex-1">
+                            <PureContainer layout={UseParentLayout} visible-expr="{$page.device.temperature}">
+                                <TemperatureGraph />
+                            </PureContainer>
+                        </div>
+                        <div className="flex items-center flex-1">
+                            <PureContainer layout={UseParentLayout} visible-expr="{$page.device.humidity}">
+                                <HumidityGraph />
+                            </PureContainer>
+                        </div>
+                    </div>
+                    <Legend visible-bind="$page.device.temperature" />
                 </div>
             </div>
             <hr className="mx-8" />
