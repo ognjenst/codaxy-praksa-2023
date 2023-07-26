@@ -23,8 +23,6 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-    ports:
-      - "9003:80"
     networks:
       - soc
     restart: unless-stopped
