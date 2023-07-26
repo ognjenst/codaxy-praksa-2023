@@ -7,30 +7,31 @@ namespace SOC.IoT.ApiGateway.Controllers
     [ApiController]
     public class AutomationController : ControllerBase
     {
-        private readonly IAutomationService _automationService;
+        private readonly IAutomationClient _automationClient;
 
-        public AutomationController(IAutomationService automationService)
+        public AutomationController(IAutomationClient automationClient)
         {
-            _automationService = automationService;
+            _automationClient = automationClient;
         }
 
-        /// <summary>
-        /// Create automation entity
-        /// </summary>
-        /// <param name="automationDto"></param>
-        /// <returns></returns>
-        [HttpPost(Name = "CreateAutomationAsync")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AutomationDto))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-        public async Task<IActionResult> CreateAutomationAsync(AutomationDto automationDto)
-        {
-            var automation = await _automationService.CreateAutomationAsync(automationDto);
+		/// <summary>
+		/// Create automation entity
+		/// </summary>
+		/// <param name="automationDto"></param>
+		/// <returns></returns>
+		[HttpPost(Name = "CreateAutomationAsync")]
+		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AutomationDto))]
+		[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+		[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+		[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+		public async Task<IActionResult> CreateAutomationAsync(AutomationDto automationDto)
+		{
+			var automation = await _automationClient.CreateAutomationAsync(automationDto);
 
-            await Task.Delay(1000);
+			await Task.Delay(1000);
 
-            return Ok(automation);
-        }
-    }
+			return Ok(automation);
+		}
+
+	}
 }

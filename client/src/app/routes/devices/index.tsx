@@ -8,7 +8,6 @@ import Controller from "./Controller";
 import { DevicesPageModel } from "./page";
 
 let { $page, $log, $device, $capability } = createAccessorModelProxy<DevicesPageModel>();
-
 const gridColumns = [
     {
         header: "Type",
@@ -41,13 +40,13 @@ const gridColumns = [
     },
     {
         header: "Device name",
-        field: "$record.id",
+        field: "$record.name",
         items: (
             <cx>
                 <Link
                     href-tpl="~/devices/{$record.id}"
                     url-bind="url"
-                    text-bind="$record.id"
+                    text-bind="$record.name"
                     className="text-blue-400 hover:text-blue-600"
                 />
             </cx>
@@ -64,7 +63,6 @@ const gridColumns = [
         ),
     },
 ] as GridColumnConfig[];
-
 export default (
     <cx>
         <div controller={Controller}>
