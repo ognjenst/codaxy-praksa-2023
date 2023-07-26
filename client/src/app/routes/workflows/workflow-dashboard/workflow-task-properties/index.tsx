@@ -7,7 +7,7 @@ export default () => (
     <cx>
         <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-5">
             <div className="flex items-center justify-middle gap-2">
-                <TextField label="Reference name: " value-bind="$page.text" />
+                <TextField label="Reference name: " value-bind="$task.taskReferenceName" />
             </div>
             <div className="flex items-center justify-middle gap-2">
                 <LookupField label="Task" className="flex-1" value-bind="$page.task.type" options={taskTypes} />

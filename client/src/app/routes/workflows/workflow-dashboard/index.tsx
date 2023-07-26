@@ -33,6 +33,7 @@ export default () => (
                 text="Save workflow"
                 className="absolute top-4 left-4 p-2 text-gray-600"
                 mod="classic"
+                onClick="registerWorkflow"
             />
         </div>
 

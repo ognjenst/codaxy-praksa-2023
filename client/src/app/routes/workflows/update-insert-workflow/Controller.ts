@@ -83,7 +83,7 @@ export default (reslove, props) =>
             ];
 
             try {
-                let resp = await GET("/workflows/getalltasks");
+                let resp = await GET(BACKEND_REQUEST_GET_ALL_TASKS);
 
                 var arrTasks = [];
                 for (let i = 0; i < resp.length; i++) {
@@ -116,3 +116,5 @@ export default (reslove, props) =>
             }
         }
     };
+
+const BACKEND_REQUEST_GET_ALL_TASKS = "/workflows/getalltasks";

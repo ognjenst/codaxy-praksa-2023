@@ -10,7 +10,6 @@ export default (props) =>
         }
 
         async startWorkflow() {
-            //var obj = JSON.parse(this.store.get("$page.workflowInputData"));
             var obj = this.getJson();
 
             if (obj === null) {
@@ -32,7 +31,7 @@ export default (props) =>
             };
 
             try {
-                let resp = await POST("/workflows/playworkflow", request);
+                let resp = await POST(BACKEND_REQUEST_PLAY_WORKFLOW, request);
 
                 this.store.set("$page.workflowInputData", defaultValue);
 
@@ -61,3 +60,4 @@ const defaultValue = "{}";
 
 const START_WORKFLOW_SUCCESS = "Successfully started a worklow :)";
 const INPUT_DATA_FAIL = "You need to input a json object !!!";
+const BACKEND_REQUEST_PLAY_WORKFLOW = "/workflows/playworkflow";

@@ -9,11 +9,11 @@ export default class extends Controller {
                 source: [
                     {
                         id: 1,
-                        text: "one",
+                        text: "$workflow.input",
                     },
                     {
                         id: 2,
-                        text: "two",
+                        text: "$prepare.outpur",
                     },
                 ],
 
@@ -33,11 +33,11 @@ export default class extends Controller {
                 source: [
                     {
                         id: 1,
-                        text: "one 2",
+                        text: "$workflow.input",
                     },
                     {
                         id: 2,
-                        text: "two 2",
+                        text: "$prepare.outpur",
                     },
                 ],
                 param: [
@@ -59,11 +59,11 @@ export default class extends Controller {
                 source: [
                     {
                         id: 1,
-                        text: "one 1",
+                        text: "$workflow.input",
                     },
                     {
                         id: 2,
-                        text: "two 1",
+                        text: "$prepare.outpur",
                     },
                 ],
 
@@ -83,11 +83,11 @@ export default class extends Controller {
                 source: [
                     {
                         id: 1,
-                        text: "one 2",
+                        text: "$workflow.input",
                     },
                     {
                         id: 2,
-                        text: "two 2",
+                        text: "$prepare.outpur",
                     },
                 ],
                 param: [
@@ -158,7 +158,7 @@ export default class extends Controller {
 
     itemClicked(currentWorkflow) {
         this.store.set("$page.currentWorkflow", currentWorkflow);
-        this.store.set("$page.arrTasks", this.store.get(`$page.currentWorkflow.tasks`)); //$page.arrTasks shows tasks to the client which belong to the selected workflow($page.currentWorkflow)
+        this.store.set("$page.arrTasks", this.store.get("$page.currentWorkflow.tasks")); //$page.arrTasks shows tasks to the client which belong to the selected workflow($page.currentWorkflow)
         this.store.set("$page.currentWorkflowInUndoneList", true); //used for button save workflow
     }
 }
