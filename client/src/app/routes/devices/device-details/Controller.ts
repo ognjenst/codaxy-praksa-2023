@@ -12,8 +12,7 @@ export default class extends Controller {
         await this.loadData();
         this.store.set("$page.colors", HexXYColorMap);
 
-        this.store.init("$page.deviceHistory", []);
-        this.store.init("$page.powerChart", []);
+        await this.loadDeviceHistory();
 
         const connection = new signalR.HubConnectionBuilder().withUrl(deviceUrl).configureLogging(signalR.LogLevel.Information).build();
 
@@ -22,7 +21,7 @@ export default class extends Controller {
             next: (item) => {
                 const date = new Date();
                 this.store.set("$page.deviceHistory", [
-                    { timestamp: date.toLocaleString(), configuration: JSON.stringify(item, null, 4) },
+                    { time: date.toLocaleString(), configuration: JSON.stringify(item, null, 4) },
                     ...this.store.get("$page.deviceHistory"),
                 ]);
 
@@ -43,6 +42,22 @@ export default class extends Controller {
                 console.error(err);
             },
         });
+    }
+
+    async loadDeviceHistory() {
+        let id = this.store.get("$route.id");
+        try {
+            let deviceHistory = await GET(`/devicehistory/${id}`);
+            this.store.set("$page.deviceHistory", deviceHistory);
+            let powerChart = deviceHistory
+                .map((item) => {
+                    return { x: item.time, y: JSON.parse(item.configuration).energy.power };
+                })
+                .slice(-30);
+            this.store.set("$page.powerChart", powerChart);
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     async loadData() {

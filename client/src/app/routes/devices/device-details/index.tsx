@@ -71,7 +71,7 @@ export default () => (
                     className="text-slate-600 h-full"
                     records-bind="$page.deviceHistory"
                     headerMode="plain"
-                    sortField="timestamp"
+                    sortField="time"
                     columns={deviceHistoryColumns}
                     scrollable
                     buffered
@@ -84,7 +84,7 @@ export default () => (
 const deviceHistoryColumns = [
     {
         header: "Timestamp",
-        field: "timestamp",
+        field: "time",
         sortable: true,
     },
     {
