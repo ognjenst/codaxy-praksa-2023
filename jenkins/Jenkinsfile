@@ -10,7 +10,8 @@ pipeline{
     }
 
     parameters {
-        string(defaultValue: 'false', description: 'Branch Specifier', name: 'commits')
+        string(defaultValue: 'false', description: 'Specify start message', name: 'commits')
+        string(defaultValue: 'master', description: 'Branch Specifier', name: 'branch')
     }
 
     stages{
@@ -52,7 +53,7 @@ pipeline{
 
         stage('Clonning git') {
           steps {
-              git branch: 'feat/master/jenkins-integration', credentialsId: 'soc-pat', url: 'https://github.com/ognjenst/codaxy-praksa-2023'
+              git branch: "${branch}", credentialsId: 'soc-pat', url: 'https://github.com/ognjenst/codaxy-praksa-2023'
           }
         }
 
