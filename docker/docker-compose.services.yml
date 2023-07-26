@@ -11,7 +11,7 @@ services:
     ports:
       - "9002:80"
     networks:
-      - soc
+      - soc_net
     restart: unless-stopped
     secrets:
       - source: soc_iotgateway_appsettings
@@ -24,7 +24,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
     networks:
-      - soc
+      - soc_net
     restart: unless-stopped
     secrets:
       - source: soc_conductor_appsettings
@@ -97,4 +97,9 @@ secrets:
     file: secrets/local/appsettings.soc_iot-micro.json
   soc-scanner_appsettings:
     file: secrets/local/appsettings.soc-scanner.json
+
+networks:
+  soc_net:
+    external:
+      name: soc_network
     

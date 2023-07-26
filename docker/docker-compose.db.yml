@@ -37,4 +37,5 @@ volumes:
 
 networks:
   soc:
+    name: soc_network
     driver: bridge
