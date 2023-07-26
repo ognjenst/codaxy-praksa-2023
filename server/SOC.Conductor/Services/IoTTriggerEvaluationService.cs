@@ -59,7 +59,7 @@ public class IoTTriggerEvaluationService : BackgroundService
 
             foreach (var iotTrigger in iotTriggers.Where(e => e.DeviceId.Equals(device.Id)))
             {
-                string actualValue = GetDeviceValue(device, iotTrigger.Property); // TODO
+                string actualValue = GetDeviceValue(device, iotTrigger.Property);
                 if (string.IsNullOrEmpty(actualValue))
                     continue;
                 if (EvaluateIoTTrigger(iotTrigger, actualValue))
