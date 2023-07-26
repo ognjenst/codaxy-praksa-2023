@@ -13,8 +13,6 @@ using Task = System.Threading.Tasks.Task;
 
 public class PeriodicTriggerEvaluationService : BackgroundService, INotificationHandler<TriggerNotification>
 {
-    private IUnitOfWork _unitOfWork;
-    private IWorkflowResourceClient _workflowResourceClient;
     private readonly ILogger<PeriodicTriggerEvaluationService> _logger;
     private readonly Dictionary<int, Timer> _triggerEvaluators = new();
     public IServiceProvider Services { get; }
@@ -44,8 +42,7 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
     {
         using var scope = Services.CreateScope();
 
-        _unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
-        _workflowResourceClient = scope.ServiceProvider.GetRequiredService<IWorkflowResourceClient>();
+        var _unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
         var periodicTriggers = await _unitOfWork.PeriodicTriggers.GetAllAsync();
 
@@ -67,10 +64,20 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
 
         return new Timer(async (_) =>
         {
+            using var scope = Services.CreateScope();
+
+            var _unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
+            var _workflowResourceClient = scope.ServiceProvider.GetRequiredService<IWorkflowResourceClient>();
+
             var workflows = await _unitOfWork.Automations.GetWorkflowsByTriggerIdAsync(trigger.Id);
 
             workflows.ForEach(async (workflow) =>
             {
+                using var scope = Services.CreateScope();
+
+                var _unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
+                var _workflowResourceClient = scope.ServiceProvider.GetRequiredService<IWorkflowResourceClient>();
+
                 var automation = await _unitOfWork.Automations.GetAutomationByWorkflowAndTriggerAsync(workflow.Id, trigger.Id);
                 try
                 {
