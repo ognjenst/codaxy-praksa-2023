@@ -4,121 +4,8 @@ import { GET } from "../../../api/util/methods";
 export default (reslove, props) =>
     class extends Controller {
         onInit(): void {
-            var arrFill = [
-                {
-                    tab: "Input1",
-                    source: [
-                        {
-                            id: 1,
-                            text: "one",
-                        },
-                        {
-                            id: 2,
-                            text: "two",
-                        },
-                    ],
+            //flagShow is used for not showing row-expanded
 
-                    param: [
-                        {
-                            id: 1,
-                            text: "one",
-                        },
-                        {
-                            id: 2,
-                            text: "two",
-                        },
-                    ],
-                },
-                {
-                    tab: "Input2",
-                    source: [
-                        {
-                            id: 1,
-                            text: "one 2",
-                        },
-                        {
-                            id: 2,
-                            text: "two 2",
-                        },
-                    ],
-                    param: [
-                        {
-                            id: 1,
-                            text: "one 2",
-                        },
-                        {
-                            id: 2,
-                            text: "two 2",
-                        },
-                    ],
-                },
-            ];
-
-            let arrInput = [
-                {
-                    tab: "DeviceIP",
-                    source: [
-                        {
-                            id: 1,
-                            text: "one 1",
-                        },
-                        {
-                            id: 2,
-                            text: "two 1",
-                        },
-                    ],
-
-                    param: [
-                        {
-                            id: 1,
-                            text: "one 1",
-                        },
-                        {
-                            id: 2,
-                            text: "two 1",
-                        },
-                    ],
-                },
-                {
-                    tab: "NumberOfRepetitions",
-                    source: [
-                        {
-                            id: 1,
-                            text: "one 2",
-                        },
-                        {
-                            id: 2,
-                            text: "two 2",
-                        },
-                    ],
-                    param: [
-                        {
-                            id: 1,
-                            text: "one 2",
-                        },
-                        {
-                            id: 2,
-                            text: "two 2",
-                        },
-                    ],
-                },
-            ];
-
-            var arr = [
-                {
-                    name: "Task 1",
-                    flagShow: false,
-                    conditions: arrFill,
-                    inputs: arrInput,
-                },
-                { name: "Task 2", flagShow: false, conditions: arrFill, inputs: arrInput },
-                { name: "Task 3", flagShow: false, conditions: arrFill, inputs: arrInput },
-                { name: "Task 4", flagShow: false, conditions: arrFill, inputs: arrInput },
-                { name: "Task 5", flagShow: false, conditions: arrFill, inputs: arrInput },
-                { name: "Task 6", flagShow: false, conditions: arrFill, inputs: arrInput },
-            ];
-
-            this.store.set("$insert.arrTasks", arr);
             this.store.set("$insert.workflowParamNames", []);
             this.store.set("$insert.workflowTasks", []);
             this.store.set("$page.insertUpdateName", props.name);
@@ -162,14 +49,61 @@ export default (reslove, props) =>
         }
 
         addTaskToController(taskInfo) {
+            console.log(taskInfo);
             this.store.set("$insert.workflowTasks", [...this.store.get("$insert.workflowTasks"), taskInfo]);
         }
 
         async loadData() {
+            var arrFill = [
+                {
+                    tab: "Input1",
+                    param: [
+                        {
+                            id: 1,
+                            text: "Input1",
+                        },
+                    ],
+                },
+                {
+                    tab: "Input2",
+                    param: [
+                        {
+                            id: 1,
+                            text: "Input2",
+                        },
+                    ],
+                },
+            ];
+
             try {
                 let resp = await GET("/workflows/getalltasks");
 
-                this.store.set("$insert.arrTasks", resp);
+                var arrTasks = [];
+                for (let i = 0; i < resp.length; i++) {
+                    var arrInputs = [];
+                    for (let j = 0; j < resp[i].inputKeys.length; j++) {
+                        arrInputs.push({
+                            tab: resp[i].inputKeys[j],
+                            param: [
+                                {
+                                    id: 1,
+                                    text: resp[i].inputKeys[j],
+                                },
+                            ],
+                        });
+                    }
+
+                    var obj = {
+                        name: resp[i].name,
+                        flagShow: false,
+                        inputs: arrInputs,
+                        conditions: arrFill,
+                    };
+
+                    arrTasks.push(obj);
+                }
+
+                this.store.set("$insert.arrTasks", arrTasks);
             } catch (err) {
                 console.error(err);
             }

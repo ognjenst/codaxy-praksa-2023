@@ -1,6 +1,7 @@
 ﻿using ConductorSharp.Client.Service;
 using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
+using System.Net;
 
 namespace SOC.IoT.ApiGateway.Controllers;
 
@@ -59,6 +60,6 @@ public class WorkflowsController : ControllerBase
 	public async Task<IActionResult> PlayWorkflowAsync([FromBody] PlayRequestDto playDto)
 	{
 		await _workflowsClient.PlayWorkflowAsync(playDto);
-		return Ok();
+		return StatusCode(201);
 	}
 }

@@ -163,6 +163,11 @@ export default class extends Controller {
     }
 
     playWorkflow() {
-        openPlayWorkflowWindow();
+        openPlayWorkflowWindow({
+            props: {
+                name: this.store.get("$page.currentWorkflow").name,
+                version: this.store.get("$page.currentWorkflow").version,
+            },
+        });
     }
 }

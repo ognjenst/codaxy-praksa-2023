@@ -75,7 +75,7 @@ export const openInsertUpdateWindow = ({ props }) => {
                                             onClick={(e, { controller, store }) => {
                                                 controller.invokeMethod("addTaskToController", store.get("$record"));
                                             }}
-                                        ></Button>
+                                        />
                                     </List>
                                 </div>
                                 <div>
