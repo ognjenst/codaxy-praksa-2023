@@ -8,13 +8,32 @@ pipeline{
         BUILD_NUMBER = "${env.BUILD_NUMBER}"
         IMAGE_TAG = 'latest'
     }
+
+    parameters {
+        string(defaultValue: 'false', description: 'Branch Specifier', name: 'commits')
+    }
+
     stages{
 
         stage('Slack Notify Start'){
             steps{
                 script{
-                  
-                  if(true){
+                  def commits = "${commits}"
+                  if(commits != 'false'){
+                    def notification = startNotification(
+                      [
+                          gitBranch: "master", 
+                          projectName: "SOC", 
+                          dockerImage: "soc_iot,soc_conductor,soc_scanning,soc_ticketing...", 
+                          commits: "${commits}", 
+                          pipelineId: env.BUILD_ID, 
+                          pipelineUrl: env.BUILD_URL, 
+                          triggeredBy: env.BUILD_USER
+                      ]
+                    )
+                    slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
+                  }
+                  if(commits == 'false'){
                     def notification = startNotification(
                       [
                           gitBranch: "master", 
