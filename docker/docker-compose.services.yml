@@ -18,7 +18,7 @@ services:
         target: /app/appsettings.json
 
   soc_conductor:
-    image: soc_conductor:dev
+    image: soc_conductor:latest
     container_name: soc_conductor
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -99,8 +99,4 @@ secrets:
     file: secrets/local/appsettings.soc_iot-micro.json
   soc-scanner_appsettings:
     file: secrets/local/appsettings.soc-scanner.json
-
-networks:
-  soc:
-    driver: bridge
     

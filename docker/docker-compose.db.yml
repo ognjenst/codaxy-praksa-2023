@@ -13,6 +13,8 @@ services:
       - psqlvolume:/data/postgres
     ports:
       - "5432:5432"
+    networks:
+      - soc
     restart: unless-stopped
 
   soc-pgadmin:
@@ -25,8 +27,14 @@ services:
       - pgadminvolume:/root/.pgadmin
     ports:
       - "8085:80"
+    networks:
+      - soc
     restart: unless-stopped
 
 volumes:
   psqlvolume: null
   pgadminvolume: null 
+
+networks:
+  soc:
+    driver: bridge
