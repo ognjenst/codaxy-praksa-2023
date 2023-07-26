@@ -12,7 +12,8 @@ var builder = Host.CreateDefaultBuilder()
     .ConfigureAppConfiguration(
         (hosting, config) =>
         {
-            config.AddJsonFile("appsettings.json");
+            config.AddJsonFile("appsettings.json", true);
+            config.AddJsonFile("appsettings.Development.json", true);
         }
     )
     .UseServiceProviderFactory(new AutofacServiceProviderFactory())
