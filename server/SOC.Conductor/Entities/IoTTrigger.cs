@@ -6,6 +6,8 @@ namespace SOC.Conductor.Entities
     {
         public string Property { get; set; }
         public string Value { get; set; }
-        public Operator Condition { get; set; } // Operator TODO: change to enum Migration
+        public Operator Condition { get; set; }
+
+        public int DeviceId { get; set; }
     }
 }
