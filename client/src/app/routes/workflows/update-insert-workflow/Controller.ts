@@ -56,7 +56,8 @@ export default (reslove, props) =>
 
         addTaskToController(taskInfo) {
             this.store.set("$insert.workflowTasks", [...this.store.get("$insert.workflowTasks"), taskInfo]);
-            this.store.set("$page.className", "grid sm:grid-cols-1 md:grid-cols-2 mt-2");
+
+            this.store.set("$page.className", "grid grid-cols-2 mt-2");
         }
 
         async loadData() {

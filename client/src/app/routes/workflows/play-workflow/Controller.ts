@@ -10,7 +10,14 @@ export default (props) =>
         }
 
         async startWorkflow() {
-            var obj = JSON.parse(this.store.get("$page.workflowInputData"));
+            //var obj = JSON.parse(this.store.get("$page.workflowInputData"));
+            var obj = this.getJson();
+
+            if (obj === null) {
+                MsgBox.alert(INPUT_DATA_FAIL);
+
+                return;
+            }
 
             var map = new Map();
 
@@ -24,18 +31,33 @@ export default (props) =>
                 input: obj,
             };
 
-            console.log(request);
-
             try {
                 let resp = await POST("/workflows/playworkflow", request);
 
                 this.store.set("$page.workflowInputData", defaultValue);
 
-                MsgBox.alert("Successfully started a worklow :)");
+                MsgBox.alert(START_WORKFLOW_SUCCESS);
             } catch (err) {
                 console.error(err);
             }
         }
+
+        getJson() {
+            try {
+                var obj = JSON.parse(this.store.get("$page.workflowInputData"));
+
+                if (typeof obj == "object") {
+                    return obj;
+                }
+
+                return obj;
+            } catch (err) {}
+
+            return null;
+        }
     };
 
 const defaultValue = "{}";
+
+const START_WORKFLOW_SUCCESS = "Successfully started a worklow :)";
+const INPUT_DATA_FAIL = "You need to input a json object !!!";
