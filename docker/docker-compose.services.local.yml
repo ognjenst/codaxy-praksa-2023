@@ -4,8 +4,8 @@ services:
   
   soc_iotgateway:
     build:
-      context: .
-      dockerfile: ./iot-gateway/Dockerfile
+      context: ..
+      dockerfile: ./docker/iot-gateway/Dockerfile
     container_name: soc_iotgateway
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -21,8 +21,8 @@ services:
 
   soc_conductor:
     build:
-      context: .
-      dockerfile: ./conductor/Dockerfile
+      context: ..
+      dockerfile: ./docker/conductor/Dockerfile
     container_name: soc_conductor
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -36,8 +36,8 @@ services:
 
   soc_ticketing:
     build:
-      context: .
-      dockerfile: ./ticketing/Dockerfile
+      context: ..
+      dockerfile: ./docker/ticketing/Dockerfile
     container_name: soc_ticketing
     restart: unless-stopped
     secrets:
@@ -46,8 +46,8 @@ services:
 
   soc_notifications:
     build:
-      context: .
-      dockerfile: ./notifications/Dockerfile
+      context: ..
+      dockerfile: ./docker/notifications/Dockerfile
     container_name: soc_ticketing
     restart: unless-stopped
     secrets:
@@ -56,8 +56,8 @@ services:
 
   soc_intelligence:
     build:
-      context: .
-      dockerfile: ./intelligence/Dockerfile
+      context: ..
+      dockerfile: ./docker/intelligence/Dockerfile
     container_name: soc_intelligence
     restart: unless-stopped
     secrets:
@@ -66,8 +66,8 @@ services:
 
   soc_scanning:
     build:
-      context: .
-      dockerfile: ./scanning/Dockerfile
+      context: ..
+      dockerfile: ./docker/scanning/Dockerfile
     container_name: soc_scanning
     restart: unless-stopped
     secrets:
@@ -76,8 +76,8 @@ services:
 
   soc_iot-micro:
     build:
-      context: .
-      dockerfile: ./iot-micro/Dockerfile
+      context: ..
+      dockerfile: ./docker/iot-micro/Dockerfile
     container_name: soc_iot-micro
     restart: unless-stopped
     secrets:
