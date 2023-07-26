@@ -10,7 +10,7 @@ pipeline{
     }
 
     parameters {
-        string(defaultValue: 'false', description: 'Specify start message', name: 'commits')
+        booleanParam(name: 'WithCommits', defaultValue: true, description: 'Show commits in message')
         string(defaultValue: 'master', description: 'Branch Specifier', name: 'branch')
     }
 
@@ -19,8 +19,8 @@ pipeline{
         stage('Slack Notify Start'){
             steps{
                 script{
-                  def commits = "${commits}"
-                  if(commits != 'false'){
+                  def withCommits = "${WithCommits}"
+                  if(withCommits){
                     def notification = startNotification(
                       [
                           gitBranch: "master", 
@@ -34,7 +34,7 @@ pipeline{
                     )
                     slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
                   }
-                  if(commits == 'false'){
+                  if(withCommits == false){
                     def notification = startNotification(
                       [
                           gitBranch: "master", 
