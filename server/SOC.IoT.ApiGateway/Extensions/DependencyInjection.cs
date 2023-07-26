@@ -78,6 +78,8 @@ public static class DependencyInjection
     private static IServiceCollection RegisterOptions(this IServiceCollection services)
     {
         services.ConfigureOptions<ConductorClientOpitonsSetup>();
+
+        services.ConfigureOptions<JwtSecretSetup>();
         return services;
     }
 

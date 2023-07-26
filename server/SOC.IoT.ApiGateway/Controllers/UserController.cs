@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SOC.IoT.ApiGateway.Entities;
 using SOC.IoT.ApiGateway.Entities.Contexts;
 using SOC.IoT.ApiGateway.Models;
+using SOC.IoT.ApiGateway.Models.Requests;
 using SOC.IoT.ApiGateway.Services;
 
 namespace SOC.IoT.ApiGateway.Controllers
@@ -23,12 +24,17 @@ namespace SOC.IoT.ApiGateway.Controllers
             _context = context;
         }
 
+        [HttpPost("login")]
+        public async Task<ActionResult<string>> Login(LoginRequest request)
+        {
+            var response = _userService.Login(request);
+            return Ok(response);
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register(User request)
         {
-            
-
-        var response = _userService.Register(request);
+            var response = _userService.Register(request);
             if (response == "Success")
             {
                 return Ok(new { message = "User registered successfuly." });
