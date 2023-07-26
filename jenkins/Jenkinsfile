@@ -24,7 +24,7 @@ pipeline{
                             triggeredBy: env.BUILD_USER
                         ]
                     )
-                    slackSend(blocks: notification, channel: 'soc')
+                    slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
                 }
             }
         }
@@ -166,7 +166,7 @@ pipeline{
                 pipelineUrl: env.BUILD_URL, 
                 triggeredBy: env.BUILD_USER
             )
-            slackSend(blocks: notification, channel: 'soc')
+            slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
           }
         }
         failure{
@@ -178,7 +178,7 @@ pipeline{
                 pipelineUrl: env.BUILD_URL, 
                 triggeredBy: env.BUILD_USER
             )
-            slackSend(blocks: notification, channel: 'soc')
+            slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
           }
         }
     }
