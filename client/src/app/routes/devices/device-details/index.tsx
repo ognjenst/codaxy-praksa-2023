@@ -66,6 +66,7 @@ export default () => (
                     <PureContainer layout={UseParentLayout} visible-expr="{$page.device.energy.power} != null">
                         <PowerGraph />
                     </PureContainer>
+                    <Legend visible-bind="$page.device.energy.power" />
                 </div>
                 <div className="flex flex-col">
                     <div className="flex">

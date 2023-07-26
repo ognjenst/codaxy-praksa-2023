@@ -14,9 +14,6 @@ export default class extends Controller {
 
         await this.loadDeviceHistory();
         this.store.init("$page.deviceHistory", []);
-        this.store.init("$page.powerChart", []);
-        this.store.init("$page.temperatureChart", []);
-        this.store.init("$page.humidityChart", []);
 
         const connection = new signalR.HubConnectionBuilder().withUrl(deviceUrl).configureLogging(signalR.LogLevel.Information).build();
 
@@ -29,23 +26,30 @@ export default class extends Controller {
                     ...this.store.get("$page.deviceHistory"),
                 ]);
 
-                this.store.set(
-                    "$page.powerChart",
-                    [...this.store.get("$page.powerChart"), { x: date, y: this.store.get("$page.device.energy.power") }].slice(-30)
-                );
-
-                this.store.set(
-                    "$page.temperatureChart",
-                    [...this.store.get("$page.temperatureChart"), { x: date, y: this.store.get("$page.device.temperature.value") }].slice(
-                        -20
-                    )
-                );
-
-                this.store.set(
-                    "$page.humidityChart",
-                    [...this.store.get("$page.humidityChart"), { x: date, y: this.store.get("$page.device.humidity.value") }].slice(-20)
-                );
-
+                if (this.store.get("$page.device.energy") != null) {
+                    this.store.set(
+                        "$page.powerChart",
+                        [{ x: date, y: this.store.get("$page.device.energy.power") }, ...this.store.get("$page.powerChart")].slice(0, 30)
+                    );
+                }
+                if (this.store.get("$page.device.temperature") != null) {
+                    this.store.set(
+                        "$page.temperatureChart",
+                        [
+                            { x: date, y: this.store.get("$page.device.temperature.value") },
+                            ...this.store.get("$page.temperatureChart"),
+                        ].slice(0, 20)
+                    );
+                }
+                if (this.store.get("$page.device.humidity") != null) {
+                    this.store.set(
+                        "$page.humidityChart",
+                        [{ x: date, y: this.store.get("$page.device.humidity.value") }, ...this.store.get("$page.humidityChart")].slice(
+                            0,
+                            20
+                        )
+                    );
+                }
                 this.loadData();
             },
             complete: () => {
@@ -60,14 +64,39 @@ export default class extends Controller {
     async loadDeviceHistory() {
         let id = this.store.get("$route.id");
         try {
-            let deviceHistory = await GET(`/devicehistory/${id}`);
-            this.store.set("$page.deviceHistory", deviceHistory);
-            let powerChart = deviceHistory
-                .map((item) => {
-                    return { x: item.time, y: JSON.parse(item.configuration).energy.power };
+            let deviceHistory = (await GET(`/devicehistory/${id}`)).sort((x, y) => {
+                return y.time.localeCompare(x.time);
+            });
+            this.store.set(
+                "$page.deviceHistory",
+                deviceHistory.map((item) => {
+                    return { ...item, time: new Date(Date.parse(item.time)).toLocaleString() };
                 })
-                .slice(-30);
-            this.store.set("$page.powerChart", powerChart);
+            );
+            if (this.store.get("$page.device.energy") != null) {
+                let powerChart = deviceHistory
+                    .map((item) => {
+                        return { x: new Date(Date.parse(item.time)), y: JSON.parse(item.configuration).energy.power };
+                    })
+                    .slice(0, 30);
+                this.store.set("$page.powerChart", powerChart);
+            }
+            if (this.store.get("$page.device.temperature") != null) {
+                let temperatureChart = deviceHistory
+                    .map((item) => {
+                        return { x: new Date(Date.parse(item.time)), y: JSON.parse(item.configuration).temperature.value };
+                    })
+                    .slice(0, 20);
+                this.store.set("$page.temperatureChart", temperatureChart);
+            }
+            if (this.store.get("$page.device.humidity") != null) {
+                let humidityChart = deviceHistory
+                    .map((item) => {
+                        return { x: new Date(Date.parse(item.time)), y: JSON.parse(item.configuration).humidity.value };
+                    })
+                    .slice(0, 20);
+                this.store.set("$page.humidityChart", humidityChart);
+            }
         } catch (err) {
             console.error(err);
         }
