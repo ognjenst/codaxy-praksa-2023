@@ -40,6 +40,7 @@ import {
     PlayIcon,
     StopCircleIcon,
     TrashIcon,
+    MinusIcon,
 } from "@heroicons/react/24/outline";
 
 //register all icons that are used within the application
@@ -122,3 +123,4 @@ Icon.register("signal", (props) => <SignalIcon {...props} />);
 Icon.register("play-circle", (props) => <PlayCircleIcon {...props} />);
 
 Icon.register("stop-circle", (props) => <StopCircleIcon {...props} />);
+Icon.register("minus", (props) => <MinusIcon {...props} />);

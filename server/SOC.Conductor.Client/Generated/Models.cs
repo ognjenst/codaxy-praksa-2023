@@ -115,6 +115,9 @@ public partial class TaskResponseDto
 
 	[Newtonsoft.Json.JsonProperty("inputKeys", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
 	public System.Collections.Generic.ICollection<string>? InputKeys { get; set; } = default!;
+    
+	[Newtonsoft.Json.JsonProperty("outputKeys", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Collections.Generic.ICollection<string>? OutputKeys { get; set; } = default!;
 
 }
 
@@ -133,6 +136,8 @@ public partial class WorkflowResponseDto
 	[Newtonsoft.Json.JsonProperty("tasks", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
 	public System.Collections.Generic.ICollection<WorkflowTaskDto>? Tasks { get; set; } = default!;
 
+    [Newtonsoft.Json.JsonProperty("inputParameters", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Collections.Generic.ICollection<string> InputParameters { get; set; } = default!;
 }
 
 [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]

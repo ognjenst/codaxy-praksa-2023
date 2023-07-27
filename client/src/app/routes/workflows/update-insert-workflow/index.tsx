@@ -1,6 +1,17 @@
-import { LabelsLeftLayout, LabelsTopLayout } from "cx/ui";
-import { Button, Checkbox, HighlightedSearchText, List, NumberField, TextField, ValidationGroup, Window } from "cx/widgets";
+import { Instance, LabelsLeftLayout, LabelsTopLayout, bind } from "cx/ui";
+import {
+    Button,
+    Checkbox,
+    HighlightedSearchText,
+    LabeledContainer,
+    List,
+    NumberField,
+    TextField,
+    ValidationGroup,
+    Window,
+} from "cx/widgets";
 import getController from "./Controller";
+import { Bind } from "cx/src/core";
 
 export const openInsertUpdateWindow = ({ props }) => {
     return new Promise((reslove) => {
@@ -9,14 +20,14 @@ export const openInsertUpdateWindow = ({ props }) => {
                 <Window
                     title={props.action}
                     center
-                    className="p-4"
+                    className="p-4 h-[90vh] w-[60vw]"
                     modal
                     draggable
                     closeOnEscape
                     controller={getController(reslove, props)}
                     onDestroy={() => reslove(false)}
                 >
-                    <div className="grid grid-rows-3" layout={LabelsLeftLayout} styles={{ height: "620px" }}>
+                    <div className="flex flex-col" layout={LabelsLeftLayout}>
                         <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-4">
                             <div layout={LabelsLeftLayout}>
                                 <TextField label="Name" value-bind="$page.insertUpdateName" />
@@ -48,71 +59,36 @@ export const openInsertUpdateWindow = ({ props }) => {
                         </div>
                         <div className="border border-gray-200 rounded-sm mt-4 p-2">
                             <span className="relative -top-6 left-5 bg-white p-2 text-gray-600" text="Workflow Tasks" />
-                            <div layout={LabelsTopLayout} className="-mt-8 text-gray-600">
-                                <TextField label="Search Tasks" value-bind="$page.search.query" />
-                                <Checkbox value-bind="$page.search.filter">Filter</Checkbox>
-                            </div>
-                            <div className-bind="$page.className">
-                                <div>
-                                    <div className="text-gray-600" text="All available tasks: " />
-                                    <br />
-                                    <List
-                                        records-bind="$insert.arrTasks"
-                                        filterParams-bind="$page.search"
-                                        className="text-gray-600 w-full"
-                                        styles={{ textAlign: "center" }}
-                                        mod="bordered"
-                                        onCreateFilter={(params) => {
-                                            let { query, filter } = params || {};
-                                            if (!filter) return () => true;
-                                            if (!query) return () => true;
-                                            return (record) => record.name.toLowerCase().includes(query.toLowerCase());
-                                        }}
-                                    >
-                                        <HighlightedSearchText text-tpl="{$record.name} " query-bind="$page.search.query" />
-                                        <Button
-                                            icon="plus"
-                                            onClick={(e, { controller, store }) => {
-                                                controller.invokeMethod("addTaskToController", store.get("$record"));
-                                            }}
-                                        />
-                                    </List>
-                                </div>
-                                <div if-expr="{$insert.workflowTasks}.length > 0">
-                                    <div className="text-gray-600" text="All choosen tasks: " />
-                                    <br />
-                                    <List
-                                        records-bind="$insert.workflowTasks"
-                                        className="text-gray-600 w-full md:!border-l-0 sm:mt-2 md:mt-0"
-                                        mod="bordered"
-                                        styles={{ textAlign: "center" }}
-                                    >
-                                        <span className="mr-2" text-bind="$record.name" />
-
-                                        <Button
-                                            className="p-0 pl-2 pr-2"
-                                            onClick={(e, { controller, store }) => {
-                                                controller.invokeMethod("deleteTaskFromController", store.get("$index"));
-                                            }}
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth={1.5}
-                                                stroke="currentColor"
-                                                className="w-6 h-6"
-                                            >
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M18 12H6" />
-                                            </svg>
-                                        </Button>
-                                    </List>
-                                </div>
+                            <LabelsLeftLayout className="text-gray-600">
+                                <LabeledContainer label="Search Tasks">
+                                    <TextField value-bind="$page.search.query" />
+                                    <Checkbox value-bind="$page.search.filter" text="Filter" className="ml-2" />
+                                </LabeledContainer>
+                            </LabelsLeftLayout>
+                            <div className="flex gap-2">
+                                <TasksList
+                                    records={bind("$insert.arrTasks")}
+                                    search={bind("$page.search")}
+                                    buttonIcon="plus"
+                                    onSelectClick={(e, { controller, store }) => {
+                                        controller.invokeMethod("addTaskToController", store.get("$record"));
+                                    }}
+                                />
+                                <TasksList
+                                    records={bind("$insert.workflowTasks")}
+                                    search={bind("$page.search")}
+                                    buttonIcon="minus"
+                                    emptyText="No tasks selected"
+                                    onSelectClick={(e, { controller, store }) => {
+                                        controller.invokeMethod("deleteTaskFromController", store.get("$index"));
+                                    }}
+                                />
                             </div>
                         </div>
-                        <div>
+                        <div putInto="footer" className="flex justify-end gap-2">
+                            <Button text="Cancel" dismiss />
                             <Button
-                                className="w-full"
+                                mod="primary"
                                 onClick={(e, { controller, store }) => {
                                     controller.invokeMethod("createWorkflowInfo");
                                 }}
@@ -127,3 +103,40 @@ export const openInsertUpdateWindow = ({ props }) => {
         w.open();
     });
 };
+
+interface ITasksListParams {
+    records: Bind;
+    search: Bind;
+    buttonIcon: string;
+    emptyText?: string;
+    onSelectClick: (e: Event, instance: Instance) => void;
+}
+
+const TasksList = ({ records, search, buttonIcon, emptyText, onSelectClick }: ITasksListParams) => (
+    <cx>
+        <div className="flex-1 mt-6">
+            <div className="text-gray-600 " text="All available tasks: " />
+            <List
+                records={records}
+                filterParams={search}
+                emptyText={emptyText}
+                className="text-gray-600 w-full"
+                styles={{ textAlign: "center" }}
+                mod="bordered"
+                onCreateFilter={(params) => {
+                    let { query, filter } = params || {};
+                    if (!filter) return () => true;
+                    if (!query) return () => true;
+                    return (record) => record.name.toLowerCase().includes(query.toLowerCase());
+                }}
+            >
+                <div className="flex items-center justify-middle">
+                    <div className="flex-1">
+                        <HighlightedSearchText text-tpl="{$record.name} " query-bind="$page.search.query" />
+                    </div>
+                    <Button icon={buttonIcon} onClick={onSelectClick} />
+                </div>
+            </List>
+        </div>
+    </cx>
+);

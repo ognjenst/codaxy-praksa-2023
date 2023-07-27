@@ -4,14 +4,16 @@ import { GET } from "../../../api/util/methods";
 export default class extends Controller {
     onInit(): void {
         this.loadData();
-        // this.store.set("$page.currentWorkflow", "$page.workflows");
     }
 
     async loadData() {
         try {
             let resp = await GET("/workflows");
             this.store.set("$page.workflows", resp);
-            this.store.set("$page.currentWorkflow", resp[0]);
+
+            if (resp.length > 0) {
+                this.store.set("$page.currentWorkflow", resp[0]);
+            }
         } catch (err) {
             console.error(err);
         }

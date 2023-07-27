@@ -22,7 +22,4 @@ export default () => (
     </cx>
 );
 
-const taskTypes = [
-    { id: 1, text: "PingDevice 1" },
-    { id: 2, text: "PingDevice 2" },
-];
+const taskTypes = [{ id: 1, text: "SIMPLE" }];

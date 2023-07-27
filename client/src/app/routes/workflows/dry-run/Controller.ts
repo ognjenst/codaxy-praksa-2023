@@ -1,5 +1,11 @@
 import { Controller } from "cx/ui";
 
-export default class extends Controller {
-    onInit(): void {}
-}
+export default ({ task }) =>
+    class extends Controller {
+        onInit(): void {}
+
+        getEval() {
+            console.log(task);
+            console.log("getEval ....");
+        }
+    };
