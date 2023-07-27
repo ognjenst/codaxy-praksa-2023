@@ -115,11 +115,28 @@ namespace SOC.IoT.ApiGateway.Services
 
         private string GenerateJwtToken(User user)
         {
+
+            var permissions = from permission in _context.Permissions
+                              join account in _context.Users
+                              on permission.RoleId equals account.Role.Id
+                              select permission;
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSecret.Key);
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+            };
+
+            // Adding each permission as a separate claim
+            foreach (var permission in permissions)
+            {
+                claims.Add(new Claim("Permission", permission.Name));
+            }
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+                Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(15),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

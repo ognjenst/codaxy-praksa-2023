@@ -16,7 +16,6 @@ public class WorkflowsController : ControllerBase
         _workflowsClient = workflowsClient;
     }
 
-	[PermissionAuthorize("Permission", "scope")]
     /// <summary>
     /// Returns all registered workflows from conductor.
     /// </summary>
@@ -32,11 +31,12 @@ public class WorkflowsController : ControllerBase
         return Ok(data);
     }
 
-	/// <summary>
-	/// Returns all registered workflows from conductor.
-	/// </summary>
-	/// <returns></returns>
-	[HttpGet("GetAllTasks", Name = "GetAllTasksAsync")]
+    /// <summary>
+    /// Returns all registered workflows from conductor.
+    /// </summary>
+    /// <returns></returns>
+    [PermissionAuthorize("Delete-Workflow")]
+    [HttpGet("GetAllTasks", Name = "GetAllTasksAsync")]
 	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<TaskResponseDto>))]
 	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
 	[ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]

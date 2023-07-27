@@ -12,7 +12,6 @@ namespace SOC.IoT.ApiGateway.Entities.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
         public SOCIoTDbContext(DbContextOptions<SOCIoTDbContext> options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -47,10 +46,9 @@ namespace SOC.IoT.ApiGateway.Entities.Contexts
 
                 entity.Property(e => e.Name).HasMaxLength(45);
                 entity.HasMany(e => e.Users)
-                    .WithMany(d => d.Roles)
-                    .UsingEntity<UserRole>(
-                        l => l.HasOne<User>().WithMany().HasForeignKey(d => d.UserId),
-                        r => r.HasOne<Role>().WithMany().HasForeignKey(d => d.RoleId)
+                    .WithOne(d => d.Role)
+                    .HasForeignKey(
+                        l => l.RoleId
                     );
                 entity.HasMany(e => e.Permissions)
                       .WithOne(l => l.Role)
@@ -60,27 +58,7 @@ namespace SOC.IoT.ApiGateway.Entities.Contexts
                 entity.HasData(new Role { Id = 2, Name = "User" });
             });
 
-            modelBuilder.Entity<Permission>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-
-                entity.Property(e => e.Name).IsRequired();
-                
-                foreach (var scope in PermissionData.Scopes)
-                {
-                    foreach (var resource in PermissionData.Resources)
-                    {
-                        entity.HasData(new Permission { Name = $"{scope}-{resource}", RoleId = 1});
-                    }
-                }
-               
-
-            });
-
-            modelBuilder.Entity<UserRole>(entity =>
-            {
-                entity.HasKey(p => new { p.UserId, p.RoleId });
-            });
+           
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(Program).Assembly);
 

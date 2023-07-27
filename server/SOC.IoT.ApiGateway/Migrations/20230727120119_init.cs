@@ -46,24 +46,6 @@ namespace SOC.IoT.ApiGateway.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FirstName = table.Column<string>(type: "character varying(45)", maxLength: 45, nullable: false),
-                    LastName = table.Column<string>(type: "character varying(45)", maxLength: 45, nullable: false),
-                    Username = table.Column<string>(type: "character varying(45)", maxLength: 45, nullable: false),
-                    Email = table.Column<string>(type: "character varying(45)", maxLength: 45, nullable: false),
-                    Password = table.Column<string>(type: "text", nullable: false),
-                    Salt = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DevicesHistory",
                 columns: table => new
                 {
@@ -105,25 +87,26 @@ namespace SOC.IoT.ApiGateway.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRoles",
+                name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirstName = table.Column<string>(type: "character varying(45)", maxLength: 45, nullable: false),
+                    LastName = table.Column<string>(type: "character varying(45)", maxLength: 45, nullable: false),
+                    Username = table.Column<string>(type: "character varying(45)", maxLength: 45, nullable: false),
+                    Email = table.Column<string>(type: "character varying(45)", maxLength: 45, nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    Salt = table.Column<string>(type: "text", nullable: true),
                     RoleId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserRoles_Roles_RoleId",
+                        name: "FK_Users_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserRoles_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -142,6 +125,42 @@ namespace SOC.IoT.ApiGateway.Migrations
                     { 7, "Smart 7W E27 light bulb", "0x00158d0001dd7e46", "Nue / 3A", "HGZB-06A", "Light bulb", 0 }
                 });
 
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Admin" },
+                    { 2, "User" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Permissions",
+                columns: new[] { "Id", "Name", "RoleId" },
+                values: new object[,]
+                {
+                    { 1, "Create-Workflow", 1 },
+                    { 2, "Update-Workflow", 1 },
+                    { 3, "Read-Workflow", 1 },
+                    { 4, "Delete-Workflow", 1 },
+                    { 5, "Create-Trigrer", 1 },
+                    { 6, "Update-Trigger", 1 },
+                    { 7, "Read-Trigger", 1 },
+                    { 8, "Delete-Trigger", 1 },
+                    { 9, "Create-Automation", 1 },
+                    { 10, "Update-Automation", 1 },
+                    { 11, "Read-Automation", 1 },
+                    { 12, "Delete-Automation", 1 },
+                    { 13, "Create-Device", 1 },
+                    { 14, "Update-Device", 1 },
+                    { 15, "Read-Device", 1 },
+                    { 16, "Delete-Device", 1 },
+                    { 17, "Create-DeviceHistory", 1 },
+                    { 18, "Update-DeviceHistory", 1 },
+                    { 19, "Read-DeviceHistory", 1 },
+                    { 20, "Delete-DeviceHistory", 1 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_DevicesHistory_DeviceID",
                 table: "DevicesHistory",
@@ -153,8 +172,8 @@ namespace SOC.IoT.ApiGateway.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRoles_RoleId",
-                table: "UserRoles",
+                name: "IX_Users_RoleId",
+                table: "Users",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
@@ -174,16 +193,13 @@ namespace SOC.IoT.ApiGateway.Migrations
                 name: "Permissions");
 
             migrationBuilder.DropTable(
-                name: "UserRoles");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Devices");
 
             migrationBuilder.DropTable(
                 name: "Roles");
-
-            migrationBuilder.DropTable(
-                name: "Users");
         }
     }
 }

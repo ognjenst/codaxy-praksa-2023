@@ -97,6 +97,7 @@ app.UseCors(builder =>
         .AllowCredentials();
 });
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

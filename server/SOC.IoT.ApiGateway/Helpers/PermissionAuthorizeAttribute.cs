@@ -9,18 +9,10 @@ using System.Web.Http.Dependencies;
 namespace SOC.IoT.ApiGateway.Helpers;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-public class PermissionAuthorizeAttribute : Attribute, IAuthorizationFilter
+public class PermissionAuthorizeAttribute : AuthorizeAttribute
 {
-    private readonly string _scope;
-    private readonly string _resource;
-
-    public PermissionAuthorizeAttribute(string scope, string resource)
-    {
-        _scope = scope;
-        _resource = resource;
-    }
-
-    public void OnAuthorization(AuthorizationFilterContext context)
+    public PermissionAuthorizeAttribute(string permisison) : base(permisison)
     {
     }
+
 }

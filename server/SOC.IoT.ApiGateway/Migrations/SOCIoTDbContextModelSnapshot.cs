@@ -179,7 +179,121 @@ namespace SOC.IoT.ApiGateway.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Admin",
+                            Name = "Create-Workflow",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Update-Workflow",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Read-Workflow",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Delete-Workflow",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Create-Trigrer",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Update-Trigger",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Read-Trigger",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Delete-Trigger",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Create-Automation",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Update-Automation",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Read-Automation",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Delete-Automation",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Create-Device",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Update-Device",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "Read-Device",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "Delete-Device",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "Create-DeviceHistory",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "Update-DeviceHistory",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "Read-DeviceHistory",
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Name = "Delete-DeviceHistory",
                             RoleId = 1
                         });
                 });
@@ -241,6 +355,9 @@ namespace SOC.IoT.ApiGateway.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Salt")
                         .HasColumnType("text");
 
@@ -251,25 +368,12 @@ namespace SOC.IoT.ApiGateway.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoleId");
+
                     b.HasIndex("Username")
                         .IsUnique();
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("SOC.IoT.ApiGateway.Entities.UserRole", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("SOC.IoT.ApiGateway.Entities.DeviceHistory", b =>
@@ -294,19 +398,15 @@ namespace SOC.IoT.ApiGateway.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("SOC.IoT.ApiGateway.Entities.UserRole", b =>
+            modelBuilder.Entity("SOC.IoT.ApiGateway.Entities.User", b =>
                 {
-                    b.HasOne("SOC.IoT.ApiGateway.Entities.Role", null)
-                        .WithMany()
+                    b.HasOne("SOC.IoT.ApiGateway.Entities.Role", "Role")
+                        .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SOC.IoT.ApiGateway.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("SOC.IoT.ApiGateway.Entities.Device", b =>
@@ -317,6 +417,8 @@ namespace SOC.IoT.ApiGateway.Migrations
             modelBuilder.Entity("SOC.IoT.ApiGateway.Entities.Role", b =>
                 {
                     b.Navigation("Permissions");
+
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }
