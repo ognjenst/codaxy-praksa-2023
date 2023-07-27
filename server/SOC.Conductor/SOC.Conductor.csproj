@@ -60,4 +60,8 @@
 		<Folder Include="Entities\Contexts\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\SOC.IoT.Base\SOC.IoT.Base.csproj" />
+	</ItemGroup>
+
 </Project>
