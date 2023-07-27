@@ -32,6 +32,9 @@ public static class ServiceCollectionExtensions
 
         services.AddHostedService<PeriodicTriggerEvaluationService>();
 
+        // Register background service for IoTTrigger evaluation
+        services.AddHostedService<IoTTriggerEvaluationService>();
+
         return services;
     }
 

@@ -107,6 +107,9 @@ internal class DeviceWriter : IDeviceWriter
                 case DeviceCapability.Energy:
                     device.Energy = description.ParseEnergy(payload);
                     break;
+                case DeviceCapability.Contact: 
+                    device.Contact = description.ParseContact(payload);
+                    break;
                 default:
                     break;
             }

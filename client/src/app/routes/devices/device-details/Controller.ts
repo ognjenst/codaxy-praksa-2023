@@ -14,6 +14,8 @@ export default class extends Controller {
 
         this.store.init("$page.deviceHistory", []);
         this.store.init("$page.powerChart", []);
+        this.store.init("$page.temperatureChart", []);
+        this.store.init("$page.humidityChart", []);
 
         const connection = new signalR.HubConnectionBuilder().withUrl(deviceUrl).configureLogging(signalR.LogLevel.Information).build();
 
@@ -28,10 +30,19 @@ export default class extends Controller {
 
                 this.store.set(
                     "$page.powerChart",
-                    [
-                        ...this.store.get("$page.powerChart"),
-                        { x: date.toLocaleTimeString(), y: this.store.get("$page.device.energy.power") },
-                    ].slice(-30)
+                    [...this.store.get("$page.powerChart"), { x: date, y: this.store.get("$page.device.energy.power") }].slice(-30)
+                );
+
+                this.store.set(
+                    "$page.temperatureChart",
+                    [...this.store.get("$page.temperatureChart"), { x: date, y: this.store.get("$page.device.temperature.value") }].slice(
+                        -20
+                    )
+                );
+
+                this.store.set(
+                    "$page.humidityChart",
+                    [...this.store.get("$page.humidityChart"), { x: date, y: this.store.get("$page.device.humidity.value") }].slice(-20)
                 );
 
                 this.loadData();

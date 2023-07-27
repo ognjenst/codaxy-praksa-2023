@@ -2,8 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using SOC.Conductor.Entities.Contexts;
 using SOC.Conductor.Extensions;
+using SOC.IoT.Base;
+using SOC.IoT.Base.Interfaces;
 using System.Reflection;
-using SOC.Conductor.Extensions;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,8 @@ builder.Services.RegisterServices(builder.Configuration);
 builder.Services.AddDbContext<SOCDbContext>(
 	options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db"))
 );
+
+builder.Services.AddIoTServices();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
@@ -54,5 +57,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MigrateDatabase();
+
+app.Services.GetRequiredService<IStartupService>();
 
 app.Run();

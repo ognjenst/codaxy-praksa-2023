@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SOC.Scanning": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
