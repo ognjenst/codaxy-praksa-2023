@@ -40,7 +40,8 @@ public class WorkflowBuilderService : IWorkflowBuilderService
             Version = workflowDto.Version,
             OwnerEmail = CONDUCTOR_MAIL,
             TimeoutSeconds = 0,
-            Tasks = tasks
+            Tasks = tasks,
+            SchemaVersion = 2
         };
 
         try

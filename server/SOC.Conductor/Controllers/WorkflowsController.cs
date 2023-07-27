@@ -69,7 +69,7 @@ public class WorkflowsController : ControllerBase
         if (result is not null)
             return Ok(result);
 
-        return NotFound();
+        return NoContent();
     }
 
 
