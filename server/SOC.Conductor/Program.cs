@@ -5,7 +5,6 @@ using SOC.Conductor.Extensions;
 using SOC.IoT.Base;
 using SOC.IoT.Base.Interfaces;
 using System.Reflection;
-using SOC.Conductor.Extensions;
 
 
 var builder = WebApplication.CreateBuilder(args);
