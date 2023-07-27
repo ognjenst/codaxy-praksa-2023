@@ -1,18 +1,21 @@
 ﻿using MediatR;
 using SOC.Conductor.Contracts;
 using SOC.Conductor.DTOs;
+using SOC.Conductor.Services;
 
 namespace SOC.Conductor.Handlers
 {
-    public record UpdateWorkflowRequest(int workflowId, WorkflowDto workflowDto) : IRequest<WorkflowDto> { }
+    public record UpdateWorkflowRequest(int workflowId, CreateWorkflowDto workflowDto) : IRequest<WorkflowDto> { }
 
     public class UpdateWorkflowHandler : IRequestHandler<UpdateWorkflowRequest, WorkflowDto>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWorkflowBuilderService _workflowBuilderService;
 
-        public UpdateWorkflowHandler(IUnitOfWork unitOfWork)
+        public UpdateWorkflowHandler(IUnitOfWork unitOfWork, IWorkflowBuilderService workflowBuilderService)
         {
-            _unitOfWork = unitOfWork;          
+            _unitOfWork = unitOfWork;
+            _workflowBuilderService = workflowBuilderService;
         }
 
         public async Task<WorkflowDto> Handle(UpdateWorkflowRequest request, CancellationToken cancellationToken)
@@ -22,11 +25,11 @@ namespace SOC.Conductor.Handlers
             {
                 workflow.Name = request.workflowDto.Name;
                 workflow.Version = request.workflowDto.Version;
-                workflow.CreatedAt = request.workflowDto.CreateDate;
-                workflow.UpdatedAt = request.workflowDto.UpdateDate;
-                workflow.Enabled = request.workflowDto.Enabled;          
+                workflow.UpdatedAt = DateTime.UtcNow;    
 
                 var result = await _unitOfWork.Workflows.UpdateAsync(workflow, cancellationToken);
+
+                await _workflowBuilderService.Build(request.workflowDto);
 
                 await _unitOfWork.SaveAllAsync();
                 return new WorkflowDto()

@@ -22,8 +22,6 @@ namespace SOC.Conductor.Handlers
             var automation = (await _unitOfWork.Automations.GetByCondition(x => x.WorkflowId == request.workflowId && x.TriggerId == request.triggerId, cancellationToken)).FirstOrDefault();
             if (automation is not null)
             {
-                //automation.WorkflowId = request.workflowId;
-                //automation.TriggerId = request.triggerId;
                 automation.Name = request.automationDto.Name;
                 automation.InputParameters = request.automationDto.InputParameters;
 

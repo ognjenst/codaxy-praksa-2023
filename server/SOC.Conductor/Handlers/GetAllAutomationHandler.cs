@@ -24,6 +24,8 @@ namespace SOC.Conductor.Handlers
             {
                 TriggerId = automation.TriggerId,
                 WorkflowId = automation.WorkflowId,
+                Name = automation.Name,
+                InputParameters = automation.InputParameters
             });
             return dtos;
         }

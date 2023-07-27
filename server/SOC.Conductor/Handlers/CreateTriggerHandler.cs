@@ -24,7 +24,6 @@ namespace SOC.Conductor.Handlers
             {
                 var periodic = new PeriodicTrigger()
                 {
-                    Id = request.commonTriggerDto.Id,
                     Name = request.commonTriggerDto.Name,
                     Period = request.commonTriggerDto.Period.GetValueOrDefault(),
                     Start = request.commonTriggerDto.Start.GetValueOrDefault(),

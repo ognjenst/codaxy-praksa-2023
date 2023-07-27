@@ -83,9 +83,8 @@ public class WorkflowsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-    public async Task<IActionResult> UpdateWorkflowAsync([FromRoute] int workflowId, [FromBody] WorkflowDto workflowDto)
+    public async Task<IActionResult> UpdateWorkflowAsync([FromRoute] int workflowId, [FromBody] CreateWorkflowDto workflowDto)
     {
-        workflowDto.Id = workflowId;
         var result = await _mediator.Send(new UpdateWorkflowRequest(workflowId, workflowDto));
         
         if (result is not null)
