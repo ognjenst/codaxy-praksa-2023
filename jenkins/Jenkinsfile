@@ -52,7 +52,7 @@ pipeline{
 
         stage('Clonning git') {
           steps {
-              git branch: "${branch}", credentialsId: 'soc-pat', url: 'https://github.com/ognjenst/codaxy-praksa-2023'
+              git branch: 'master', credentialsId: 'soc-pat', url: 'https://github.com/ognjenst/codaxy-praksa-2023'
           }
         }
 
