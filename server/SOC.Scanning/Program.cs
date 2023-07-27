@@ -4,9 +4,7 @@ using ConductorSharp.Engine.Extensions;
 using ConductorSharp.Engine.Health;
 using MediatR.Extensions.Autofac.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SOC.Scanning;
 using SOC.Scanning.Extensions;
 using SOC.Scanning.Handler;
 
@@ -14,7 +12,8 @@ var builder = Host.CreateDefaultBuilder()
     .ConfigureAppConfiguration(
         (hosting, config) =>
         {
-            config.AddJsonFile("appsettings.json");
+            config.AddJsonFile("appsettings.json", true);
+            config.AddJsonFile("appsettings.Development.json", true);
         }
     )
     .UseServiceProviderFactory(new AutofacServiceProviderFactory())
@@ -58,5 +57,4 @@ var builder = Host.CreateDefaultBuilder()
     );
 
 using var host = builder.Build();
-
 await host.RunAsync();

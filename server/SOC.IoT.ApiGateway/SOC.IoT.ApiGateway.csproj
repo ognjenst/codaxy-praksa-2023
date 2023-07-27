@@ -9,11 +9,13 @@
 
 	<PropertyGroup>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.9" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.7" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
 		<PackageReference Include="Serilog" Version="3.0.1" />
 		<PackageReference Include="Serilog.Extensions.Logging" Version="7.0.0" />
 		<PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
@@ -46,7 +48,6 @@
   <ItemGroup>
     <ProjectReference Include="..\SOC.Conductor.Client\SOC.Conductor.Client.csproj" />
     <ProjectReference Include="..\SOC.IoT.Base\SOC.IoT.Base.csproj" />
-    <ProjectReference Include="..\SOC.Notifications\SOC.Notifications.csproj" />
   </ItemGroup>
 
   <ItemGroup>

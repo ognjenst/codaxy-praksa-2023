@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SOC.IoT": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
