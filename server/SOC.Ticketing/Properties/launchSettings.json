@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SOC.Ticketing": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

@@ -100,6 +100,10 @@ namespace SOC.Conductor.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("DeviceId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Property")
                         .IsRequired()
                         .HasColumnType("text");

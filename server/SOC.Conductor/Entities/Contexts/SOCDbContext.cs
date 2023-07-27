@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SOC.Conductor.Entities.Enums;
 
 namespace SOC.Conductor.Entities.Contexts
 {
@@ -47,7 +47,12 @@ namespace SOC.Conductor.Entities.Contexts
                         v => JsonConvert.SerializeObject(v),
                         v => JsonConvert.DeserializeObject<JObject?>(v)
                     )
-                    .HasColumnType("jsonb");
+                    .HasColumnType("jsonb");    
+            });
+
+            modelBuilder.Entity<IoTTrigger>(entity =>
+            {
+                entity.Property(p => p.Condition).HasConversion(v => v.ToString(), v => (Operator)Enum.Parse(typeof(Operator), v));
             });
 
             base.OnModelCreating(modelBuilder);
