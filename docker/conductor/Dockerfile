@@ -8,9 +8,14 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine3.18-amd64 AS build
 WORKDIR /src
 COPY ["server/SOC.Conductor/SOC.Conductor.csproj", "SOC.Conductor/"]
+COPY ["server/SOC.IoT.Base/SOC.IoT.Base.csproj", "SOC.IoT.Base/"]
+COPY ["server/SOC.IoT.Domain/SOC.IoT.Domain.csproj", "SOC.IoT.Domain/"]
 RUN dotnet restore "SOC.Conductor/SOC.Conductor.csproj"
 
 COPY server/SOC.Conductor ./SOC.Conductor
+COPY server/SOC.IoT.Base ./SOC.IoT.Base
+COPY server/SOC.IoT.Domain ./SOC.IoT.Domain
+
 WORKDIR "/src/SOC.Conductor"
 RUN dotnet build "SOC.Conductor.csproj" -c Release -o /app/build
 
