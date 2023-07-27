@@ -12,27 +12,30 @@ let { $page } = createAccessorModelProxy<DevicesPageModel>();
 export default class extends Controller<DevicesPageModel> {
     onInit() {
         this.onGetDevices();
-        this.store.init($page.deviceLog, []);
+        //this.store.init($page.deviceLog, []);
 
-        this.startDevicesLog();
+        // this.startDevicesLog();
 
-        this.addTrigger("selected-device-changes", [$page.selectedDeviceId], (id) => {
-            if (!id) return;
-            const devices = this.store.get($page.devices);
-            let device = JSON.parse(JSON.stringify(devices.find((d) => d.id === id)));
+        // this.addTrigger("selected-device-changes", [$page.selectedDeviceId], (id) => {
+        //     if (!id) return;
+        //     const devices = this.store.get($page.devices);
+        //     let device = JSON.parse(JSON.stringify(devices.find((d) => d.id === id)));
 
-            delete device.id;
-            delete device.capabilities;
+        //     delete device.id;
+        //     delete device.capabilities;
 
-            this.store.set($page.devicePayload, JSON.stringify(device));
-        });
+        //     this.store.set($page.devicePayload, JSON.stringify(device));
+        // });
     }
 
     async onGetDevices() {
         try {
             this.store.set($page.status.request, Status.Loading);
             const devices = await getDevices();
-            this.store.set($page.devices, devices);
+            this.store.set(
+                $page.devices,
+                devices.filter((device) => device.capabilities.length != 0)
+            );
             this.store.set($page.status.request, Status.Ok);
         } catch (err) {
             this.store.set($page.status.request, Status.Error);
@@ -41,7 +44,7 @@ export default class extends Controller<DevicesPageModel> {
         }
     }
 
-    async startDevicesLog() {
+    /* async startDevicesLog() {
         this.store.set($page.status.deviceHistory, Status.Loading);
         const connection = new signalR.HubConnectionBuilder()
             .withUrl("http://127.0.0.1:5288/api/hubs/devices")
@@ -64,9 +67,9 @@ export default class extends Controller<DevicesPageModel> {
                 this.store.set($page.status.deviceHistory, Status.Error);
             },
         });
-    }
+    } */
 
-    async onSendPayload() {
+    /*  async onSendPayload() {
         try {
             this.store.set($page.status.deviceUpdate, Status.Loading);
             const payload = this.store.get($page.devicePayload);
@@ -81,5 +84,5 @@ export default class extends Controller<DevicesPageModel> {
         } finally {
             this.store.set($page.status.deviceUpdate, Status.Ok);
         }
-    }
+    } */
 }

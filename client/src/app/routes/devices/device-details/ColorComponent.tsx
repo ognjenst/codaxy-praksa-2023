@@ -11,7 +11,13 @@ export const ColorComponent = () => (
             }}
         >
             <Repeater records={computable("$page.colors", (colors) => Object.keys(colors))}>
-                <Button style={{ backgroundColor: computable("$record", (record) => record) }} onClick="changeColors" />
+                <Button
+                    style={{
+                        backgroundColor: computable("$record", "$page.device.state.state", (record, state) => (state ? record : "#ABABAB")),
+                    }}
+                    onClick="changeColors"
+                    enabled-bind="$page.device.state.state"
+                />
             </Repeater>
         </LabeledContainer>
     </cx>

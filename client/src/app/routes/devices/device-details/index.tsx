@@ -71,12 +71,12 @@ export default () => (
                 <div className="flex flex-col">
                     <div className="flex">
                         <div className="flex items-center flex-1">
-                            <PureContainer layout={UseParentLayout} visible-expr="{$page.device.temperature}">
+                            <PureContainer layout={UseParentLayout} visible-bind="$page.device.temperature">
                                 <TemperatureGraph />
                             </PureContainer>
                         </div>
                         <div className="flex items-center flex-1">
-                            <PureContainer layout={UseParentLayout} visible-expr="{$page.device.humidity}">
+                            <PureContainer layout={UseParentLayout} visible-bind="$page.device.humidity">
                                 <HumidityGraph />
                             </PureContainer>
                         </div>

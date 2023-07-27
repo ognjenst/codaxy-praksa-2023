@@ -6,6 +6,7 @@ import { openHistoryWindow } from "./showHistoryWindow";
 import * as signalR from "@microsoft/signalr";
 
 const deviceUrl = "http://127.0.0.1:5288/api/hubs/devices";
+let connection;
 
 export default class extends Controller {
     async onInit() {
@@ -14,7 +15,7 @@ export default class extends Controller {
 
         await this.loadDeviceHistory();
 
-        const connection = new signalR.HubConnectionBuilder().withUrl(deviceUrl).configureLogging(signalR.LogLevel.Information).build();
+        connection = new signalR.HubConnectionBuilder().withUrl(deviceUrl).configureLogging(signalR.LogLevel.Information).build();
 
         await connection.start();
         connection.stream("DeviceStream", this.store.get("$page.device.id")).subscribe({
@@ -53,9 +54,6 @@ export default class extends Controller {
             },
             complete: () => {
                 console.log("END");
-            },
-            error: (err) => {
-                console.error(err);
             },
         });
     }
@@ -133,5 +131,10 @@ export default class extends Controller {
     showHistoryWindow(e, { store }) {
         let info = store.get("$record");
         openHistoryWindow(info);
+    }
+
+    onDestroy() {
+        this.removeTrigger("save-device");
+        connection.stop();
     }
 }
