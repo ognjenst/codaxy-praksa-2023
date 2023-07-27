@@ -17,7 +17,7 @@ import { HumidityGraph } from "./HumidityGraph";
 export default () => (
     <cx>
         <div controller={Controller} className="p-4 flex flex-col gap-4 overflow-hidden">
-            <Heading level="1" text-bind="$page.device.name" className="text-2xl text-slate-900" />
+            <Heading level="1" text-bind="$page.device.name" className="text-xl text-slate-700" />
             <div text-bind="$page.device.id" className=" text-slate-600" />
             <hr />
 
