@@ -57,10 +57,6 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
 
     private (TimeSpan, TimeSpan) GetTimerParameters(PeriodicTrigger trigger)
     {
-        //TODO: Calculate next moment in future if Start < now
-        var now = DateTime.UtcNow;
-        var delay = trigger.Start >= now ? trigger.Start.Subtract(now) : TimeSpan.FromSeconds(0);
-
         int minutes = trigger.Period;
 
         switch (trigger.Unit)
@@ -68,6 +64,9 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
             case Entities.Enums.PeriodTriggerUnit.HOURS: minutes *= 60; break;
             case Entities.Enums.PeriodTriggerUnit.DAYS: minutes *= 60 * 24; break;
         }
+
+        var now = DateTime.UtcNow;
+        var delay = trigger.Start >= now ? trigger.Start.Subtract(now) : TimeSpan.FromSeconds(minutes * 60 - ((now - trigger.Start).TotalSeconds % (minutes * 60)));
 
         return (delay, TimeSpan.FromMinutes(minutes));
     }
