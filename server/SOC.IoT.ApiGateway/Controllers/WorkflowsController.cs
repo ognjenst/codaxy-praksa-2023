@@ -1,6 +1,7 @@
 ﻿using ConductorSharp.Client.Service;
 using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
+using SOC.IoT.ApiGateway.Helpers;
 
 namespace SOC.IoT.ApiGateway.Controllers;
 
@@ -14,8 +15,8 @@ public class WorkflowsController : ControllerBase
     {
         _workflowsClient = workflowsClient;
     }
-    
 
+	[PermissionAuthorize("Permission", "scope")]
     /// <summary>
     /// Returns all registered workflows from conductor.
     /// </summary>

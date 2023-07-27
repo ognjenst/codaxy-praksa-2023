@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SOC.IoT.ApiGateway.Entities;
 using SOC.IoT.ApiGateway.Entities.Contexts;
@@ -26,10 +27,10 @@ namespace SOC.IoT.ApiGateway.Services
         private readonly JwtSecret _jwtSecret;
         private readonly IMapper _mapper;
 
-        public UserService(SOCIoTDbContext context, JwtSecret jwtSecret, IMapper mapper)
+        public UserService(SOCIoTDbContext context, IOptions<JwtSecret> jwtSecret, IMapper mapper)
         {
             _context = context;
-            _jwtSecret = jwtSecret;
+            _jwtSecret = jwtSecret.Value;
             _mapper = mapper;
         }
 
@@ -112,13 +113,13 @@ namespace SOC.IoT.ApiGateway.Services
             return "Success";
         }
 
-        private string GenerateJwtToken(User account)
+        private string GenerateJwtToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSecret.Key);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", account.Id.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
                 Expires = DateTime.UtcNow.AddMinutes(15),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

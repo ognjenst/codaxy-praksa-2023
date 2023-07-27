@@ -11,8 +11,11 @@ using Microsoft.EntityFrameworkCore;
 using SOC.IoT.ApiGateway.Entities.Contexts;
 using SOC.IoT.ApiGateway.Services;
 using Autofac.Core;
+using SOC.IoT.ApiGateway.Options;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 // Add services to the container.
 
@@ -22,6 +25,9 @@ builder.Services.AddDbContext<SOCIoTDbContext>(options => options.UseNpgsql(buil
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
+builder.Services.Configure<JwtSecret>(builder.Configuration.GetSection("Jwt"));
+builder.Services.AddSingleton<JwtSecret>();
 
 builder.Services.Configure<RouteOptions>(options =>
 {
@@ -46,6 +52,10 @@ builder.Services.AddIoTServices();
 
 builder.Services.RegisterServices();
 builder.Services.AddScoped<IUserService, UserService>();
+
+
+
+
 
 // Configure Serilog
 builder.Host.UseSerilog(

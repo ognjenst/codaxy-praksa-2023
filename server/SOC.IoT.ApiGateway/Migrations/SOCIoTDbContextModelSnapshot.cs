@@ -156,26 +156,6 @@ namespace SOC.IoT.ApiGateway.Migrations
 
             modelBuilder.Entity("SOC.IoT.ApiGateway.Entities.Permission", b =>
                 {
-                    b.Property<int>("ScopeId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ResourceId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ScopeId", "ResourceId");
-
-                    b.HasIndex("ResourceId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("Permissions");
-                });
-
-            modelBuilder.Entity("SOC.IoT.ApiGateway.Entities.Resource", b =>
-                {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
@@ -184,12 +164,24 @@ namespace SOC.IoT.ApiGateway.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(45)
-                        .HasColumnType("character varying(45)");
+                        .HasColumnType("text");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Resources");
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Permissions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin",
+                            RoleId = 1
+                        });
                 });
 
             modelBuilder.Entity("SOC.IoT.ApiGateway.Entities.Role", b =>
@@ -208,24 +200,18 @@ namespace SOC.IoT.ApiGateway.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-                });
 
-            modelBuilder.Entity("SOC.IoT.ApiGateway.Entities.Scope", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(45)
-                        .HasColumnType("character varying(45)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Scopes");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "User"
+                        });
                 });
 
             modelBuilder.Entity("SOC.IoT.ApiGateway.Entities.User", b =>
@@ -256,7 +242,6 @@ namespace SOC.IoT.ApiGateway.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Salt")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Username")
@@ -300,21 +285,9 @@ namespace SOC.IoT.ApiGateway.Migrations
 
             modelBuilder.Entity("SOC.IoT.ApiGateway.Entities.Permission", b =>
                 {
-                    b.HasOne("SOC.IoT.ApiGateway.Entities.Resource", null)
-                        .WithMany()
-                        .HasForeignKey("ResourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SOC.IoT.ApiGateway.Entities.Role", "Role")
                         .WithMany("Permissions")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SOC.IoT.ApiGateway.Entities.Scope", null)
-                        .WithMany()
-                        .HasForeignKey("ScopeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

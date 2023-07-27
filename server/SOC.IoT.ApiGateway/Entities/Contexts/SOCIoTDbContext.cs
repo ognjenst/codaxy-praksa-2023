@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using SOC.IoT.ApiGateway.Entities.Enums;
 
 namespace SOC.IoT.ApiGateway.Entities.Contexts
 {
@@ -11,8 +12,6 @@ namespace SOC.IoT.ApiGateway.Entities.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<Scope> Scopes { get; set; }
-        public DbSet<Resource> Resources { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public SOCIoTDbContext(DbContextOptions<SOCIoTDbContext> options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,30 +25,8 @@ namespace SOC.IoT.ApiGateway.Entities.Contexts
                    v => JsonConvert.DeserializeObject<JObject>(v)).HasColumnType("jsonb");
             });
 
-            modelBuilder.Entity<Scope>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-
-                entity.Property(e => e.Name).HasMaxLength(45);
-            });
-
-            modelBuilder.Entity<Resource>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-
-                entity.Property(e => e.Name).HasMaxLength(45);
-                entity.HasMany(e => e.Scopes)
-                    .WithMany(d => d.Resources)
-                    .UsingEntity<Permission>(
-                        l => l.HasOne<Scope>().WithMany().HasForeignKey(d => d.ScopeId),
-                        r => r.HasOne<Resource>().WithMany().HasForeignKey(d => d.ResourceId)
-                    );
-            });
-
-            modelBuilder.Entity<Permission>(entity =>
-            {
-                entity.HasKey(p => new { p.ScopeId, p.ResourceId });
-            });
+            /*modelBuilder.ApplyConfiguration(new PermissionConfiguration());*/
+            
 
             modelBuilder.Entity<User>(entity =>
             {
@@ -60,7 +37,7 @@ namespace SOC.IoT.ApiGateway.Entities.Contexts
                 entity.Property(e => e.Username).HasMaxLength(45).IsRequired();
                 entity.Property(e => e.Email).HasMaxLength(45).IsRequired();
                 entity.Property(e => e.Password).IsRequired();
-                entity.Property(e => e.Salt).IsRequired();
+                entity.Property(e => e.Salt);
                 entity.HasIndex(e => e.Username).IsUnique();
             });
 
@@ -78,6 +55,26 @@ namespace SOC.IoT.ApiGateway.Entities.Contexts
                 entity.HasMany(e => e.Permissions)
                       .WithOne(l => l.Role)
                       .HasForeignKey(l => l.RoleId);
+
+                entity.HasData(new Role { Id = 1, Name = "Admin" });
+                entity.HasData(new Role { Id = 2, Name = "User" });
+            });
+
+            modelBuilder.Entity<Permission>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Name).IsRequired();
+                
+                foreach (var scope in PermissionData.Scopes)
+                {
+                    foreach (var resource in PermissionData.Resources)
+                    {
+                        entity.HasData(new Permission { Name = $"{scope}-{resource}", RoleId = 1});
+                    }
+                }
+               
+
             });
 
             modelBuilder.Entity<UserRole>(entity =>
