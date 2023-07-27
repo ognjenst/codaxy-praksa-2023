@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SOC.Conductor.Contracts;
 using SOC.Conductor.Entities;
 using SOC.Conductor.Entities.Contexts;
+using SOC.Conductor.Entities.Enums;
 using SOC.Conductor.Generated;
 using SOC.Conductor.Models;
+using SOC.Conductor.Models.Enums;
 using System.Diagnostics;
 
 namespace SOC.Conductor.Services;
@@ -16,10 +18,10 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
 {
     private readonly ILogger<PeriodicTriggerEvaluationService> _logger;
     private readonly Dictionary<int, Timer> _triggerEvaluators = new();
-    public IServiceProvider Services { get; }
+    private readonly IServiceProvider _services;
     public PeriodicTriggerEvaluationService(IServiceProvider services, ILogger<PeriodicTriggerEvaluationService> logger)
     {
-        Services = services;
+        _services = services;
         _logger = logger;
     }
 
@@ -28,12 +30,12 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
         if (notification.Trigger is not PeriodicTrigger) return Task.CompletedTask;
         var task = notification.Trigger as PeriodicTrigger;
 
-        if (notification.Action == Models.Enums.TriggerNotificationAction.DELETE)
+        if (notification.Action == TriggerNotificationAction.DELETE)
         {
              _triggerEvaluators[task.Id].Change(Timeout.Infinite, Timeout.Infinite);
             _triggerEvaluators.Remove(task.Id);
         }
-        else if (notification.Action == Models.Enums.TriggerNotificationAction.CREATE)
+        else if (notification.Action == TriggerNotificationAction.CREATE)
             _triggerEvaluators.Add(task.Id, Evaluate(task));
         else
         {
@@ -46,7 +48,7 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
 
     protected async override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        using var scope = Services.CreateScope();
+        using var scope = _services.CreateScope();
 
         var _unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
@@ -61,8 +63,8 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
 
         switch (trigger.Unit)
         {
-            case Entities.Enums.PeriodTriggerUnit.HOURS: minutes *= 60; break;
-            case Entities.Enums.PeriodTriggerUnit.DAYS: minutes *= 60 * 24; break;
+            case PeriodTriggerUnit.HOURS: minutes *= 60; break;
+            case PeriodTriggerUnit.DAYS: minutes *= 60 * 24; break;
         }
 
         var now = DateTime.UtcNow;
@@ -77,7 +79,7 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
 
         return new Timer(async (_) =>
         {
-            using var scope = Services.CreateScope();
+            using var scope = _services.CreateScope();
 
             var _unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
             var _workflowResourceClient = scope.ServiceProvider.GetRequiredService<IWorkflowResourceClient>();
@@ -86,12 +88,13 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
 
             workflows.ForEach(async (workflow) =>
             {
-                using var scope = Services.CreateScope();
+                using var scope = _services.CreateScope();
 
                 var _unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
                 var _workflowResourceClient = scope.ServiceProvider.GetRequiredService<IWorkflowResourceClient>();
 
-                var automation = await _unitOfWork.Automations.GetAutomationByWorkflowAndTriggerAsync(workflow.Id, trigger.Id);
+                var automation = (await _unitOfWork.Automations.GetByCondition(a => a.WorkflowId == workflow.Id && a.TriggerId == trigger.Id)).First();
+                if (automation is null) return;
                 try
                 {
                     await _workflowResourceClient.StartWorkflow_1Async(new StartWorkflowRequest()
