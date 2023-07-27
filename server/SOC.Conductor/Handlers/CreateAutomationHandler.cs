@@ -27,8 +27,8 @@ namespace SOC.Conductor.Handlers
             };
             
             var result = await _unitOfWork.Automations.CreateAsync(automation, cancellationToken);
-
             await _unitOfWork.SaveAllAsync();
+
             return new AutomationDto()
             {
                 WorkflowId = result.WorkflowId,

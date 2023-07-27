@@ -39,9 +39,9 @@ namespace SOC.Conductor.Repositories
             _dbContext = dbContext;
         }
 
-        public Task<int> SaveAllAsync()
+        public async Task<int> SaveAllAsync()
         {
-            return _dbContext.SaveChangesAsync();
+            return await _dbContext.SaveChangesAsync();
         }
 
         protected virtual void Dispose(bool dispose)
