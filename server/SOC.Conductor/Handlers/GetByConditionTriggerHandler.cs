@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace SOC.Conductor.Handlers
 {
-    public record GetByConditionTriggerRequest(Expression<Func<Trigger, bool>> condition) : IRequest<IEnumerable<Trigger>> { }
+    public record GetByConditionTriggerRequest(string Type, Expression<Func<PeriodicTrigger, bool>> periodicCondition, Expression<Func<IoTTrigger, bool>> iotCondition) : IRequest<IEnumerable<Trigger>> { }
 
     public class GetByConditionTriggerHandler : IRequestHandler<GetByConditionTriggerRequest, IEnumerable<Trigger>>
     {
@@ -18,7 +18,16 @@ namespace SOC.Conductor.Handlers
 
         public async Task<IEnumerable<Trigger>> Handle(GetByConditionTriggerRequest request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.Triggers.GetByCondition(request.condition, cancellationToken);
+            if (request.Type == nameof(PeriodicTrigger))
+            {
+                return await _unitOfWork.PeriodicTriggers.GetByCondition(request.periodicCondition, cancellationToken);
+            }
+            else if (request.Type == nameof(IoTTrigger))
+            {
+                return await _unitOfWork.IoTTriggers.GetByCondition(request.iotCondition, cancellationToken);
+            }
+            else
+                return null;
         }
     }
 }

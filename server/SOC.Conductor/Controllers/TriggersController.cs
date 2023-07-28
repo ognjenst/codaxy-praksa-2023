@@ -42,13 +42,13 @@ namespace SOC.Conductor.Controllers
         /// </summary>
         /// <param name="triggerId"></param>
         /// <returns></returns>
-        [HttpDelete("{triggerId}", Name = "DeleteTrigger")]
+        [HttpDelete("{type}/{triggerId}", Name = "DeleteTrigger")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CommonTriggerDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
-        public async Task<IActionResult> DeleteTriggerAsync(int triggerId)
+        public async Task<IActionResult> DeleteTriggerAsync([FromRoute] string type , int triggerId)
         {
-            await _mediator.Send(new DeleteTriggerRequest(triggerId));
+            await _mediator.Send(new DeleteTriggerRequest(type, triggerId));
             
             return NoContent();
         }

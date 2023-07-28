@@ -4,7 +4,7 @@ using SOC.Conductor.Entities;
 
 namespace SOC.Conductor.Handlers
 {
-    public record DeleteTriggerRequest(int TriggerId) : IRequest { }
+    public record DeleteTriggerRequest(string Type, int TriggerId) : IRequest { }
 
     public class DeleteTriggerHandler : IRequestHandler<DeleteTriggerRequest>
     {
@@ -17,11 +17,23 @@ namespace SOC.Conductor.Handlers
 
         public async Task Handle(DeleteTriggerRequest request, CancellationToken cancellationToken)
         {
-            var trigger = (await _unitOfWork.Triggers.GetByCondition(x => x.Id == request.TriggerId, cancellationToken)).FirstOrDefault();
-            if (trigger is not null) 
+            if (request.Type == nameof(PeriodicTrigger))
             {
-                var result = await _unitOfWork.Triggers.DeleteAsync(trigger, cancellationToken);
-                await _unitOfWork.SaveAllAsync();
+                var trigger = (await _unitOfWork.PeriodicTriggers.GetByCondition(x => x.Id == request.TriggerId, cancellationToken)).FirstOrDefault();
+                if (trigger is not null)
+                {
+                    var result = await _unitOfWork.PeriodicTriggers.DeleteAsync(trigger, cancellationToken);
+                    await _unitOfWork.SaveAllAsync();
+                }
+            }
+            if (request.Type == nameof(IoTTrigger))
+            {
+                var trigger = (await _unitOfWork.IoTTriggers.GetByCondition(x => x.Id == request.TriggerId, cancellationToken)).FirstOrDefault();
+                if (trigger is not null)
+                {
+                    var result = await _unitOfWork.IoTTriggers.DeleteAsync(trigger, cancellationToken);
+                    await _unitOfWork.SaveAllAsync();
+                }
             }
         }
     }
