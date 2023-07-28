@@ -34,7 +34,7 @@ namespace SOC.Conductor.Controllers
                     Name = "Test1",
                     Start = DateTime.UtcNow,
                     Period = 5,
-                    Unit = Entities.Enums.PeriodTriggerUnit.SECONDS,
+                    Unit = Entities.Enums.PeriodTriggerUnit.MINUTES,
                 }
             };
 

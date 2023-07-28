@@ -1,5 +1,4 @@
-﻿using ConductorSharp.Client.Service;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
 
 namespace SOC.IoT.ApiGateway.Controllers;
@@ -14,7 +13,6 @@ public class WorkflowsController : ControllerBase
     {
         _workflowsClient = workflowsClient;
     }
-    
 
     /// <summary>
     /// Returns all registered workflows from conductor.
@@ -31,34 +29,34 @@ public class WorkflowsController : ControllerBase
         return Ok(data);
     }
 
-	/// <summary>
-	/// Returns all registered workflows from conductor.
-	/// </summary>
-	/// <returns></returns>
-	[HttpGet("GetAllTasks", Name = "GetAllTasksAsync")]
-	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<TaskResponseDto>))]
-	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-	[ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
-	public async Task<IActionResult> GetAllTasksAsync()
-	{
+    /// <summary>
+    /// Returns all registered workflows from conductor.
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("GetAllTasks", Name = "GetAllTasksAsync")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<TaskResponseDto>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
+    public async Task<IActionResult> GetAllTasksAsync()
+    {
         var data = await _workflowsClient.GetAllTasksAsync();
 
-		return Ok(data);
-	}
+        return Ok(data);
+    }
 
-	/// <summary>
-	/// Play workflow
-	/// </summary>
-	/// <param name="playDto"></param>
-	/// <returns></returns>
-	[HttpPost("PlayWorkflow", Name = "PlayWorkflow")]
-	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
-	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-	[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
-	[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-	public async Task<IActionResult> PlayWorkflowAsync([FromBody] PlayRequestDto playDto)
-	{
-		await _workflowsClient.PlayWorkflowAsync(playDto);
-		return Ok();
-	}
+    /// <summary>
+    /// Play workflow
+    /// </summary>
+    /// <param name="playDto"></param>
+    /// <returns></returns>
+    [HttpPost("PlayWorkflow", Name = "PlayWorkflow")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+    public async Task<IActionResult> PlayWorkflowAsync([FromBody] PlayRequestDto playDto)
+    {
+        await _workflowsClient.PlayWorkflowAsync(playDto);
+        return Ok();
+    }
 }

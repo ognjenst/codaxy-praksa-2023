@@ -2,6 +2,6 @@
 {
     public enum PeriodTriggerUnit
     {
-        DAYS, HOURS, MINUTES, SECONDS
+        DAYS, HOURS, MINUTES
     }
 }

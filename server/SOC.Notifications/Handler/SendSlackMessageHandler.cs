@@ -18,7 +18,7 @@ namespace SOC.Notifications.Handler
         public string Message { get; set; }
     }
 
-    [OriginalName("SEND_slack_message")]
+    [OriginalName("NOTIFICATIONS_send_slack_message")]
     internal class SendSlackMessageHandler : ITaskRequestHandler<SendSlackMessageRequest, NoOutput>
     {
         private readonly ISlackService _slackService;

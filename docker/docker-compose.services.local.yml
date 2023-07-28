@@ -1,0 +1,110 @@
+version: "3.8"
+
+services:
+  
+  soc_iotgateway:
+    build:
+      context: ..
+      dockerfile: ./docker/iot-gateway/Dockerfile
+    container_name: soc_iotgateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "9002:80"
+    networks:
+      - soc_net
+    restart: unless-stopped
+    secrets:
+      - source: soc_iotgateway_appsettings
+        target: /app/appsettings.json
+
+  soc_conductor:
+    build:
+      context: ..
+      dockerfile: ./docker/conductor/Dockerfile
+    container_name: soc_conductor
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - soc_net
+    restart: unless-stopped
+    secrets:
+      - source: soc_conductor_appsettings
+        target: /app/appsettings.json
+
+  soc_ticketing:
+    build:
+      context: ..
+      dockerfile: ./docker/ticketing/Dockerfile
+    container_name: soc_ticketing
+    restart: unless-stopped
+    secrets:
+      - source: soc_ticketing_appsettings
+        target: /app/appsettings.json
+
+  soc_notifications:
+    build:
+      context: ..
+      dockerfile: ./docker/notifications/Dockerfile
+    container_name: soc_ticketing
+    restart: unless-stopped
+    secrets:
+      - source: soc_ticketing_appsettings
+        target: /app/appsettings.json
+
+  soc_intelligence:
+    build:
+      context: ..
+      dockerfile: ./docker/intelligence/Dockerfile
+    container_name: soc_intelligence
+    restart: unless-stopped
+    secrets:
+      - source: soc_intelligence_appsettings
+        target: /app/appsettings.json
+
+  soc_scanning:
+    build:
+      context: ..
+      dockerfile: ./docker/scanning/Dockerfile
+    container_name: soc_scanning
+    restart: unless-stopped
+    secrets:
+      - source: soc_scanning_appsettings
+        target: /app/appsettings.json
+
+  soc_iot-micro:
+    build:
+      context: ..
+      dockerfile: ./docker/iot-micro/Dockerfile
+    container_name: soc_iot-micro
+    restart: unless-stopped
+    secrets:
+      - source: soc_iot-micro_appsettings
+        target: /app/appsettings.json
+
+
+secrets:
+  soc_iotgateway_appsettings:
+    file: secrets/local/appsettings.soc_iotgateway.json
+  soc_conductor_appsettings:
+    file: secrets/local/appsettings.soc_conductor.json
+  soc_ticketing_appsettings:
+    file: secrets/local/appsettings.soc_ticketing.json
+  soc_notifications_appsettings:
+    file: secrets/local/appsettings.soc_notifications.json
+  soc_intelligence_appsettings:
+    file: secrets/local/appsettings.soc_intelligence.json
+  soc_scanning_appsettings:
+    file: secrets/local/appsettings.soc_scanning.json
+  soc_iot-micro_appsettings:
+    file: secrets/local/appsettings.soc_iot-micro.json
+  soc-scanner_appsettings:
+    file: secrets/local/appsettings.soc-scanner.json
+
+networks:
+  soc_net:
+    external:
+      name: soc_network
+    
