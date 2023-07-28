@@ -20,7 +20,7 @@ export const BrightnessComponent = () => (
                 enabled-bind="$page.device.state.state"
             />
             <NumberField
-                style={{ width: 100 }}
+                className="w-16"
                 format="n;0;2"
                 value-bind="$page.device.light.brightness"
                 enabled-bind="$page.device.state.state"
