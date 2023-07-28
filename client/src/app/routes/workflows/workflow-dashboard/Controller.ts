@@ -112,6 +112,7 @@ export default class extends Controller {
                 taskReferenceName: workflowTasks[i].taskReferenceName,
                 inputParameters,
                 conditionInputParameters,
+                expression: workflowTasks[i].expression,
                 type: taskTypes[this.store.get("$task.type")].text,
             };
 
