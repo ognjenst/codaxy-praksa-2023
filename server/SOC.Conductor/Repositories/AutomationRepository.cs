@@ -7,10 +7,15 @@ namespace SOC.Conductor.Repositories
 {
     public class AutomationRepository : RepositoryBase<Automation>, IAutomationRepository
     {
-
-        public AutomationRepository(SOCDbContext _SOCDbContext)
-            : base(_SOCDbContext)
+        private readonly SOCDbContext _dbContext;
+        public AutomationRepository(SOCDbContext _SOCDbContext) : base(_SOCDbContext) 
         {
+            _dbContext = _SOCDbContext;
+        }
+
+        public async Task<List<Workflow>?> GetWorkflowsByTriggerIdAsync(int triggerId)
+        {
+            return (await _dbContext.Triggers.Include(t => t.Workflows).FirstOrDefaultAsync(t => t.Id == triggerId))?.Workflows.ToList();
         }
     }
 }
