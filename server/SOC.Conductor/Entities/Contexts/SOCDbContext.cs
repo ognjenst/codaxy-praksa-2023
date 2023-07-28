@@ -39,6 +39,7 @@ namespace SOC.Conductor.Entities.Contexts
             modelBuilder.Entity<Trigger>().UseTptMappingStrategy();
 
             modelBuilder.Entity<Automation>(entity =>
+
             {
                 entity.HasKey(e => new { e.WorkflowId, e.TriggerId });
                 entity
