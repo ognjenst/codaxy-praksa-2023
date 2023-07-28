@@ -42,7 +42,7 @@ namespace SOC.Conductor.Controllers
         /// <param name="triggerId"></param>
         /// <returns></returns>
         [HttpDelete("{workflowId}/{triggerId}", Name = "DeleteAutomation")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AutomationDto))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
         public async Task<IActionResult> DeleteAutomationAsync([FromRoute] int workflowId, [FromRoute] int triggerId)
@@ -77,6 +77,8 @@ namespace SOC.Conductor.Controllers
         /// <summary>
         /// Updates an automation.
         /// </summary>
+        /// <param name="workflowId"></param>
+        /// <param name="triggerId"></param>
         /// <param name="automationDto"></param>
         /// <returns></returns>
         [HttpPut("{workflowId}/{triggerId}", Name = "UpdateAutomation")]

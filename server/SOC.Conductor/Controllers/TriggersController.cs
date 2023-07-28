@@ -43,7 +43,7 @@ namespace SOC.Conductor.Controllers
         /// <param name="triggerId"></param>
         /// <returns></returns>
         [HttpDelete("{type}/{triggerId}", Name = "DeleteTrigger")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CommonTriggerDto))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
         public async Task<IActionResult> DeleteTriggerAsync([FromRoute] string type , int triggerId)

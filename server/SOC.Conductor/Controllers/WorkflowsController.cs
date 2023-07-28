@@ -23,7 +23,7 @@ public class WorkflowsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet(Name = "GetAllWorkflowsFromDB")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IList<WorkflowDto>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<WorkflowDto>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
     public async Task<IActionResult> GetAllWorkflowsFromDBAsync()
@@ -42,7 +42,7 @@ public class WorkflowsController : ControllerBase
     /// <param name="workflowId"></param>
     /// <returns></returns>
     [HttpDelete("{workflowId}", Name = "DeleteWorkflow")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkflowDto))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
     public async Task<IActionResult> DeleteWorkflowAsync(int workflowId)
@@ -77,6 +77,7 @@ public class WorkflowsController : ControllerBase
     /// Updates a workflow.
     /// </summary>
     /// <param name="workflowDto"></param>
+    /// <param name="workflowId"></param>
     /// <returns></returns>
     [HttpPut("{workflowId}", Name = "UpdateWorkflow")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkflowDto))]
@@ -127,7 +128,15 @@ public class WorkflowsController : ControllerBase
 		return Ok(response);
 	}
 
-	[HttpPut("PauseWorkflowAsync")]
+    /// <summary>
+	/// Pauses workflow
+	/// </summary>
+	/// <param name="pauseDto"></param>
+	/// <returns></returns>
+    [HttpPut("PauseWorkflowAsync")]
+    [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
 	public async Task<IActionResult> PauseWorkflowAsync([FromBody] PauseWorkflowRequestDto pauseDto)
 	{
 		await _mediator.Send(new PauseWorkflow(pauseDto));
@@ -135,7 +144,16 @@ public class WorkflowsController : ControllerBase
 		return NoContent();
 	}
 
-	[HttpPut("ResumeWorkflowAsync")]
+
+    /// <summary>
+	/// Resumes workflow
+	/// </summary>
+	/// <param name="resumeDto"></param>
+	/// <returns></returns>
+    [HttpPut("ResumeWorkflow")]
+    [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
 	public async Task<IActionResult> ResumeWorkflowAsync([FromBody] ResumeWorkflowRequestDto resumeDto)
 	{
 		await _mediator.Send(new ResumeWorkflow(resumeDto));
