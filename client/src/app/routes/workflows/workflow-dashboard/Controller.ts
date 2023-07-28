@@ -14,6 +14,23 @@ export default class extends Controller {
         });
 
         this.store.set("$page.undoneWorkflows", arrUndone);
+
+        if (this.store.get("$page.undoneWorkflows").length == 0) {
+            //if we there are not any elements in undoneWorkflow list
+            //then select first element of workflow list (if it exists)
+            if (this.store.get("$page.workflows").length > 0) {
+                this.store.set("$page.currentWorkflow", this.store.get("$page.workflows")[0]);
+                this.store.set("$page.arrTasks", this.store.get("$page.currentWorkflow.tasks"));
+                this.store.set("$page.currentWorkflowInUndoneList", false);
+            } else {
+                //if there are no elements then don't show
+                this.store.set("$page.flagDashboard", false);
+            }
+        } else {
+            this.store.set("$page.currentWorkflow", this.store.get("$page.undoneWorkflows")[0]);
+            this.store.set("$page.arrTasks", this.store.get("$page.currentWorkflow.tasks"));
+            this.store.set("$page.currentWorkflowInUndoneList", true);
+        }
     }
 
     deleteWorkflow() {
@@ -91,7 +108,7 @@ export default class extends Controller {
             tasks: arrTasks,
         };
 
-        //console.log(obj);
+        console.log(obj);
 
         /*
         try {

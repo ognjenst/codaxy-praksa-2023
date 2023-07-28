@@ -86,7 +86,7 @@ export default (reslove, props) =>
 
                     conditionObject = [
                         {
-                            id: num++,
+                            id: 0,
                             text: "$workflow.input",
                             param: arrParam,
                         },

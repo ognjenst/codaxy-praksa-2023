@@ -23,5 +23,6 @@ export default class extends Controller {
         this.store.set("$page.currentWorkflow", currentWorkflow);
         this.store.set("$page.arrTasks", this.store.get("$page.currentWorkflow.tasks"));
         this.store.set("$page.currentWorkflowInUndoneList", false);
+        this.store.set("$page.flagDashboard", true);
     }
 }

@@ -4,7 +4,7 @@ import WorkflowTaskProperties from "./workflow-task-properties";
 
 export default () => (
     <cx>
-        <div className="relative" controller={Controller}>
+        <div className="relative" controller={Controller} if-expr="{$page.flagDashboard} == true">
             <span className="relative -top-4 left-5 bg-white p-2 text-gray-600" text-bind="$page.currentWorkflow.name" />
             <Button
                 if-expr="{$page.currentWorkflowInUndoneList} == true"
@@ -37,7 +37,7 @@ export default () => (
             />
         </div>
 
-        <div className="p-10" controller={Controller}>
+        <div className="p-10" controller={Controller} if-expr="{$page.flagDashboard} == true">
             <div className="flex flex-row">
                 <div className="flex flex-col">
                     <div className="flex-1">
