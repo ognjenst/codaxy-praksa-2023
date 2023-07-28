@@ -51,11 +51,8 @@ export default () => (
                                     <LookupField
                                         label="Param"
                                         options={computable("$con.sourceDecision", "$con.source", (id, sources) => {
-                                            console.log(id);
-                                            console.log(sources);
-                                            return sources[id].param;
+                                            return id !== null && sources.length > id ? sources[id].param : [];
                                         })}
-                                        //options-bind="$con.param"
                                         value-bind="$con.paramDecision"
                                         className="!w-full"
                                     />
