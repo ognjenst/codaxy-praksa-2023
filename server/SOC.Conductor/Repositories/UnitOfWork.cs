@@ -10,7 +10,6 @@ namespace SOC.Conductor.Repositories
         private IAutomationRepository _automationRepository;
         private IIoTTriggerRepository _ioTTriggerRepository;
         private IPeriodicTriggerRepository _periodicTriggerRepository;
-        private ITriggerRepository _triggerRepository;
         private IWorkflowRepository _workflowRepository;
 
         public IAutomationRepository Automations
@@ -24,10 +23,6 @@ namespace SOC.Conductor.Repositories
         public IPeriodicTriggerRepository PeriodicTriggers
         {
             get => _periodicTriggerRepository ??= new PeriodicTriggerRepository(_dbContext);
-        }
-        public ITriggerRepository Triggers
-        {
-            get => _triggerRepository ??= new TriggerRepository(_dbContext);
         }
         public IWorkflowRepository Workflows
         {
