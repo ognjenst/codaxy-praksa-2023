@@ -15,7 +15,7 @@ namespace SOC.Conductor.Repositories
 
         public async Task<List<Workflow>?> GetWorkflowsByTriggerIdAsync(int triggerId)
         {
-            return (await _dbContext.Triggers.Include(t => t.Workflows).Where(t => t.Id == triggerId).FirstOrDefaultAsync())?.Workflows.ToList();
+            return (await _dbContext.Triggers.Include(t => t.Workflows).FirstOrDefaultAsync(t => t.Id == triggerId))?.Workflows.ToList();
         }
     }
 }

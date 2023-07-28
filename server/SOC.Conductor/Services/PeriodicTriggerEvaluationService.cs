@@ -93,7 +93,7 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
                 var _unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
                 var _workflowResourceClient = scope.ServiceProvider.GetRequiredService<IWorkflowResourceClient>();
 
-                var automation = (await _unitOfWork.Automations.GetByCondition(a => a.WorkflowId == workflow.Id && a.TriggerId == trigger.Id)).First();
+                var automation = (await _unitOfWork.Automations.GetByCondition(a => a.WorkflowId == workflow.Id && a.TriggerId == trigger.Id)).FirstOrDefault();
                 if (automation is null) return;
                 try
                 {
