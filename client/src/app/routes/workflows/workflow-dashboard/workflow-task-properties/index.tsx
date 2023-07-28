@@ -2,10 +2,11 @@ import { LabelsLeftLayout, LabelsTopLayout } from "cx/ui";
 import { LookupField, TextField } from "cx/widgets";
 import InputParams from "../../input-params";
 import ConditionExecution from "../../condition-execution";
+import Controller from "./Controller";
 
 export default () => (
     <cx>
-        <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-5">
+        <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-5" controller={Controller}>
             <div className="flex items-center justify-middle gap-2">
                 <TextField label="Reference name: " value-bind="$task.taskReferenceName" />
             </div>

@@ -118,65 +118,6 @@ export default () => (
                                                                 mod="hollow"
                                                                 onClick={(e, { store }) => {
                                                                     store.toggle("$task.flagShow");
-
-                                                                    var arr = store.get("$page.currentWorkflow.tasks");
-                                                                    var arrPrevious = [];
-                                                                    for (
-                                                                        let i = 0;
-                                                                        i < Math.min(arr.length, store.get("$indexTask"));
-                                                                        i++
-                                                                    ) {
-                                                                        if (arr[i].taskReferenceName + "" !== "undefined") {
-                                                                            arrPrevious.push({
-                                                                                id: i + 1,
-                                                                                value: arr[i].taskReferenceName,
-                                                                            });
-                                                                        }
-                                                                    }
-
-                                                                    store.set("$task.realPreviousReferences", []);
-                                                                    arrPrevious.forEach((item) => {
-                                                                        store.set("$task.realPreviousReferences", [
-                                                                            ...store.get("$task.realPreviousReferences"),
-                                                                            { index: item.id, value: item.value },
-                                                                        ]);
-                                                                    });
-
-                                                                    for (let i = 0; i < arrPrevious.length; i++) {
-                                                                        var arrInputs = store.get(
-                                                                            "$page.currentWorkflow.tasks." +
-                                                                                store.get("$indexTask") +
-                                                                                ".inputs"
-                                                                        );
-                                                                        for (let j = 0; j < arrInputs.length; j++) {
-                                                                            var arrSource = store.get(
-                                                                                "$page.currentWorkflow.tasks." +
-                                                                                    store.get("$indexTask") +
-                                                                                    ".inputs." +
-                                                                                    j +
-                                                                                    ".source"
-                                                                            );
-
-                                                                            for (let k = 0; k < arrSource.length; k++) {
-                                                                                if (arrSource[k].text === "..........") {
-                                                                                    arrPrevious.forEach((item) => {
-                                                                                        if (item.id === k) {
-                                                                                            arrSource[k].text = item.value;
-                                                                                        }
-                                                                                    });
-
-                                                                                    store.set(
-                                                                                        "$page.currentWorkflow.tasks." +
-                                                                                            store.get("$indexTask") +
-                                                                                            ".inputs." +
-                                                                                            j +
-                                                                                            ".source",
-                                                                                        arrSource
-                                                                                    );
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
                                                                 }}
                                                             >
                                                                 <Icon name="drop-down" />

@@ -25,18 +25,6 @@ export default (reslove, props) =>
         }
 
         createWorkflowInfo() {
-            var arrFill = [
-                {
-                    tab: "Input1",
-                    param: [
-                        {
-                            id: 0,
-                            text: "Input1",
-                        },
-                    ],
-                },
-            ];
-
             var arrTaskResp = [];
             var arrImplGlobal = []; //this is for remembering output keys from previous tasks if they have
             var selectedTasks = this.store.get("$insert.workflowTasks");
@@ -60,6 +48,14 @@ export default (reslove, props) =>
                     var num = 0;
                     var objOutput = [
                         {
+                            id: num,
+                            text: "$workflow.input",
+                            param: arrParam,
+                        },
+                    ];
+
+                    var conditionObject = [
+                        {
                             id: num++,
                             text: "$workflow.input",
                             param: arrParam,
@@ -68,6 +64,12 @@ export default (reslove, props) =>
 
                     for (let j = 0; j < arrImplGlobal.length; j++) {
                         objOutput.push({
+                            id: num,
+                            text: IGNORE_OUTPUTKEYS,
+                            param: arrImplGlobal[j],
+                        });
+
+                        conditionObject.push({
                             id: num++,
                             text: IGNORE_OUTPUTKEYS,
                             param: arrImplGlobal[j],
@@ -81,15 +83,28 @@ export default (reslove, props) =>
                             param: arrParam,
                         },
                     ];
+
+                    conditionObject = [
+                        {
+                            id: num++,
+                            text: "$workflow.input",
+                            param: arrParam,
+                        },
+                    ];
                 }
 
                 for (let j = 0; j < selectedTasks[i].inputKeys.length; j++) {
                     arrInputs.push({
                         tab: selectedTasks[i].inputKeys[j],
-                        //param: [arrParam],
                         source: objOutput,
                     });
                 }
+
+                var arrFill = [];
+                arrFill.push({
+                    tab: "Input1",
+                    source: conditionObject,
+                });
 
                 var obj = {
                     name: selectedTasks[i].name,

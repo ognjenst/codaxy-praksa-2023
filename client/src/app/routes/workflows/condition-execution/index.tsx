@@ -1,6 +1,6 @@
 import { Button, LookupField, Repeater, Tab, ValidationGroup, TextField } from "cx/widgets";
 import Controller from "./Controller";
-import { LabelsTopLayout, bind } from "cx/ui";
+import { LabelsTopLayout, bind, computable } from "cx/ui";
 import { openDryRunWindow } from "../dry-run";
 
 export default () => (
@@ -28,10 +28,16 @@ export default () => (
                         <Button icon="plus" className="rounded-full h-8 w-8" onClick="addNewInputVariable" />
                     </div>
                     <div className="flex flex-1" styles="border: 1px solid lightgray; background: white; padding: 20px">
-                        <Repeater records={bind("$task.conditions")} recordAlias="$con">
+                        <Repeater records={bind("$task.conditions")} recordAlias="$con" indexAlias="$indexAlias">
                             <div
                                 visible-expr="{$task.selectedTab} == {$con.tab}"
                                 className="flex flex-1 flex-col items-center justify-middle"
+                                controller={{
+                                    onInit() {
+                                        let v = this.store.get("$con.source")[0];
+                                        this.store.set("$con.sourceDecision", v.id);
+                                    },
+                                }}
                             >
                                 <div className="flex flex-1" layout={LabelsTopLayout}>
                                     <LookupField
@@ -44,7 +50,10 @@ export default () => (
                                 <div className="flex flex-1" layout={LabelsTopLayout}>
                                     <LookupField
                                         label="Param"
-                                        options-bind="$con.param"
+                                        options={computable("$con.sourceDecision", "$con.source", (id, sources) => {
+                                            return sources[id].param;
+                                        })}
+                                        //options-bind="$con.param"
                                         value-bind="$con.paramDecision"
                                         className="!w-full"
                                     />
