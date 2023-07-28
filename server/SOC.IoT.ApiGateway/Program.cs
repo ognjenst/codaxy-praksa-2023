@@ -12,6 +12,9 @@ using SOC.IoT.ApiGateway.Entities.Contexts;
 using SOC.IoT.ApiGateway.Services;
 using Autofac.Core;
 using SOC.IoT.ApiGateway.Options;
+using Microsoft.AspNetCore.Authorization;
+using SOC.IoT.ApiGateway.Handlers;
+using SOC.IoT.ApiGateway.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +56,15 @@ builder.Services.AddIoTServices();
 builder.Services.RegisterServices();
 builder.Services.AddScoped<IUserService, UserService>();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Delete-Workflow", policy =>
+    {
+        policy.Requirements.Add(new PolicyRequirement("Delete-Workflow"));
+    });
+});
+
+builder.Services.AddSingleton<IAuthorizationHandler, PolicyAuthorizationHandler>();
 
 
 
