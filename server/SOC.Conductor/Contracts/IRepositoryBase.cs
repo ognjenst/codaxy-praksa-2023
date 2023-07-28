@@ -7,7 +7,7 @@ namespace SOC.Conductor.Contracts
         Task<T> CreateAsync(T entity, CancellationToken cancellationToken = default); 
         Task<T> UpdateAsync(T entity, CancellationToken cancellationToken = default); 
         Task<T> DeleteAsync(T entity, CancellationToken cancellationToken = default); 
-        Task<List<T>> GetAllAsync(CancellationToken  cancellationToken); 
-        Task<IList<T>> GetByCondition(Expression<Func<T, bool>> condition, CancellationToken cancellationToken); 
+        Task<List<T>> GetAllAsync(CancellationToken  cancellationToken = default); 
+        Task<IList<T>> GetByCondition(Expression<Func<T, bool>> condition, CancellationToken cancellationToken = default); 
     }
 }
