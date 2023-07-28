@@ -77,25 +77,42 @@ export default class extends Controller {
 
     async registerWorkflow() {
         var arrTasks = [];
-        var workflowTasks = this.store.get("$page.arrTasks");
+        var workflowTasks = this.store.get("$page.currentWorkflow.tasks");
+
         for (let i = 0; i < workflowTasks.length; i++) {
             var inputParameters = new Map();
+            var conditionInputParameters = new Map();
 
             for (let j = 0; j < workflowTasks[i].inputs.length; j++) {
                 var sourceIndex = workflowTasks[i].inputs[j].sourceDecision;
                 var paramIndex = workflowTasks[i].inputs[j].paramDecision;
 
                 try {
-                    var sourceText = workflowTasks[i].inputs[j].source[sourceIndex - 1].text;
-                    var paramText = workflowTasks[i].inputs[j].param[paramIndex - 1].text;
-                    inputParameters.set(workflowTasks[i].inputs[j].tab, sourceText + "." + paramText);
+                    var sourceText = workflowTasks[i].inputs[j].source[sourceIndex].text;
+                    var paramText = workflowTasks[i].inputs[j].source[sourceIndex].param[paramIndex].text;
+                    inputParameters.set(workflowTasks[i].inputs[j].tab, "{" + sourceText + "." + paramText + "}");
                 } catch (err) {}
+            }
+
+            if (workflowTasks[i].expression !== null) {
+                for (let j = 0; j < workflowTasks[i].conditions.length; j++) {
+                    var sourceIndex = workflowTasks[i].conditions[j].sourceDecision;
+                    var paramIndex = workflowTasks[i].conditions[j].paramDecision;
+
+                    try {
+                        var sourceText = workflowTasks[i].conditions[j].source[sourceIndex].text;
+                        var paramText = workflowTasks[i].conditions[j].source[sourceIndex].param[paramIndex].text;
+                        conditionInputParameters.set(workflowTasks[i].conditions[j].tab, "{" + sourceText + "." + paramText + "}");
+                    } catch (err) {}
+                }
             }
 
             var tempObj = {
                 name: workflowTasks[i].name,
                 taskReferenceName: workflowTasks[i].taskReferenceName,
                 inputParameters,
+                conditionInputParameters,
+                type: taskTypes[this.store.get("$task.type")].text,
             };
 
             arrTasks.push(tempObj);
@@ -105,6 +122,7 @@ export default class extends Controller {
             name: this.store.get("$page.currentWorkflow.name"),
             description: this.store.get("$page.currentWorkflow.description"),
             version: this.store.get("$page.currentWorkflow.version"),
+            inputParameters: this.store.get("$page.currentWorkflow.inputParameters"),
             tasks: arrTasks,
         };
 
@@ -121,3 +139,4 @@ export default class extends Controller {
 }
 
 const BACKEND_REQUEST_REGISTER_WORKFLOW = "/workflows/register_workflow";
+const taskTypes = [{ id: 0, text: "SIMPLE" }];

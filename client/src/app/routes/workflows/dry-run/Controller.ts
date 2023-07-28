@@ -12,7 +12,7 @@ export default (task) =>
 
             var arr = this.store.get("$inputs");
             for (let i = 0; i < arr.length; i++) {
-                expr = expr.replace("$." + arr[i].tab, arr[i].value);
+                expr = expr.replace(FIXED_CHARS + arr[i].tab, arr[i].value);
             }
 
             var result = eval(expr);
@@ -20,3 +20,5 @@ export default (task) =>
             this.store.set("$result", result);
         }
     };
+
+const FIXED_CHARS = "$.";

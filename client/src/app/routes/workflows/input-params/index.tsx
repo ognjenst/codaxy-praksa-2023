@@ -31,10 +31,7 @@ export default () => (
                                 className="flex flex-1"
                                 layout={LabelsTopLayout}
                                 controller={{
-                                    onInit() {
-                                        let v = this.store.get("$con.source")[0];
-                                        this.store.set("$con.sourceDecision", v.id);
-                                    },
+                                    onInit() {},
                                 }}
                             >
                                 <LookupField

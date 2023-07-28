@@ -11,7 +11,7 @@ export default () => (
                 <TextField label="Reference name: " value-bind="$task.taskReferenceName" />
             </div>
             <div className="flex items-center justify-middle gap-2">
-                <LookupField label="Task" className="flex-1" value-bind="$page.task.type" options={taskTypes} />
+                <LookupField label="Task" className="flex-1" value-bind="$task.type" options={taskTypes} />
             </div>
             <div className="gap-2 -mt-3">
                 <InputParams />
@@ -23,4 +23,4 @@ export default () => (
     </cx>
 );
 
-const taskTypes = [{ id: 1, text: "SIMPLE" }];
+const taskTypes = [{ id: 0, text: "SIMPLE" }];
