@@ -52,6 +52,7 @@ var builder = Host.CreateDefaultBuilder()
                 });
 
             builder.RegisterWorkerTask<ScanIpAddressHandler>();
+            builder.RegisterWorkerTask<ExamineNetworkScanHandler>();
 
             builder.RegisterMediatR(typeof(Program).Assembly);
         }
