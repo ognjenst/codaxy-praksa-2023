@@ -12,7 +12,7 @@ using SOC.IoT.Handler;
 var builder = Host.CreateDefaultBuilder()
     .ConfigureAppConfiguration(
         (hosting, config) => {
-            config.AddJsonFile("appsettings.Development.json");
+            config.AddJsonFile("appsettings.json");
         }
     )
     .UseServiceProviderFactory(new AutofacServiceProviderFactory())

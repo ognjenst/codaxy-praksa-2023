@@ -20,11 +20,11 @@ public class WorkflowsController : ControllerBase
 	}
 
 	/// <summary>
-	/// Create automation entity
+	/// Get all tasks 
 	/// </summary>
-	/// <param name="automationDto"></param>
+	/// <param name=""></param>
 	/// <returns></returns>
-	[HttpGet("GetAllTasksAsync", Name = "GetAllTasksAsync")]
+	[HttpGet("GetAllTasks", Name = "GetAllTasks")]
 	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<TaskResponseDto>))]
 	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
 	[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
@@ -37,11 +37,11 @@ public class WorkflowsController : ControllerBase
 	}
 
 	/// <summary>
-	/// Create automation entity
+	/// Get all workflows
 	/// </summary>
-	/// <param name="automationDto"></param>
+	/// <param name=""></param>
 	/// <returns></returns>
-	[HttpGet("GetAllWorkflows", Name = "GetAllWorkflowsAsync")]
+	[HttpGet("GetAllWorkflows", Name = "GetAllWorkflows")]
 	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<WorkflowResponseDto>))]
 	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
 	[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
@@ -69,7 +69,16 @@ public class WorkflowsController : ControllerBase
 		return NoContent();
 	}
 
-	[HttpPost("PlayWorkflowAsync")]
+	/// <summary>
+	/// Play workflow
+	/// </summary>
+	/// <param name="playDto"></param>
+	/// <returns></returns>
+	[HttpPost("PlayWorkflow", Name = "PlayWorkflow")]
+	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+	[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+	[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
 	public async Task<IActionResult> PlayWorkflowAsync([FromBody] PlayRequestDto playDto)
 	{
 		await _mediator.Send(new PlayWorkflow(playDto));

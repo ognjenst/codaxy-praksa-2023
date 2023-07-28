@@ -4,6 +4,8 @@
 // </auto-generated>
 //----------------------
 
+#nullable enable
+
 #pragma warning disable 108 // Disable "CS0108 '{derivedDto}.ToJson()' hides inherited member '{dtoBase}.ToJson()'. Use the new keyword if hiding was intended."
 #pragma warning disable 114 // Disable "CS0114 '{derivedDto}.RaisePropertyChanged(String)' hides inherited member 'dtoBase.RaisePropertyChanged(String)'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword."
 #pragma warning disable 472 // Disable "CS0472 The result of the expression is always 'false' since a value of type 'Int32' is never equal to 'null' of type 'Int32?'
@@ -19,14 +21,8 @@ namespace SOC.Conductor.Client.Generated;
 using System = global::System;
 
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial interface IAutomationService
+public partial interface IAutomationClient
 {
-	/// <summary>
-	/// Create automation entity
-	/// </summary>
-	/// <returns>Success</returns>
-	/// <exception cref="ApiException">A server side error occurred.</exception>
-	System.Threading.Tasks.Task<AutomationDto> CreateAutomationAysncAsync(AutomationDto body);
 
 	/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
 	/// <summary>
@@ -34,18 +30,18 @@ public partial interface IAutomationService
 	/// </summary>
 	/// <returns>Success</returns>
 	/// <exception cref="ApiException">A server side error occurred.</exception>
-	System.Threading.Tasks.Task<AutomationDto> CreateAutomationAysncAsync(AutomationDto body, System.Threading.CancellationToken cancellationToken);
+	System.Threading.Tasks.Task<AutomationDto> CreateAutomationAsync(AutomationDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 }
 
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class AutomationService : IAutomationService
+public partial class AutomationClient : IAutomationClient
 {
 	private string _baseUrl = "";
 	private System.Net.Http.HttpClient _httpClient;
 	private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
-	public AutomationService(string baseUrl, System.Net.Http.HttpClient httpClient)
+	public AutomationClient(string baseUrl, System.Net.Http.HttpClient httpClient)
 	{
 		BaseUrl = baseUrl;
 		_httpClient = httpClient;
@@ -65,7 +61,7 @@ public partial class AutomationService : IAutomationService
 		set { _baseUrl = value; }
 	}
 
-	protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
+	public Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
 
 	partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
 
@@ -73,23 +69,13 @@ public partial class AutomationService : IAutomationService
 	partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
 	partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
-	/// <summary>
-	/// Create automation entity
-	/// </summary>
-	/// <returns>Success</returns>
-	/// <exception cref="ApiException">A server side error occurred.</exception>
-	public virtual System.Threading.Tasks.Task<AutomationDto> CreateAutomationAysncAsync(AutomationDto body)
-	{
-		return CreateAutomationAysncAsync(body, System.Threading.CancellationToken.None);
-	}
-
 	/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
 	/// <summary>
 	/// Create automation entity
 	/// </summary>
 	/// <returns>Success</returns>
 	/// <exception cref="ApiException">A server side error occurred.</exception>
-	public virtual async System.Threading.Tasks.Task<AutomationDto> CreateAutomationAysncAsync(AutomationDto body, System.Threading.CancellationToken cancellationToken)
+	public virtual async System.Threading.Tasks.Task<AutomationDto> CreateAutomationAsync(AutomationDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 	{
 		var urlBuilder_ = new System.Text.StringBuilder();
 		urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/automation");
@@ -176,7 +162,7 @@ public partial class AutomationService : IAutomationService
 	{
 		if (response == null || response.Content == null)
 		{
-			return new ObjectResponseResult<T>(default(T), string.Empty);
+			return new ObjectResponseResult<T>(default(T)!, string.Empty);
 		}
 
 		if (ReadResponseAsString)
@@ -185,7 +171,7 @@ public partial class AutomationService : IAutomationService
 			try
 			{
 				var typedBody = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseText, JsonSerializerSettings);
-				return new ObjectResponseResult<T>(typedBody, responseText);
+				return new ObjectResponseResult<T>(typedBody!, responseText);
 			}
 			catch (Newtonsoft.Json.JsonException exception)
 			{
@@ -203,7 +189,7 @@ public partial class AutomationService : IAutomationService
 				{
 					var serializer = Newtonsoft.Json.JsonSerializer.Create(JsonSerializerSettings);
 					var typedBody = serializer.Deserialize<T>(jsonTextReader);
-					return new ObjectResponseResult<T>(typedBody, string.Empty);
+					return new ObjectResponseResult<T>(typedBody!, string.Empty);
 				}
 			}
 			catch (Newtonsoft.Json.JsonException exception)
@@ -214,7 +200,7 @@ public partial class AutomationService : IAutomationService
 		}
 	}
 
-	private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
+	private string ConvertToString(object? value, System.Globalization.CultureInfo cultureInfo)
 	{
 		if (value == null)
 		{
@@ -261,33 +247,27 @@ public partial class AutomationService : IAutomationService
 }
 
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial interface ITriggersService
+public partial interface ITriggersClient
 {
+
+	/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
 	/// <summary>
 	/// Returns all triggers.
 	/// </summary>
 	/// <returns>Success</returns>
 	/// <exception cref="ApiException">A server side error occurred.</exception>
-	System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CommonTriggerDto>> GetAllTriggersAsync();
-
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <summary>
-    /// Returns all registered workflows from conductor.
-    /// </summary>
-    /// <returns>Success</returns>
-    /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CommonTriggerDto>> GetAllTriggersAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+	System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CommonTriggerDto>> GetAllTriggersAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 }
 
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class TriggersService : ITriggersService
+public partial class TriggersClient : ITriggersClient
 {
 	private string _baseUrl = "";
 	private System.Net.Http.HttpClient _httpClient;
 	private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
-	public TriggersService(string baseUrl, System.Net.Http.HttpClient httpClient)
+	public TriggersClient(string baseUrl, System.Net.Http.HttpClient httpClient)
 	{
 		BaseUrl = baseUrl;
 		_httpClient = httpClient;
@@ -307,7 +287,7 @@ public partial class TriggersService : ITriggersService
 		set { _baseUrl = value; }
 	}
 
-	protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
+	public Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
 
 	partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
 
@@ -315,23 +295,13 @@ public partial class TriggersService : ITriggersService
 	partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
 	partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
-	/// <summary>
-	/// Returns all triggers.
-	/// </summary>
-	/// <returns>Success</returns>
-	/// <exception cref="ApiException">A server side error occurred.</exception>
-	public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CommonTriggerDto>> GetAllTriggersAsync()
-	{
-		return GetAllTriggersAsync(System.Threading.CancellationToken.None);
-	}
-
 	/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
 	/// <summary>
 	/// Returns all triggers.
 	/// </summary>
 	/// <returns>Success</returns>
 	/// <exception cref="ApiException">A server side error occurred.</exception>
-	public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CommonTriggerDto>> GetAllTriggersAsync(System.Threading.CancellationToken cancellationToken)
+	public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<CommonTriggerDto>> GetAllTriggersAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 	{
 		var urlBuilder_ = new System.Text.StringBuilder();
 		urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/triggers");
@@ -414,7 +384,7 @@ public partial class TriggersService : ITriggersService
 	{
 		if (response == null || response.Content == null)
 		{
-			return new ObjectResponseResult<T>(default(T), string.Empty);
+			return new ObjectResponseResult<T>(default(T)!, string.Empty);
 		}
 
 		if (ReadResponseAsString)
@@ -423,7 +393,7 @@ public partial class TriggersService : ITriggersService
 			try
 			{
 				var typedBody = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseText, JsonSerializerSettings);
-				return new ObjectResponseResult<T>(typedBody, responseText);
+				return new ObjectResponseResult<T>(typedBody!, responseText);
 			}
 			catch (Newtonsoft.Json.JsonException exception)
 			{
@@ -441,7 +411,7 @@ public partial class TriggersService : ITriggersService
 				{
 					var serializer = Newtonsoft.Json.JsonSerializer.Create(JsonSerializerSettings);
 					var typedBody = serializer.Deserialize<T>(jsonTextReader);
-					return new ObjectResponseResult<T>(typedBody, string.Empty);
+					return new ObjectResponseResult<T>(typedBody!, string.Empty);
 				}
 			}
 			catch (Newtonsoft.Json.JsonException exception)
@@ -452,7 +422,7 @@ public partial class TriggersService : ITriggersService
 		}
 	}
 
-	private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
+	private string ConvertToString(object? value, System.Globalization.CultureInfo cultureInfo)
 	{
 		if (value == null)
 		{
@@ -499,48 +469,53 @@ public partial class TriggersService : ITriggersService
 }
 
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial interface IWorkflowsService
+public partial interface IWorkflowsClient
 {
-	/// <summary>
-	/// Create automation entity
-	/// </summary>
-	/// <returns>Success</returns>
-	/// <exception cref="ApiException">A server side error occurred.</exception>
-	System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskResponseDto>> GetAllTasksAsync();
 
 	/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
 	/// <summary>
-	/// Create automation entity
+	/// Get all tasks
 	/// </summary>
 	/// <returns>Success</returns>
 	/// <exception cref="ApiException">A server side error occurred.</exception>
-	System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskResponseDto>> GetAllTasksAsync(System.Threading.CancellationToken cancellationToken);
-
-	/// <summary>
-	/// Create automation entity
-	/// </summary>
-	/// <returns>Success</returns>
-	/// <exception cref="ApiException">A server side error occurred.</exception>
-	System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowResponseDto>> GetAllWorkflowsAsync();
+	System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskResponseDto>> GetAllTasksAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 	/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
 	/// <summary>
-	/// Create automation entity
+	/// Get all workflows
 	/// </summary>
 	/// <returns>Success</returns>
 	/// <exception cref="ApiException">A server side error occurred.</exception>
-	System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowResponseDto>> GetAllWorkflowsAsync(System.Threading.CancellationToken cancellationToken);
+	System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowResponseDto>> GetAllWorkflowsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+	/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+	/// <returns>Success</returns>
+	/// <exception cref="ApiException">A server side error occurred.</exception>
+	System.Threading.Tasks.Task PauseworkflowasyncAsync(PauseWorkflowRequestDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+	/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+	/// <returns>Success</returns>
+	/// <exception cref="ApiException">A server side error occurred.</exception>
+	System.Threading.Tasks.Task ResumeworkflowasyncAsync(ResumeWorkflowRequestDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+	/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+	/// <summary>
+	/// Play workflow
+	/// </summary>
+	/// <returns>Success</returns>
+	/// <exception cref="ApiException">A server side error occurred.</exception>
+	System.Threading.Tasks.Task PlayWorkflowAsync(PlayRequestDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
 }
 
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class WorkflowsService : IWorkflowsService
+public partial class WorkflowsClient : IWorkflowsClient
 {
 	private string _baseUrl = "";
 	private System.Net.Http.HttpClient _httpClient;
 	private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
-	public WorkflowsService(string baseUrl, System.Net.Http.HttpClient httpClient)
+	public WorkflowsClient(string baseUrl, System.Net.Http.HttpClient httpClient)
 	{
 		BaseUrl = baseUrl;
 		_httpClient = httpClient;
@@ -560,7 +535,7 @@ public partial class WorkflowsService : IWorkflowsService
 		set { _baseUrl = value; }
 	}
 
-	protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
+	public Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
 
 	partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
 
@@ -568,26 +543,16 @@ public partial class WorkflowsService : IWorkflowsService
 	partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
 	partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
-	/// <summary>
-	/// Create automation entity
-	/// </summary>
-	/// <returns>Success</returns>
-	/// <exception cref="ApiException">A server side error occurred.</exception>
-	public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskResponseDto>> GetAllTasksAsync()
-	{
-		return GetAllTasksAsync(System.Threading.CancellationToken.None);
-	}
-
 	/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
 	/// <summary>
-	/// Create automation entity
+	/// Get all tasks
 	/// </summary>
 	/// <returns>Success</returns>
 	/// <exception cref="ApiException">A server side error occurred.</exception>
-	public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskResponseDto>> GetAllTasksAsync(System.Threading.CancellationToken cancellationToken)
+	public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TaskResponseDto>> GetAllTasksAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 	{
 		var urlBuilder_ = new System.Text.StringBuilder();
-		urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflows/getalltasksasync");
+		urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflows/getalltasks");
 
 		var client_ = _httpClient;
 		var disposeClient_ = false;
@@ -648,23 +613,13 @@ public partial class WorkflowsService : IWorkflowsService
 		}
 	}
 
-	/// <summary>
-	/// Create automation entity
-	/// </summary>
-	/// <returns>Success</returns>
-	/// <exception cref="ApiException">A server side error occurred.</exception>
-	public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowResponseDto>> GetAllWorkflowsAsync()
-	{
-		return GetAllWorkflowsAsync(System.Threading.CancellationToken.None);
-	}
-
 	/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
 	/// <summary>
-	/// Create automation entity
+	/// Get all workflows
 	/// </summary>
 	/// <returns>Success</returns>
 	/// <exception cref="ApiException">A server side error occurred.</exception>
-	public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowResponseDto>> GetAllWorkflowsAsync(System.Threading.CancellationToken cancellationToken)
+	public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowResponseDto>> GetAllWorkflowsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
 	{
 		var urlBuilder_ = new System.Text.StringBuilder();
 		urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflows/getallworkflows");
@@ -728,6 +683,204 @@ public partial class WorkflowsService : IWorkflowsService
 		}
 	}
 
+	/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+	/// <returns>Success</returns>
+	/// <exception cref="ApiException">A server side error occurred.</exception>
+	public virtual async System.Threading.Tasks.Task PauseworkflowasyncAsync(PauseWorkflowRequestDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+	{
+		var urlBuilder_ = new System.Text.StringBuilder();
+		urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflows/pauseworkflowasync");
+
+		var client_ = _httpClient;
+		var disposeClient_ = false;
+		try
+		{
+			using (var request_ = new System.Net.Http.HttpRequestMessage())
+			{
+				var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
+				var content_ = new System.Net.Http.StringContent(json_);
+				content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+				request_.Content = content_;
+				request_.Method = new System.Net.Http.HttpMethod("PUT");
+
+				PrepareRequest(client_, request_, urlBuilder_);
+
+				var url_ = urlBuilder_.ToString();
+				request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+				PrepareRequest(client_, request_, url_);
+
+				var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+				var disposeResponse_ = true;
+				try
+				{
+					var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+					if (response_.Content != null && response_.Content.Headers != null)
+					{
+						foreach (var item_ in response_.Content.Headers)
+							headers_[item_.Key] = item_.Value;
+					}
+
+					ProcessResponse(client_, response_);
+
+					var status_ = (int)response_.StatusCode;
+					if (status_ == 200)
+					{
+						return;
+					}
+					else
+					{
+						var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+						throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+					}
+				}
+				finally
+				{
+					if (disposeResponse_)
+						response_.Dispose();
+				}
+			}
+		}
+		finally
+		{
+			if (disposeClient_)
+				client_.Dispose();
+		}
+	}
+
+	/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+	/// <returns>Success</returns>
+	/// <exception cref="ApiException">A server side error occurred.</exception>
+	public virtual async System.Threading.Tasks.Task ResumeworkflowasyncAsync(ResumeWorkflowRequestDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+	{
+		var urlBuilder_ = new System.Text.StringBuilder();
+		urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflows/resumeworkflowasync");
+
+		var client_ = _httpClient;
+		var disposeClient_ = false;
+		try
+		{
+			using (var request_ = new System.Net.Http.HttpRequestMessage())
+			{
+				var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
+				var content_ = new System.Net.Http.StringContent(json_);
+				content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+				request_.Content = content_;
+				request_.Method = new System.Net.Http.HttpMethod("PUT");
+
+				PrepareRequest(client_, request_, urlBuilder_);
+
+				var url_ = urlBuilder_.ToString();
+				request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+				PrepareRequest(client_, request_, url_);
+
+				var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+				var disposeResponse_ = true;
+				try
+				{
+					var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+					if (response_.Content != null && response_.Content.Headers != null)
+					{
+						foreach (var item_ in response_.Content.Headers)
+							headers_[item_.Key] = item_.Value;
+					}
+
+					ProcessResponse(client_, response_);
+
+					var status_ = (int)response_.StatusCode;
+					if (status_ == 200)
+					{
+						return;
+					}
+					else
+					{
+						var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+						throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+					}
+				}
+				finally
+				{
+					if (disposeResponse_)
+						response_.Dispose();
+				}
+			}
+		}
+		finally
+		{
+			if (disposeClient_)
+				client_.Dispose();
+		}
+	}
+
+	/// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+	/// <summary>
+	/// Play workflow
+	/// </summary>
+	/// <returns>Success</returns>
+	/// <exception cref="ApiException">A server side error occurred.</exception>
+	public virtual async System.Threading.Tasks.Task PlayWorkflowAsync(PlayRequestDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+	{
+		var urlBuilder_ = new System.Text.StringBuilder();
+		urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflows/playworkflow");
+
+		var client_ = _httpClient;
+		var disposeClient_ = false;
+		try
+		{
+			using (var request_ = new System.Net.Http.HttpRequestMessage())
+			{
+				var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
+				var content_ = new System.Net.Http.StringContent(json_);
+				content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+				request_.Content = content_;
+				request_.Method = new System.Net.Http.HttpMethod("POST");
+
+				PrepareRequest(client_, request_, urlBuilder_);
+
+				var url_ = urlBuilder_.ToString();
+				request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+				PrepareRequest(client_, request_, url_);
+
+				var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+				var disposeResponse_ = true;
+				try
+				{
+					var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+					if (response_.Content != null && response_.Content.Headers != null)
+					{
+						foreach (var item_ in response_.Content.Headers)
+							headers_[item_.Key] = item_.Value;
+					}
+
+					ProcessResponse(client_, response_);
+
+					var status_ = (int)response_.StatusCode;
+					if (status_ == 200)
+					{
+						return;
+					}
+					else
+					{
+						var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+						throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+					}
+				}
+				finally
+				{
+					if (disposeResponse_)
+						response_.Dispose();
+				}
+			}
+		}
+		finally
+		{
+			if (disposeClient_)
+				client_.Dispose();
+		}
+	}
+
 	protected struct ObjectResponseResult<T>
 	{
 		public ObjectResponseResult(T responseObject, string responseText)
@@ -747,7 +900,7 @@ public partial class WorkflowsService : IWorkflowsService
 	{
 		if (response == null || response.Content == null)
 		{
-			return new ObjectResponseResult<T>(default(T), string.Empty);
+			return new ObjectResponseResult<T>(default(T)!, string.Empty);
 		}
 
 		if (ReadResponseAsString)
@@ -756,7 +909,7 @@ public partial class WorkflowsService : IWorkflowsService
 			try
 			{
 				var typedBody = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseText, JsonSerializerSettings);
-				return new ObjectResponseResult<T>(typedBody, responseText);
+				return new ObjectResponseResult<T>(typedBody!, responseText);
 			}
 			catch (Newtonsoft.Json.JsonException exception)
 			{
@@ -774,7 +927,7 @@ public partial class WorkflowsService : IWorkflowsService
 				{
 					var serializer = Newtonsoft.Json.JsonSerializer.Create(JsonSerializerSettings);
 					var typedBody = serializer.Deserialize<T>(jsonTextReader);
-					return new ObjectResponseResult<T>(typedBody, string.Empty);
+					return new ObjectResponseResult<T>(typedBody!, string.Empty);
 				}
 			}
 			catch (Newtonsoft.Json.JsonException exception)
@@ -785,7 +938,7 @@ public partial class WorkflowsService : IWorkflowsService
 		}
 	}
 
-	private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
+	private string ConvertToString(object? value, System.Globalization.CultureInfo cultureInfo)
 	{
 		if (value == null)
 		{

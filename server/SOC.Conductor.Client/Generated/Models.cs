@@ -63,6 +63,14 @@ public partial class CommonTriggerDto
 }
 
 [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+public partial class PauseWorkflowRequestDto
+{
+	[Newtonsoft.Json.JsonProperty("workflowId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+	public string? WorkflowId { get; set; } = default!;
+
+}
+
+[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
 [System.Flags]
 public enum PeriodTriggerUnit
 {
@@ -74,6 +82,28 @@ public enum PeriodTriggerUnit
 	_2 = 4,
 
 	_3 = 8,
+
+}
+
+[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+public partial class PlayRequestDto
+{
+	[Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+	public string? Name { get; set; } = default!;
+
+	[Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+	public int Version { get; set; } = default!;
+
+	[Newtonsoft.Json.JsonProperty("input", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+	public System.Collections.Generic.IDictionary<string, object>? Input { get; set; } = default!;
+
+}
+
+[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+public partial class ResumeWorkflowRequestDto
+{
+	[Newtonsoft.Json.JsonProperty("workflowId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+	public string? WorkflowId { get; set; } = default!;
 
 }
 

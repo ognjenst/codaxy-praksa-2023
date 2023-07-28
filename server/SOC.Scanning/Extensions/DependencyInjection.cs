@@ -5,6 +5,7 @@ using Serilog;
 using Serilog.Events;
 using SOC.Scanning.Handler;
 using SOC.Scanning.OptionsSetup;
+using SOC.Scanning.Services;
 
 namespace SOC.Scanning.Extensions;
 
@@ -18,6 +19,8 @@ public static class DependencyInjection
         services.AddAutoMapper(typeof(Program).Assembly);
 
         services.RegisterOptions();
+
+        services.AddScoped<ISshClientService, SshClientService>();
 
         // Configure Serilog
         Log.Logger = new LoggerConfiguration().MinimumLevel

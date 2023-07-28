@@ -4,22 +4,25 @@ using SOC.Conductor.Generated;
 using SOC.Conductor.Models;
 using SOC.Conductor.Models.Requests;
 
-namespace SOC.Conductor.Handlers
+namespace SOC.Conductor.Handlers;
+
+using Task = System.Threading.Tasks.Task;
+
+
+public class PauseWorkflowHandler : IRequestHandler<PauseWorkflow>
 {
-    public class PauseWorkflowHandler : IRequestHandler<PauseWorkflow>
+    private readonly IWorkflowResourceClient _client;
+
+    public PauseWorkflowHandler(IWorkflowResourceClient client)
     {
-        private readonly IWorkflowResourceClient _client;
+       _client = client;
+    }
 
-        public PauseWorkflowHandler(IWorkflowResourceClient client)
-        {
-            _client = client;
-        }
-
-        public async System.Threading.Tasks.Task Handle(PauseWorkflow request, CancellationToken cancellationToken)
-        {
-            string workflowId = request.pauseDto.WorkflowId;
+    public async Task Handle(PauseWorkflow request, CancellationToken cancellationToken)
+    {
+       string workflowId = request.pauseDto.WorkflowId;
 
             await _client.PauseWorkflowAsync(workflowId);
-        }
     }
 }
+

@@ -18,7 +18,7 @@ public class TicketingRequest : IRequest<IntelligenceResponseDto>
 	public string MaxDaysInAge { get; set; }
 }
 
-[OriginalName("intelligence")]
+[OriginalName("intelligence_task")]
 public class IntelligenceHandler : ITaskRequestHandler<TicketingRequest, IntelligenceResponseDto>
 {
 	private readonly IIntelligenceService _intelligenceService;
@@ -26,6 +26,8 @@ public class IntelligenceHandler : ITaskRequestHandler<TicketingRequest, Intelli
     {
         _intelligenceService = intelligenceService;
     }
+	
+	// This method is delegating request handlond to the IntelligenceService
     public async Task<IntelligenceResponseDto> Handle(TicketingRequest request, CancellationToken cancellationToken)
 	{
 		return await _intelligenceService.CheckEndpoint(request.IpAddress, request.MaxDaysInAge);

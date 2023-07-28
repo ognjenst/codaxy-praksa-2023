@@ -24,8 +24,7 @@ var builder = Host.CreateDefaultBuilder()
 		{
 			services.RegisterServices(context.Configuration);
 		}
-	);/*
-	ConfigureContainer<ContainerBuilder>(
+	).ConfigureContainer<ContainerBuilder>(
 		(context, builder) =>
 		{
 			builder
@@ -56,12 +55,12 @@ var builder = Host.CreateDefaultBuilder()
 
 			builder.RegisterMediatR(typeof(Program).Assembly);
 		}
-	);*/
+);
 
 using var host = builder.Build();
-
+/*
 var service = host.Services.GetRequiredService<IIntelligenceService>();
-service.CheckEndpoint("192.210.175.159", "90");
-
+await service.CheckEndpoint("192.210.175.159", "90");
+*/
 
 await host.RunAsync();

@@ -10,16 +10,27 @@ using Serilog;
 using Microsoft.EntityFrameworkCore;
 using SOC.IoT.ApiGateway.Entities.Contexts;
 using SOC.IoT.ApiGateway.Services;
+using Autofac.Core;
+using SOC.IoT.ApiGateway.Options;
+using Microsoft.AspNetCore.Authorization;
+using SOC.IoT.ApiGateway.Handlers;
+using SOC.IoT.ApiGateway.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<SOCIoTDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db")));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
+builder.Services.Configure<JwtSecret>(builder.Configuration.GetSection("Jwt"));
+builder.Services.AddSingleton<JwtSecret>();
 
 builder.Services.Configure<RouteOptions>(options =>
 {
@@ -43,6 +54,16 @@ builder.Services.AddHostedService<DevicesBackgroundService>();
 builder.Services.AddIoTServices();
 
 builder.Services.RegisterServices();
+builder.Services.AddScoped<IUserService, UserService>();
+
+
+// Configure Serilog
+builder.Host.UseSerilog(
+	(context, config) =>
+	{
+		config.WriteTo.Console();
+	}
+);
 
 // Configure Serilog
 builder.Host.UseSerilog(
@@ -61,6 +82,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
 
@@ -74,8 +97,7 @@ app.UseCors(builder =>
         .AllowCredentials();
 });
 
-app.UseAuthorization();
-
+app.UseMiddleware<JwtMiddleware>();
 app.MapControllers();
 app.Services.GetRequiredService<IStartupService>();
 

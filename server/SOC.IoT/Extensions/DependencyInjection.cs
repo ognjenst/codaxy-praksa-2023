@@ -14,6 +14,7 @@ public static class DependencyInjection
     {
         services.RegisterOptions();
 
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         services.AddScoped<IDevicesClient, DevicesClient>();
         services.AddHttpClient<DevicesClient>();
 
