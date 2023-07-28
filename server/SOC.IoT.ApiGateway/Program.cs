@@ -56,18 +56,6 @@ builder.Services.AddIoTServices();
 builder.Services.RegisterServices();
 builder.Services.AddScoped<IUserService, UserService>();
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("Delete-Workflow", policy =>
-    {
-        policy.Requirements.Add(new PolicyRequirement("Delete-Workflow"));
-    });
-});
-
-builder.Services.AddSingleton<IAuthorizationHandler, PolicyAuthorizationHandler>();
-
-
-
 
 // Configure Serilog
 builder.Host.UseSerilog(
@@ -109,9 +97,7 @@ app.UseCors(builder =>
         .AllowCredentials();
 });
 
-app.UseAuthentication();
-app.UseAuthorization();
-
+app.UseMiddleware<JwtMiddleware>();
 app.MapControllers();
 app.Services.GetRequiredService<IStartupService>();
 

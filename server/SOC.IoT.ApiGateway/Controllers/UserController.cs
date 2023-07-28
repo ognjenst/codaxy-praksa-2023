@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SOC.IoT.ApiGateway.Entities;
 using SOC.IoT.ApiGateway.Entities.Contexts;
 using SOC.IoT.ApiGateway.Models;
 using SOC.IoT.ApiGateway.Models.Requests;
+using SOC.IoT.ApiGateway.Models.Responses;
 using SOC.IoT.ApiGateway.Services;
 
 namespace SOC.IoT.ApiGateway.Controllers
@@ -24,13 +26,15 @@ namespace SOC.IoT.ApiGateway.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(LoginRequest request)
+        public async Task<ActionResult<AuthResponse>> Login(LoginRequest request)
         {
             var response = _userService.Login(request);
             return Ok(response);
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register(User request)
         {

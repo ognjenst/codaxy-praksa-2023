@@ -3,8 +3,10 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SOC.IoT.ApiGateway.Entities;
 using SOC.IoT.ApiGateway.Entities.Contexts;
+using SOC.IoT.ApiGateway.Exceptions;
 using SOC.IoT.ApiGateway.Models;
 using SOC.IoT.ApiGateway.Models.Requests;
+using SOC.IoT.ApiGateway.Models.Responses;
 using SOC.IoT.ApiGateway.Options;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -16,9 +18,8 @@ namespace SOC.IoT.ApiGateway.Services
 {
     public interface IUserService
     {
-        string Login(LoginRequest request);
+        AuthResponse Login(LoginRequest request);
         string Register(User request);
-        List<UserDTO> GetAccounts(Guid id);
     }
 
     public class UserService : IUserService
@@ -59,7 +60,7 @@ namespace SOC.IoT.ApiGateway.Services
             return CryptographicOperations.FixedTimeEquals(hashToCompare, Convert.FromHexString(hash));
         }
 
-        public string Login(LoginRequest request)
+        public AuthResponse Login(LoginRequest request)
         {
             var user = _context
                 .Users
@@ -67,30 +68,30 @@ namespace SOC.IoT.ApiGateway.Services
 
             if (user == null)
             {
-                return "This user doesn't exists!";
+                throw new AppException("This user doesnt exist!");
             }
 
             if (!VerifyPassword(request.Password, user.Password, Convert.FromHexString(user.Salt)))
             {
-                return "Password incorrect!";
+                throw new AppException("Wrong password!");
             }
 
             string jwtToken = GenerateJwtToken(user);
-            //response.AccessToken = jwtToken;
 
-            return jwtToken;
-        }
+            var authResponse = new AuthResponse
+            {
+                Jwt = jwtToken,
+                ExpirationTime = DateTime.UtcNow.AddMinutes(15)
+            };
 
-        public List<UserDTO> GetAccounts(Guid id)
-        {
-            throw new NotImplementedException();
+            return authResponse;
         }
 
         public string Register(User request)
         {
             if (_context.Users.Any(x => x.Username == request.Username))
             {
-                return "This user exists.";
+                throw new AppException("This user already exists!");
             }
             User user;
 
@@ -115,28 +116,11 @@ namespace SOC.IoT.ApiGateway.Services
 
         private string GenerateJwtToken(User user)
         {
-
-            var permissions = from permission in _context.Permissions
-                              join account in _context.Users
-                              on permission.RoleId equals account.Role.Id
-                              select permission;
-
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSecret.Key);
-            var claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-            };
-
-            // Adding each permission as a separate claim
-            foreach (var permission in permissions)
-            {
-                claims.Add(new Claim("Permission", permission.Name));
-            }
-
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(claims),
+                Subject = new ClaimsIdentity( new[] { new Claim("id", user.Id.ToString())} ) ,
                 Expires = DateTime.UtcNow.AddMinutes(15),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
@@ -144,5 +128,5 @@ namespace SOC.IoT.ApiGateway.Services
             return tokenHandler.WriteToken(token);
         }
     
-}
+    }
 }

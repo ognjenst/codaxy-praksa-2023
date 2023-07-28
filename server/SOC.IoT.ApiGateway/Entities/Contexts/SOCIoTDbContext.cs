@@ -58,8 +58,6 @@ namespace SOC.IoT.ApiGateway.Entities.Contexts
                 entity.HasData(new Role { Id = 2, Name = "User" });
             });
 
-           
-
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(Program).Assembly);
 
             base.OnModelCreating(modelBuilder);

@@ -12,8 +12,8 @@ using SOC.IoT.ApiGateway.Entities.Contexts;
 namespace SOC.IoT.ApiGateway.Migrations
 {
     [DbContext(typeof(SOCIoTDbContext))]
-    [Migration("20230727120119_init")]
-    partial class init
+    [Migration("20230728120627_add-migration fix-permissions")]
+    partial class addmigrationfixpermissions
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -298,6 +298,36 @@ namespace SOC.IoT.ApiGateway.Migrations
                             Id = 20,
                             Name = "Delete-DeviceHistory",
                             RoleId = 1
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Name = "Read-Workflow",
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Name = "Read-Automation",
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Name = "Read-Device",
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Name = "Read-DeviceHistory",
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Name = "Read-Trigger",
+                            RoleId = 2
                         });
                 });
 

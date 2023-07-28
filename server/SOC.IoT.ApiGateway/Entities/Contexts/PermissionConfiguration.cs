@@ -35,6 +35,14 @@ namespace SOC.IoT.ApiGateway.Entities.Contexts
             new Permission { Id = 19, Name = "Read-DeviceHistory", RoleId = 1 },
             new Permission { Id = 20, Name = "Delete-DeviceHistory", RoleId = 1 });
 
-        }
-    }
+
+            // Add permissions for User
+            builder.HasData(new Permission { Id = 21, Name = "Read-Workflow", RoleId = 2 },
+           new Permission { Id = 22, Name = "Read-Automation", RoleId = 2 },
+           new Permission { Id = 23, Name = "Read-Device", RoleId = 2 },
+           new Permission { Id = 24, Name = "Read-DeviceHistory", RoleId = 2 },
+           new Permission { Id = 26, Name = "Read-Trigger", RoleId = 2 });
+
+		}
+	}
 }

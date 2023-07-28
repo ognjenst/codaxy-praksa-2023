@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SOC.IoT.ApiGateway.Entities.Contexts;
@@ -11,9 +12,11 @@ using SOC.IoT.ApiGateway.Entities.Contexts;
 namespace SOC.IoT.ApiGateway.Migrations
 {
     [DbContext(typeof(SOCIoTDbContext))]
-    partial class SOCIoTDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230728113907_new-permissions")]
+    partial class newpermissions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -299,30 +302,36 @@ namespace SOC.IoT.ApiGateway.Migrations
                         new
                         {
                             Id = 21,
-                            Name = "Read-Workflow",
+                            Name = "Create-Workflow",
                             RoleId = 2
                         },
                         new
                         {
                             Id = 22,
-                            Name = "Read-Automation",
+                            Name = "Update-Workflow",
                             RoleId = 2
                         },
                         new
                         {
                             Id = 23,
-                            Name = "Read-Device",
+                            Name = "Read-Workflow",
                             RoleId = 2
                         },
                         new
                         {
                             Id = 24,
-                            Name = "Read-DeviceHistory",
+                            Name = "Delete-Workflow",
                             RoleId = 2
                         },
                         new
                         {
                             Id = 26,
+                            Name = "Update-Trigger",
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            Id = 27,
                             Name = "Read-Trigger",
                             RoleId = 2
                         });

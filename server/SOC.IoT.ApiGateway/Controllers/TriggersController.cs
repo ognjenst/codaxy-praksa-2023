@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
+using SOC.IoT.ApiGateway.Helpers;
 
 namespace SOC.IoT.ApiGateway.Controllers
 {
@@ -19,6 +20,7 @@ namespace SOC.IoT.ApiGateway.Controllers
         /// Returns all triggers.
         /// </summary>
         /// <returns></returns>
+        [PermissionAuthorize("Read-Trigger")]
         [HttpGet(Name = "GetAllTriggersAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IList<CommonTriggerDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]

@@ -16,11 +16,12 @@ public class WorkflowsController : ControllerBase
         _workflowsClient = workflowsClient;
     }
 
-    /// <summary>
-    /// Returns all registered workflows from conductor.
-    /// </summary>
-    /// <returns></returns>
-    [HttpGet(Name = "GetAllWorkflowsAsync")]
+	/// <summary>
+	/// Returns all registered workflows from conductor.
+	/// </summary>
+	/// <returns></returns>
+	[PermissionAuthorize("Read-Workflow")]
+	[HttpGet(Name = "GetAllWorkflowsAsync")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<WorkflowResponseDto>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
@@ -35,7 +36,7 @@ public class WorkflowsController : ControllerBase
     /// Returns all registered workflows from conductor.
     /// </summary>
     /// <returns></returns>
-    [PermissionAuthorize("Delete-Workflow")]
+    [PermissionAuthorize("Read-Workflow")]
     [HttpGet("GetAllTasks", Name = "GetAllTasksAsync")]
 	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<TaskResponseDto>))]
 	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
@@ -52,6 +53,7 @@ public class WorkflowsController : ControllerBase
 	/// </summary>
 	/// <param name="playDto"></param>
 	/// <returns></returns>
+	[PermissionAuthorize("Update-Workflow")]
 	[HttpPost("PlayWorkflow", Name = "PlayWorkflow")]
 	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
 	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]

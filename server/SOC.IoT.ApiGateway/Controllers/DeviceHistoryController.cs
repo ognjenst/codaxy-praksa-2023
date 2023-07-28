@@ -6,6 +6,7 @@ using SOC.IoT.ApiGateway.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.ComponentModel.DataAnnotations;
 using MediatR;
+using SOC.IoT.ApiGateway.Helpers;
 
 namespace SOC.IoT.ApiGateway.Controllers
 {
@@ -27,6 +28,7 @@ namespace SOC.IoT.ApiGateway.Controllers
         /// </summary>
         /// <param name="id">ID of the device</param>
         /// <returns>List of states of the device with given ID</returns>
+        [PermissionAuthorize("Read-DeviceHistory")]
         [HttpGet("{id}", Name = "GetDeviceHistory")]
         [SwaggerResponseExample(StatusCodes.Status200OK, typeof(DeviceHistoryExample))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeviceHistoryDTO))]
