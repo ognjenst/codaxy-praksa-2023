@@ -9,7 +9,7 @@ export const openDryRunWindow = ({ task }) => {
                 <div style={{ padding: "50px" }}>
                     <TextField readOnly label="Expression" style={{ width: "100%" }} value={task.expression} />
                     <Repeater records={task.inputs}>
-                        <TextField label-bind="$record.tab" value-bind="$record.tab.value" style={{ width: "100%" }} tooltip="A Tooltip" />
+                        <TextField label-bind="$record.tab" value-bind="$record.tab" style={{ width: "100%" }} tooltip="A Tooltip" />
                     </Repeater>
                     <TextField readOnly label="Result" style={{ width: "100%" }} value="True" />
                 </div>
