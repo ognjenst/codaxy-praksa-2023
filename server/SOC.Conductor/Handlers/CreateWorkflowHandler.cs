@@ -7,9 +7,9 @@ using SOC.Conductor.Services;
 
 namespace SOC.Conductor.Handlers
 {
-    public record CreateWorkflowRequest(CreateWorkflowDto workflowDto) : IRequest<Workflow> { }
+    public record CreateWorkflowRequest(CreateWorkflowDto workflowDto) : IRequest<WorkflowDto> { }
 
-    public class CreateWorkflowHandler : IRequestHandler<CreateWorkflowRequest, Workflow>
+    public class CreateWorkflowHandler : IRequestHandler<CreateWorkflowRequest, WorkflowDto>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWorkflowBuilderService _workflowBuilderService;
@@ -22,7 +22,7 @@ namespace SOC.Conductor.Handlers
             _logger = logger;
         }
 
-        public async Task<Workflow> Handle(CreateWorkflowRequest request, CancellationToken cancellationToken)
+        public async Task<WorkflowDto> Handle(CreateWorkflowRequest request, CancellationToken cancellationToken)
         {
             var workflow = new Workflow()
             {
@@ -38,7 +38,15 @@ namespace SOC.Conductor.Handlers
                 await _workflowBuilderService.Build(request.workflowDto);
                 var result =  await _unitOfWork.Workflows.CreateAsync(workflow, cancellationToken);
                 await _unitOfWork.SaveAllAsync();
-                return result;
+                return new WorkflowDto()
+                {
+                    Id = result.Id,
+                    Name = result.Name,
+                    Version = result.Version,
+                    CreateDate = DateTime.UtcNow,
+                    UpdateDate = DateTime.UtcNow,
+                    Enabled = false
+                };
             }
             catch (Exception ex)
             {
