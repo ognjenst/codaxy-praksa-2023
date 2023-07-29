@@ -76,14 +76,7 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
 // Disable CORS
-app.UseCors(builder =>
-{
-    builder
-        .WithOrigins("http://localhost:5544")
-        .AllowAnyHeader()
-        .AllowAnyMethod()
-        .AllowCredentials();
-});
+app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
