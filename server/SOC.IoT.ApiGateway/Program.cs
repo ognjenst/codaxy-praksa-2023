@@ -17,6 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddRazorPages();
+
 builder.Services.AddDbContext<SOCIoTDbContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db"))
 );
@@ -84,14 +86,19 @@ app.UseCors(builder =>
 });
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapRazorPages();
+
 app.Services.GetRequiredService<IStartupService>();
 
 app.MapHub<DevicesHub>("/api/hubs/devices");
 
-app.MigrateDatabase();
+//app.MigrateDatabase();
 
 app.Run();

@@ -1,0 +1,22 @@
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnvironment;
+@using SOC.IoT.ApiGateway.Util;
+@{
+    var distFileLookup = new DistFileLookup(System.IO.Path.Combine(hostingEnvironment.WebRootPath, "dist"));
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SOC</title>
+    <link rel="stylesheet" href="~/dist/@distFileLookup.ResolveFileName("app", ".css")" />
+</head>
+<body>
+    @RenderBody()
+
+    <script type="text/javascript" src="~/dist/@distFileLookup.ResolveFileName("runtime", ".js")"></script>
+    <script type="text/javascript" src="~/dist/@distFileLookup.ResolveFileName("app", ".js")"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
