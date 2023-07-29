@@ -1,13 +1,12 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Logging.Abstractions;
 using SOC.Conductor.Contracts;
 using SOC.Conductor.DTOs;
 using SOC.Conductor.Entities;
-using SOC.Conductor.Repositories;
 
 namespace SOC.Conductor.Handlers
 {
-    public record CreateTriggerRequest(string Type, CommonTriggerDto commonTriggerDto) : IRequest<CommonTriggerDto> { }
+    public record CreateTriggerRequest(string Type, CommonTriggerDto commonTriggerDto)
+        : IRequest<CommonTriggerDto> { }
 
     public class CreateTriggerHandler : IRequestHandler<CreateTriggerRequest, CommonTriggerDto>
     {
@@ -18,7 +17,10 @@ namespace SOC.Conductor.Handlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<CommonTriggerDto> Handle(CreateTriggerRequest request, CancellationToken cancellationToken)
+        public async Task<CommonTriggerDto> Handle(
+            CreateTriggerRequest request,
+            CancellationToken cancellationToken
+        )
         {
             if (request.Type == nameof(PeriodicTrigger))
             {
@@ -28,7 +30,7 @@ namespace SOC.Conductor.Handlers
                     Period = request.commonTriggerDto.Period.GetValueOrDefault(),
                     Start = request.commonTriggerDto.Start.GetValueOrDefault(),
                     Unit = request.commonTriggerDto.Unit.GetValueOrDefault(),
-                }; 
+                };
 
                 var result = await _unitOfWork.PeriodicTriggers.CreateAsync(periodic);
                 await _unitOfWork.SaveAllAsync();
@@ -51,7 +53,7 @@ namespace SOC.Conductor.Handlers
                     Name = request.commonTriggerDto.Name,
                     Property = request.commonTriggerDto.Property,
                     Value = request.commonTriggerDto.Value,
-                    Condition = request.commonTriggerDto.Condition,
+                    Condition = request.commonTriggerDto.Condition.GetValueOrDefault(),
                 };
 
                 var result = await _unitOfWork.IoTTriggers.CreateAsync(iot);

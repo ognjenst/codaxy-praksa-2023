@@ -2,10 +2,15 @@
 using SOC.Conductor.Contracts;
 using SOC.Conductor.DTOs;
 using SOC.Conductor.Entities;
+using SOC.Conductor.Entities.Enums;
 
 namespace SOC.Conductor.Handlers
 {
-    public record UpdateTriggerRequest(string type, int triggerId, CommonTriggerDto commonTriggerDto) : IRequest<CommonTriggerDto> { }
+    public record UpdateTriggerRequest(
+        string type,
+        int triggerId,
+        CommonTriggerDto commonTriggerDto
+    ) : IRequest<CommonTriggerDto> { }
 
     public class UpdateTriggerHandler : IRequestHandler<UpdateTriggerRequest, CommonTriggerDto>
     {
@@ -16,12 +21,21 @@ namespace SOC.Conductor.Handlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<CommonTriggerDto> Handle(UpdateTriggerRequest request, CancellationToken cancellationToken)
+        public async Task<CommonTriggerDto> Handle(
+            UpdateTriggerRequest request,
+            CancellationToken cancellationToken
+        )
         {
             if (request.type == nameof(PeriodicTrigger))
             {
-                var trigger = (await _unitOfWork.PeriodicTriggers.GetByCondition(x => x.Id == request.triggerId, cancellationToken)).FirstOrDefault();
-                if (trigger == null) return null;
+                var trigger = (
+                    await _unitOfWork.PeriodicTriggers.GetByCondition(
+                        x => x.Id == request.triggerId,
+                        cancellationToken
+                    )
+                ).FirstOrDefault();
+                if (trigger == null)
+                    return null;
                 var periodicTrigger = trigger;
                 periodicTrigger.Id = request.commonTriggerDto.Id;
                 periodicTrigger.Name = request.commonTriggerDto.Name;
@@ -29,7 +43,10 @@ namespace SOC.Conductor.Handlers
                 periodicTrigger.Start = request.commonTriggerDto.Start.GetValueOrDefault();
                 periodicTrigger.Unit = request.commonTriggerDto.Unit.GetValueOrDefault();
 
-                var result = await _unitOfWork.PeriodicTriggers.UpdateAsync(periodicTrigger, cancellationToken);
+                var result = await _unitOfWork.PeriodicTriggers.UpdateAsync(
+                    periodicTrigger,
+                    cancellationToken
+                );
                 await _unitOfWork.SaveAllAsync();
 
                 return new CommonTriggerDto()
@@ -41,19 +58,27 @@ namespace SOC.Conductor.Handlers
                     Unit = periodicTrigger.Unit,
                 };
             }
-
             else if (request.type == nameof(IoTTrigger))
             {
-                var trigger = (await _unitOfWork.IoTTriggers.GetByCondition(x => x.Id == request.triggerId, cancellationToken)).FirstOrDefault();
-                if (trigger == null) return null;
+                var trigger = (
+                    await _unitOfWork.IoTTriggers.GetByCondition(
+                        x => x.Id == request.triggerId,
+                        cancellationToken
+                    )
+                ).FirstOrDefault();
+                if (trigger == null)
+                    return null;
                 var iotTrigger = trigger;
                 iotTrigger.Id = request.commonTriggerDto.Id;
                 iotTrigger.Name = request.commonTriggerDto.Name;
                 iotTrigger.Property = request.commonTriggerDto.Property;
                 iotTrigger.Value = request.commonTriggerDto.Value;
-                iotTrigger.Condition = request.commonTriggerDto.Condition;
+                iotTrigger.Condition = request.commonTriggerDto.Condition.GetValueOrDefault();
 
-                var result = await _unitOfWork.IoTTriggers.UpdateAsync(iotTrigger, cancellationToken);
+                var result = await _unitOfWork.IoTTriggers.UpdateAsync(
+                    iotTrigger,
+                    cancellationToken
+                );
                 await _unitOfWork.SaveAllAsync();
 
                 return new CommonTriggerDto()

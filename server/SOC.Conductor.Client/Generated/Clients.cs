@@ -16,9 +16,8 @@
 #pragma warning disable 3016 // Disable "CS3016 Arrays as attribute arguments is not CLS-compliant"
 #pragma warning disable 8603 // Disable "CS8603 Possible null reference return"
 
-namespace SOC.Conductor.Generated;
+namespace SOC.Conductor.Client.Generated;
 
-using SOC.Conductor.Client.Generated;
 using System = global::System;
 
 [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -47,7 +46,7 @@ public partial interface IAutomationClient
     /// </summary>
     /// <returns>Success</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<AutomationDto> DeleteAutomationAsync(int workflowId, int triggerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+    System.Threading.Tasks.Task DeleteAutomationAsync(int workflowId, int triggerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -244,7 +243,7 @@ public partial class AutomationClient : IAutomationClient
     /// </summary>
     /// <returns>Success</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<AutomationDto> DeleteAutomationAsync(int workflowId, int triggerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task DeleteAutomationAsync(int workflowId, int triggerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -264,7 +263,6 @@ public partial class AutomationClient : IAutomationClient
             using (var request_ = new System.Net.Http.HttpRequestMessage())
             {
                 request_.Method = new System.Net.Http.HttpMethod("DELETE");
-                request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                 PrepareRequest(client_, request_, urlBuilder_);
 
@@ -289,12 +287,7 @@ public partial class AutomationClient : IAutomationClient
                     var status_ = (int)response_.StatusCode;
                     if (status_ == 200)
                     {
-                        var objectResponse_ = await ReadObjectResponseAsync<AutomationDto>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                        if (objectResponse_.Object == null)
-                        {
-                            throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                        }
-                        return objectResponse_.Object;
+                        return;
                     }
                     else
                     {
@@ -527,7 +520,7 @@ public partial interface ITriggersClient
     /// </summary>
     /// <returns>Success</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<CommonTriggerDto> DeleteTriggerAsync(string type, int triggerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+    System.Threading.Tasks.Task DeleteTriggerAsync(string type, int triggerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -732,7 +725,7 @@ public partial class TriggersClient : ITriggersClient
     /// </summary>
     /// <returns>Success</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<CommonTriggerDto> DeleteTriggerAsync(string type, int triggerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task DeleteTriggerAsync(string type, int triggerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (type == null)
             throw new System.ArgumentNullException("type");
@@ -752,7 +745,6 @@ public partial class TriggersClient : ITriggersClient
             using (var request_ = new System.Net.Http.HttpRequestMessage())
             {
                 request_.Method = new System.Net.Http.HttpMethod("DELETE");
-                request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                 PrepareRequest(client_, request_, urlBuilder_);
 
@@ -777,12 +769,7 @@ public partial class TriggersClient : ITriggersClient
                     var status_ = (int)response_.StatusCode;
                     if (status_ == 200)
                     {
-                        var objectResponse_ = await ReadObjectResponseAsync<CommonTriggerDto>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                        if (objectResponse_.Object == null)
-                        {
-                            throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                        }
-                        return objectResponse_.Object;
+                        return;
                     }
                     else
                     {
@@ -1015,7 +1002,7 @@ public partial interface IWorkflowsClient
     /// </summary>
     /// <returns>Success</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task<WorkflowDto> DeleteWorkflowAsync(int workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+    System.Threading.Tasks.Task DeleteWorkflowAsync(int workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -1042,14 +1029,20 @@ public partial interface IWorkflowsClient
     System.Threading.Tasks.Task<System.Collections.Generic.ICollection<WorkflowResponseDto>> GetAllWorkflowsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Success</returns>
+    /// <summary>
+    /// Pauses workflow
+    /// </summary>
+    /// <returns>No Content</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
     System.Threading.Tasks.Task PauseworkflowasyncAsync(PauseWorkflowRequestDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Success</returns>
+    /// <summary>
+    /// Resumes workflow
+    /// </summary>
+    /// <returns>No Content</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task ResumeworkflowasyncAsync(ResumeWorkflowRequestDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+    System.Threading.Tasks.Task ResumeworkflowAsync(ResumeWorkflowRequestDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -1246,7 +1239,7 @@ public partial class WorkflowsClient : IWorkflowsClient
     /// </summary>
     /// <returns>Success</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<WorkflowDto> DeleteWorkflowAsync(int workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task DeleteWorkflowAsync(int workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         if (workflowId == null)
             throw new System.ArgumentNullException("workflowId");
@@ -1262,7 +1255,6 @@ public partial class WorkflowsClient : IWorkflowsClient
             using (var request_ = new System.Net.Http.HttpRequestMessage())
             {
                 request_.Method = new System.Net.Http.HttpMethod("DELETE");
-                request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                 PrepareRequest(client_, request_, urlBuilder_);
 
@@ -1287,12 +1279,7 @@ public partial class WorkflowsClient : IWorkflowsClient
                     var status_ = (int)response_.StatusCode;
                     if (status_ == 200)
                     {
-                        var objectResponse_ = await ReadObjectResponseAsync<WorkflowDto>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                        if (objectResponse_.Object == null)
-                        {
-                            throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                        }
-                        return objectResponse_.Object;
+                        return;
                     }
                     else
                     {
@@ -1533,7 +1520,10 @@ public partial class WorkflowsClient : IWorkflowsClient
     }
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Success</returns>
+    /// <summary>
+    /// Pauses workflow
+    /// </summary>
+    /// <returns>No Content</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
     public virtual async System.Threading.Tasks.Task PauseworkflowasyncAsync(PauseWorkflowRequestDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
@@ -1573,7 +1563,7 @@ public partial class WorkflowsClient : IWorkflowsClient
                     ProcessResponse(client_, response_);
 
                     var status_ = (int)response_.StatusCode;
-                    if (status_ == 200)
+                    if (status_ == 204)
                     {
                         return;
                     }
@@ -1598,12 +1588,15 @@ public partial class WorkflowsClient : IWorkflowsClient
     }
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Success</returns>
+    /// <summary>
+    /// Resumes workflow
+    /// </summary>
+    /// <returns>No Content</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task ResumeworkflowasyncAsync(ResumeWorkflowRequestDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task ResumeworkflowAsync(ResumeWorkflowRequestDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
         var urlBuilder_ = new System.Text.StringBuilder();
-        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflows/resumeworkflowasync");
+        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflows/resumeworkflow");
 
         var client_ = _httpClient;
         var disposeClient_ = false;
@@ -1638,7 +1631,7 @@ public partial class WorkflowsClient : IWorkflowsClient
                     ProcessResponse(client_, response_);
 
                     var status_ = (int)response_.StatusCode;
-                    if (status_ == 200)
+                    if (status_ == 204)
                     {
                         return;
                     }

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Newtonsoft.Json.Linq;
 using SOC.Conductor.Contracts;
 using SOC.Conductor.DTOs;
 using SOC.Conductor.Entities;
@@ -6,7 +7,11 @@ using SOC.Conductor.Repositories;
 
 namespace SOC.Conductor.Handlers
 {
-    public record UpdateAutomationRequest(int workflowId, int triggerId, AutomationDto automationDto) : IRequest<AutomationDto> { }
+    public record UpdateAutomationRequest(
+        int workflowId,
+        int triggerId,
+        AutomationDto automationDto
+    ) : IRequest<AutomationDto> { }
 
     public class UpdateAutomationHandler : IRequestHandler<UpdateAutomationRequest, AutomationDto>
     {
@@ -17,16 +22,32 @@ namespace SOC.Conductor.Handlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<AutomationDto> Handle(UpdateAutomationRequest request, CancellationToken cancellationToken)
+        public async Task<AutomationDto> Handle(
+            UpdateAutomationRequest request,
+            CancellationToken cancellationToken
+        )
         {
-            var automation = (await _unitOfWork.Automations.GetByCondition(x => x.WorkflowId == request.workflowId && x.TriggerId == request.triggerId, cancellationToken)).FirstOrDefault();
+            var automation = (
+                await _unitOfWork.Automations.GetByCondition(
+                    x => x.WorkflowId == request.workflowId && x.TriggerId == request.triggerId,
+                    cancellationToken
+                )
+            ).FirstOrDefault();
             if (automation is not null)
             {
                 automation.Name = request.automationDto.Name;
-                automation.InputParameters = request.automationDto.InputParameters;
+                if (!string.IsNullOrEmpty(request.automationDto.InputParameters))
+                {
+                    automation.InputParameters = JObject.Parse(
+                        request.automationDto.InputParameters!
+                    );
+                }
 
-                var result = await _unitOfWork.Automations.UpdateAsync(automation, cancellationToken);
-               
+                var result = await _unitOfWork.Automations.UpdateAsync(
+                    automation,
+                    cancellationToken
+                );
+
                 await _unitOfWork.SaveAllAsync();
 
                 return new AutomationDto()
@@ -34,7 +55,7 @@ namespace SOC.Conductor.Handlers
                     WorkflowId = automation.WorkflowId,
                     TriggerId = automation.TriggerId,
                     Name = result.Name,
-                    InputParameters = result.InputParameters,
+                    InputParameters = result.InputParameters?.ToString(),
                 };
             }
             else

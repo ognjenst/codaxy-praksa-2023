@@ -8,7 +8,8 @@ namespace SOC.Conductor.Handlers
 {
     public record GetAllAutomationsRequest() : IRequest<IEnumerable<AutomationDto>> { }
 
-    public class GetAllAutomationHandler : IRequestHandler<GetAllAutomationsRequest, IEnumerable<AutomationDto>>
+    public class GetAllAutomationHandler
+        : IRequestHandler<GetAllAutomationsRequest, IEnumerable<AutomationDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -17,16 +18,22 @@ namespace SOC.Conductor.Handlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<AutomationDto>> Handle(GetAllAutomationsRequest request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<AutomationDto>> Handle(
+            GetAllAutomationsRequest request,
+            CancellationToken cancellationToken
+        )
         {
-            var res =  await _unitOfWork.Automations.GetAllAsync(cancellationToken);
-            var dtos = res.Select(automation => new AutomationDto
-            {
-                TriggerId = automation.TriggerId,
-                WorkflowId = automation.WorkflowId,
-                Name = automation.Name,
-                InputParameters = automation.InputParameters
-            });
+            var res = await _unitOfWork.Automations.GetAllAsync(cancellationToken);
+            var dtos = res.Select(
+                automation =>
+                    new AutomationDto
+                    {
+                        TriggerId = automation.TriggerId,
+                        WorkflowId = automation.WorkflowId,
+                        Name = automation.Name,
+                        InputParameters = automation.InputParameters?.ToString()
+                    }
+            );
             return dtos;
         }
     }

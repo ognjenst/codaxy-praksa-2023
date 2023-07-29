@@ -8,9 +8,9 @@ namespace SOC.Conductor.DTOs
         public string Name { get; set; }
         public string? Property { get; set; }
         public string? Value { get; set; }
-        public Operator Condition { get; set; }
+        public Operator? Condition { get; set; }
         public DateTime? Start { get; set; }
         public int? Period { get; set; }
-        public  PeriodTriggerUnit? Unit { get; set; }
+        public PeriodTriggerUnit? Unit { get; set; }
     }
 }
