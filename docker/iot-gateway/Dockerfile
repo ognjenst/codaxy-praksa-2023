@@ -14,7 +14,6 @@ WORKDIR /usr/src/soc/client/src
 RUN yarn 
 
 WORKDIR /usr/src/soc
-
 COPY ["client", "./client"]
 COPY ["server/SOC.IoT.ApiGateway/wwwroot", "./server/SOC.IoT.ApiGateway/wwwroot"]
 
