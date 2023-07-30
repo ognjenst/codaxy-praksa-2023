@@ -6,11 +6,22 @@ EXPOSE 80
 
 FROM node:20-alpine3.17 AS node-build
 WORKDIR /usr/src/soc
-COPY ["client", "./client"]
-COPY ["server/SOC.IoT.ApiGateway/wwwroot", "./server/SOC.IoT.ApiGateway/wwwroot"]
+
+COPY ["client/src/package.json", "./client/src/"]
+COPY ["client/src/yarn.lock", "./client/src/"]
 
 WORKDIR /usr/src/soc/client/src
 RUN yarn 
+
+WORKDIR /usr/src/soc
+
+COPY ["client", "./client"]
+COPY ["server/SOC.IoT.ApiGateway/wwwroot", "./server/SOC.IoT.ApiGateway/wwwroot"]
+
+ARG API_URL
+ENV API_URL $API_URL
+
+WORKDIR /usr/src/soc/client/src
 RUN yarn build
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine3.18-amd64 AS build

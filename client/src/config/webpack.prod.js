@@ -32,7 +32,9 @@ module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
 
     plugins: [
         new webpack.DefinePlugin({
+            API_BASE_URL: JSON.stringify("/api"),
             "process.env.NODE_ENV": JSON.stringify("production"),
+            "process.env.API_URL": JSON.stringify(process.env.API_URL),
         }),
         new MiniCssExtractPlugin({
             filename: "[name].ltc.[contenthash].css",

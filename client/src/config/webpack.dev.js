@@ -26,6 +26,8 @@ module.exports = async () => {
             new webpack.HotModuleReplacementPlugin(),
             new webpack.DefinePlugin({
                 API_BASE_URL: JSON.stringify("/api"),
+                "process.env.NODE_ENV": JSON.stringify("development"),
+                "process.env.REACT_APP_BASE_API_URL": JSON.stringify("http://127.0.0.1:5288"),
             }),
             new CopyPlugin({
                 patterns: [{ from: p("./assets"), to: p("./dist/assets") }],
