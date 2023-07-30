@@ -4,8 +4,7 @@ import { openInsertUpdateWindow } from "./update-insert-workflow";
 
 export default class extends Controller {
     onInit(): void {
-        this.store.set("$page.flagDashboard", true);
-        this.store.set("$page.flagPauseStop", false);
+        this.store.set("$page.flagPauseStopStatus", false);
     }
 
     async openWindow() {

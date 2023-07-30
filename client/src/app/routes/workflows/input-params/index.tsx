@@ -1,4 +1,4 @@
-import { List, LookupField, Repeater, Tab } from "cx/widgets";
+import { List, LookupField, Repeater, Tab, TextField } from "cx/widgets";
 import Controller from "./Controller";
 import { Store } from "cx/data";
 import { LabelsTopLayout, bind, computable } from "cx/ui";
@@ -30,15 +30,20 @@ export default () => (
                             <div
                                 className="flex flex-1"
                                 layout={LabelsTopLayout}
-                                controller={{
-                                    onInit() {},
-                                }}
                             >
                                 <LookupField
                                     label="Source"
                                     options-bind="$con.source"
                                     value-bind="$con.sourceDecision"
                                     className="!w-full"
+                                    if-expr="{$page.currentWorkflowInUndoneList} == true"
+                                />
+                                <TextField 
+                                    readOnly 
+                                    label="Source" 
+                                    className="!w-full" 
+                                    value-bind="$con.source"
+                                    if-expr="{$page.currentWorkflowInUndoneList} == false"
                                 />
                             </div>
                             <div className="flex flex-1" layout={LabelsTopLayout}>
@@ -49,6 +54,14 @@ export default () => (
                                     })}
                                     value-bind="$con.paramDecision"
                                     className="!w-full"
+                                    if-expr="{$page.currentWorkflowInUndoneList} == true"
+                                />
+                                <TextField 
+                                    readOnly 
+                                    label="Param" 
+                                    className="!w-full" 
+                                    value-bind="$con.param"
+                                    if-expr="{$page.currentWorkflowInUndoneList} == false"
                                 />
                             </div>
                         </div>

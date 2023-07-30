@@ -3,6 +3,8 @@ import { GET } from "../../../api/util/methods";
 
 export default class extends Controller {
     onInit(): void {
+        this.store.set("$page.workflows", []);
+
         this.loadData();
     }
 
@@ -13,6 +15,8 @@ export default class extends Controller {
 
             if (resp.length > 0) {
                 this.store.set("$page.currentWorkflow", resp[0]);
+            }else{
+                this.store.set("$page.flagDashboard", false);
             }
         } catch (err) {
             console.error(err);

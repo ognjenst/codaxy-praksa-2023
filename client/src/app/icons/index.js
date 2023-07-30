@@ -19,6 +19,7 @@ import {
     InformationCircleIcon,
     PencilIcon,
     PlusIcon,
+    PlusCircleIcon,
     PresentationChartBarIcon,
     PrinterIcon,
     PuzzlePieceIcon,
@@ -101,6 +102,7 @@ Icon.register("x", (props) => <XMarkIcon {...props} />);
 Icon.register("close", (props) => <XMarkIcon {...props} />);
 
 Icon.register("plus", (props) => <PlusIcon {...props} />);
+Icon.register("plus-circle", (props) => <PlusCircleIcon {...props} />);
 
 Icon.register("arrow-left", (props) => <ArrowLeftIcon {...props} />);
 
@@ -121,6 +123,8 @@ Icon.register("pause-circle", (props) => <PauseCircleIcon {...props} />);
 Icon.register("signal", (props) => <SignalIcon {...props} />);
 
 Icon.register("play-circle", (props) => <PlayCircleIcon {...props} />);
+
+Icon.register("play", (props) => <PlayIcon {...props} />);
 
 Icon.register("stop-circle", (props) => <StopCircleIcon {...props} />);
 Icon.register("minus", (props) => <MinusIcon {...props} />);

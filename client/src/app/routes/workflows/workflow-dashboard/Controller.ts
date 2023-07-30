@@ -53,6 +53,8 @@ export default class extends Controller {
             this.store.update("$page.undoneWorkflows", (elements) =>
                 elements.map((el) => (el.name == this.store.get("$page.currentWorkflow.name") ? newObj : el))
             );
+
+            this.store.set("$page.currentWorkflow", newObj);
         } else {
             this.store.update("$page.undoneWorkflows", (elements) => [...elements, newObj]);
 
