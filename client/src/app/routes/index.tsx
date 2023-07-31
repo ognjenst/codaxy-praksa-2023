@@ -7,11 +7,19 @@ import Automations from "./automations";
 import Dashboard from "./dashboard";
 import Devices from "./devices";
 import DeviceDetails from "./devices/device-details";
+import Login from "./login";
+import Registration from "./registration";
 
 export default () => (
     <cx>
         <FirstVisibleChildLayout>
-            <RedirectRoute route="~/" redirect="~/devices" url-bind="url" />
+            <RedirectRoute route="~/" redirect="~/login" url-bind="url" />
+            <SandboxedRoute route="~/login">
+                <Login />
+            </SandboxedRoute>
+            <SandboxedRoute route="~/registration">
+                <Registration />
+            </SandboxedRoute>
 
             <CheckerLayout>
                 <SandboxedRoute route="~/dashboard">
