@@ -7,6 +7,6 @@ namespace SOC.IoT.ApiGateway.Controllers
     [Controller]
     public abstract class BaseController : ControllerBase
     {
-        public User Account => (User)HttpContext.Items["User"];
+        public User Account => (User)HttpContext.Items["Account"];
     }
 }
