@@ -43,6 +43,7 @@
 	<ItemGroup>
 		<Folder Include="Controllers\" />
 		<Folder Include="Entities\Contexts\" />
+		<Folder Include="Migrations\" />
 	</ItemGroup>
 
 	<ItemGroup>
