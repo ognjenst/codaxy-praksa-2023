@@ -9,6 +9,7 @@ using SOC.IoT.ApiGateway.Extensions;
 using Serilog;
 using Microsoft.EntityFrameworkCore;
 using SOC.IoT.ApiGateway.Entities.Contexts;
+using SOC.IoT.ApiGateway.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<SOCIoTDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db")));
+builder.Services.AddDbContext<SOCIoTDbContext>(
+    options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db"))
+);
 
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
@@ -37,16 +40,11 @@ builder.Services.AddSwaggerExamplesFromAssemblyOf<DevicesExample>();
 builder.Services.AddLogging();
 builder.Services.AddSignalR();
 
+builder.Services.AddHostedService<DevicesBackgroundService>();
+
 builder.Services.AddIoTServices();
 
 builder.Services.RegisterServices();
-// Configure Serilog
-builder.Host.UseSerilog(
-	(context, config) =>
-	{
-		config.WriteTo.Console();
-	}
-);
 
 // Configure Serilog
 builder.Host.UseSerilog(
@@ -65,10 +63,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
-
 app.UseMiddleware<GlobalExceptionMiddleware>();
-
 
 // Disable CORS
 app.UseCors(builder =>
@@ -79,6 +74,8 @@ app.UseCors(builder =>
         .AllowAnyMethod()
         .AllowCredentials();
 });
+
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

@@ -11,12 +11,15 @@ using SOC.Ticketing.Handler;
 using Microsoft.Extensions.DependencyInjection;
 using SOC.Ticketing.Services;
 using SOC.Ticketing.Generated;
+using MediatR;
+using System.ComponentModel.Design;
 
 var builder = Host.CreateDefaultBuilder()
     .ConfigureAppConfiguration(
         (hosting, config) =>
         {
-            config.AddJsonFile("appsettings.Development.json");
+            config.AddJsonFile("appsettings.Development.json", true);
+            config.AddJsonFile("appsettings.json", true);
         }
     )
     .UseServiceProviderFactory(new AutofacServiceProviderFactory())
@@ -60,6 +63,5 @@ var builder = Host.CreateDefaultBuilder()
     );
 
 using var host = builder.Build();
-
 
 await host.RunAsync();

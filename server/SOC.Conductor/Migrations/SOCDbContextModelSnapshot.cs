@@ -100,6 +100,10 @@ namespace SOC.Conductor.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("DeviceId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Property")
                         .IsRequired()
                         .HasColumnType("text");
@@ -118,8 +122,8 @@ namespace SOC.Conductor.Migrations
                     b.Property<int>("Period")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("Start")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<TimeSpan>("Start")
+                        .HasColumnType("interval");
 
                     b.Property<int>("Unit")
                         .HasColumnType("integer");
