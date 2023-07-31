@@ -163,4 +163,4 @@ export default (reslove, props) =>
     };
 
 const BACKEND_REQUEST_GET_ALL_TASKS = "/workflows/getalltasks";
-const IGNORE_OUTPUTKEYS = "..........";
+const IGNORE_OUTPUTKEYS = "<FILL_REF_NAME>.output";

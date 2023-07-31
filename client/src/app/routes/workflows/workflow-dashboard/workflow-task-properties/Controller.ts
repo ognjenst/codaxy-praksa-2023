@@ -1,5 +1,6 @@
 import { Controller } from "cx/ui";
 import { GET } from "../../../../api/util/methods";
+import controller_insert_update from "../../update-insert-workflow/Controller";
 
 export default class extends Controller {
     onInit(): void {
@@ -9,8 +10,13 @@ export default class extends Controller {
 
             for (let i = 0; i < arrTasks.length; i++) {
                 var arrConditions = arrTasks[i].conditions;
+
                 //here i need for every task(inside their inputs) to fill task ref name if it is defined
                 for (let j = 0; j < arrPrevious.length; j++) {
+                    if (arrPrevious[j].value === null) {
+                        arrPrevious[j].value = IGNORE_OUTPUTKEYS;
+                    }
+
                     if (arrPrevious[j].value != null) {
                         var arrInputs = this.store.get("$page.currentWorkflow.tasks." + i + ".inputs");
 
@@ -50,3 +56,5 @@ export default class extends Controller {
         });
     }
 }
+
+const IGNORE_OUTPUTKEYS = "<FILL_REF_NAME>";
