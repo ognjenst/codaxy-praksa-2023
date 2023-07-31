@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
+using SOC.Conductor.Generated;
 using System.Net;
 
 namespace SOC.IoT.ApiGateway.Controllers;
@@ -60,4 +61,62 @@ public class WorkflowsController : ControllerBase
 		await _workflowsClient.PlayWorkflowAsync(playDto);
 		return StatusCode(201);
 	}
+
+    /// <summary>
+    /// Deletes a workflow.
+    /// </summary>
+    /// <param name="workflowId"></param>
+    /// <returns></returns>
+    [HttpDelete("{workflowId}", Name = "DeleteWorkflow")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
+    public async Task<IActionResult> DeleteWorkflowAsync(int workflowId)
+    {
+        await _workflowsClient.DeleteWorkflowAsync(workflowId);
+
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Creates new workflow.
+    /// </summary>
+    /// <param name="createWorkflowDto"></param>
+    /// <returns></returns>
+    [HttpPost(Name = "CreateWorkflow")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkflowDto))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+    public async Task<IActionResult> CreateWorkflowAsync([FromBody] CreateWorkflowDto createWorkflowDto)
+    {
+        var result = await _workflowsClient.CreateWorkflowAsync(createWorkflowDto);
+
+        if (result is not null)
+            return Ok(result);
+
+        return NoContent();
+    }
+
+
+    /// <summary>
+    /// Updates a workflow.
+    /// </summary>
+    /// <param name="workflowDto"></param>
+    /// <param name="workflowId"></param>
+    /// <returns></returns>
+    [HttpPut("{workflowId}", Name = "UpdateWorkflow")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkflowDto))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+    public async Task<IActionResult> UpdateWorkflowAsync([FromRoute] int workflowId, [FromBody] CreateWorkflowDto workflowDto)
+    {
+        var result = await _workflowsClient.UpdateWorkflowAsync(workflowId, workflowDto);
+
+        if (result is not null)
+            return Ok(result);
+
+        return NotFound();
+    }
 }
