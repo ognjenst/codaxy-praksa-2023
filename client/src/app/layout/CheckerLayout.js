@@ -182,6 +182,7 @@ export const CheckerLayout = ({ children, nav }) => (
                 <NavItem text="Devices" icon="light-bulb" href="~/devices" />
                 <NavItem text="Automations" icon="presentation-chart-line" href="~/automations" />
                 <NavItem text="Workflows" icon="arrow-down-circle" href="~/workflows" />
+                <NavItem text="Triggers" icon="arrow-down-circle" href="~/triggers" />
             </div>
             {children}
         </div>

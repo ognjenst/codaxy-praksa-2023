@@ -4,6 +4,7 @@ import { openInputParametersWindow } from "./openInputParametersWindow";
 
 export default class extends Controller {
     onInit() {
+        this.store.set("$page.trigger.type", 1);
         this.loadWorkflows();
         this.loadTriggers();
     }
