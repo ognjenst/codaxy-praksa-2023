@@ -2,6 +2,7 @@ import { Controller } from "cx/ui";
 import { DELETE, GET, POST, PUT } from "../../../api/util/methods";
 import { openInsertUpdateWindow } from "../update-insert-workflow";
 import { openPlayWorkflowWindow } from "../play-workflow";
+import { MsgBox } from "cx/widgets";
 
 export default class extends Controller {
     onInit(): void {}
@@ -81,64 +82,68 @@ export default class extends Controller {
     }
 
     async registerWorkflow() {
-        var arrTasks = [];
-        var workflowTasks = this.store.get("$page.currentWorkflow.tasks");
+        try {
+            var arrTasks = [];
+            var workflowTasks = this.store.get("$page.currentWorkflow.tasks");
 
-        for (let i = 0; i < workflowTasks.length; i++) {
-            var inputParameters = new Map();
-            var conditionInputParameters = new Map();
+            for (let i = 0; i < workflowTasks.length; i++) {
+                var inputParameters = new Map();
+                var conditionInputParameters = new Map();
 
-            for (let j = 0; j < workflowTasks[i].inputs.length; j++) {
-                var sourceIndex = workflowTasks[i].inputs[j].sourceDecision;
-                var paramIndex = workflowTasks[i].inputs[j].paramDecision;
-
-                try {
-                    var sourceText = workflowTasks[i].inputs[j].source[sourceIndex].text;
-                    var paramText = workflowTasks[i].inputs[j].source[sourceIndex].param[paramIndex].text;
-                    inputParameters.set(
-                        workflowTasks[i].inputs[j].tab,
-                        "${" + (sourceText.includes("$") ? sourceText.slice(1, sourceText.length) : sourceText) + "." + paramText + "}"
-                    );
-                } catch (err) {}
-            }
-
-            if (workflowTasks[i].expression !== null) {
-                for (let j = 0; j < workflowTasks[i].conditions.length; j++) {
-                    var sourceIndex = workflowTasks[i].conditions[j].sourceDecision;
-                    var paramIndex = workflowTasks[i].conditions[j].paramDecision;
+                for (let j = 0; j < workflowTasks[i].inputs.length; j++) {
+                    var sourceIndex = workflowTasks[i].inputs[j].sourceDecision;
+                    var paramIndex = workflowTasks[i].inputs[j].paramDecision;
 
                     try {
-                        var sourceText = workflowTasks[i].conditions[j].source[sourceIndex].text;
-                        var paramText = workflowTasks[i].conditions[j].source[sourceIndex].param[paramIndex].text;
-                        conditionInputParameters.set(
-                            workflowTasks[i].conditions[j].tab,
+                        var sourceText = workflowTasks[i].inputs[j].source[sourceIndex].text;
+                        var paramText = workflowTasks[i].inputs[j].source[sourceIndex].param[paramIndex].text;
+                        inputParameters.set(
+                            workflowTasks[i].inputs[j].tab,
                             "${" + (sourceText.includes("$") ? sourceText.slice(1, sourceText.length) : sourceText) + "." + paramText + "}"
                         );
                     } catch (err) {}
                 }
+
+                if (workflowTasks[i].expression !== null) {
+                    for (let j = 0; j < workflowTasks[i].conditions.length; j++) {
+                        var sourceIndex = workflowTasks[i].conditions[j].sourceDecision;
+                        var paramIndex = workflowTasks[i].conditions[j].paramDecision;
+
+                        try {
+                            var sourceText = workflowTasks[i].conditions[j].source[sourceIndex].text;
+                            var paramText = workflowTasks[i].conditions[j].source[sourceIndex].param[paramIndex].text;
+                            conditionInputParameters.set(
+                                workflowTasks[i].conditions[j].tab,
+                                "${" +
+                                    (sourceText.includes("$") ? sourceText.slice(1, sourceText.length) : sourceText) +
+                                    "." +
+                                    paramText +
+                                    "}"
+                            );
+                        } catch (err) {}
+                    }
+                }
+
+                var tempObj = {
+                    name: workflowTasks[i].name,
+                    taskReferenceName: workflowTasks[i].taskReferenceName,
+                    inputParameters: Object.fromEntries(inputParameters),
+                    conditionInputParameters: Object.fromEntries(conditionInputParameters),
+                    expression: workflowTasks[i].expression,
+                    type: taskTypes[this.store.get("$task.type")].text,
+                };
+
+                arrTasks.push(tempObj);
             }
 
-            var tempObj = {
-                name: workflowTasks[i].name,
-                taskReferenceName: workflowTasks[i].taskReferenceName,
-                inputParameters: Object.fromEntries(inputParameters),
-                conditionInputParameters: Object.fromEntries(conditionInputParameters),
-                expression: workflowTasks[i].expression,
-                type: taskTypes[this.store.get("$task.type")].text,
+            var obj = {
+                name: this.store.get("$page.currentWorkflow.name"),
+                description: this.store.get("$page.currentWorkflow.description"),
+                version: this.store.get("$page.currentWorkflow.version"),
+                inputParameters: this.store.get("$page.currentWorkflow.inputParameters"),
+                tasks: arrTasks,
             };
 
-            arrTasks.push(tempObj);
-        }
-
-        var obj = {
-            name: this.store.get("$page.currentWorkflow.name"),
-            description: this.store.get("$page.currentWorkflow.description"),
-            version: this.store.get("$page.currentWorkflow.version"),
-            inputParameters: this.store.get("$page.currentWorkflow.inputParameters"),
-            tasks: arrTasks,
-        };
-
-        try {
             var resp = await POST(BACKEND_REQUEST_REGISTER_WORKFLOW, obj);
 
             this.store.set("", [...this.store.get("$page.workflows"), this.store.get("currentWorkflow")]);
@@ -154,7 +159,7 @@ export default class extends Controller {
 
             this.changeSelected();
         } catch (err) {
-            console.error(err);
+            MsgBox.alert("Not able to create workflow ...");
         }
     }
 

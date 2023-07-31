@@ -30,7 +30,17 @@ export const openInsertUpdateWindow = ({ props }) => {
                     <div className="flex flex-col" layout={LabelsLeftLayout}>
                         <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-4">
                             <div layout={LabelsLeftLayout}>
-                                <TextField label="Name" value-bind="$page.insertUpdateName" />
+                                <TextField
+                                    label="Name"
+                                    value-bind="$page.insertUpdateName"
+                                    if-expr="{$page.flagShowCorrectTextField} === true"
+                                    readOnly
+                                />
+                                <TextField
+                                    label="Name"
+                                    value-bind="$page.insertUpdateName"
+                                    if-expr="{$page.flagShowCorrectTextField} === false"
+                                />
                                 <TextField label="Description" value-bind="$page.insertUpdateDescription" />
                                 <NumberField label="Version" value-bind="$page.insertUpdateVersion" />
                             </div>

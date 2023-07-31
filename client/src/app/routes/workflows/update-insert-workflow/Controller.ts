@@ -9,6 +9,7 @@ export default (reslove, props) =>
             this.store.set("$insert.workflowParamNames", []);
             this.store.set("$insert.workflowTasks", []);
             this.store.set("$page.insertUpdateName", props.name);
+            this.store.set("$page.flagShowCorrectTextField", props.name == null ? false : true);
             this.store.set("$page.insertUpdateDescription", props.description);
             this.store.set("$page.insertUpdateVersion", props.version);
 
