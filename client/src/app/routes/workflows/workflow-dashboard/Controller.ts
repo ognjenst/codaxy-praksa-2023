@@ -1,5 +1,5 @@
 import { Controller } from "cx/ui";
-import { DELETE, POST, PUT } from "../../../api/util/methods";
+import { DELETE, GET, POST, PUT } from "../../../api/util/methods";
 import { openInsertUpdateWindow } from "../update-insert-workflow";
 import { openPlayWorkflowWindow } from "../play-workflow";
 
@@ -138,12 +138,8 @@ export default class extends Controller {
             tasks: arrTasks,
         };
 
-        console.log(obj);
-
         try {
-            var resp = POST(BACKEND_REQUEST_REGISTER_WORKFLOW, obj);
-
-            console.log(resp);
+            var resp = await POST(BACKEND_REQUEST_REGISTER_WORKFLOW, obj);
 
             this.store.set("", [...this.store.get("$page.workflows"), this.store.get("currentWorkflow")]);
             var arrUndone = this.store.get("$page.undoneWorkflows").filter((value, index, arr) => {
@@ -152,7 +148,26 @@ export default class extends Controller {
                 return true;
             });
 
+            this.store.set("$page.undoneWorkflows", arrUndone);
+
+            await this.loadData();
+
             this.changeSelected();
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async loadData() {
+        try {
+            let resp = await GET("/workflows");
+            this.store.set("$page.workflows", resp);
+
+            if (resp.length > 0) {
+                this.store.set("$page.currentWorkflow", resp[0]);
+            } else {
+                this.store.set("$page.flagDashboard", false);
+            }
         } catch (err) {
             console.error(err);
         }

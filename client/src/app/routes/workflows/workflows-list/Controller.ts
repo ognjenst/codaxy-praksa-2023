@@ -1,7 +1,7 @@
 import { Controller } from "cx/ui";
 import { GET } from "../../../api/util/methods";
 
-export default class extends Controller {
+export default class Controller1 extends Controller {
     onInit(): void {
         this.store.set("$page.workflows", []);
 

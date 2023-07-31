@@ -32,12 +32,6 @@ export default () => (
                             <div
                                 visible-expr="{$task.selectedTab} == {$con.tab}"
                                 className="flex flex-1 flex-col items-center justify-middle"
-                                controller={{
-                                    onInit() {
-                                        let v = this.store.get("$con.source")[0];
-                                        this.store.set("$con.sourceDecision", v.id);
-                                    },
-                                }}
                             >
                                 <div className="flex flex-1" layout={LabelsTopLayout}>
                                     <LookupField
