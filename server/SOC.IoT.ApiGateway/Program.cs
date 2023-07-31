@@ -24,8 +24,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<SOCIoTDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db")));
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddDbContext<SOCIoTDbContext>(
+    options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db"))
+);
 
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
@@ -54,15 +55,16 @@ builder.Services.AddHostedService<DevicesBackgroundService>();
 builder.Services.AddIoTServices();
 
 builder.Services.RegisterServices();
+
 builder.Services.AddScoped<IUserService, UserService>();
 
 
 // Configure Serilog
 builder.Host.UseSerilog(
-	(context, config) =>
-	{
-		config.WriteTo.Console();
-	}
+    (context, config) =>
+    {
+        config.WriteTo.Console();
+    }
 );
 
 // Configure Serilog
@@ -82,10 +84,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
-
 app.UseMiddleware<GlobalExceptionMiddleware>();
-
 
 // Disable CORS
 app.UseCors(builder =>
@@ -97,7 +96,10 @@ app.UseCors(builder =>
         .AllowCredentials();
 });
 
-app.UseMiddleware<JwtMiddleware>();
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
 app.MapControllers();
 app.Services.GetRequiredService<IStartupService>();
 

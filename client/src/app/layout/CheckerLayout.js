@@ -181,21 +181,6 @@ export const CheckerLayout = ({ children, nav }) => (
                 <NavItem text="Devices" icon="light-bulb" href="~/devices" />
                 <NavItem text="Automations" icon="presentation-chart-line" href="~/automations" />
                 <NavItem text="Workflows" icon="arrow-down-circle" href="~/workflows" />
-
-                <div class="mt-4 px-6 py-3 text-gray-400 text-sm">Misc</div>
-
-                <GroupItem text="Pages" icon="document-report" expanded-bind="nav.expand.pages">
-                    <ChildItem text="Sign In" href="~/pages/sign-in" />
-                    <ChildItem text="Password Recovery" href="~/pages/password-recovery" />
-                </GroupItem>
-                <GroupItem text="Widgets" icon="puzzle" expanded-bind="nav.expand.widgets">
-                    <ChildItem text="Buttons" href="~/widgets/buttons" />
-                    <ChildItem text="Form Fields" href="~/widgets/form-fields" />
-                    <ChildItem text="Rich Text Editor" href="~/widgets/rich-text" />
-                </GroupItem>
-                <NavItem text="About" icon="information-circle" href="~/about" />
-                <NavItem text="Devices" icon="puzzle" href="~/devices" />
-                <NavItem text="Workflows" icon="puzzle" href="~/workflows" />
             </div>
             {children}
         </div>

@@ -9,7 +9,7 @@ namespace SOC.Conductor.Repositories
     public abstract class RepositoryBase<T> : IRepositoryBase<T>
         where T : class
     {
-        private readonly SOCDbContext _dbContext;
+        protected readonly SOCDbContext _dbContext;
 
         protected RepositoryBase(SOCDbContext dbContext)
         {

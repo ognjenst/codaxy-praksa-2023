@@ -8,11 +8,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SOC.IoT.Extensions;
 using SOC.IoT.Handler;
+using SOC.IoT.Services;
 
 var builder = Host.CreateDefaultBuilder()
     .ConfigureAppConfiguration(
         (hosting, config) => {
-            config.AddJsonFile("appsettings.json");
+            config.AddJsonFile("appsettings.json", true);
+            config.AddJsonFile("appsettings.Development.json", true);
         }
     )
     .UseServiceProviderFactory(new AutofacServiceProviderFactory())
@@ -47,10 +49,14 @@ var builder = Host.CreateDefaultBuilder()
                 });
 
             builder.RegisterWorkerTask<DeviceHandler>();
-
-        }
+			builder.RegisterWorkerTask<DetectionHandler>();
+		}
     );
 
 using var host = builder.Build();
 
+/*
+var service = host.Services.GetRequiredService<IDeviceService>();
+await service.LigthBulbInRepetitions(new DetectionRequest { DeviceId = "0x00158d0001dd7e46", X = 0.675, Y = 0.322 }, new CancellationToken());
+*/
 await host.RunAsync();
