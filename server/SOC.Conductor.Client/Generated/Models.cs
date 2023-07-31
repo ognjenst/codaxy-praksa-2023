@@ -78,10 +78,10 @@ namespace SOC.Conductor.Generated
         public string? TaskReferenceName { get; set; } = default!;
 
         [Newtonsoft.Json.JsonProperty("inputParameters", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.IDictionary<string, object>? InputParameters { get; set; } = default!;
+        public System.Collections.Generic.IDictionary<string, string>? InputParameters { get; set; } = default!;
 
         [Newtonsoft.Json.JsonProperty("conditionInputParameters", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.IDictionary<string, object>? ConditionInputParameters { get; set; } = default!;
+        public System.Collections.Generic.IDictionary<string, string>? ConditionInputParameters { get; set; } = default!;
 
         [Newtonsoft.Json.JsonProperty("expression", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string? Expression { get; set; } = default!;

@@ -1,4 +1,5 @@
-﻿using SOC.Conductor.DTOs;
+﻿using Newtonsoft.Json;
+using SOC.Conductor.DTOs;
 using SOC.Conductor.DTOs.Enums;
 using SOC.Conductor.Generated;
 using System.Threading.Tasks;
@@ -47,6 +48,7 @@ public class WorkflowBuilderService : IWorkflowBuilderService
 
         try
         {
+            _logger.LogInformation(JsonConvert.SerializeObject(workflowDef));
             await _metadataResourceClient.UpdateAsync(new List<WorkflowDef> { workflowDef });
         } catch (Exception ex) 
         {
@@ -61,8 +63,9 @@ public class WorkflowBuilderService : IWorkflowBuilderService
         {
             Name = task.Name,
             TaskReferenceName = task.TaskReferenceName,
-            InputParameters = task.InputParameters,
+            InputParameters = task.InputParameters.ToDictionary(x => x.Key, x => (object)x.Value),
             Type = SIMPLE_TASK,
+            WorkflowTaskType = WorkflowTaskType.SIMPLE
         });
     }
 
@@ -72,18 +75,20 @@ public class WorkflowBuilderService : IWorkflowBuilderService
         {
             Name = taskName,
             TaskReferenceName = taskName,
-            InputParameters = task.ConditionInputParameters,
+            InputParameters = task.ConditionInputParameters.ToDictionary(x => x.Key, x => (object)x.Value),
             Type = SWITCH_TASK,
             EvaluatorType = JS_EVALUATOR,
             Expression = task.Expression,
+            WorkflowTaskType = WorkflowTaskType.SWITCH,
             DecisionCases = new Dictionary<string, ICollection<WorkflowTask>> {
                 { "true", new List<WorkflowTask>
                     { new WorkflowTask()
                         {
                             Name = task.Name,
                             TaskReferenceName = task.TaskReferenceName,
-                            InputParameters = task.InputParameters,
+                            InputParameters = task.InputParameters.ToDictionary(x => x.Key, x => (object)x.Value),
                             Type = SIMPLE_TASK,
+                            WorkflowTaskType = WorkflowTaskType.SIMPLE
                         }
                     }
                 }

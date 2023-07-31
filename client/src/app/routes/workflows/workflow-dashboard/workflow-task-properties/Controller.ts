@@ -19,7 +19,7 @@ export default class extends Controller {
 
                             for (let ii = 0; ii < arrSource.length; ii++) {
                                 if (arrSource[ii].id === arrPrevious[j].id) {
-                                    arrSource[ii].text = arrPrevious[j].value;
+                                    arrSource[ii].text = arrPrevious[j].value + ".output";
                                     break;
                                 }
                             }
@@ -32,7 +32,7 @@ export default class extends Controller {
 
                             for (let ii = 0; ii < arrSource.length; ii++) {
                                 if (arrSource[ii].id === arrPrevious[j].id) {
-                                    arrSource[ii].text = arrPrevious[j].value;
+                                    arrSource[ii].text = arrPrevious[j].value + ".output";
                                     break;
                                 }
                             }
@@ -41,7 +41,7 @@ export default class extends Controller {
                         }
                     }
                 }
-                //i catch previous  task_ref_names for next tasks
+
                 arrPrevious.push({
                     id: i + 1,
                     value: arrTasks[i].taskReferenceName,

@@ -1,5 +1,5 @@
 import { Controller } from "cx/ui";
-import { DELETE, POST } from "../../../api/util/methods";
+import { DELETE, POST, PUT } from "../../../api/util/methods";
 import { openInsertUpdateWindow } from "../update-insert-workflow";
 import { openPlayWorkflowWindow } from "../play-workflow";
 
@@ -95,7 +95,10 @@ export default class extends Controller {
                 try {
                     var sourceText = workflowTasks[i].inputs[j].source[sourceIndex].text;
                     var paramText = workflowTasks[i].inputs[j].source[sourceIndex].param[paramIndex].text;
-                    inputParameters.set(workflowTasks[i].inputs[j].tab, "{" + sourceText + "." + paramText + "}");
+                    inputParameters.set(
+                        workflowTasks[i].inputs[j].tab,
+                        "${" + (sourceText.includes("$") ? sourceText.slice(1, sourceText.length) : sourceText) + "." + paramText + "}"
+                    );
                 } catch (err) {}
             }
 
@@ -107,7 +110,10 @@ export default class extends Controller {
                     try {
                         var sourceText = workflowTasks[i].conditions[j].source[sourceIndex].text;
                         var paramText = workflowTasks[i].conditions[j].source[sourceIndex].param[paramIndex].text;
-                        conditionInputParameters.set(workflowTasks[i].conditions[j].tab, "{" + sourceText + "." + paramText + "}");
+                        conditionInputParameters.set(
+                            workflowTasks[i].conditions[j].tab,
+                            "${" + (sourceText.includes("$") ? sourceText.slice(1, sourceText.length) : sourceText) + "." + paramText + "}"
+                        );
                     } catch (err) {}
                 }
             }
@@ -115,8 +121,8 @@ export default class extends Controller {
             var tempObj = {
                 name: workflowTasks[i].name,
                 taskReferenceName: workflowTasks[i].taskReferenceName,
-                inputParameters,
-                conditionInputParameters,
+                inputParameters: Object.fromEntries(inputParameters),
+                conditionInputParameters: Object.fromEntries(conditionInputParameters),
                 expression: workflowTasks[i].expression,
                 type: taskTypes[this.store.get("$task.type")].text,
             };
@@ -134,13 +140,22 @@ export default class extends Controller {
 
         console.log(obj);
 
-        /*
         try {
-            var resp = PUT(BACKEND_REQUEST_REGISTER_WORKFLOW, obj);
+            var resp = POST(BACKEND_REQUEST_REGISTER_WORKFLOW, obj);
+
+            console.log(resp);
+
+            this.store.set("", [...this.store.get("$page.workflows"), this.store.get("currentWorkflow")]);
+            var arrUndone = this.store.get("$page.undoneWorkflows").filter((value, index, arr) => {
+                if (value.name == this.store.get("$page.currentWorkflow.name")) return false;
+
+                return true;
+            });
+
+            this.changeSelected();
         } catch (err) {
             console.error(err);
         }
-        */
     }
 
     changeSelected() {
@@ -161,5 +176,5 @@ export default class extends Controller {
     }
 }
 
-const BACKEND_REQUEST_REGISTER_WORKFLOW = "/workflows/register_workflow";
+const BACKEND_REQUEST_REGISTER_WORKFLOW = "/workflows";
 const taskTypes = [{ id: 0, text: "SIMPLE" }];
