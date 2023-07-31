@@ -18,17 +18,7 @@ using System.Threading.Tasks;
 
 namespace SOC.IoT.Handler;
 
-public class DetectionResponse
-{
-	[JsonProperty("message")]
-	public string Message { get; set; }
-	[JsonProperty("title")]
-	public string Title { get; set; }
-	[JsonProperty("severity")]
-	public string Severity { get; set; }
-}
-
-public class DetectionRequest : IRequest<DetectionResponse> 
+public class DetectionRequest : IRequest<NoOutput> 
 {
     [JsonProperty("deviceId")]
     public string DeviceId { get; set; }
@@ -39,7 +29,7 @@ public class DetectionRequest : IRequest<DetectionResponse>
 }
 
 [OriginalName("IoT_light_on_color_change")]
-public class DetectionHandler : ITaskRequestHandler<DetectionRequest, DetectionResponse>
+public class DetectionHandler : ITaskRequestHandler<DetectionRequest, NoOutput>
 {
     private readonly IDeviceService _deviceService;
 
@@ -48,14 +38,10 @@ public class DetectionHandler : ITaskRequestHandler<DetectionRequest, DetectionR
         _deviceService = deviceService;
 	}
 
-	public async Task<DetectionResponse> Handle(DetectionRequest request, CancellationToken cancellationToken)
+	public async Task<NoOutput> Handle(DetectionRequest request, CancellationToken cancellationToken)
 	{
 		await _deviceService.LigthBulbInRepetitions(request, cancellationToken);
-		return await Task.FromResult(new DetectionResponse
-		{
-			Message = "MOVEMENT DETECTED OUTSIDE OF WORKING HOURS",
-			Title = "MOVEMENT DETECTION",
-			Severity = "HIGH"
-		});
+		return await Task.FromResult(new NoOutput());
+		
 	}
 }
