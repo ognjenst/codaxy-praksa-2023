@@ -17,8 +17,14 @@ export const BrightnessComponent = () => (
                 wheel
                 increment={0.1}
                 maxValue={1}
+                enabled-bind="$page.device.state.state"
             />
-            <NumberField label={{ text: "" }} style={{ width: 100 }} format="n;0;2" value-bind="$page.device.light.brightness" autoFocus />
+            <NumberField
+                className="w-16"
+                format="n;0;2"
+                value-bind="$page.device.light.brightness"
+                enabled-bind="$page.device.state.state"
+            />
         </LabeledContainer>
     </cx>
 );
