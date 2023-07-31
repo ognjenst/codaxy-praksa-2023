@@ -3,14 +3,22 @@ import { GET, POST } from "../../api/util/methods";
 
 export default class extends Controller {
     onInit() {
-        this.loadData();
+        this.loadWorkflows();
+        this.loadTriggers();
     }
 
-    async loadData() {
+    async loadWorkflows() {
         try {
             let workflows = await GET("/workflows");
             this.store.set("$page.workflows", workflows);
-            let triggers = await GET("/triggers");
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    async loadTriggers() {
+        let type = this.store.get("$route.type");
+        try {
+            let triggers = await GET("/triggers/{type}");
             this.store.set("$page.triggers", triggers);
         } catch (err) {
             console.log(err);

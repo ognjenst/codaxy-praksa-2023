@@ -10,7 +10,6 @@ namespace SOC.Conductor.Repositories
         private IAutomationRepository _automationRepository;
         private IIoTTriggerRepository _ioTTriggerRepository;
         private IPeriodicTriggerRepository _periodicTriggerRepository;
-        private ITriggerRepository _triggerRepository;
         private IWorkflowRepository _workflowRepository;
 
         public IAutomationRepository Automations
@@ -25,10 +24,6 @@ namespace SOC.Conductor.Repositories
         {
             get => _periodicTriggerRepository ??= new PeriodicTriggerRepository(_dbContext);
         }
-        public ITriggerRepository Triggers
-        {
-            get => _triggerRepository ??= new TriggerRepository(_dbContext);
-        }
         public IWorkflowRepository Workflows
         {
             get => _workflowRepository ??= new WorkflowRepository(_dbContext);
@@ -39,9 +34,9 @@ namespace SOC.Conductor.Repositories
             _dbContext = dbContext;
         }
 
-        public Task<int> SaveAllAsync()
+        public async Task<int> SaveAllAsync()
         {
-            return _dbContext.SaveChangesAsync();
+            return await _dbContext.SaveChangesAsync();
         }
 
         protected virtual void Dispose(bool dispose)
