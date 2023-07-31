@@ -33,7 +33,7 @@ public class DeviceService : IDeviceService
 	{
 		var device = await _devicesClient.GetDeviceAsync(request.DeviceId, cancellationToken);
 
-		if (DateTime.Now.Hour >= _options.StartHour && DateTime.Now.Hour <= _options.EndHour)
+		if (device != null)
 		{
 			int numberOfRepetitions = 0;
 
