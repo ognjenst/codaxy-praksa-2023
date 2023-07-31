@@ -39,15 +39,15 @@ public class WorkflowsController : ControllerBase
     /// <summary>
     /// Deletes a workflow.
     /// </summary>
-    /// <param name="workflowId"></param>
+    /// <param name="workflowName"></param>
+    /// <param name="workflowVersion"></param>
     /// <returns></returns>
-    [HttpDelete("{workflowId}", Name = "DeleteWorkflow")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+    [HttpDelete("{workflowName}/{workflowVersion}", Name = "DeleteWorkflow")]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
-    public async Task<IActionResult> DeleteWorkflowAsync(int workflowId)
+    public async Task<IActionResult> DeleteWorkflowAsync([FromRoute] string workflowName, [FromRoute] int workflowVersion = 1)
     {
-        await _mediator.Send(new DeleteWorkflowRequest(workflowId));
+        await _mediator.Send(new DeleteWorkflowRequest(workflowName, workflowVersion));
 
         return NoContent();
     }

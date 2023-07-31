@@ -18,6 +18,8 @@
 
 namespace SOC.Conductor.Generated
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -1002,7 +1004,7 @@ namespace SOC.Conductor.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeleteWorkflowAsync(int workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task DeleteWorkflowAsync(string workflowName, int workflowVersion, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -1239,14 +1241,16 @@ namespace SOC.Conductor.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task DeleteWorkflowAsync(int workflowId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// 
+        public async Task DeleteWorkflowAsync(string workflowName, int workflowVersion, CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            if (workflowId == null)
-                throw new System.ArgumentNullException("workflowId");
+            if (workflowName == null)
+                throw new System.ArgumentNullException("workflowName");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflows/{workflowId}");
-            urlBuilder_.Replace("{workflowId}", System.Uri.EscapeDataString(ConvertToString(workflowId, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflows/{workflowName}/{workflowVersion}");
+            urlBuilder_.Replace("{workflowName}", System.Uri.EscapeDataString(ConvertToString(workflowName, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Replace("{workflowVersion}", System.Uri.EscapeDataString(ConvertToString(workflowVersion, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1277,7 +1281,7 @@ namespace SOC.Conductor.Generated
                         ProcessResponse(client_, response_);
 
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
+                        if (status_ == 204)
                         {
                             return;
                         }

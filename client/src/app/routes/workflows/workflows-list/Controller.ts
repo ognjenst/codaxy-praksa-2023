@@ -13,8 +13,6 @@ export default class extends Controller {
             let resp = await GET("/workflows");
             this.store.set("$page.workflows", resp);
 
-            console.log(resp);
-
             if (resp.length > 0) {
                 this.store.set("$page.currentWorkflow", resp[0]);
             } else {

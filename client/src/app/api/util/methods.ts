@@ -25,7 +25,7 @@ async function checkOk(r) {
     throw Error(r.statusText);
 }
 
-let apiBaseUrl = "http://127.0.0.1:5288/api";
+let apiBaseUrl = "https://127.0.0.1:7297/api";
 
 export function resolveAPIUrl(path, query) {
     let qs = "";

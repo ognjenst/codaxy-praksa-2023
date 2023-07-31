@@ -1,5 +1,5 @@
 import { Controller } from "cx/ui";
-import { PUT } from "../../../api/util/methods";
+import { DELETE, POST } from "../../../api/util/methods";
 import { openInsertUpdateWindow } from "../update-insert-workflow";
 import { openPlayWorkflowWindow } from "../play-workflow";
 
@@ -15,26 +15,29 @@ export default class extends Controller {
 
         this.store.set("$page.undoneWorkflows", arrUndone);
 
-        if (this.store.get("$page.undoneWorkflows").length == 0) {
-            //if we there are not any elements in undoneWorkflow list
-            //then select first element of workflow list (if it exists)
-            if (this.store.get("$page.workflows").length > 0) {
-                this.store.set("$page.currentWorkflow", this.store.get("$page.workflows")[0]);
-                this.store.set("$page.arrTasks", this.store.get("$page.currentWorkflow.tasks"));
-                this.store.set("$page.currentWorkflowInUndoneList", false);
-            } else {
-                //if there are no elements then don't show
-                this.store.set("$page.flagDashboard", false);
-            }
-        } else {
-            this.store.set("$page.currentWorkflow", this.store.get("$page.undoneWorkflows")[0]);
-            this.store.set("$page.arrTasks", this.store.get("$page.currentWorkflow.tasks"));
-            this.store.set("$page.currentWorkflowInUndoneList", true);
-        }
+        this.changeSelected();
     }
 
-    deleteWorkflow() {
-        console.log("http delete workflow ...");
+    async deleteWorkflow() {
+        try {
+            var curr = this.store.get("$page.currentWorkflow");
+            await DELETE("/workflows/" + curr.name + "/" + curr.version);
+
+            this.store.set(
+                "$page.workflows",
+                this.store.get("$page.workflows").filter((value, index, arr) => {
+                    if (value.name === curr.name && value.version === curr.version) {
+                        return false;
+                    }
+
+                    return true;
+                })
+            );
+
+            this.changeSelected();
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     async updateWorkflow() {
@@ -138,6 +141,23 @@ export default class extends Controller {
             console.error(err);
         }
         */
+    }
+
+    changeSelected() {
+        if (this.store.get("$page.undoneWorkflows").length == 0) {
+            if (this.store.get("$page.workflows").length > 0) {
+                this.store.set("$page.currentWorkflow", this.store.get("$page.workflows")[0]);
+                this.store.set("$page.arrTasks", this.store.get("$page.currentWorkflow.tasks"));
+                this.store.set("$page.currentWorkflowInUndoneList", false);
+            } else {
+                //if there are no elements then don't show
+                this.store.set("$page.flagDashboard", false);
+            }
+        } else {
+            this.store.set("$page.currentWorkflow", this.store.get("$page.undoneWorkflows")[0]);
+            this.store.set("$page.arrTasks", this.store.get("$page.currentWorkflow.tasks"));
+            this.store.set("$page.currentWorkflowInUndoneList", true);
+        }
     }
 }
 
