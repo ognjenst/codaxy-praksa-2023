@@ -17,6 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddRazorPages();
+
 builder.Services.AddDbContext<SOCIoTDbContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db"))
 );
@@ -66,20 +68,18 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
 // Disable CORS
-app.UseCors(builder =>
-{
-    builder
-        .WithOrigins("http://localhost:5544")
-        .AllowAnyHeader()
-        .AllowAnyMethod()
-        .AllowCredentials();
-});
+//app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapRazorPages();
+
 app.Services.GetRequiredService<IStartupService>();
 
 app.MapHub<DevicesHub>("/api/hubs/devices");
