@@ -1,5 +1,6 @@
 import { Controller } from "cx/ui";
 import { GET, POST } from "../../api/util/methods";
+import { openInputParametersWindow } from "./openInputParametersWindow";
 
 export default class extends Controller {
     onInit() {
@@ -16,18 +17,19 @@ export default class extends Controller {
         }
     }
     async loadTriggers() {
-        let type = this.store.get("$route.type");
         try {
-            let triggers = await GET("/triggers/{type}");
-            this.store.set("$page.triggers", triggers);
+            let periodicTriggers = await GET("/triggers/PeriodicTrigger");
+            this.store.set("$page.periodicTriggers", periodicTriggers);
+            let iotTriggers = await GET("/triggers/IoTTrigger");
+            this.store.set("$page.iotTriggers", iotTriggers);
         } catch (err) {
             console.log(err);
         }
     }
 
     async addAutomation() {
-        let workflowId = this.store.get("$page.automations.workflows");
-        let triggerId = this.store.get("$page.automations.triggers");
+        let workflowId = this.store.get("$page.automation.workflows");
+        let triggerId = this.store.get("$page.automation.triggers");
 
         let automation = {
             workflowId,
@@ -40,6 +42,20 @@ export default class extends Controller {
         } catch (err) {
             console.log(err);
         }
+    }
+
+    async loadAutomations() {
+        try {
+            let automation = await GET("/automation");
+            this.store.set("$page.automation", automation);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    showInputParameters(e, { store }) {
+        let info = store.get("$record");
+        openInputParametersWindow(info);
     }
 
     addTrigger() {}
