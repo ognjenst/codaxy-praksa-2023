@@ -22,7 +22,7 @@ var builder = Host.CreateDefaultBuilder()
         (context, services) => {
             services.RegisterServices(context.Configuration);
         }
-    );/*
+    )
     .ConfigureContainer<ContainerBuilder>(
         (context, builder) => {
             builder
@@ -52,13 +52,11 @@ var builder = Host.CreateDefaultBuilder()
 			builder.RegisterWorkerTask<DetectionHandler>();
 		}
     );
-*/
+
 using var host = builder.Build();
 
 /*
-var service = host.Services.GetRequiredService<IIntelligenceService>();
-await service.CheckEndpoint("192.210.175.159", "90");
-*/
 var service = host.Services.GetRequiredService<IDeviceService>();
-await service.LigthBulbInRepetitions(new DetectionRequest { DeviceId = "0x00158d0001dd7e46" }, new CancellationToken());
+await service.LigthBulbInRepetitions(new DetectionRequest { DeviceId = "0x00158d0001dd7e46", X = 0.675, Y = 0.322 }, new CancellationToken());
+*/
 await host.RunAsync();

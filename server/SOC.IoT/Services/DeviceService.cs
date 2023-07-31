@@ -33,7 +33,7 @@ public class DeviceService : IDeviceService
 	{
 		var device = await _devicesClient.GetDeviceAsync(request.DeviceId, cancellationToken);
 
-		if (device != null)
+		if (DateTime.Now.Hour >= _options.StartHour && DateTime.Now.Hour <= _options.EndHour)
 		{
 			int numberOfRepetitions = 0;
 
@@ -41,8 +41,8 @@ public class DeviceService : IDeviceService
 			{
 				Id = device.Id,
 				Brightness = _options.Brightness,
-				X = _options.X,
-				Y = _options.Y,
+				X = request.X,
+				Y = request.Y,
 				State = true
 			};
 
@@ -59,7 +59,7 @@ public class DeviceService : IDeviceService
 				updateDeviceDto.State.State = false;
 
 				// turn off light and delay for few seconds 
-				await _devicesClient.UpdateDeviceAsync(device.Id, updateDeviceDto,cancellationToken);
+				await _devicesClient.UpdateDeviceAsync(device.Id, updateDeviceDto, cancellationToken);
 
 				await Task.Delay(_options.DelayTime);
 			}
