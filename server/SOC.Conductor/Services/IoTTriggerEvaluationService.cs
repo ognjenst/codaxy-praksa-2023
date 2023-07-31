@@ -110,6 +110,37 @@ public class IoTTriggerEvaluationService : BackgroundService
                         }
                     }
                 }
+                else
+                {
+                    // only for workflow with switch task
+                    var workflows = await unitOfWork.IoTTriggers.GetWorkflowsByTriggerIdAsync(
+                        iotTrigger.Id
+                    );
+                    var workflow = workflows.FirstOrDefault();
+                    if (workflow != null)
+                    {
+                        var automation = (
+                            await unitOfWork.Automations.GetByCondition(
+                                (a) => a.WorkflowId == workflow.Id && a.TriggerId == iotTrigger.Id
+                            )
+                        ).FirstOrDefault();
+                        if (automation != null)
+                        {
+                            var dataCentreState = automation.InputParameters["dataCentreState"];
+                            if (dataCentreState != null)
+                            {
+                                await ProcessWorkflow(
+                                    workflow,
+                                    UpdateWorkflowInputParameters(
+                                        new JObject { { "dataCentreState", "normal" } },
+                                        device,
+                                        iotTrigger
+                                    )
+                                );
+                            }
+                        }
+                    }
+                }
             }
         }
     }
