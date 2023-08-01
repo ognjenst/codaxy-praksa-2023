@@ -43,6 +43,7 @@ public class IntelligenceService : IIntelligenceService
         {
             JObject responseJson = JObject.Parse(await response.Content.ReadAsStringAsync());
             var result = JsonConvert.DeserializeObject<IntelligenceResponseDto>(responseJson["data"].ToString());
+           //  Console.WriteLine(result);
             return result;
         }
         else
