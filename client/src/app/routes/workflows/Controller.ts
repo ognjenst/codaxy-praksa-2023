@@ -8,9 +8,23 @@ export default class extends Controller {
     }
 
     async openWindow() {
+        var arrNames = [];
+
+        var arrFor = (arrList) => {
+            for (let i = 0; i < arrList.length; i++) {
+                arrNames.push(arrList[i].name);
+            }
+        };
+
+        arrFor(this.store.get("$page.workflows"));
+        arrFor(this.store.get("$page.undoneWorkflows"));
+
+        console.log(arrNames);
+
         let newObj = await openInsertUpdateWindow({
             props: {
                 action: "Insert",
+                arr: arrNames,
             },
         });
 

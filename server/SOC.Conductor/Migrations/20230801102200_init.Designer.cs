@@ -12,7 +12,7 @@ using SOC.Conductor.Entities.Contexts;
 namespace SOC.Conductor.Migrations
 {
     [DbContext(typeof(SOCDbContext))]
-    [Migration("20230731070455_init")]
+    [Migration("20230801102200_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -91,6 +91,9 @@ namespace SOC.Conductor.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Workflows");
                 });

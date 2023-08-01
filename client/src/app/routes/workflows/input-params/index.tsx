@@ -1,4 +1,4 @@
-import { List, LookupField, Repeater, Tab, TextField } from "cx/widgets";
+import { List, LookupField, Repeater, Tab, TextField, ValidationGroup } from "cx/widgets";
 import Controller from "./Controller";
 import { Store } from "cx/data";
 import { LabelsTopLayout, bind, computable } from "cx/ui";

@@ -180,7 +180,14 @@ export default (reslove, props) =>
 
             var message = "";
             if (this.store.get("$insert.workflowTasks").length == 0) {
-                message += "You need to select at least one task for workflow.\n";
+                message += "You need to select at least one task for workflow. ";
+            }
+
+            var workflowName = this.store.get("$page.insertUpdateName");
+            if (props.action == "Insert") {
+                if (props.arr.includes(workflowName)) {
+                    message += "Workflow with the same name already exists. ";
+                }
             }
 
             if (message !== "") {
@@ -192,4 +199,4 @@ export default (reslove, props) =>
     };
 
 const BACKEND_REQUEST_GET_ALL_TASKS = "/workflows/getalltasks";
-const IGNORE_OUTPUTKEYS = "<FILL_REF_NAME>.output";
+const IGNORE_OUTPUTKEYS = "<INSERT_REF_NAME>.output";

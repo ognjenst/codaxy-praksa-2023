@@ -113,6 +113,12 @@ namespace SOC.Conductor.Migrations
                 name: "IX_Automations_TriggerId",
                 table: "Automations",
                 column: "TriggerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Workflows_Name",
+                table: "Workflows",
+                column: "Name",
+                unique: true);
         }
 
         /// <inheritdoc />

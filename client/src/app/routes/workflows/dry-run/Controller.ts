@@ -8,15 +8,18 @@ export default (task) =>
         }
 
         getEval() {
-            var expr = task.expression;
+            try {
+                var expr = task.expression;
 
-            var arr = this.store.get("$inputs");
-            for (let i = 0; i < arr.length; i++) {
-                expr = expr.replace(FIXED_CHARS + arr[i].tab, arr[i].value);
+                var arr = this.store.get("$inputs");
+                for (let i = 0; i < arr.length; i++) {
+                    expr = expr.replace(FIXED_CHARS + arr[i].tab, arr[i].value);
+                }
+
+                var result = eval(expr);
+            } catch (err) {
+                result = false;
             }
-
-            var result = eval(expr);
-
             this.store.set("$result", result);
         }
     };

@@ -57,4 +57,4 @@ export default class extends Controller {
     }
 }
 
-const IGNORE_OUTPUTKEYS = "<FILL_REF_NAME>";
+const IGNORE_OUTPUTKEYS = "<INSERT_REF_NAME>.output";

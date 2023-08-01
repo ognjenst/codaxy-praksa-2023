@@ -1,11 +1,28 @@
-import { Button, FlexCol, FlexRow, Grid, GridColumnConfig, GridRowLineConfig, Icon, LookupField, Switch, TextArea, TextField } from "cx/widgets";
+import {
+    Button,
+    FlexCol,
+    FlexRow,
+    Grid,
+    GridColumnConfig,
+    GridRowLineConfig,
+    Icon,
+    LookupField,
+    Switch,
+    TextArea,
+    TextField,
+    ValidationGroup,
+} from "cx/widgets";
 import Controller from "./Controller";
 import WorkflowTaskProperties from "./workflow-task-properties";
 
 export default () => (
     <cx>
         <div className="relative" controller={Controller} if-expr="{$page.flagDashboard} == true">
-            <span className="relative -top-4 left-5 bg-white p-2 text-gray-600 whitespace-nowrap" text-bind="$page.currentWorkflow.name" if-expr="{$page.undoneWorkflows}.length != 0 || {$page.workflows}.length != 0" />
+            <span
+                className="relative -top-4 left-5 bg-white p-2 text-gray-600 whitespace-nowrap"
+                text-bind="$page.currentWorkflow.name"
+                if-expr="{$page.undoneWorkflows}.length != 0 || {$page.workflows}.length != 0"
+            />
             <Button
                 if-expr="{$page.currentWorkflowInUndoneList} == true"
                 className="absolute top-2 right-2 p-0 z-10 w-7"
@@ -40,20 +57,15 @@ export default () => (
 
         <div className="p-10" controller={Controller} if-expr="{$page.flagDashboard} == true">
             <FlexCol>
-                <TextArea 
-                    rows={2} 
-                    label="Description" 
-                    value-bind="$page.currentWorkflow.description" 
-                    readOnly 
-                    className="w-full" 
-                    emptyText="No Description"
-                    />
-                <TextField 
+                <TextArea
+                    rows={2}
+                    label="Description"
+                    value-bind="$page.currentWorkflow.description"
                     readOnly
-                    value-bind="$page.currentWorkflow.version"
-                    className="w-full mb-2"
-                    label="Version"
-                    />
+                    className="w-full"
+                    emptyText="No Description"
+                />
+                <TextField readOnly value-bind="$page.currentWorkflow.version" className="w-full mb-2" label="Version" />
             </FlexCol>
             <FlexRow align="center" className="h-full m-0" if-expr="{$page.flagPauseStopStatus} == true">
                 <div text="Enabled" />

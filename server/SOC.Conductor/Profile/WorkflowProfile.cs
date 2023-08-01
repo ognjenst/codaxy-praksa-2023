@@ -8,8 +8,8 @@ namespace SOC.Conductor.Profile
 	{
         public WorkflowProfile()
         {
-			CreateMap<WorkflowDef, WorkflowResponseDto>();
-			CreateMap<WorkflowTask, WorkflowTaskDto>();
+            CreateMap<WorkflowDef, WorkflowResponseDto>();
+            CreateMap<WorkflowTask, WorkflowTaskDto>();
             CreateMap<PlayRequestDto, StartWorkflowRequest>();
 		}
     }

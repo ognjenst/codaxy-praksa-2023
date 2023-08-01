@@ -44,7 +44,7 @@ export const openInsertUpdateWindow = ({ props }) => {
                                         validationRegExp={new RegExp("^[A-Za-z]{1,}[A-Za-z0-9_]*$")}
                                         required
                                     />
-                                    <TextField label="Description" value-bind="$page.insertUpdateDescription" />
+                                    <TextField label="Description" value-bind="$page.insertUpdateDescription" required minLength={1} />
                                     <NumberField label="Version" value-bind="$page.insertUpdateVersion" minValue={0} required />
                                 </div>
 
