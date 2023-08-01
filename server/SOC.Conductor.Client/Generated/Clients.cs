@@ -1012,7 +1012,7 @@ namespace SOC.Conductor.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<WorkflowDto> UpdateWorkflowAsync(int workflowId, CreateWorkflowDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<WorkflowDto> UpdateWorkflowAsync(CreateWorkflowDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -1311,14 +1311,10 @@ namespace SOC.Conductor.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<WorkflowDto> UpdateWorkflowAsync(int workflowId, CreateWorkflowDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<WorkflowDto> UpdateWorkflowAsync(CreateWorkflowDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            if (workflowId == null)
-                throw new System.ArgumentNullException("workflowId");
-
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflows/{workflowId}");
-            urlBuilder_.Replace("{workflowId}", System.Uri.EscapeDataString(ConvertToString(workflowId, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/workflows");
 
             var client_ = _httpClient;
             var disposeClient_ = false;

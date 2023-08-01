@@ -134,6 +134,7 @@ export default (reslove, props) =>
                 version: this.store.get("$page.insertUpdateVersion"),
                 inputParameters: this.store.get("$insert.workflowParamNames"),
                 tasks: arrTaskResp,
+                action: props.action,
             };
 
             reslove(arrObject);

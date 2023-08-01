@@ -150,7 +150,8 @@ export default class extends Controller {
 
             console.log(obj);
 
-            var resp = await POST(BACKEND_REQUEST_REGISTER_WORKFLOW, obj);
+            if (this.store.get("$page.currentWorkflow.action") === "Insert") await POST(BACKEND_REQUEST_REGISTER_WORKFLOW, obj);
+            else await PUT(BACKEND_REQUEST_REGISTER_WORKFLOW, obj);
 
             this.store.set("", [...this.store.get("$page.workflows"), this.store.get("currentWorkflow")]);
             var arrUndone = this.store.get("$page.undoneWorkflows").filter((value, index, arr) => {
@@ -202,79 +203,83 @@ export default class extends Controller {
     }
 
     checkValidity() {
-        var workflowTasks = this.store.get("$page.currentWorkflow.tasks");
+        try {
+            var workflowTasks = this.store.get("$page.currentWorkflow.tasks");
 
-        var regexRefName = new RegExp("^[A-Za-z]{1,}[A-Za-z0-9_]*$");
-        var message = "";
-        var setOfTaskRefNames = new Set();
-        for (let i = 0; i < workflowTasks.length; i++) {
-            if (!message.includes("Incorrect task reference name. ")) {
-                if (workflowTasks[i].taskReferenceName == null) {
-                    message += "Incorrect task reference name. ";
-                } else {
-                    if (!regexRefName.test(workflowTasks[i].taskReferenceName)) {
+            var regexRefName = new RegExp("^[A-Za-z]{1,}[A-Za-z0-9_]*$");
+            var message = "";
+            var setOfTaskRefNames = new Set();
+            for (let i = 0; i < workflowTasks.length; i++) {
+                if (!message.includes("Incorrect task reference name. ")) {
+                    if (workflowTasks[i].taskReferenceName == null) {
                         message += "Incorrect task reference name. ";
-                        setOfTaskRefNames.clear();
+                    } else {
+                        if (!regexRefName.test(workflowTasks[i].taskReferenceName)) {
+                            message += "Incorrect task reference name. ";
+                            setOfTaskRefNames.clear();
+                        }
+
+                        setOfTaskRefNames.add(workflowTasks[i].taskReferenceName);
+                    }
+                }
+
+                if (workflowTasks[i].type == null && !message.includes("You need to select task type for every task.")) {
+                    message += "You need to select task type for every task. ";
+                }
+
+                for (let j = 0; j < workflowTasks[i].inputs.length; j++) {
+                    if (
+                        (workflowTasks[i].inputs[j].sourceDecision == null || workflowTasks[i].inputs[j].paramDecision == null) &&
+                        !message.includes("You need to select for every input a source and parameter of that source. ")
+                    ) {
+                        message += "You need to select for every input a source and parameter of that source. ";
                     }
 
-                    setOfTaskRefNames.add(workflowTasks[i].taskReferenceName);
+                    if (
+                        workflowTasks[i].inputs[j].sourceDecision != null &&
+                        !message.includes("Invalid task reference name used[" + IGNORE_OUTPUTKEYS + "]. ") &&
+                        workflowTasks[i].inputs[j].source[workflowTasks[i].inputs[j].sourceDecision].text.includes(IGNORE_OUTPUTKEYS)
+                    ) {
+                        message += "Invalid task reference name used[" + IGNORE_OUTPUTKEYS + "]. ";
+                    }
+                }
+
+                for (let j = 0; j < workflowTasks[i].conditions.length; j++) {
+                    if (
+                        (workflowTasks[i].conditions[j].sourceDecision == null || workflowTasks[i].conditions[j].paramDecision == null) &&
+                        !message.includes(
+                            "You need to select for every input[of the condition task] a source and parameter of that source. "
+                        ) &&
+                        workflowTasks[i].expression != null
+                    ) {
+                        message += "You need to select for every input[of the condition task] a source and parameter of that source. ";
+                    }
+                }
+
+                for (let j = 0; j < workflowTasks[i].conditions.length; j++) {
+                    if (
+                        workflowTasks[i].expression != null &&
+                        !workflowTasks[i].expression.includes(FIXED_CHARS + workflowTasks[i].conditions[j].tab) &&
+                        !message.includes("Condition input parameters are missing in expression. ")
+                    ) {
+                        message += "Condition input parameters are missing in expression. ";
+                    }
                 }
             }
 
-            if (workflowTasks[i].type == null && !message.includes("You need to select task type for every task.")) {
-                message += "You need to select task type for every task. ";
+            if (setOfTaskRefNames.size != workflowTasks.length && !message.includes("Incorrect task reference name. ")) {
+                message += "Multiple tasks with same reference name. ";
             }
 
-            for (let j = 0; j < workflowTasks[i].inputs.length; j++) {
-                if (
-                    (workflowTasks[i].inputs[j].sourceDecision == null || workflowTasks[i].inputs[j].paramDecision == null) &&
-                    !message.includes("You need to select for every input a source and parameter of that source. ")
-                ) {
-                    message += "You need to select for every input a source and parameter of that source. ";
-                }
-
-                if (
-                    workflowTasks[i].inputs[j].sourceDecision != null &&
-                    !message.includes("Invalid task reference name used[" + IGNORE_OUTPUTKEYS + "]. ") &&
-                    workflowTasks[i].inputs[j].source[workflowTasks[i].inputs[j].sourceDecision].text.includes(IGNORE_OUTPUTKEYS)
-                ) {
-                    message += "Invalid task reference name used[" + IGNORE_OUTPUTKEYS + "]. ";
-                }
+            if (message !== "") {
+                MsgBox.alert(message);
+                return false;
             }
 
-            for (let j = 0; j < workflowTasks[i].conditions.length; j++) {
-                if (
-                    (workflowTasks[i].conditions[j].sourceDecision == null || workflowTasks[i].conditions[j].paramDecision == null) &&
-                    !message.includes(
-                        "You need to select for every input[of the condition task] a source and parameter of that source. "
-                    ) &&
-                    workflowTasks[i].expression != null
-                ) {
-                    message += "You need to select for every input[of the condition task] a source and parameter of that source. ";
-                }
-            }
+            return true;
+        } catch (err) {}
 
-            for (let j = 0; j < workflowTasks[i].conditions.length; j++) {
-                if (
-                    workflowTasks[i].expression != null &&
-                    !workflowTasks[i].expression.includes(FIXED_CHARS + workflowTasks[i].conditions[j].tab) &&
-                    !message.includes("Condition input parameters are missing in expression. ")
-                ) {
-                    message += "Condition input parameters are missing in expression. ";
-                }
-            }
-        }
-
-        if (setOfTaskRefNames.size != workflowTasks.length && !message.includes("Incorrect task reference name. ")) {
-            message += "Multiple tasks with same reference name. ";
-        }
-
-        if (message !== "") {
-            MsgBox.alert(message);
-            return false;
-        }
-
-        return true;
+        return false;
     }
 }
 

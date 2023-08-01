@@ -85,18 +85,14 @@ public class WorkflowsController : ControllerBase
     /// <param name="createWorkflowDto"></param>
     /// <returns></returns>
     [HttpPost(Name = "CreateWorkflow")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkflowDto))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
     public async Task<IActionResult> CreateWorkflowAsync([FromBody] CreateWorkflowDto createWorkflowDto)
     {
         var result = await _workflowsClient.CreateWorkflowAsync(createWorkflowDto);
 
-        if (result is not null)
-            return Ok(result);
-
-        return NoContent();
+        return StatusCode(201); ;
     }
 
 
@@ -104,16 +100,15 @@ public class WorkflowsController : ControllerBase
     /// Updates a workflow.
     /// </summary>
     /// <param name="workflowDto"></param>
-    /// <param name="workflowId"></param>
     /// <returns></returns>
-    [HttpPut("{workflowId}", Name = "UpdateWorkflow")]
+    [HttpPut(Name = "UpdateWorkflow")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkflowDto))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-    public async Task<IActionResult> UpdateWorkflowAsync([FromRoute] int workflowId, [FromBody] CreateWorkflowDto workflowDto)
+    public async Task<IActionResult> UpdateWorkflowAsync([FromBody] CreateWorkflowDto workflowDto)
     {
-        var result = await _workflowsClient.UpdateWorkflowAsync(workflowId, workflowDto);
+        var result = await _workflowsClient.UpdateWorkflowAsync(workflowDto);
 
         if (result is not null)
             return Ok(result);
