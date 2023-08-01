@@ -36,6 +36,10 @@ public partial class AutomationDto
 
     [Newtonsoft.Json.JsonProperty("inputParameters", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? InputParameters { get; set; } = default!;
+    [Newtonsoft.Json.JsonProperty("workflow", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public WorkflowDto? Workflow { get; set; } = default!;
+    [Newtonsoft.Json.JsonProperty("trigger", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public CommonTriggerDto? Trigger { get; set; } = default!;
 
 }
 
