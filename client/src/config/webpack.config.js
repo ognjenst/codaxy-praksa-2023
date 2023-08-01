@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin"),
     babelCfg = require("./babel.cx.config"),
     p = (p) => path.join(__dirname, "../", p || ""),
     CxScssManifestPlugin = require("./CxScssMainfestPlugin"),
+    CopyWebpackPlugin = require("copy-webpack-plugin"),
     tailwindConfig = require("../tailwind.config"),
     tailwindcss = require("tailwindcss");
 
@@ -17,10 +18,10 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
             extensions: [".js", ".jsx", ".ts", ".tsx"],
         },
 
-        externals: {
-            react: "React",
-            "react-dom": "ReactDOM",
-        },
+        // externals: {
+        //     react: "React",
+        //     "react-dom": "ReactDOM",
+        // },
 
         module: {
             rules: [
@@ -103,10 +104,14 @@ module.exports = ({ rootCssLoader, tailwindOptions }) => {
             new CxScssManifestPlugin({
                 outputPath: p("app/manifest.scss"),
             }),
+            new CopyWebpackPlugin({
+                patterns: [{ from: p("/assets"), to: p("../../../server/SOC.IoT.ApiGateway/wwwroot/dist") }],
+            }),
         ],
 
         optimization: {
             usedExports: true,
+            runtimeChunk: "single",
         },
 
         cache: {

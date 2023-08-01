@@ -8,5 +8,7 @@ namespace SOC.Conductor.Entities
         public int TriggerId { get; set; }
         public string Name { get; set; }
         public JObject? InputParameters { get; set; }
+        public Workflow Workflow { get; set; }
+        public Trigger Trigger { get; set; }
     }
 }

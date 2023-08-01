@@ -12,5 +12,6 @@ namespace SOC.Conductor.DTOs
         public DateTime? Start { get; set; }
         public int? Period { get; set; }
         public PeriodTriggerUnit? Unit { get; set; }
+        public string? DeviceId { get; set; }
     }
 }
