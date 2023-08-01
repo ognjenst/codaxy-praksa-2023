@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SOC.IoT.ApiGateway.Controllers.Examples;
 using SOC.IoT.ApiGateway.Handlers;
+using SOC.IoT.ApiGateway.Helpers;
 using SOC.IoT.ApiGateway.Models;
 using SOC.IoT.ApiGateway.Models.Requests;
 using SOC.IoT.Base.Interfaces;
@@ -24,11 +25,12 @@ public class DevicesController : ControllerBase
         _mediator = mediator;
     }
 
-    /// <summary>
-    /// Returns a list of all registered devices with their capabilities and last states
-    /// </summary>
-    /// <returns>Returns a list of all registered devices with their capabilities and last states</returns>
-    [HttpGet(Name = "GetDevices")]
+	/// <summary>
+	/// Returns a list of all registered devices with their capabilities and last states
+	/// </summary>
+	/// <returns>Returns a list of all registered devices with their capabilities and last states</returns>
+	[PermissionAuthorize("Read-Device")]
+	[HttpGet(Name = "GetDevices")]
     [SwaggerResponseExample(StatusCodes.Status200OK, typeof(DevicesExample))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DeviceDTO>))]
     public async Task<IEnumerable<DeviceDTO>> GetDevices()
@@ -36,12 +38,13 @@ public class DevicesController : ControllerBase
         return await _mediator.Send(new GetDevicesQuery());
     }
 
-    /// <summary>
-    /// Returns a single device with its last known state
-    /// </summary>
-    /// <param name="id">ID of the device</param>
-    /// <returns>Single device with its last known state</returns>
-    [HttpGet("{id}", Name = "GetDevice")]
+	/// <summary>
+	/// Returns a single device with its last known state
+	/// </summary>
+	/// <param name="id">ID of the device</param>
+	/// <returns>Single device with its last known state</returns>
+	[PermissionAuthorize("Read-Device")]
+	[HttpGet("{id}", Name = "GetDevice")]
     [SwaggerResponseExample(StatusCodes.Status200OK, typeof(DeviceExample))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeviceDTO))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
@@ -69,6 +72,7 @@ public class DevicesController : ControllerBase
     /// <param name="id">ID of the device</param>
     /// <param name="payload">State that will be applied to the device</param>
     /// <returns></returns>
+    [PermissionAuthorize("Update-Device")]
     [HttpPut("{id}", Name = "UpdateDevice")]
     [SwaggerRequestExample(typeof(DeviceUpdateDTO), typeof(UpdateDeviceExample))]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
