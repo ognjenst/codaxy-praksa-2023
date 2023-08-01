@@ -31,36 +31,20 @@ namespace SOC.Conductor.Handlers
             var dtos = res.Select(
                 automation =>
                 {
-                    var triggerDto = new CommonTriggerDto()
-                    {
-                        Id = automation.Trigger.Id,
-                        Name = automation.Trigger.Name
-                    };
+                    var triggerDto = new CommonTriggerDto();
                     if (automation.Trigger is PeriodicTrigger)
                     {
                         var periodicTrigger = automation.Trigger as PeriodicTrigger;
-                        triggerDto.Start = periodicTrigger.Start;
-                        triggerDto.Period = periodicTrigger.Period;
-                        triggerDto.Unit = periodicTrigger.Unit;
+                        triggerDto = _mapper.Map<CommonTriggerDto>(periodicTrigger);
                     } else if (automation.Trigger is IoTTrigger) 
                     {
                         var iotTrigger = automation.Trigger as IoTTrigger;
-                        triggerDto.Property = iotTrigger.Property;
-                        triggerDto.Value = iotTrigger.Value;
-                        triggerDto.Condition = iotTrigger.Condition;
+                        _mapper.Map<CommonTriggerDto>(iotTrigger);
                     }
                     return new AutomationDto
                     {
                         Trigger = triggerDto,
-                        Workflow = new WorkflowDto
-                        {
-                            Id = automation.Workflow.Id,
-                            Name = automation.Workflow.Name,
-                            CreateDate = automation.Workflow.CreatedAt,
-                            Version = automation.Workflow.Version,
-                            Enabled = automation.Workflow.Enabled,
-                            UpdateDate = automation.Workflow.UpdatedAt,
-                        },
+                        Workflow = _mapper.Map<WorkflowDto>(automation.Workflow),
                         TriggerId = automation.TriggerId,
                         WorkflowId = automation.WorkflowId,
                         Name = automation.Name,
