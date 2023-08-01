@@ -80,9 +80,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization(options =>
 {
-	options.AddPolicy("JwtPolicy", policy =>
+	options.AddPolicy("Update-Workflow", policy =>
 	{
-		policy.Requirements.Add(new JwtRequirements("Role", "Permission"));
+		policy.Requirements.Add(new JwtRequirements("Update-Workflow")) ;
+	});
+	
+	options.AddPolicy("Read-Workflow", policy =>
+	{
+		policy.Requirements.Add(new JwtRequirements("Read-Workflow"));
 	});
 });
 

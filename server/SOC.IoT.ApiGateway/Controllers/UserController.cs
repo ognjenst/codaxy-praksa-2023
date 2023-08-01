@@ -58,7 +58,7 @@ namespace SOC.IoT.ApiGateway.Controllers
             }
         }
 
-        [Authorize(policy:"JwtPolicy")]
+        [Authorize(policy:"Update-Workflow")]
         [HttpPost("login-test")]
         public async Task<IActionResult> LoginTest(LoginRequest request)
         {

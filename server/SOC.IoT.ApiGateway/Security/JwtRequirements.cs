@@ -4,12 +4,11 @@ namespace SOC.IoT.ApiGateway.Security
 {
 	public class JwtRequirements : IAuthorizationRequirement
 	{
-		public string RequiredRole { get; }
-		public string RequiredPermission { get; }
-        public JwtRequirements(string Role, string Permission)
+		public string Permission { get; set; }
+
+        public JwtRequirements(string permission)
         {
-            RequiredRole = Role;    
-            RequiredPermission = Permission;
+            Permission = permission;
         }
     }
 }
