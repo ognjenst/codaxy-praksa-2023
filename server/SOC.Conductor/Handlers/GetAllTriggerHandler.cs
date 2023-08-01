@@ -42,6 +42,7 @@ namespace SOC.Conductor.Handlers
                     Property = trigger.Property,
                     Value = trigger.Value,
                     Condition = trigger.Condition,
+                    DeviceId = trigger.DeviceId
                 });
                 return dtos;
             }

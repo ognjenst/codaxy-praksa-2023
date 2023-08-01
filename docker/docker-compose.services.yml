@@ -5,14 +5,6 @@ services:
   soc_iotgateway:
     image: soc_iotgateway:latest
     container_name: soc_iotgateway
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=adm1n
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
-    ports:
-      - "9002:80"
-      - "9003:443"
     networks:
       - soc_net
     restart: unless-stopped
@@ -79,6 +71,25 @@ services:
       - source: soc_iot-micro_appsettings
         target: /app/appsettings.json
 
+  nginx:
+    container_name: webserver
+    restart: unless-stopped
+    image: nginx:1.25.1-alpine
+    networks:
+      - soc_net
+    ports:
+      - target: 443
+        published: 9002
+        protocol: tcp
+        mode: host
+    secrets:
+      - source: nginx_internal_cert
+        target: /certs/cert_internal.crt
+      - source: nginx_internal_key
+        target: /certs/key_internal.key
+      - source: nginx_conf
+        target: /etc/nginx/nginx.conf
+
 
 secrets:
   soc_iotgateway_appsettings:
@@ -95,6 +106,12 @@ secrets:
     file: secrets/local/appsettings.soc_scanning.json
   soc_iot-micro_appsettings:
     file: secrets/local/appsettings.soc_iot-micro.json
+  nginx_internal_cert:
+    file: secrets/certs/cert_internal.crt
+  nginx_internal_key:
+    file: secrets/certs/key_internal.key
+  nginx_conf:
+    file: nginx/nginx.conf
 
 networks:
   soc_net:
