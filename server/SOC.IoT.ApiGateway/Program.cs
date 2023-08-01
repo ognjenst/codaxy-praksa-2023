@@ -18,6 +18,8 @@ using SOC.IoT.ApiGateway.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using SOC.IoT.ApiGateway.Security;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,18 +37,7 @@ builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Pro
 
 // Configure JWT authentication
 var jwtSecretKey = builder.Configuration.GetValue<string>("Jwt:Key");
-var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey));
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-	.AddJwtBearer(options =>
-	{
-		options.TokenValidationParameters = new TokenValidationParameters
-		{
-			ValidateLifetime = true,
-			ValidateIssuerSigningKey = true,
-			IssuerSigningKey = key
-		};
-	});
+var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSecretKey));
 
 
 builder.Services.Configure<RouteOptions>(options =>
@@ -72,6 +63,32 @@ builder.Services.AddIoTServices();
 
 builder.Services.RegisterServices();
 builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+	.AddJwtBearer(options => 
+	{
+			options.TokenValidationParameters = new TokenValidationParameters
+			{
+				ValidateIssuerSigningKey = true,
+			    IssuerSigningKey = key,
+				ValidateIssuer = false,
+				ValidateAudience = false,
+				// set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
+				ClockSkew = TimeSpan.Zero
+			};
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+	options.AddPolicy("JwtPolicy", policy =>
+	{
+		policy.Requirements.Add(new JwtRequirements("Role", "Permission"));
+	});
+});
+
+// ...
+
+builder.Services.AddScoped<IAuthorizationHandler, JwtAuthorizationHandler>();
 
 
 // Configure Serilog
@@ -117,6 +134,7 @@ app.UseCors(builder =>
 });
 
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 app.Services.GetRequiredService<IStartupService>();

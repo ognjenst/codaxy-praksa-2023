@@ -29,7 +29,7 @@ public class DevicesController : ControllerBase
 	/// Returns a list of all registered devices with their capabilities and last states
 	/// </summary>
 	/// <returns>Returns a list of all registered devices with their capabilities and last states</returns>
-	[PermissionAuthorize("Read-Device")]
+	
 	[HttpGet(Name = "GetDevices")]
     [SwaggerResponseExample(StatusCodes.Status200OK, typeof(DevicesExample))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DeviceDTO>))]
@@ -43,7 +43,7 @@ public class DevicesController : ControllerBase
 	/// </summary>
 	/// <param name="id">ID of the device</param>
 	/// <returns>Single device with its last known state</returns>
-	[PermissionAuthorize("Read-Device")]
+	
 	[HttpGet("{id}", Name = "GetDevice")]
     [SwaggerResponseExample(StatusCodes.Status200OK, typeof(DeviceExample))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeviceDTO))]
@@ -72,7 +72,7 @@ public class DevicesController : ControllerBase
     /// <param name="id">ID of the device</param>
     /// <param name="payload">State that will be applied to the device</param>
     /// <returns></returns>
-    [PermissionAuthorize("Update-Device")]
+    
     [HttpPut("{id}", Name = "UpdateDevice")]
     [SwaggerRequestExample(typeof(DeviceUpdateDTO), typeof(UpdateDeviceExample))]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
