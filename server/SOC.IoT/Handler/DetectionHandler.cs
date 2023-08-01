@@ -26,6 +26,12 @@ public class DetectionRequest : IRequest<NoOutput>
 	public double X { get; set; }
 	[JsonProperty("y")]
 	public double Y { get; set; }
+	[JsonProperty("startHour")]
+	public int StartHour { get; set; }
+	[JsonProperty("endHour")]
+	public int EndHour { get; set; }
+	[JsonProperty("maxNumberOfRepetitions")]
+	public int MaxNumberOfRepetitions { get; set; }
 }
 
 [OriginalName("IoT_light_on_color_change")]

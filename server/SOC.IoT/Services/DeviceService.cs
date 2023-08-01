@@ -46,7 +46,7 @@ public class DeviceService : IDeviceService
 				State = true
 			};
 
-			while (numberOfRepetitions <= _options.MaxNumberOfRepetitions)
+			while (numberOfRepetitions <= request.MaxNumberOfRepetitions)
 			{
 				numberOfRepetitions++;
 

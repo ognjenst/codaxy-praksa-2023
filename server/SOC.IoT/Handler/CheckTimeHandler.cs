@@ -26,7 +26,7 @@ public class CheckTimeHandler : ITaskRequestHandler<DetectionRequest, NoOutput>
 
 	public async Task<NoOutput> Handle(DetectionRequest request, CancellationToken cancellationToken)
 	{
-		if (DateTime.Now.Hour <= _options.StartHour && DateTime.Now.Hour >= _options.EndHour)
+		if (DateTime.Now.Hour <= request.StartHour && DateTime.Now.Hour >= request.EndHour)
 		{
 			await _deviceService.LigthBulbInRepetitions(request, cancellationToken);
 		}
