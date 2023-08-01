@@ -69,6 +69,8 @@ public partial class CommonTriggerDto
 
     [Newtonsoft.Json.JsonProperty("unit", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public PeriodTriggerUnit Unit { get; set; } = default!;
+    [Newtonsoft.Json.JsonProperty("deviceId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public string? DeviceId { get; set; } = default!;
 
 }
 

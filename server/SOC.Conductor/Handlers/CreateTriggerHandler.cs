@@ -54,6 +54,7 @@ namespace SOC.Conductor.Handlers
                     Property = request.commonTriggerDto.Property,
                     Value = request.commonTriggerDto.Value,
                     Condition = request.commonTriggerDto.Condition.GetValueOrDefault(),
+                    DeviceId = request.commonTriggerDto.DeviceId
                 };
 
                 var result = await _unitOfWork.IoTTriggers.CreateAsync(iot);
@@ -66,6 +67,7 @@ namespace SOC.Conductor.Handlers
                     Property = iot.Property,
                     Value = iot.Value,
                     Condition = iot.Condition,
+                    DeviceId = iot.DeviceId
                 };
             }
             return null;
