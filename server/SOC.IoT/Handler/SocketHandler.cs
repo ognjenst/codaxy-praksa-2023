@@ -16,7 +16,7 @@ namespace SOC.IoT.Handler
     public class SocketRequest : IRequest<NoOutput>
     {
         [JsonProperty("deviceId")]
-        public string DeviceId { get; set; }
+        public string? DeviceId { get; set; }
     }
 
     [OriginalName("IoT_socket_state_change")]
