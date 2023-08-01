@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Design.Internal;
 using SOC.Conductor.Contracts;
 using SOC.Conductor.Entities.Contexts;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace SOC.Conductor.Repositories
 {
@@ -33,7 +34,7 @@ namespace SOC.Conductor.Repositories
             return await Task.FromResult(entity);
         }
 
-        public async Task<List<T>> GetAllAsync(CancellationToken cancellationToken)
+        public virtual async Task<List<T>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await _dbContext.Set<T>().ToListAsync(cancellationToken);
         }
