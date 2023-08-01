@@ -83,6 +83,11 @@ public static class DependencyInjection
             options.ForwardedHeaders = ForwardedHeaders.All;
             options.KnownNetworks.Add(new IPNetwork(IPAddress.Parse("192.168.160.0"), 24));
             options.KnownNetworks.Add(new IPNetwork(IPAddress.Parse("10.0.0.0"), 8));
+
+            options.ForwardedHeaders =
+                ForwardedHeaders.XForwardedFor
+                | ForwardedHeaders.XForwardedProto
+                | ForwardedHeaders.XForwardedHost;
         });
 
         return services;
