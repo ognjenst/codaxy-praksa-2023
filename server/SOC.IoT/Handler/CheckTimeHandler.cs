@@ -16,12 +16,10 @@ namespace SOC.IoT.Handler;
 public class CheckTimeHandler : ITaskRequestHandler<DetectionRequest, NoOutput>
 {
 	private readonly IDeviceService _deviceService;
-	private readonly DeviceOptions _options;
 
-	public CheckTimeHandler(IDeviceService deviceService, IOptions<DeviceOptions> options)
+	public CheckTimeHandler(IDeviceService deviceService)
 	{
 		_deviceService = deviceService;
-		_options = options.Value;
 	}
 
 	public async Task<NoOutput> Handle(DetectionRequest request, CancellationToken cancellationToken)

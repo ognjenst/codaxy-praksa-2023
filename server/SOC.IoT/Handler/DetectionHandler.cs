@@ -38,12 +38,10 @@ public class DetectionRequest : IRequest<NoOutput>
 public class DetectionHandler : ITaskRequestHandler<DetectionRequest, NoOutput>
 {
     private readonly IDeviceService _deviceService;
-	private readonly DeviceOptions _options;
 
-    public DetectionHandler(IDeviceService deviceService, IOptions<DeviceOptions> options)
+    public DetectionHandler(IDeviceService deviceService)
 	{
         _deviceService = deviceService;
-		_options = options.Value;
 	}
 
 	public async Task<NoOutput> Handle(DetectionRequest request, CancellationToken cancellationToken)
