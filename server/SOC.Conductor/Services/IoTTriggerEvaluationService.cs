@@ -44,7 +44,7 @@ public class IoTTriggerEvaluationService : BackgroundService
 
         while (!cancellationToken.IsCancellationRequested)
         {
-            await Task.Delay(500, cancellationToken);
+            await Task.Delay(60000, cancellationToken);
         }
     }
 
@@ -112,7 +112,7 @@ public class IoTTriggerEvaluationService : BackgroundService
                 }
                 else
                 {
-                    // only for workflow with switch task
+                    /*// only for workflow with switch task
                     var workflows = await unitOfWork.IoTTriggers.GetWorkflowsByTriggerIdAsync(
                         iotTrigger.Id
                     );
@@ -139,7 +139,7 @@ public class IoTTriggerEvaluationService : BackgroundService
                                 );
                             }
                         }
-                    }
+                    }*/
                 }
             }
         }
