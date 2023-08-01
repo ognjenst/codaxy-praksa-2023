@@ -66,6 +66,12 @@ export default () => (
                     emptyText="No Description"
                 />
                 <TextField readOnly value-bind="$page.currentWorkflow.version" className="w-full mb-2" label="Version" />
+                <LookupField
+                    className="w-full mb-2"
+                    label="Workflow Input Parameters"
+                    value-bind="$page.selectedInputParameters"
+                    options-bind="$page.showInputParameters"
+                />
             </FlexCol>
             <FlexRow align="center" className="h-full m-0" if-expr="{$page.flagPauseStopStatus} == true">
                 <div text="Enabled" />

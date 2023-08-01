@@ -17,5 +17,8 @@ namespace SOC.Conductor.Models
 
 		[JsonProperty("expression")]
 		public string Expression { get; set; }
+
+		[JsonProperty("decisionCases")]
+		public Dictionary<string, ICollection<WorkflowTaskDto>>? DecisionCases { get; set; }
 	}
 }

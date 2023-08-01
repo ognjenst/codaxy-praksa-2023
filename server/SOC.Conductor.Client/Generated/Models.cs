@@ -243,6 +243,9 @@ namespace SOC.Conductor.Generated
         [Newtonsoft.Json.JsonProperty("expression", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string? Expression { get; set; } = default!;
 
+        [Newtonsoft.Json.JsonProperty("decisionCases", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public Dictionary<string, ICollection<WorkflowTaskDto>>? DecisionCases { get; set; }
+
     }
 
 
