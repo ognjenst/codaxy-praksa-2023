@@ -1,14 +1,21 @@
 import Controller from "./Controller";
 import { Button, Section, TextField, Link } from "cx/widgets";
+import BackgroundImage from "../../../assets/img/iotbackground.jpg";
+
 export default () => (
     <cx>
         <div
             className="flex flex-col bg-gray-100 h-screen items-center justify-center"
+            style={{
+                backgroundImage: `url(${BackgroundImage})`,
+                backgroundSize: "110%",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+            }}
             controller={Controller}
-            style={{ backgroundImage: `url('../../resources/background.png')` }}
         >
-            <Section className="bg-gray-200 rounded-2xl p-4" style={{ width: "400px", height: "430px" }}>
-                <div className="flex flex-col items-center space-y-8">
+            <Section className="bg-gray-200 rounded-2xl p-4" style={{ width: "400px", height: "410px", backgroundColor: "#edeffc" }}>
+                <div className="flex flex-col items-center space-y-6">
                     <div className="text-center font-sans text-gray-500 text-2xl">WELCOME</div>
 
                     <TextField
@@ -31,8 +38,8 @@ export default () => (
                         required
                     />
                     <Button
-                        style={{ width: "250px", marginTop: "50px" }}
-                        className="text-xl h-12 bg-gray-100 text-gray-600"
+                        style={{ width: "250px", marginTop: "50px", backgroundColor: "#737687" }}
+                        className="text-xl h-12 text-gray-100"
                         onClick="login"
                     >
                         LOGIN
