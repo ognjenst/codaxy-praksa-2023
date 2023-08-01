@@ -78,6 +78,23 @@ services:
       - source: soc_iot-micro_appsettings
         target: /app/appsettings.json
 
+  nginx:
+    container_name: webserver
+    restart: unless-stopped
+    image: nginx:1.25.1-alpine
+    ports:
+      - target: 443
+        published: 443
+        protocol: tcp
+        mode: host
+    secrets:
+      - source: nginx_internal_cert
+        target: /certs/cert_internal.pem
+      - source: nginx_internal_key
+        target: /certs/key_internal.key
+      - source: nginx_conf
+        target: /etc/nginx/nginx.conf
+
 
 secrets:
   soc_iotgateway_appsettings:
@@ -94,6 +111,12 @@ secrets:
     file: secrets/local/appsettings.soc_scanning.json
   soc_iot-micro_appsettings:
     file: secrets/local/appsettings.soc_iot-micro.json
+  nginx_internal_cert:
+    file: secrets/cert_internal.pem
+  nginx_internal_key:
+    file: secrets/key_internal.key
+  nginx_conf:
+    file: secrets/nginx.conf
 
 networks:
   soc_net:
