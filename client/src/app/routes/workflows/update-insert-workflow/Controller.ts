@@ -1,5 +1,6 @@
 import { Controller } from "cx/ui";
 import { GET } from "../../../api/util/methods";
+import { MsgBox } from "cx/widgets";
 
 export default (reslove, props) =>
     class extends Controller {
@@ -17,6 +18,12 @@ export default (reslove, props) =>
         }
 
         addParam() {
+            if (this.store.get("$insert.workflowParamNames").includes(this.store.get("$insert.singleParamName"))) {
+                MsgBox.alert("You already defined this workflow input param name!!!");
+
+                return;
+            }
+
             this.store.set("$insert.workflowParamNames", [
                 ...this.store.get("$insert.workflowParamNames"),
                 this.store.get("$insert.singleParamName"),
@@ -26,6 +33,10 @@ export default (reslove, props) =>
         }
 
         createWorkflowInfo() {
+            if (!this.checkValididy()) {
+                return;
+            }
+
             var arrTaskResp = [];
             var arrImplGlobal = []; //this is for remembering output keys from previous tasks if they have
             var selectedTasks = this.store.get("$insert.workflowTasks");
@@ -159,6 +170,24 @@ export default (reslove, props) =>
             } catch (err) {
                 console.error(err);
             }
+        }
+
+        checkValididy() {
+            //name and version are checked using validation group
+            //description we do not check
+            //you need at least one task in workflow and that is checked in this function
+            //you can have any number of workflow param names but they need to follow specific regex expression
+
+            var message = "";
+            if (this.store.get("$insert.workflowTasks").length == 0) {
+                message += "You need to select at least one task for workflow.\n";
+            }
+
+            if (message !== "") {
+                MsgBox.alert(message);
+            }
+
+            return message !== "" ? false : true;
         }
     };
 

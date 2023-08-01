@@ -27,10 +27,7 @@ export default () => (
                             visible-expr="{$task.selectedInputTab}=={$con.tab}"
                             className="flex flex-1 flex-col items-center justify-middle"
                         >
-                            <div
-                                className="flex flex-1"
-                                layout={LabelsTopLayout}
-                            >
+                            <div className="flex flex-1" layout={LabelsTopLayout}>
                                 <LookupField
                                     label="Source"
                                     options-bind="$con.source"
@@ -38,10 +35,10 @@ export default () => (
                                     className="!w-full"
                                     if-expr="{$page.currentWorkflowInUndoneList} == true"
                                 />
-                                <TextField 
-                                    readOnly 
-                                    label="Source" 
-                                    className="!w-full" 
+                                <TextField
+                                    readOnly
+                                    label="Source"
+                                    className="!w-full"
                                     value-bind="$con.source"
                                     if-expr="{$page.currentWorkflowInUndoneList} == false"
                                 />
@@ -56,10 +53,10 @@ export default () => (
                                     className="!w-full"
                                     if-expr="{$page.currentWorkflowInUndoneList} == true"
                                 />
-                                <TextField 
-                                    readOnly 
-                                    label="Param" 
-                                    className="!w-full" 
+                                <TextField
+                                    readOnly
+                                    label="Param"
+                                    className="!w-full"
                                     value-bind="$con.param"
                                     if-expr="{$page.currentWorkflowInUndoneList} == false"
                                 />
