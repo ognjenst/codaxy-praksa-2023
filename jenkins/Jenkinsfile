@@ -169,9 +169,15 @@ pipeline{
             }
         }
 
-        stage('Rebuild SOC stack'){
+        stage('Rebuild SOC db stack'){
           steps{
-              sh 'ssh buildagent@192.168.101.17 -i ~/.ssh/id_rsa \"cd /home/buildagent/soc-composer/ && docker compose -f docker-compose.db.yml -f docker-compose.services.yml up -d \"'
+              sh 'ssh buildagent@192.168.101.17 -i ~/.ssh/id_rsa \"cd /home/buildagent/soc-composer/ && docker compose -f docker-compose.db.yml up -d \"'
+          }
+        }
+
+        stage('Rebuild SOC db stack'){
+          steps{
+              sh 'ssh buildagent@192.168.101.17 -i ~/.ssh/id_rsa \"cd /home/buildagent/soc-composer/ && docker compose -f docker-compose.services.yml up -d \"'
           }
         }
 
