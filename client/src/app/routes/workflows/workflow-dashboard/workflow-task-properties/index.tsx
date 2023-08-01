@@ -40,6 +40,18 @@ export default () => (
                 <div className="flex items-center justify-middle gap-2">
                     <TextField value-bind="$task.type" label="Task Type" className="flex-1" readOnly />
                 </div>
+                <div className="flex items-center justify-middle gap-2" if-expr="{$task.from_switch} != null">
+                    <TextField label="From Switch: " value-bind="$task.from_switch" readOnly />
+                </div>
+                <div className="flex items-center justify-middle gap-2">
+                    <TextField
+                        value-bind="$task.switch_decision"
+                        label="Decision Type"
+                        className="flex-1"
+                        readOnly
+                        if-expr="{$task.switch_decision} != null"
+                    />
+                </div>
             </div>
             <div className="gap-2 -mt-3 flex items-center justify-middle">
                 <TextField
