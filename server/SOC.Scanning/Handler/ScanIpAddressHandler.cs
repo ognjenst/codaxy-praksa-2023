@@ -41,7 +41,7 @@ internal class ScanIpAddressHandler
         _sshClientService = sshClientService;
     }
 
-    public bool ValidateInput(ScanIpAddressRequest request)
+    private bool ValidateInput(ScanIpAddressRequest request)
     {
         if (!IPAddress.TryParse(request.IpAddress, out _))
             return false;
@@ -58,19 +58,17 @@ internal class ScanIpAddressHandler
     {
         var command = $"nmap {request.IpAddress}/{request.Subnet}";
 
-        if (ValidateInput(request))
-        {
-            _sshClientService.Connect();
-            var result = _sshClientService.ExecuteCommand(command);
-
-            return Task.FromResult(new ScanIpAddressResponse
-            {
-                Command = command,
-                Result = result.Result
-            });
-        }
-        else
+        if (!ValidateInput(request))
             throw new InvalidInputException("Input parameters are not valid!");
-        
+   
+        _sshClientService.Connect();
+        var result = _sshClientService.ExecuteCommand(command);
+
+        return Task.FromResult(new ScanIpAddressResponse
+        {
+            Command = command,
+            Result = result.Result
+        });
+       
     }
 }
