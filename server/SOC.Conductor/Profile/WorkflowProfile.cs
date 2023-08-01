@@ -13,7 +13,7 @@ namespace SOC.Conductor.Profile
 			CreateMap<WorkflowDef, WorkflowResponseDto>();
 			CreateMap<WorkflowTask, WorkflowTaskDto>();
             CreateMap<PlayRequestDto, StartWorkflowRequest>();
-			CreateMap<SOC.Conductor.Entities.Workflow, WorkflowDto>().ReverseMap();
+			CreateMap<Entities.Workflow, WorkflowDto>().ReverseMap();
 		}
     }
 }
