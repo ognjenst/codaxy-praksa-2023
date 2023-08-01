@@ -6,22 +6,23 @@ using SOC.IoT.Base;
 using SOC.IoT.Base.Interfaces;
 using System.Reflection;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson();
 
 builder.Services.RegisterServices(builder.Configuration);
 
 builder.Services.AddDbContext<SOCDbContext>(
-	options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db"))
+    options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db"))
 );
 
 builder.Services.AddIoTServices();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,10 +36,10 @@ builder.Services.AddSwaggerGen(opts =>
 
 // Configure Serilog
 builder.Host.UseSerilog(
-	(context, config) =>
-	{
-		config.WriteTo.Console();
-	}
+    (context, config) =>
+    {
+        config.WriteTo.Console();
+    }
 );
 
 var app = builder.Build();
@@ -46,8 +47,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
