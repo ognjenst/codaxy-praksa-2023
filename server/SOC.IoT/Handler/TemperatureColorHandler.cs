@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SOC.IoT.Generated;
+using SOC.IoT.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,6 @@ public class TemperatureColorRequest : IRequest<TemperatureColorResponse>
 
 public class TemperatureColorResponse
 {
-    // [JsonProperty("message")]
     public string Message { get; set; }
 }
 
@@ -44,9 +44,9 @@ public class TemperatureColorHandler : ITaskRequestHandler<TemperatureColorReque
         var sensor = await _devicesClient.GetDeviceAsync(request.SensorId, cancellationToken);
         var temperature = sensor.Temperature.Value;
 
-        if (temperature >= 30) deviceColorXy = new DeviceColorXy() { X = 0.6942, Y = 0.2963 };
-        else if (temperature >= 20) deviceColorXy = new DeviceColorXy() { X = 0.4339, Y = 0.5008 };
-        else deviceColorXy = new DeviceColorXy() { X = 0.1355, Y = 0.0399 };
+        if (temperature >= 30) deviceColorXy = Colors.RED;
+        else if (temperature >= 20) deviceColorXy = Colors.YELLOW;
+        else deviceColorXy = Colors.BLUE;
 
         var device = new DeviceUpdateDTO()
         {
