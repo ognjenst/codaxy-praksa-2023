@@ -15,6 +15,9 @@ using SOC.IoT.ApiGateway.Options;
 using Microsoft.AspNetCore.Authorization;
 using SOC.IoT.ApiGateway.Handlers;
 using SOC.IoT.ApiGateway.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,8 +32,22 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
-builder.Services.Configure<JwtSecret>(builder.Configuration.GetSection("Jwt"));
-builder.Services.AddSingleton<JwtSecret>();
+
+// Configure JWT authentication
+var jwtSecretKey = builder.Configuration.GetValue<string>("Jwt:Key");
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+	.AddJwtBearer(options =>
+	{
+		options.TokenValidationParameters = new TokenValidationParameters
+		{
+			ValidateLifetime = true,
+			ValidateIssuerSigningKey = true,
+			IssuerSigningKey = key
+		};
+	});
+
 
 builder.Services.Configure<RouteOptions>(options =>
 {
@@ -73,6 +90,8 @@ builder.Host.UseSerilog(
     }
 );
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -97,7 +116,8 @@ app.UseCors(builder =>
         .AllowCredentials();
 });
 
-app.UseMiddleware<JwtMiddleware>();
+app.UseAuthentication();
+
 app.MapControllers();
 app.Services.GetRequiredService<IStartupService>();
 

@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using SOC.Conductor.Client.Generated;
 using SOC.IoT.ApiGateway.Entities.Contexts;
 using SOC.IoT.ApiGateway.Options;
 using SOC.IoT.ApiGateway.OptionsSetup;
 using SOC.IoT.ApiGateway.Services;
+using System.Text;
 
 namespace SOC.IoT.ApiGateway.Extensions;
 
@@ -83,11 +86,6 @@ public static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection ConfigureAuthentication(this IServiceCollection services)
-    {
-       //  services.AddAuthentication()
-        return services;
-    }
 
     public static WebApplication MigrateDatabase(this WebApplication application)
     {
