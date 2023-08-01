@@ -42,11 +42,8 @@ public class DetectionHandler : ITaskRequestHandler<DetectionRequest, NoOutput>
 
 	public async Task<NoOutput> Handle(DetectionRequest request, CancellationToken cancellationToken)
 	{
-		if (DateTime.Now.Hour <= _options.StartHour && DateTime.Now.Hour >= _options.EndHour)
-		{
-			await _deviceService.LigthBulbInRepetitions(request, cancellationToken);
-		}
+		await _deviceService.LigthBulbInRepetitions(request, cancellationToken);
 		return await Task.FromResult(new NoOutput());
-		
 	}
+	
 }

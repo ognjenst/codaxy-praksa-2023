@@ -50,6 +50,7 @@ var builder = Host.CreateDefaultBuilder()
 
             builder.RegisterWorkerTask<DeviceHandler>();
 			builder.RegisterWorkerTask<DetectionHandler>();
+            builder.RegisterWorkerTask<CheckTimeHandler>();
 		}
     );
 
