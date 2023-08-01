@@ -62,6 +62,20 @@ public static class DependencyInjection
             }
         );
 
+        services.AddCors(
+            opt =>
+                opt.AddPolicy(
+                    "CorsPolicy",
+                    builder =>
+                    {
+                        builder
+                            .AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .WithMethods("GET", "PUT", "POST", "DELETE", "PATCH", "OPTIONS");
+                    }
+                )
+        );
+
         return services;
     }
 
@@ -83,8 +97,7 @@ public static class DependencyInjection
     {
         using (var scope = application.Services.CreateScope())
         {
-            using var dbContext =
-                scope.ServiceProvider.GetRequiredService<SOCIoTDbContext>();
+            using var dbContext = scope.ServiceProvider.GetRequiredService<SOCIoTDbContext>();
 
             try
             {
