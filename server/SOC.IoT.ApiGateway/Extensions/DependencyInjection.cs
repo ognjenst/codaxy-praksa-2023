@@ -83,6 +83,12 @@ public static class DependencyInjection
         return services;
     }
 
+    private static IServiceCollection ConfigureAuthentication(this IServiceCollection services)
+    {
+       //  services.AddAuthentication()
+        return services;
+    }
+
     public static WebApplication MigrateDatabase(this WebApplication application)
     {
         using (var scope = application.Services.CreateScope())
