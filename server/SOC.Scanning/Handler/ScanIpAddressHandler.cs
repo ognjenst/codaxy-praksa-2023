@@ -41,7 +41,7 @@ internal class ScanIpAddressHandler
         _sshClientService = sshClientService;
     }
 
-    public Boolean ValidateInput(ScanIpAddressRequest request)
+    public bool ValidateInput(ScanIpAddressRequest request)
     {
         if (!IPAddress.TryParse(request.IpAddress, out _))
             return false;
