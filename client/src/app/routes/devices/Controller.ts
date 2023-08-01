@@ -20,7 +20,7 @@ export default class extends Controller<DevicesPageModel> {
             const devices = await getDevices();
             this.store.set(
                 $page.devices,
-                devices.filter((device) => device.capabilities.length != 0)
+                devices.filter((device) => device.name != null)
             );
             this.store.set($page.status.request, Status.Ok);
         } catch (err) {

@@ -42,6 +42,6 @@ export default () => (
             onResolve={() => import(/* webpackChunkName: "user-routes" */ "./user").then((x) => x.default)}
         />
         <ContentResolver params={1} onResolve={() => import(/* webpackChunkName: "overlays" */ "../overlays").then((x) => x.default)} />
-        <DocumentTitle append text="Demo App" separator=" | " />
+        <DocumentTitle append text="SOC" separator=" | " />
     </cx>
 );

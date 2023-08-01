@@ -8,6 +8,11 @@ export interface Device {
     humidity?: DeviceHumidity;
     energy?: DeviceEnergy;
     contact?: DeviceContact;
+    name?: string;
+    description?: string;
+    manufacturer?: string;
+    type?: string;
+    model?: string;
 }
 
 export interface DeviceState {

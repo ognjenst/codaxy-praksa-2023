@@ -65,80 +65,14 @@ export const CheckerLayout = ({ children, nav }) => (
             <div class="border-r border-b py-2 pl-6 flex">
                 <Logo2 />
             </div>
-            <div class="border-b flex">
-                <div class="flex-grow">
-                    <TextField
-                        icon="search"
-                        placeholder="Search customers, invoices, ..."
-                        class="h-full w-full"
-                        inputClass="border-transparent rounded-none"
-                        focused={{ bind: "search.visible", debounce: 300 }}
-                        trackFocus
-                        inputAttrs={{ autoComplete: "off" }}
-                        value={{ bind: "search.query", debounce: 300 }}
-                    />
-                    <Dropdown
-                        visible-expr="{search.visible} && {search.query} && {search.results}"
-                        offset={5}
-                        placementOrder={"down-right"}
-                        arrow
-                        class="p-4 w-[600px]"
-                        matchWidth={false}
-                    >
-                        <div class="text-gray-500 p-4 italic" visible-expr="!{search.results.length}">
-                            Could not find any results matching the search query <span text-bind="search.query" class="font-bold" />.
-                        </div>
-                        <List
-                            records-bind="search.results"
-                            itemPad={false}
-                            onItemClick={(e, { store }) => {
-                                History.pushState({}, null, store.get("$record.url"));
-                                store.delete("search");
-                            }}
-                            grouping={{
-                                key: {
-                                    type: { bind: "$record.type" },
-                                },
-                                header: (
-                                    <cx>
-                                        <div text-bind="$group.type" class="uppercase text-gray-400 text-xs py-1" />
-                                    </cx>
-                                ),
-                            }}
-                        >
-                            <div class="flex p-2 items-center">
-                                <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-500">
-                                    <Icon
-                                        name={computable("$record.type", (type) => {
-                                            switch (type) {
-                                                case "customer":
-                                                    return "users";
-                                                default:
-                                                case "invoice":
-                                                    return "document-text";
-                                            }
-                                        })}
-                                        class="w-6 h-6"
-                                    />
-                                </div>
-                                <div class="ml-4">
-                                    <div class="text-base">
-                                        <HighlightedSearchText text-bind="$record.title" query-bind="search.query" />
-                                    </div>
-                                    <div class="text-gray-400">
-                                        <HighlightedSearchText text-bind="$record.text" query-bind="search.query" />
-                                    </div>
-                                </div>
-                            </div>
-                        </List>
-                    </Dropdown>
-                </div>
+            <div class="border-b flex justify-end">
                 <div
                     class="border-l"
                     onClick={(e, { store }) => {
                         store.toggle("nav.expand.user");
                     }}
                     tabIndex="0"
+                    className=" float-right"
                 >
                     <div class="flex items-center px-4 py-2 cursor-pointer">
                         <div class="w-10 h-10 bg-gray-300 rounded-full align-middle flex items-center justify-center relative flex-shrink-0 cursor-pointer">
@@ -180,9 +114,9 @@ export const CheckerLayout = ({ children, nav }) => (
                 <div class="px-6 py-3 text-gray-400 text-sm">Main Menu</div>
 
                 <NavItem text="Devices" icon="light-bulb" href="~/devices" />
-                <NavItem text="Automations" icon="presentation-chart-line" href="~/automations" />
+                <NavItem text="Automations" icon="wrench-screwdriver" href="~/automations" />
                 <NavItem text="Workflows" icon="arrow-down-circle" href="~/workflows" />
-                <NavItem text="Triggers" icon="arrow-down-circle" href="~/triggers" />
+                <NavItem text="Triggers" icon="bolt" href="~/triggers" />
             </div>
             {children}
         </div>
