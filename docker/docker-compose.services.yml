@@ -13,8 +13,6 @@ services:
         target: /app/appsettings.json
     volumes:
       - ~/.aspnet/https/:/https:ro
-    depends_on:
-      - soc-db
 
   soc_conductor:
     image: soc_conductor:latest
@@ -28,8 +26,6 @@ services:
     secrets:
       - source: soc_conductor_appsettings
         target: /app/appsettings.json
-    depends_on:
-      - soc-db
 
   soc_ticketing:
     image: soc_ticketing:latest
