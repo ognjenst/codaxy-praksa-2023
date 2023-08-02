@@ -58,7 +58,7 @@ export default () => (
                     layout={LabelsLeftLayout}
                     value-bind="$task.expression"
                     if-expr="{$task.expression} != null"
-                    label="Task Type"
+                    label="Expression"
                     className="flex-1"
                     readOnly
                 />

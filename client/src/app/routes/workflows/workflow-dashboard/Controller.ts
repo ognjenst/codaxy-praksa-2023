@@ -148,8 +148,6 @@ export default class extends Controller {
                 tasks: arrTasks,
             };
 
-            console.log(obj);
-
             if (this.store.get("$page.currentWorkflow.action") === "Insert") await POST(BACKEND_REQUEST_REGISTER_WORKFLOW, obj);
             else await PUT(BACKEND_REQUEST_REGISTER_WORKFLOW, obj);
 

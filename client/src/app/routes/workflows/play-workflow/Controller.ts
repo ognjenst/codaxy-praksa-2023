@@ -30,8 +30,6 @@ export default (props) =>
                 input: obj,
             };
 
-            console.log(request);
-
             try {
                 let resp = await POST(BACKEND_REQUEST_PLAY_WORKFLOW, request);
 

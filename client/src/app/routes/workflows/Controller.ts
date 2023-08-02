@@ -19,8 +19,6 @@ export default class extends Controller {
         arrFor(this.store.get("$page.workflows"));
         arrFor(this.store.get("$page.undoneWorkflows"));
 
-        console.log(arrNames);
-
         let newObj = await openInsertUpdateWindow({
             props: {
                 action: "Insert",
