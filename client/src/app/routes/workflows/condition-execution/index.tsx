@@ -25,9 +25,9 @@ export default () => (
                             </Repeater>
                         </div>
 
-                        <Button icon="plus" className="rounded-full h-8 w-8" onClick="addNewInputVariable" />
+                        <Button icon="plus" className="rounded-full h-8 w-8 ml-2 mt-1" onClick="addNewInputVariable" />
                     </div>
-                    <div className="flex flex-1" styles="border: 1px solid lightgray; background: white; padding: 20px">
+                    <div className="flex flex-1" styles="border: 1px solid lightgray; background: white; padding: 20px;">
                         <Repeater records={bind("$task.conditions")} recordAlias="$con" indexAlias="$indexAlias">
                             <div
                                 visible-expr="{$task.selectedTab} == {$con.tab}"
