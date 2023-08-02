@@ -19,7 +19,7 @@ namespace SOC.IoT.Handler
         public string? DeviceId { get; set; }
     }
 
-    [OriginalName("IoT_socket_state_change")]
+    [OriginalName("IoT_socket_turn_on")]
     public class SocketHandler : ITaskRequestHandler<SocketRequest, NoOutput>
     {
         private readonly IDevicesClient _devicesClient;

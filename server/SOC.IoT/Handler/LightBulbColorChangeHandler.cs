@@ -61,6 +61,7 @@ public class LightBulbColorChangeHandler : ITaskRequestHandler<ColorChangeReques
                 ColorXy = new DeviceColorXy() { X = request.X, Y = request.Y }
             };
 
+            // Light bulb turns on and off alternately <NumberOfRepetitions> times
             for (int i = 0; i < request.NumberOfRepetitions; i++)
             {
                 try

@@ -85,13 +85,13 @@ public class IoTTriggerEvaluationService : BackgroundService
             foreach (var iotTrigger in iotTriggers.Where(e => e.DeviceId.Equals(device.Id)))
             {
                 string actualValue = GetDeviceValue(device, iotTrigger.Property);
+                var workflows = await unitOfWork.IoTTriggers.GetWorkflowsByTriggerIdAsync(
+                    iotTrigger.Id
+                );
                 if (string.IsNullOrEmpty(actualValue))
                     continue;
                 if (EvaluateIoTTrigger(iotTrigger, actualValue))
                 {
-                    var workflows = await unitOfWork.IoTTriggers.GetWorkflowsByTriggerIdAsync(
-                        iotTrigger.Id
-                    );
                     foreach (var workflow in workflows)
                     {
                         var automation = (
@@ -115,7 +115,7 @@ public class IoTTriggerEvaluationService : BackgroundService
                 else
                 {
                     // only for workflow with switch task
-                    ProcessWorkflowWithSwitchTask(unitOfWork, iotTrigger, device);
+                    ProcessWorkflowWithSwitchTask(unitOfWork, iotTrigger, device, workflows);
                 }
             }
         }
@@ -124,10 +124,10 @@ public class IoTTriggerEvaluationService : BackgroundService
     private async void ProcessWorkflowWithSwitchTask(
         IUnitOfWork unitOfWork,
         IoTTrigger iotTrigger,
-        Device device
+        Device device,
+        IList<Workflow> workflows
     )
     {
-        var workflows = await unitOfWork.IoTTriggers.GetWorkflowsByTriggerIdAsync(iotTrigger.Id);
         var workflow = workflows.FirstOrDefault();
         if (workflow != null)
         {
