@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SOC.IoT.Extensions;
 using SOC.IoT.Handler;
+using SOC.IoT.Services;
 
 var builder = Host.CreateDefaultBuilder()
     .ConfigureAppConfiguration(
@@ -48,6 +49,9 @@ var builder = Host.CreateDefaultBuilder()
                 });
 
             builder.RegisterWorkerTask<DeviceHandler>();
+			builder.RegisterWorkerTask<DetectionHandler>();
+            builder.RegisterWorkerTask<CheckTimeHandler>();
+		}
             builder.RegisterWorkerTask<TemperatureColorHandler>();
 
         }
