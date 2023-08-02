@@ -56,6 +56,7 @@ var builder = Host.CreateDefaultBuilder()
                 opt.TimeoutSeconds = 600;
                 opt.ResponseTimeoutSeconds = 600;
             });
+            builder.RegisterWorkerTask<ExamineNetworkScanHandler>();
 
             builder.RegisterMediatR(typeof(Program).Assembly);
         }
