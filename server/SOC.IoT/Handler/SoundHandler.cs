@@ -37,37 +37,26 @@ namespace SOC.IoT.Handler
         {
             _logger.LogInformation("Playing music or siren...");
 
-            // Replace with the path to your siren sound file
-            string filePath = "SOC.IoT.Handler.Resources.alarm.wav";
-
-            using (
-                Stream resourceStream = Assembly
-                    .GetExecutingAssembly()
-                    .GetManifestResourceStream(filePath)
-            )
+            if (File.Exists(request.FilePath))
             {
-                if (resourceStream != null)
+                using (var audioFile = new AudioFileReader(request.FilePath))
+                using (var outputDevice = new WaveOutEvent())
                 {
-                    using (var audioFile = new WaveFileReader(resourceStream))
-                    using (var outputDevice = new WaveOutEvent())
+                    outputDevice.Init(audioFile);
+                    outputDevice.Play();
+                    // Wait for the playback to finish
+                    while (outputDevice.PlaybackState == PlaybackState.Playing)
                     {
-                        outputDevice.Init(audioFile);
-                        outputDevice.Play();
-
-                        // Wait for the playback to finish
-                        while (outputDevice.PlaybackState == PlaybackState.Playing)
-                        {
-                            await Task.Delay(100);
-                        }
+                        await Task.Delay(100);
                     }
                 }
-                else
-                {
-                    _logger.LogError("Sound resource not found.");
-                }
+                _logger.LogInformation("Music playback complete.");
+            }
+            else
+            {
+                _logger.LogError("Siren sound file not found.");
             }
 
-            _logger.LogInformation("Music playback complete.");
             return new NoOutput();
         }
     }
