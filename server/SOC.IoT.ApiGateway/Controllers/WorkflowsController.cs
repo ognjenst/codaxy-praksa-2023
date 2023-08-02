@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
 using SOC.Conductor.Generated;
 using System.Net;
@@ -20,6 +21,7 @@ public class WorkflowsController : ControllerBase
     /// Returns all registered workflows from conductor.
     /// </summary>
     /// <returns></returns>
+    [Authorize(policy: "Read-Workflow")]
     [HttpGet(Name = "GetAllWorkflowsAsync")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<WorkflowResponseDto>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
@@ -32,9 +34,10 @@ public class WorkflowsController : ControllerBase
     }
 
     /// <summary>
-    /// Returns all registered tasks from conductor.
+    /// Returns all registered workflows from conductor.
     /// </summary>
     /// <returns></returns>
+    [Authorize(policy: "Read-Workflow")]
     [HttpGet("GetAllTasks", Name = "GetAllTasksAsync")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<TaskResponseDto>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
@@ -46,6 +49,21 @@ public class WorkflowsController : ControllerBase
         return Ok(data);
     }
 
+    /// <summary>
+    /// Play workflow
+    /// </summary>
+    /// <param name="playDto"></param>
+    /// <returns></returns>
+    [Authorize(policy: "Update-Workflow")]
+    [HttpPost("PlayWorkflow", Name = "PlayWorkflow")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+    public async Task<IActionResult> PlayWorkflowAsync([FromBody] PlayRequestDto playDto)
+    {
+        await _workflowsClient.PlayWorkflowAsync(playDto);
+        return Ok();
 	/// <summary>
 	/// Play workflow
 	/// </summary>
@@ -109,24 +127,6 @@ public class WorkflowsController : ControllerBase
     public async Task<IActionResult> UpdateWorkflowAsync([FromBody] CreateWorkflowDto workflowDto)
     {
         var result = await _workflowsClient.UpdateWorkflowAsync(workflowDto);
-
-        if (result is not null)
-            return Ok(result);
-
-        return NotFound();
-    }
-
-    /// <summary>
-    /// Gets all workflows from database.
-    /// </summary>
-    /// <returns></returns>
-    [HttpGet("db", Name = "GetAllWorkflowsFromDB")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<WorkflowDto>))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
-    public async Task<IActionResult> GetAllWorkflowsFromDBAsync()
-    {
-        var result = await _workflowsClient.GetAllWorkflowsFromDBAsync();
 
         if (result is not null)
             return Ok(result);

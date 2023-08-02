@@ -25,11 +25,11 @@ async function checkOk(r) {
     throw Error(r.statusText);
 }
 
-let apiBaseUrl = "/api";
+let apiBaseUrl = '/api';
 
-if (process.env.NODE_ENV == "development") {
-    apiBaseUrl = "/api";
-} else if (process.env.NODE_ENV == "production") {
+
+
+ if(process.env.NODE_ENV == 'production'){
     apiBaseUrl = `${process.env.API_URL}/api`;
 }
 
