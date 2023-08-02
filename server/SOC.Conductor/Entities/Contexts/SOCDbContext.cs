@@ -31,8 +31,8 @@ namespace SOC.Conductor.Entities.Contexts
                     .HasMany(e => e.Workflows)
                     .WithMany(e => e.Triggers)
                     .UsingEntity<Automation>(
-                        l => l.HasOne<Workflow>().WithMany().HasForeignKey(e => e.WorkflowId),
-                        r => r.HasOne<Trigger>().WithMany().HasForeignKey(e => e.TriggerId)
+                        l => l.HasOne(e => e.Workflow).WithMany().HasForeignKey(e => e.WorkflowId),
+                        r => r.HasOne(e => e.Trigger).WithMany().HasForeignKey(e => e.TriggerId)
                     );
             });
 

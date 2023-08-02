@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SOC.Conductor.Client.Generated;
 using SOC.IoT.ApiGateway.Entities.Contexts;
 using SOC.IoT.ApiGateway.Options;
 using SOC.IoT.ApiGateway.OptionsSetup;
+using System.Net;
 
 namespace SOC.IoT.ApiGateway.Extensions;
 
@@ -62,6 +64,32 @@ public static class DependencyInjection
             }
         );
 
+        services.AddCors(
+            opt =>
+                opt.AddPolicy(
+                    "CorsPolicy",
+                    builder =>
+                    {
+                        builder
+                            .AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .WithMethods("GET", "PUT", "POST", "DELETE", "PATCH", "OPTIONS");
+                    }
+                )
+        );
+
+        services.Configure<ForwardedHeadersOptions>(options =>
+        {
+            options.ForwardedHeaders = ForwardedHeaders.All;
+            options.KnownNetworks.Add(new IPNetwork(IPAddress.Parse("192.168.160.0"), 24));
+            options.KnownNetworks.Add(new IPNetwork(IPAddress.Parse("10.0.0.0"), 8));
+
+            options.ForwardedHeaders =
+                ForwardedHeaders.XForwardedFor
+                | ForwardedHeaders.XForwardedProto
+                | ForwardedHeaders.XForwardedHost;
+        });
+
         return services;
     }
 
@@ -83,8 +111,7 @@ public static class DependencyInjection
     {
         using (var scope = application.Services.CreateScope())
         {
-            using var dbContext =
-                scope.ServiceProvider.GetRequiredService<SOCIoTDbContext>();
+            using var dbContext = scope.ServiceProvider.GetRequiredService<SOCIoTDbContext>();
 
             try
             {

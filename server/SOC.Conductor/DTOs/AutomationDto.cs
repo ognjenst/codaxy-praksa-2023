@@ -7,6 +7,8 @@ namespace SOC.Conductor.DTOs
         public int WorkflowId { get; set; }
         public int TriggerId { get; set; }
         public string Name { get; set; }
-        public JObject InputParameters { get; set; }
+        public string? InputParameters { get; set; }
+        public WorkflowDto Workflow { get; set; }
+        public CommonTriggerDto Trigger { get; set; }
     }
 }

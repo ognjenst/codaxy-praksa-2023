@@ -12,8 +12,8 @@ module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
     mode: "production",
 
     output: {
-        path: p("dist"),
-        publicPath: "/",
+        path: path.resolve(__dirname, "../../../server/SOC.IoT.ApiGateway/wwwroot/dist"),
+        publicPath: "../../../server/SOC.IoT.ApiGateway/wwwroot/dist",
         filename: "[name].ltc.[contenthash].js",
         chunkFilename: "[name].ltc.[contenthash].js",
         hashDigestLength: 6,
@@ -22,7 +22,7 @@ module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
     optimization: {
         minimizer: [
             new ESBuildMinifyPlugin({
-                target: "es2015",
+                target: "es2022",
                 css: true,
             }),
         ],
@@ -32,7 +32,9 @@ module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
 
     plugins: [
         new webpack.DefinePlugin({
+            API_BASE_URL: JSON.stringify("/api"),
             "process.env.NODE_ENV": JSON.stringify("production"),
+            "process.env.API_URL": JSON.stringify(process.env.API_URL),
         }),
         new MiniCssExtractPlugin({
             filename: "[name].ltc.[contenthash].css",
@@ -41,8 +43,8 @@ module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: path.resolve(__dirname, "../public"),
-                    to: ".",
+                    from: p("/assets"),
+                    to: path.resolve(__dirname, "../../../server/SOC.IoT.ApiGateway/wwwroot/assets"),
                 },
             ],
         }),

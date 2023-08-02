@@ -46,6 +46,8 @@
   <ItemGroup>
     <Folder Include="Exceptions\" />
     <Folder Include="Migrations\" />
+    <Folder Include="wwwroot\dist\" />
+    <Folder Include="wwwroot\assets\" />
   </ItemGroup>
 
 </Project>
