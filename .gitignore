@@ -453,3 +453,4 @@ docker/vol/
 /server/SOC.Conductor/appsettings.Development.json
 /docker/secrets/local
 /docker/secrets/certs
+/server/SOC.Notifications/appsettings.Development.json
