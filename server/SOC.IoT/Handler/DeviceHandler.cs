@@ -4,11 +4,10 @@ using ConductorSharp.Engine.Model;
 using ConductorSharp.Engine.Util;
 using MediatR;
 using Newtonsoft.Json;
-using SOC.IoT.Generated;
-using System.ComponentModel.DataAnnotations;
+using SOC.IoT.Base.Interfaces;
+using SOC.IoT.Domain.Entity;
 
 namespace SOC.IoT.Handler;
-
 
 public class DeviceRequest : IRequest<NoOutput>
 {
@@ -23,6 +22,7 @@ public class DeviceRequest : IRequest<NoOutput>
 
     [JsonProperty("x")]
     public double X { get; set; }
+
     [JsonProperty("y")]
     public double Y { get; set; }
 }
@@ -30,20 +30,20 @@ public class DeviceRequest : IRequest<NoOutput>
 [OriginalName("IoT_device_update")]
 public class DeviceHandler : ITaskRequestHandler<DeviceRequest, NoOutput>
 {
-    private readonly IDevicesClient _devicesClient;
     private readonly IMapper _mapper;
+    private readonly IDeviceManager _deviceManager;
 
-    public DeviceHandler(IDevicesClient devicesClient, IMapper mapper)
+    public DeviceHandler(IMapper mapper, IDeviceManager deviceManager)
     {
-        _devicesClient = devicesClient;
         _mapper = mapper;
+        _deviceManager = deviceManager;
     }
 
     public async Task<NoOutput> Handle(DeviceRequest request, CancellationToken cancellationToken)
     {
-        var obj = _mapper.Map<DeviceUpdateDTO>(request);
+        var obj = _mapper.Map<Device>(request);
 
-        await _devicesClient.UpdateDeviceAsync(request.Id, obj, cancellationToken);
+        await _deviceManager.SetDeviceStateAsync(obj);
 
         return await Task.FromResult(new NoOutput());
     }

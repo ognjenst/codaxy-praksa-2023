@@ -1,69 +1,70 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Options;
-using SOC.IoT.Generated;
+using SOC.IoT.Base.Interfaces;
+using SOC.IoT.Domain.Entity;
 using SOC.IoT.Handler;
 using SOC.IoT.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SOC.IoT.Services;
 
 public interface IDeviceService
 {
-	Task LigthBulbInRepetitions(DetectionRequest request, CancellationToken cancellationToken); 
+    Task LigthBulbInRepetitions(DetectionRequest request, CancellationToken cancellationToken);
 }
 
 public class DeviceService : IDeviceService
 {
-	private readonly IDevicesClient _devicesClient;
-	private readonly DeviceOptions _options;
-	private readonly IMapper _mapper;
+    private readonly DeviceOptions _options;
+    private readonly IMapper _mapper;
+    private readonly IDeviceManager _deviceManager;
 
-    public DeviceService(IDevicesClient devicesClient, IOptions<DeviceOptions> options, IMapper mapper)
+    public DeviceService(
+        IOptions<DeviceOptions> options,
+        IMapper mapper,
+        IDeviceManager deviceManager
+    )
     {
-        _devicesClient = devicesClient;
-		_options = options.Value;
-		_mapper = mapper;
+        _options = options.Value;
+        _mapper = mapper;
+        _deviceManager = deviceManager;
     }
-    public async Task LigthBulbInRepetitions(DetectionRequest request, CancellationToken cancellationToken)
-	{
-		var device = await _devicesClient.GetDeviceAsync(request.DeviceId, cancellationToken);
 
-		if (device != null)
-		{
-			int numberOfRepetitions = 0;
+    public async Task LigthBulbInRepetitions(
+        DetectionRequest request,
+        CancellationToken cancellationToken
+    )
+    {
+        var device = _deviceManager.GetDevice(request.DeviceId);
 
-			var updateDeviceObj = new DeviceRequest
-			{
-				Id = device.Id,
-				Brightness = _options.Brightness,
-				X = request.X,
-				Y = request.Y,
-				State = true
-			};
+        if (device != null)
+        {
+            int numberOfRepetitions = 0;
 
-			while (numberOfRepetitions <= request.MaxNumberOfRepetitions)
-			{
-				numberOfRepetitions++;
+            var updateDeviceObj = new DeviceRequest
+            {
+                Id = device.Id,
+                Brightness = _options.Brightness,
+                X = request.X,
+                Y = request.Y,
+                State = true
+            };
 
-				var updateDeviceDto = _mapper.Map<DeviceUpdateDTO>(updateDeviceObj);
+            while (numberOfRepetitions <= request.MaxNumberOfRepetitions)
+            {
+                numberOfRepetitions++;
 
-				// turn on light and delay for few seconds
-				await _devicesClient.UpdateDeviceAsync(device.Id, updateDeviceDto, cancellationToken);
-				await Task.Delay(_options.DelayTime);
+                var updateDeviceDto = _mapper.Map<Device>(updateDeviceObj);
 
-				updateDeviceDto.State.State = false;
+                await _deviceManager.SetDeviceStateAsync(updateDeviceDto);
 
-				// turn off light and delay for few seconds 
-				await _devicesClient.UpdateDeviceAsync(device.Id, updateDeviceDto, cancellationToken);
+                await Task.Delay(_options.DelayTime, cancellationToken);
 
-				await Task.Delay(_options.DelayTime);
-			}
-		}
-		
-	}
+                updateDeviceDto.State!.State = false;
+
+                await _deviceManager.SetDeviceStateAsync(updateDeviceDto);
+
+                await Task.Delay(_options.DelayTime, cancellationToken);
+            }
+        }
+    }
 }
