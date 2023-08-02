@@ -10,13 +10,26 @@ using Serilog;
 using Microsoft.EntityFrameworkCore;
 using SOC.IoT.ApiGateway.Entities.Contexts;
 using SOC.IoT.ApiGateway.Services;
+using Autofac.Core;
+using SOC.IoT.ApiGateway.Options;
+using Microsoft.AspNetCore.Authorization;
+using SOC.IoT.ApiGateway.Handlers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using SOC.IoT.ApiGateway.Security;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 
+builder.Services.AddDbContext<SOCIoTDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db")));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<SOCIoTDbContext>(
@@ -24,6 +37,7 @@ builder.Services.AddDbContext<SOCIoTDbContext>(
 );
 
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
 
 builder.Services.Configure<RouteOptions>(options =>
 {
@@ -47,6 +61,25 @@ builder.Services.AddHostedService<DevicesBackgroundService>();
 builder.Services.AddIoTServices();
 
 builder.Services.RegisterServices();
+builder.Services.AddScoped<IUserService, UserService>();
+
+// Configure authentication and authorization
+builder.Services.RegisterAuthentication(builder.Configuration);
+builder.Services.RegisterAuthorization();
+
+
+// ...
+
+builder.Services.AddScoped<IAuthorizationHandler, JwtAuthorizationHandler>();
+
+
+// Configure Serilog
+builder.Host.UseSerilog(
+	(context, config) =>
+	{
+		config.WriteTo.Console();
+	}
+);
 
 // Configure Serilog
 builder.Host.UseSerilog(
@@ -76,6 +109,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
