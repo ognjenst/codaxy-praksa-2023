@@ -6,7 +6,6 @@ using SOC.IoT.ApiGateway.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.ComponentModel.DataAnnotations;
 using MediatR;
-using SOC.IoT.ApiGateway.Helpers;
 using Microsoft.AspNetCore.Authorization;
 
 namespace SOC.IoT.ApiGateway.Controllers

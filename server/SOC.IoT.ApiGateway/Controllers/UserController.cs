@@ -57,13 +57,5 @@ namespace SOC.IoT.ApiGateway.Controllers
                 return BadRequest(new { message = "Error" });
             }
         }
-
-		[HttpPost("test-method")]
-		[Authorize(policy: "Update-Device")]
-		public async Task<IActionResult> Test(LoginRequest login)
-		{
-			return Ok(new { message = "bravo sergej" });
-		}
 	}    
-
 }

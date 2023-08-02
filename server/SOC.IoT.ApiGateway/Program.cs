@@ -14,7 +14,6 @@ using Autofac.Core;
 using SOC.IoT.ApiGateway.Options;
 using Microsoft.AspNetCore.Authorization;
 using SOC.IoT.ApiGateway.Handlers;
-using SOC.IoT.ApiGateway.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;

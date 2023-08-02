@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
-using SOC.IoT.ApiGateway.Helpers;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace SOC.IoT.ApiGateway.Controllers;

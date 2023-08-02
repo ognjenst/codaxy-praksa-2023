@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SOC.IoT.ApiGateway.Controllers.Examples;
 using SOC.IoT.ApiGateway.Handlers;
-using SOC.IoT.ApiGateway.Helpers;
 using SOC.IoT.ApiGateway.Models;
 using SOC.IoT.ApiGateway.Models.Requests;
 using SOC.IoT.Base.Interfaces;
