@@ -19,7 +19,7 @@ namespace SOC.IoT.ApiGateway.Services
     public interface IUserService
     {
         AuthResponse Login(LoginRequest request);
-        Task<string> Register(User request);
+        Task<string> Register(RegisterRequest request);
     }
 
     public class UserService : IUserService
@@ -87,7 +87,7 @@ namespace SOC.IoT.ApiGateway.Services
             return authResponse;
         }
 
-        public async Task<string> Register(User request)
+        public async Task<string> Register(RegisterRequest request)
         {
             if (_context.Users.Any(x => x.Username == request.Username))
             {
@@ -96,12 +96,23 @@ namespace SOC.IoT.ApiGateway.Services
             User user;
 
             try
-            {
+            {   // map RegisterRequest to User
                 user = _mapper.Map<User>(request);
             }
             catch
             {
                 return "Error!";
+            }
+
+            if (_context.Users.Count() == 0)
+            {   
+                // first account will be admin
+                user.RoleId = 1;
+            }
+            else 
+            {
+                // every other account will be user
+                user.RoleId = 2;
             }
 
             //hash password

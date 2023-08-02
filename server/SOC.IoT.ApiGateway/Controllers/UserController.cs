@@ -45,7 +45,7 @@ namespace SOC.IoT.ApiGateway.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<IActionResult> Register(User request)
+        public async Task<IActionResult> Register(RegisterRequest request)
         {
             var response = await _userService.Register(request);
             if (response == "Success")
