@@ -56,20 +56,6 @@ public class WorkflowsController : ControllerBase
     /// <returns></returns>
     [Authorize(policy: "Update-Workflow")]
     [HttpPost("PlayWorkflow", Name = "PlayWorkflow")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-    [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-    public async Task<IActionResult> PlayWorkflowAsync([FromBody] PlayRequestDto playDto)
-    {
-        await _workflowsClient.PlayWorkflowAsync(playDto);
-        return Ok();
-	/// <summary>
-	/// Play workflow
-	/// </summary>
-	/// <param name="playDto"></param>
-	/// <returns></returns>
-	[HttpPost("PlayWorkflow", Name = "PlayWorkflow")]
 	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
 	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
 	[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
@@ -86,6 +72,7 @@ public class WorkflowsController : ControllerBase
     /// <param name="workflowName"></param>
     /// <param name="workflowVersion"></param>
     /// <returns></returns>
+    [Authorize(policy: "Delete-Workflow")]
     [HttpDelete("{workflowName}/{workflowVersion}", Name = "DeleteWorkflow")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
@@ -102,6 +89,7 @@ public class WorkflowsController : ControllerBase
     /// </summary>
     /// <param name="createWorkflowDto"></param>
     /// <returns></returns>
+    [Authorize(policy: "Create-Workflow")]
     [HttpPost(Name = "CreateWorkflow")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
@@ -119,6 +107,7 @@ public class WorkflowsController : ControllerBase
     /// </summary>
     /// <param name="workflowDto"></param>
     /// <returns></returns>
+    [Authorize(policy: "Update-Workflow")]
     [HttpPut(Name = "UpdateWorkflow")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkflowDto))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
