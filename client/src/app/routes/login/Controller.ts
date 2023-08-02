@@ -18,23 +18,20 @@ export default class extends Controller {
 
     async login() {
         let user = this.store.get("$page.user");
-        console.log("user:", user);
 
-        //post request for login, returns token, save token to local storage
-        //if login is successfull, go to devices route
-        //if not, popup
         if (user.username === null || user.password === null) this.createToast("Please provide your username and password.", "error");
         else {
             try {
                 let response = await POST("/user/login", user);
-                window.localStorage.setItem("auth", response.data.Jwt);
+
+                this.store.set("authUser", user);
+                window.localStorage.setItem("auth", response.jwt);
                 History.pushState({}, "", "/devices");
             } catch (e) {
                 console.log(e);
-                History.pushState({}, "", "/devices");
+                this.createToast("Your username or password is incorrect. Please try again.", "error");
             }
         }
-        this.createToast("Your username or password is incorrect. Please try again.", "error");
     }
 
     async handleEnter(e) {

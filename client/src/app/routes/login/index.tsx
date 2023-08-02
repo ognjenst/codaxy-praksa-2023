@@ -46,8 +46,13 @@ export default () => (
                     >
                         LOGIN
                     </Button>
-                    <Link href="~/registration" className="font-sans text-gray-500 text-l bg-transparent underline hover:text-gray-700">
-                        Create new account
+                    <Link
+                        onClick={(e, { store }) => {
+                            store.set("login", false);
+                        }}
+                        className="font-sans text-gray-500 text-l bg-transparent underline hover:text-gray-700"
+                    >
+                        Don't have an account yet? Sign up here.
                     </Link>
                 </div>
             </Section>

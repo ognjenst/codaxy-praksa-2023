@@ -49,8 +49,7 @@ export function resolveFetchOptions(options) {
         body: options.body,
     };
 
-    // if (options.authorize)
-    //     fetchOptions.headers["authorization"] = `Bearer ${access_token}`;
+    if (options.authorize) fetchOptions.headers["authorization"] = `Bearer ${window.localStorage.getItem("auth")}`;
     return fetchOptions;
 }
 

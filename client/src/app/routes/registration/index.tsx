@@ -23,7 +23,7 @@ export default () => (
                         style={{ width: "280px" }}
                         placeholder="First name"
                         inputStyle={{ fontSize: "16px" }}
-                        value-bind="$page.user.firstname"
+                        value-bind="$page.user.firstName"
                         required
                     />
                     <TextField
@@ -31,7 +31,7 @@ export default () => (
                         style={{ width: "280px" }}
                         placeholder="Last name"
                         inputStyle={{ fontSize: "16px" }}
-                        value-bind="$page.user.lastname"
+                        value-bind="$page.user.lastName"
                         required
                     />
                     <TextField
@@ -70,6 +70,14 @@ export default () => (
                     >
                         SIGN UP
                     </Button>
+                    <Link
+                        onClick={(e, { store }) => {
+                            store.set("login", true);
+                        }}
+                        className="font-sans text-gray-500 text-l bg-transparent underline hover:text-gray-700"
+                    >
+                        Already have an account? Sign in here.
+                    </Link>
                 </div>
             </Section>
         </div>

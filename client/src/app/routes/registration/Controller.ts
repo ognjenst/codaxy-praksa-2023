@@ -29,18 +29,15 @@ export default class extends Controller {
         )
             this.createToast("Please provide the required fields.", "error");
         else {
-            await POST("/user/registration", newUser)
+            await POST("/user/register", newUser)
                 .then(() => {
                     History.pushState({}, "", "/devices");
                 })
                 .catch((e) => {
-                    History.pushState({}, "", "/devices");
+                    this.createToast("Registration unsuccessfull.", "error");
                     console.log(e);
                 });
         }
-
-        //if all fields are valid, post request for registration
-        //go to devices route
     }
 
     async handleEnter(e) {
