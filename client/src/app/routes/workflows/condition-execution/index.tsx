@@ -1,19 +1,24 @@
-import { Button, LookupField, Repeater, Tab, ValidationGroup, TextField } from "cx/widgets";
+import { Button, LookupField, Repeater, Tab, ValidationGroup, TextField, HScroller, FlexCol, FlexRow } from "cx/widgets";
 import Controller from "./Controller";
 import { LabelsTopLayout, bind, computable } from "cx/ui";
 import { openDryRunWindow } from "../dry-run";
 
 export default () => (
     <cx>
-        <div class="w-full mt-3 bg-white border border-gray-200 col-span-4 rounded-sm">
-            <div className="relative">
-                <span className="relative -top-4 left-5 bg-white p-2 text-gray-600 whitespace-nowrap" text="Condition for execution" />
+        <div class="w-full mt-3 bg-white border border-gray-200 col-span-4 rounded-sm" controller={Controller}>
+            <div className="flex">
+                <div className="flex-1 m-2">
+                    <span className="bg-white p-2 text-gray-600 whitespace-nowrap" text="Condition for execution" />
+                </div>
+                <div className="flex-1 grid justify-items-end mt-2 mr-2">
+                    <Button icon="plus" className="rounded-full h-8 w-8 ml-2" onClick="addNewInputVariable" />
+                </div>
             </div>
 
-            <div className="p-4 grid grid-cols-1 gap-4" controller={Controller}>
+            <div className="p-4 grid grid-cols-1 gap-4">
                 <div>
-                    <div className="flex flex-1 mt-4">
-                        <div className="overflow-y-auto h-14">
+                    <div>
+                        <HScroller scrollIntoViewSelector=".cxb-tab.cxs-active">
                             <Repeater records={bind("$task.conditions")} recordAlias="$con" indexAlias="$index">
                                 <Tab
                                     text-bind="$con.tab"
@@ -23,9 +28,7 @@ export default () => (
                                     mod="classic"
                                 />
                             </Repeater>
-                        </div>
-
-                        <Button icon="plus" className="rounded-full h-8 w-8 ml-2 mt-1" onClick="addNewInputVariable" />
+                        </HScroller>
                     </div>
                     <div className="flex flex-1" styles="border: 1px solid lightgray; background: white; padding: 20px;">
                         <Repeater records={bind("$task.conditions")} recordAlias="$con" indexAlias="$indexAlias">
@@ -34,12 +37,7 @@ export default () => (
                                 className="flex flex-1 flex-col items-center justify-middle"
                             >
                                 <div className="flex flex-1" layout={LabelsTopLayout}>
-                                    <LookupField
-                                        label="Source"
-                                        options-bind="$con.source"
-                                        value-bind="$con.sourceDecision"
-                                        className="!w-full"
-                                    />
+                                    <LookupField label="Source" options-bind="$con.source" value-bind="$con.sourceDecision" />
                                 </div>
                                 <div className="flex flex-1" layout={LabelsTopLayout}>
                                     <LookupField
@@ -48,7 +46,6 @@ export default () => (
                                             return id !== null && sources.length > id ? sources[id].param : [];
                                         })}
                                         value-bind="$con.paramDecision"
-                                        className="!w-full"
                                     />
                                 </div>
                             </div>

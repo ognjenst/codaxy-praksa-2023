@@ -4,6 +4,7 @@ import { openInsertUpdateWindow } from "../update-insert-workflow";
 import { openPlayWorkflowWindow } from "../play-workflow";
 import { MsgBox } from "cx/widgets";
 import WorkflowVariables from "../WorkflowVariables";
+import { openShowInputParameters } from "../show-input-parameters";
 
 export default class extends Controller {
     onInit(): void {}
@@ -282,5 +283,13 @@ export default class extends Controller {
         } catch (err) {}
 
         return false;
+    }
+
+    showInputParameters() {
+        openShowInputParameters({
+            props: {
+                arr: this.store.get("$page.currentWorkflow.inputParameters"),
+            },
+        });
     }
 }

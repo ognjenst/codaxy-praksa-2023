@@ -9,6 +9,7 @@ import {
     BanknotesIcon,
     ChartBarIcon,
     ChevronDownIcon,
+    ChevronUpIcon,
     CogIcon,
     CreditCardIcon,
     CurrencyDollarIcon,
@@ -93,6 +94,7 @@ Icon.register("currency-euro", (props) => <CurrencyEuroIcon {...props} />);
 
 Icon.register("chevron-down", (props) => <ChevronDownIcon {...props} />);
 Icon.register("drop-down", (props) => <ChevronDownIcon {...props} />);
+Icon.register("drop-up", (props) => <ChevronUpIcon {...props} />);
 
 Icon.register("information-circle", (props) => <InformationCircleIcon {...props} />);
 
