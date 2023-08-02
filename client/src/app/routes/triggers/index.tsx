@@ -1,5 +1,6 @@
 import { Button, Grid, Heading } from "cx/widgets";
 import Controller from "./Controller";
+import { computable } from "cx/ui";
 
 export default () => (
     <cx>
@@ -58,6 +59,9 @@ export default () => (
     </cx>
 );
 
+const units = ["Days", "Hours", "Minutes"];
+const conditions = ["=", "<", ">", "≥", "≤"];
+
 const periodicTriggersColumns = [
     {
         header: "Name",
@@ -68,6 +72,7 @@ const periodicTriggersColumns = [
         header: "Start",
         field: "start",
         sortable: true,
+        format: "datetime;ddMMMyyyyHHmmN",
     },
     {
         header: "Period",
@@ -78,6 +83,11 @@ const periodicTriggersColumns = [
         header: "Unit",
         field: "unit",
         sortable: true,
+        items: (
+            <cx>
+                <span text={computable("$record", (r) => r && units[r.unit])} />
+            </cx>
+        ),
     },
 ];
 
@@ -96,6 +106,11 @@ const iotTriggersColumns = [
         header: "Condition",
         field: "condition",
         sortable: true,
+        items: (
+            <cx>
+                <span text={computable("$record", (r) => r && conditions[r.condition])} />
+            </cx>
+        ),
     },
     {
         header: "Value",

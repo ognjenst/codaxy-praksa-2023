@@ -1,49 +1,92 @@
-import { LabelsLeftLayout, UseParentLayout } from "cx/ui";
-import { Button, DateTimeField, Grid, LookupField, PureContainer, Section, TextField, ValidationGroup, Window } from "cx/widgets";
+import { ContentResolver, LabelsLeftLayout, Repeater, UseParentLayout, bind, computable, expr } from "cx/ui";
+import { Button, DateTimeField, Grid, Heading, LookupField, PureContainer, Section, TextField, ValidationGroup, Window } from "cx/widgets";
 import { encodeDateWithTimezoneOffset } from "cx/util";
 import Controller from "./Controller";
+import { CodeMirror } from "../../components/CodeMirror";
 
 export default () => (
     <cx>
         <div controller={Controller}>
             <div className="flex">
-                <Section title="Add automation">
-                    <div className="flex flex-row">
-                        <ValidationGroup invalid-bind="$page.invalid" layout={LabelsLeftLayout}>
-                            <LookupField
-                                label="Select trigger type"
-                                options={options}
-                                optionTextField="name"
-                                value-bind="$page.automation.triggerType"
-                                required
-                            />
+                <Section title="Add automation" className="">
+                    <div className="flex flex-col gap-5">
+                        <div className="flex gap-10">
+                            <div className=" flex-col">
+                                <ValidationGroup invalid-bind="$page.invalid" layout={LabelsLeftLayout}>
+                                    <LookupField
+                                        label="Select trigger type"
+                                        options={options}
+                                        optionTextField="name"
+                                        value-bind="$page.automation.triggerType"
+                                        required
+                                    />
 
-                            <LookupField
-                                label="Select trigger"
-                                options-bind="$page.periodicTriggers"
-                                optionTextField="name"
-                                value-bind="$page.automation.iotId"
-                                visible-expr="{$page.automation.triggerType}==1"
-                                required-expr="{$page.automation.triggerType}==1 ? 'true' : 'false'"
+                                    <LookupField
+                                        label="Select trigger"
+                                        options-bind="$page.periodicTriggers"
+                                        optionTextField="name"
+                                        value-bind="$page.automation.iotId"
+                                        visible-expr="{$page.automation.triggerType}==1"
+                                        required-expr="{$page.automation.triggerType}==1 ? 'true' : 'false'"
+                                    />
+                                    <LookupField
+                                        label="Select trigger"
+                                        options-bind="$page.iotTriggers"
+                                        optionTextField="name"
+                                        value-bind="$page.automation.periodicId"
+                                        visible-expr="{$page.automation.triggerType}==2"
+                                        required-expr="{$page.automation.triggerType}==2 ? 'true' : 'false'"
+                                    />
+                                    <LookupField
+                                        label="Select workflow"
+                                        options-bind="$page.workflows"
+                                        optionTextField="name"
+                                        value-bind="$page.automation.workflowId"
+                                        required
+                                    />
+                                    <TextField value-bind="$page.automation.name" label="Name" required />
+                                </ValidationGroup>
+                            </div>
+                            <div className="flex-col">
+                                <Heading
+                                    text="Parameters"
+                                    style={{ marginBottom: 10 }}
+                                    visible-expr={"Object.keys({$page.automation.inputParameters}).length > 0"}
+                                />
+                                <Repeater records={computable("$page.automation.inputParameters", (params) => Object.keys(params))}>
+                                    <ContentResolver
+                                        params={{
+                                            name: bind("$record"),
+                                        }}
+                                        onResolve={({ name }) => {
+                                            if (!name) return;
+
+                                            return (
+                                                <cx>
+                                                    <ValidationGroup invalid-bind="$page.invalid2" layout={LabelsLeftLayout}>
+                                                        <TextField
+                                                            value-bind={`$page.automation.inputParameters.${name}`}
+                                                            label={name}
+                                                            required
+                                                        />
+                                                    </ValidationGroup>
+                                                </cx>
+                                            );
+                                        }}
+                                    />
+                                </Repeater>
+                            </div>
+                        </div>
+                        <div className="flex-1">
+                            <Button
+                                className="float-left"
+                                text="Add automation"
+                                onClick="addAutomation"
+                                icon="plus"
+                                mod="primary"
+                                disabled-expr="{$page.invalid} || {$page.invalid2}"
                             />
-                            <LookupField
-                                label="Select trigger"
-                                options-bind="$page.iotTriggers"
-                                optionTextField="name"
-                                value-bind="$page.automation.periodicId"
-                                visible-expr="{$page.automation.triggerType}==2"
-                                required-expr="{$page.automation.triggerType}==2 ? 'true' : 'false'"
-                            />
-                            <LookupField
-                                label="Select workflow"
-                                options-bind="$page.workflows"
-                                optionTextField="name"
-                                value-bind="$page.automation.workflowId"
-                                required
-                            />
-                            <TextField value-bind="$page.automation.name" label="Name" required />
-                            <Button text="Add automation" onClick="addAutomation" icon="plus" mod="primary" disabled-bind="$page.invalid" />
-                        </ValidationGroup>
+                        </div>
                     </div>
                 </Section>
             </div>
@@ -70,12 +113,12 @@ const options = [
 const automationColumns = [
     {
         header: "Workflow",
-        field: "workflowId",
+        field: "workflow.name",
         sortable: true,
     },
     {
         header: "Trigger",
-        field: "triggerId",
+        field: "trigger.name",
         sortable: true,
     },
     {

@@ -222,6 +222,9 @@ public partial class WorkflowResponseDto
 
     [Newtonsoft.Json.JsonProperty("tasks", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<WorkflowTaskDto>? Tasks { get; set; } = default!;
+    [Newtonsoft.Json.JsonProperty("inputParameters", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Collections.Generic.ICollection<string>? InputParameters { get; set; } = default!;
+
 
 }
 
