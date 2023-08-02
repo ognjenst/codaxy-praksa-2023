@@ -30,7 +30,6 @@ export default class Controller1 extends Controller {
         for (let i = 0; i < currentWorkflow.tasks.length; i++) {
             arrT.push(currentWorkflow.tasks[i]);
             for (const key in currentWorkflow.tasks[i].decisionCases) {
-                console.log("KEY: " + key);
                 for (let j = 0; j < currentWorkflow.tasks[i].decisionCases[key].length; j++) {
                     var oob = {
                         ...currentWorkflow.tasks[i].decisionCases[key][j],

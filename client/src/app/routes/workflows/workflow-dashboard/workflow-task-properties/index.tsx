@@ -3,6 +3,7 @@ import { LookupField, TextField, ValidationGroup } from "cx/widgets";
 import InputParams from "../../input-params";
 import ConditionExecution from "../../condition-execution";
 import Controller from "./Controller";
+import WorkflowVariables from "../../WorkflowVariables";
 
 export default () => (
     <cx>
@@ -21,7 +22,13 @@ export default () => (
                     />
                 </div>
                 <div className="flex items-center justify-middle gap-2">
-                    <LookupField label="Task Type" className="flex-1" value-bind="$task.type" options={taskTypes} required />
+                    <LookupField
+                        label="Task Type"
+                        className="flex-1"
+                        value-bind="$task.type"
+                        options={WorkflowVariables.taskTypes}
+                        required
+                    />
                 </div>
                 <div className="gap-2 -mt-3">
                     <InputParams />
@@ -69,5 +76,3 @@ export default () => (
         </div>
     </cx>
 );
-
-const taskTypes = [{ id: 0, text: "SIMPLE" }];

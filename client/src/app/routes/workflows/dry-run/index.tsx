@@ -1,4 +1,4 @@
-import { LabelsLeftLayout, PureContainer, Repeater, Text, bind } from "cx/ui";
+import { LabelsLeftLayout, PureContainer, Repeater, Text, bind, computable } from "cx/ui";
 import { Button, Checkbox, DateField, HtmlElement, Label, Overlay, TextArea, TextField, Window } from "cx/widgets";
 import Controller from "./Controller";
 
@@ -11,7 +11,12 @@ export const openDryRunWindow = ({ task }) => {
                     <Repeater records={bind("$inputs")}>
                         <TextField label-bind="$record.tab" value-bind="$record.value" style={{ width: "100%" }} tooltip="A Tooltip" />
                     </Repeater>
-                    <TextField readOnly label="Result" value-bind="$result" style={{ width: "100%" }} />
+                    <TextField
+                        readOnly
+                        label="Result"
+                        value={computable("$result", (result) => (result ? "true" : "false"))}
+                        style={{ width: "100%" }}
+                    />
                 </div>
                 <div></div>
                 <div putInto="footer" style={{ float: "right" }}>

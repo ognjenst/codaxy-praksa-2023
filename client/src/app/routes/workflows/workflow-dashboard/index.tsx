@@ -97,7 +97,7 @@ export default () => (
                     <div className="relative">
                         <span className="relative -top-4 left-5 bg-white p-2 text-gray-600">Tasks</span>
 
-                        <div class="grid h-full place-items-center">
+                        <div class="grid h-full place-items-center w-full overflow-auto">
                             <Grid
                                 indexAlias="$indexTask"
                                 recordAlias="$task"

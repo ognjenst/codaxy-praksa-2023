@@ -1,6 +1,7 @@
 import { Controller } from "cx/ui";
 import { GET } from "../../../api/util/methods";
 import { MsgBox } from "cx/widgets";
+import WorkflowVariables from "../WorkflowVariables";
 
 export default (reslove, props) =>
     class extends Controller {
@@ -13,23 +14,38 @@ export default (reslove, props) =>
             this.store.set("$page.flagShowCorrectTextField", props.name == null ? false : true);
             this.store.set("$page.insertUpdateDescription", props.description);
             this.store.set("$page.insertUpdateVersion", props.version);
+            this.store.set("$insert.singleParamName", "");
 
             this.loadData();
         }
 
         addParam() {
-            if (this.store.get("$insert.workflowParamNames").includes(this.store.get("$insert.singleParamName"))) {
-                MsgBox.alert("You already defined this workflow input param name!!!");
+            try {
+                var regex = new RegExp("^[A-Za-z]{1,}[A-Za-z0-9_]*$");
+
+                if (!regex.test(this.store.get("$insert.singleParamName"))) {
+                    MsgBox.alert("Invalid parameter name. ");
+
+                    return;
+                }
+
+                if (this.store.get("$insert.workflowParamNames").includes(this.store.get("$insert.singleParamName"))) {
+                    MsgBox.alert("You already defined this workflow input param name. ");
+
+                    return;
+                }
+
+                this.store.set("$insert.workflowParamNames", [
+                    ...this.store.get("$insert.workflowParamNames"),
+                    this.store.get("$insert.singleParamName"),
+                ]);
+
+                this.store.set("$insert.singleParamName", "");
+            } catch (err) {
+                MsgBox.alert("Invalid parameter name. ");
 
                 return;
             }
-
-            this.store.set("$insert.workflowParamNames", [
-                ...this.store.get("$insert.workflowParamNames"),
-                this.store.get("$insert.singleParamName"),
-            ]);
-
-            this.store.set("$insert.singleParamName", "");
         }
 
         createWorkflowInfo() {
@@ -77,13 +93,13 @@ export default (reslove, props) =>
                     for (let j = 0; j < arrImplGlobal.length; j++) {
                         objOutput.push({
                             id: num,
-                            text: IGNORE_OUTPUTKEYS,
+                            text: WorkflowVariables.IGNORE_OUTPUTKEYS,
                             param: arrImplGlobal[j],
                         });
 
                         conditionObject.push({
                             id: num++,
-                            text: IGNORE_OUTPUTKEYS,
+                            text: WorkflowVariables.IGNORE_OUTPUTKEYS,
                             param: arrImplGlobal[j],
                         });
                     }
@@ -165,7 +181,7 @@ export default (reslove, props) =>
 
         async loadData() {
             try {
-                let resp = await GET(BACKEND_REQUEST_GET_ALL_TASKS);
+                let resp = await GET(WorkflowVariables.BACKEND_REQUEST_GET_ALL_TASKS);
 
                 this.store.set("$insert.arrTasks", resp);
             } catch (err) {
@@ -198,6 +214,3 @@ export default (reslove, props) =>
             return message !== "" ? false : true;
         }
     };
-
-const BACKEND_REQUEST_GET_ALL_TASKS = "/workflows/getalltasks";
-const IGNORE_OUTPUTKEYS = "<INSERT_REF_NAME>.output";

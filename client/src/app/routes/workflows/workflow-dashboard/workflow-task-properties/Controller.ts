@@ -1,6 +1,7 @@
 import { Controller } from "cx/ui";
 import { GET } from "../../../../api/util/methods";
 import controller_insert_update from "../../update-insert-workflow/Controller";
+import WorkflowVariables from "../../WorkflowVariables";
 
 export default class extends Controller {
     onInit(): void {
@@ -14,7 +15,7 @@ export default class extends Controller {
                 //here i need for every task(inside their inputs) to fill task ref name if it is defined
                 for (let j = 0; j < arrPrevious.length; j++) {
                     if (arrPrevious[j].value === null) {
-                        arrPrevious[j].value = IGNORE_OUTPUTKEYS;
+                        arrPrevious[j].value = WorkflowVariables.IGNORE_OUTPUTKEYS;
                     }
 
                     if (arrPrevious[j].value != null) {
@@ -56,5 +57,3 @@ export default class extends Controller {
         });
     }
 }
-
-const IGNORE_OUTPUTKEYS = "<INSERT_REF_NAME>.output";

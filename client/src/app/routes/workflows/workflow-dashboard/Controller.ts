@@ -3,6 +3,7 @@ import { DELETE, GET, POST, PUT } from "../../../api/util/methods";
 import { openInsertUpdateWindow } from "../update-insert-workflow";
 import { openPlayWorkflowWindow } from "../play-workflow";
 import { MsgBox } from "cx/widgets";
+import WorkflowVariables from "../WorkflowVariables";
 
 export default class extends Controller {
     onInit(): void {}
@@ -134,7 +135,7 @@ export default class extends Controller {
                     inputParameters: Object.fromEntries(inputParameters),
                     conditionInputParameters: Object.fromEntries(conditionInputParameters),
                     expression: workflowTasks[i].expression,
-                    type: taskTypes[this.store.get("$task.type")].text,
+                    type: WorkflowVariables.taskTypes[this.store.get("$task.type")].text,
                 };
 
                 arrTasks.push(tempObj);
@@ -148,8 +149,9 @@ export default class extends Controller {
                 tasks: arrTasks,
             };
 
-            if (this.store.get("$page.currentWorkflow.action") === "Insert") await POST(BACKEND_REQUEST_REGISTER_WORKFLOW, obj);
-            else await PUT(BACKEND_REQUEST_REGISTER_WORKFLOW, obj);
+            if (this.store.get("$page.currentWorkflow.action") === "Insert")
+                await POST(WorkflowVariables.BACKEND_REQUEST_REGISTER_WORKFLOW, obj);
+            else await PUT(WorkflowVariables.BACKEND_REQUEST_REGISTER_WORKFLOW, obj);
 
             this.store.set("", [...this.store.get("$page.workflows"), this.store.get("currentWorkflow")]);
             var arrUndone = this.store.get("$page.undoneWorkflows").filter((value, index, arr) => {
@@ -235,10 +237,12 @@ export default class extends Controller {
 
                     if (
                         workflowTasks[i].inputs[j].sourceDecision != null &&
-                        !message.includes("Invalid task reference name used[" + IGNORE_OUTPUTKEYS + "]. ") &&
-                        workflowTasks[i].inputs[j].source[workflowTasks[i].inputs[j].sourceDecision].text.includes(IGNORE_OUTPUTKEYS)
+                        !message.includes("Invalid task reference name used[" + WorkflowVariables.IGNORE_OUTPUTKEYS + "]. ") &&
+                        workflowTasks[i].inputs[j].source[workflowTasks[i].inputs[j].sourceDecision].text.includes(
+                            WorkflowVariables.IGNORE_OUTPUTKEYS
+                        )
                     ) {
-                        message += "Invalid task reference name used[" + IGNORE_OUTPUTKEYS + "]. ";
+                        message += "Invalid task reference name used[" + WorkflowVariables.IGNORE_OUTPUTKEYS + "]. ";
                     }
                 }
 
@@ -257,7 +261,7 @@ export default class extends Controller {
                 for (let j = 0; j < workflowTasks[i].conditions.length; j++) {
                     if (
                         workflowTasks[i].expression != null &&
-                        !workflowTasks[i].expression.includes(FIXED_CHARS + workflowTasks[i].conditions[j].tab) &&
+                        !workflowTasks[i].expression.includes(WorkflowVariables.FIXED_CHARS + workflowTasks[i].conditions[j].tab) &&
                         !message.includes("Condition input parameters are missing in expression. ")
                     ) {
                         message += "Condition input parameters are missing in expression. ";
@@ -280,8 +284,3 @@ export default class extends Controller {
         return false;
     }
 }
-
-const BACKEND_REQUEST_REGISTER_WORKFLOW = "/workflows";
-const taskTypes = [{ id: 0, text: "SIMPLE" }];
-const IGNORE_OUTPUTKEYS = "<INSERT_REF_NAME>.output";
-const FIXED_CHARS = "$.";
