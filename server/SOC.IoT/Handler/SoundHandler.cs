@@ -35,7 +35,7 @@ namespace SOC.IoT.Handler
             CancellationToken cancellationToken
         )
         {
-            _logger.LogInformation("Playing music or siren...");
+            _logger.LogInformation("Playing sound...");
 
             if (File.Exists(request.FilePath))
             {
@@ -54,7 +54,7 @@ namespace SOC.IoT.Handler
             }
             else
             {
-                _logger.LogError("Siren sound file not found.");
+                _logger.LogError("Sound file not found.");
             }
 
             return new NoOutput();
