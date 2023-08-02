@@ -53,7 +53,7 @@ var builder = Host.CreateDefaultBuilder()
                 });
 
             builder.RegisterWorkerTask<DeviceHandler>();
-            builder.RegisterWorkerTask<DetectionHandler>();
+            builder.RegisterWorkerTask<LightBulbColorChangeHandler>();
             builder.RegisterWorkerTask<CheckTimeHandler>();
             builder.RegisterWorkerTask<TemperatureColorHandler>();
             builder.RegisterWorkerTask<SocketHandler>();

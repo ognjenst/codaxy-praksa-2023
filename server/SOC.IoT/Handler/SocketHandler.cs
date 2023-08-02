@@ -36,10 +36,11 @@ namespace SOC.IoT.Handler
             CancellationToken cancellationToken
         )
         {
+            _logger.LogInformation("Socket changing state started.");
             var device = await _devicesClient.GetDeviceAsync(request.DeviceId, cancellationToken);
             var state = device.State.State;
 
-            if (state == false)
+            if (state.HasValue && !state.Value)
             {
                 var deviceUpdate = new DeviceUpdateDTO()
                 {
@@ -52,6 +53,7 @@ namespace SOC.IoT.Handler
                         deviceUpdate,
                         cancellationToken
                     );
+                    _logger.LogInformation("Socket turned on.");
                 }
                 catch (Exception ex)
                 {
@@ -59,6 +61,10 @@ namespace SOC.IoT.Handler
                         $"Error while changing state of device {request.DeviceId}. {ex.Message}"
                     );
                 }
+            }
+            else
+            {
+                _logger.LogInformation("Socket is already turned on.");
             }
             return new NoOutput();
         }

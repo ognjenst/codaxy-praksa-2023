@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Newtonsoft.Json.Linq;
 using SOC.Conductor.Contracts;
 using SOC.Conductor.Entities;
 using SOC.Conductor.Entities.Enums;
 using SOC.Conductor.Generated;
+using SOC.Conductor.Repositories;
 using SOC.IoT.Base.Interfaces;
 using SOC.IoT.Domain.Entity;
 using SOC.IoT.Domain.Enum;
@@ -44,7 +46,7 @@ public class IoTTriggerEvaluationService : BackgroundService
 
         while (!cancellationToken.IsCancellationRequested)
         {
-            await Task.Delay(60000, cancellationToken);
+            await Task.Delay(600, cancellationToken);
         }
     }
 
@@ -112,34 +114,41 @@ public class IoTTriggerEvaluationService : BackgroundService
                 }
                 else
                 {
-                    /*// only for workflow with switch task
-                    var workflows = await unitOfWork.IoTTriggers.GetWorkflowsByTriggerIdAsync(
-                        iotTrigger.Id
+                    // only for workflow with switch task
+                    ProcessWorkflowWithSwitchTask(unitOfWork, iotTrigger, device);
+                }
+            }
+        }
+    }
+
+    private async void ProcessWorkflowWithSwitchTask(
+        IUnitOfWork unitOfWork,
+        IoTTrigger iotTrigger,
+        Device device
+    )
+    {
+        var workflows = await unitOfWork.IoTTriggers.GetWorkflowsByTriggerIdAsync(iotTrigger.Id);
+        var workflow = workflows.FirstOrDefault();
+        if (workflow != null)
+        {
+            var automation = (
+                await unitOfWork.Automations.GetByCondition(
+                    (a) => a.WorkflowId == workflow.Id && a.TriggerId == iotTrigger.Id
+                )
+            ).FirstOrDefault();
+            if (automation != null)
+            {
+                var dataCentreState = automation.InputParameters["dataCentreState"];
+                if (dataCentreState != null)
+                {
+                    await ProcessWorkflow(
+                        workflow,
+                        UpdateWorkflowInputParameters(
+                            new JObject { { "dataCentreState", "normal" } },
+                            device,
+                            iotTrigger
+                        )
                     );
-                    var workflow = workflows.FirstOrDefault();
-                    if (workflow != null)
-                    {
-                        var automation = (
-                            await unitOfWork.Automations.GetByCondition(
-                                (a) => a.WorkflowId == workflow.Id && a.TriggerId == iotTrigger.Id
-                            )
-                        ).FirstOrDefault();
-                        if (automation != null)
-                        {
-                            var dataCentreState = automation.InputParameters["dataCentreState"];
-                            if (dataCentreState != null)
-                            {
-                                await ProcessWorkflow(
-                                    workflow,
-                                    UpdateWorkflowInputParameters(
-                                        new JObject { { "dataCentreState", "normal" } },
-                                        device,
-                                        iotTrigger
-                                    )
-                                );
-                            }
-                        }
-                    }*/
                 }
             }
         }

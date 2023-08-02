@@ -28,8 +28,8 @@ var builder = Host.CreateDefaultBuilder()
         {
             services.RegisterServices(context.Configuration);
         }
-    ).
-    ConfigureContainer<ContainerBuilder>(
+    )
+    .ConfigureContainer<ContainerBuilder>(
         (context, builder) =>
         {
             builder
