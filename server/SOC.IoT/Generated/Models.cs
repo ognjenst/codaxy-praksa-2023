@@ -26,10 +26,16 @@ using System = global::System;
 public partial class AutomationDto
 {
     [Newtonsoft.Json.JsonProperty("workflowId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int WorkflowId { get; set; } = default!;
+    public int? WorkflowId { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("triggerId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int TriggerId { get; set; } = default!;
+    public int? TriggerId { get; set; } = default!;
+
+    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public string? Name { get; set; } = default!;
+
+    [Newtonsoft.Json.JsonProperty("inputParameters", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public string? InputParameters { get; set; } = default!;
 
 }
 
@@ -37,7 +43,7 @@ public partial class AutomationDto
 public partial class CommonTriggerDto
 {
     [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int Id { get; set; } = default!;
+    public int? Id { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Name { get; set; } = default!;
@@ -48,8 +54,8 @@ public partial class CommonTriggerDto
     [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Value { get; set; } = default!;
 
-    [Newtonsoft.Json.JsonProperty("condition", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public string? Condition { get; set; } = default!;
+    [Newtonsoft.Json.JsonProperty("condition", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public Operator? Condition { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("start", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.DateTimeOffset? Start { get; set; } = default!;
@@ -58,7 +64,7 @@ public partial class CommonTriggerDto
     public int? Period { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("unit", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public PeriodTriggerUnit Unit { get; set; } = default!;
+    public PeriodTriggerUnit? Unit { get; set; } = default!;
 
 }
 
@@ -67,11 +73,11 @@ public partial class DeviceColorXy
 {
     [Newtonsoft.Json.JsonProperty("x", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     [System.ComponentModel.DataAnnotations.Range(0D, 1D)]
-    public double X { get; set; } = default!;
+    public double? X { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("y", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     [System.ComponentModel.DataAnnotations.Range(0D, 1D)]
-    public double Y { get; set; } = default!;
+    public double? Y { get; set; } = default!;
 
 }
 
@@ -103,26 +109,26 @@ public partial class DeviceDTO
     [System.ComponentModel.DataAnnotations.Required]
     public System.Collections.Generic.ICollection<string> Capabilities { get; set; } = new System.Collections.ObjectModel.Collection<string>();
 
-    [Newtonsoft.Json.JsonProperty("state", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public DeviceState State { get; set; } = default!;
+    [Newtonsoft.Json.JsonProperty("state", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public DeviceState? State { get; set; } = default!;
 
-    [Newtonsoft.Json.JsonProperty("light", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public DeviceLight Light { get; set; } = default!;
+    [Newtonsoft.Json.JsonProperty("light", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public DeviceLight? Light { get; set; } = default!;
 
-    [Newtonsoft.Json.JsonProperty("colorXy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public DeviceColorXy ColorXy { get; set; } = default!;
+    [Newtonsoft.Json.JsonProperty("colorXy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public DeviceColorXy? ColorXy { get; set; } = default!;
 
-    [Newtonsoft.Json.JsonProperty("temperature", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public DeviceTemperature Temperature { get; set; } = default!;
+    [Newtonsoft.Json.JsonProperty("temperature", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public DeviceTemperature? Temperature { get; set; } = default!;
 
-    [Newtonsoft.Json.JsonProperty("humidity", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public DeviceHumidity Humidity { get; set; } = default!;
+    [Newtonsoft.Json.JsonProperty("humidity", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public DeviceHumidity? Humidity { get; set; } = default!;
 
-    [Newtonsoft.Json.JsonProperty("energy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public DeviceEnergy Energy { get; set; } = default!;
+    [Newtonsoft.Json.JsonProperty("energy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public DeviceEnergy? Energy { get; set; } = default!;
 
-    [Newtonsoft.Json.JsonProperty("contact", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public DeviceContact Contact { get; set; } = default!;
+    [Newtonsoft.Json.JsonProperty("contact", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public DeviceContact? Contact { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Name { get; set; } = default!;
@@ -162,7 +168,7 @@ public partial class DeviceEnergy
 public partial class DeviceHistoryDTO
 {
     [Newtonsoft.Json.JsonProperty("time", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.DateTimeOffset Time { get; set; } = default!;
+    public System.DateTimeOffset? Time { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("configuration", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Configuration { get; set; } = default!;
@@ -173,7 +179,7 @@ public partial class DeviceHistoryDTO
 public partial class DeviceHumidity
 {
     [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public double Value { get; set; } = default!;
+    public double? Value { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("unit", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Unit { get; set; } = default!;
@@ -201,7 +207,7 @@ public partial class DeviceState
 public partial class DeviceTemperature
 {
     [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public double Value { get; set; } = default!;
+    public double? Value { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("unit", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Unit { get; set; } = default!;
@@ -215,13 +221,30 @@ public partial class DeviceTemperature
 public partial class DeviceUpdateDTO
 {
     [Newtonsoft.Json.JsonProperty("state", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public DeviceState State { get; set; } = default!;
+    public DeviceState? State { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("light", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public DeviceLight Light { get; set; } = default!;
+    public DeviceLight? Light { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("colorXy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public DeviceColorXy ColorXy { get; set; } = default!;
+    public DeviceColorXy? ColorXy { get; set; } = default!;
+
+}
+
+[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+[System.Flags]
+public enum Operator
+{
+
+    _1 = 1,
+
+    _2 = 2,
+
+    _4 = 4,
+
+    _8 = 8,
+
+    _16 = 16,
 
 }
 
@@ -236,68 +259,65 @@ public enum PeriodTriggerUnit
 
     _4 = 4,
 
-    _8 = 8,
-
 }
 
 [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class WorkflowDto
+public partial class PlayRequestDto
 {
-    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int Id { get; set; } = default!;
-
     [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string? Name { get; set; } = default!;
 
     [Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public int Version { get; set; } = default!;
+    public int? Version { get; set; } = default!;
 
-    [Newtonsoft.Json.JsonProperty("createDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.DateTimeOffset CreateDate { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("updateDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.DateTimeOffset UpdateDate { get; set; } = default!;
-
-    [Newtonsoft.Json.JsonProperty("enabled", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public bool Enabled { get; set; } = default!;
+    [Newtonsoft.Json.JsonProperty("input", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Collections.Generic.IDictionary<string, object>? Input { get; set; } = default!;
 
 }
 
-
-
-[System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class ApiException : System.Exception
+[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+public partial class TaskResponseDto
 {
-    public int StatusCode { get; private set; }
+    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public string? Name { get; set; } = default!;
 
-    public string? Response { get; private set; }
+    [Newtonsoft.Json.JsonProperty("inputKeys", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Collections.Generic.ICollection<string>? InputKeys { get; set; } = default!;
 
-    public System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> Headers { get; private set; }
-
-    public ApiException(string message, int statusCode, string? response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Exception? innerException)
-        : base(message + "\n\nStatus: " + statusCode + "\nResponse: \n" + ((response == null) ? "(null)" : response.Substring(0, response.Length >= 512 ? 512 : response.Length)), innerException)
-    {
-        StatusCode = statusCode;
-        Response = response;
-        Headers = headers;
-    }
-
-    public override string ToString()
-    {
-        return string.Format("HTTP Response: \n\n{0}\n\n{1}", Response, base.ToString());
-    }
 }
 
-[System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
-public partial class ApiException<TResult> : ApiException
+[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+public partial class WorkflowResponseDto
 {
-    public TResult Result { get; private set; }
+    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public string? Name { get; set; } = default!;
 
-    public ApiException(string message, int statusCode, string? response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, TResult result, System.Exception? innerException)
-        : base(message, statusCode, response, headers, innerException)
-    {
-        Result = result;
-    }
+    [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public string? Description { get; set; } = default!;
+
+    [Newtonsoft.Json.JsonProperty("version", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public int? Version { get; set; } = default!;
+
+    [Newtonsoft.Json.JsonProperty("tasks", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Collections.Generic.ICollection<WorkflowTaskDto>? Tasks { get; set; } = default!;
+
+}
+
+[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
+public partial class WorkflowTaskDto
+{
+    [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public string? Name { get; set; } = default!;
+
+    [Newtonsoft.Json.JsonProperty("taskReferenceName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public string? TaskReferenceName { get; set; } = default!;
+
+    [Newtonsoft.Json.JsonProperty("inputParameters", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Collections.Generic.IDictionary<string, string>? InputParameters { get; set; } = default!;
+
+    [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public string? Type { get; set; } = default!;
+
 }
 
 #pragma warning restore 108
