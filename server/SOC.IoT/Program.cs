@@ -52,12 +52,11 @@ var builder = Host.CreateDefaultBuilder()
 			builder.RegisterWorkerTask<DetectionHandler>();
             builder.RegisterWorkerTask<CheckTimeHandler>();
 		}
+            builder.RegisterWorkerTask<TemperatureColorHandler>();
+
+        }
     );
 
 using var host = builder.Build();
 
-/*
-var service = host.Services.GetRequiredService<IDeviceService>();
-await service.LigthBulbInRepetitions(new DetectionRequest { DeviceId = "0x00158d0001dd7e46", X = 0.675, Y = 0.322 }, new CancellationToken());
-*/
 await host.RunAsync();

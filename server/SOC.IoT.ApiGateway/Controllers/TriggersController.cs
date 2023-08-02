@@ -14,22 +14,43 @@ namespace SOC.IoT.ApiGateway.Controllers
             _triggersClient = triggersClient;
         }
 
-
         /// <summary>
         /// Returns all triggers.
         /// </summary>
         /// <returns></returns>
-        [HttpGet(Name = "GetAllTriggersAsync")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IList<CommonTriggerDto>))]
+        [HttpGet("{type}", Name = "GetAllTriggers")]
+        [ProducesResponseType(
+            StatusCodes.Status200OK,
+            Type = typeof(ICollection<CommonTriggerDto>)
+        )]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
-        public async Task<IActionResult> GetAllTriggersAsync()
+        public async Task<IActionResult> GetAllTriggersAsync([FromRoute] string type)
         {
-            var triggers = await _triggersClient.GetAllTriggersAsync();
-
-            await Task.Delay(1000);
+            var triggers = await _triggersClient.GetAllTriggersAsync(type);
 
             return Ok(triggers);
+        }
+
+        /// <summary>
+        /// Creates a trigger.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="commonTriggerDto"></param>
+        /// <returns></returns>
+        [HttpPost("{type}", Name = "CreateTrigger")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CommonTriggerDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+        public async Task<IActionResult> CreateTriggerAsync([FromRoute] string type, [FromBody] CommonTriggerDto commonTriggerDto)
+        {
+            var result = await _triggersClient.CreateTriggerAsync(type, commonTriggerDto);
+
+            if (result is not null)
+                return Ok(result);
+
+            return NotFound();
         }
     }
 }

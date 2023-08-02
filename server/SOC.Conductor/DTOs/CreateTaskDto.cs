@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using SOC.Conductor.DTOs;
-
 namespace SOC.Conductor.DTOs;
 
 public class CreateTaskDto
