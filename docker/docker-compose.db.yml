@@ -11,8 +11,6 @@ services:
       PGDATA: /data/postgres
     volumes:
       - psqlvolume:/data/postgres
-    ports:
-      - "5432:5432"
     networks:
       - soc
     restart: unless-stopped

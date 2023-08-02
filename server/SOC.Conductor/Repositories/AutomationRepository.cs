@@ -17,5 +17,10 @@ namespace SOC.Conductor.Repositories
         {
             return (await _dbContext.Triggers.Include(t => t.Workflows).FirstOrDefaultAsync(t => t.Id == triggerId))?.Workflows.ToList();
         }
+
+        public override async Task<List<Automation>> GetAllAsync(CancellationToken cancellationToken)
+        {
+            return await _dbContext.Automations.Include(a => a.Workflow).Include(a => a.Trigger).ToListAsync(cancellationToken);
+        }
     }
 }
