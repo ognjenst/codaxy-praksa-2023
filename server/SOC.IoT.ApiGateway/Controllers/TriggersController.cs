@@ -32,5 +32,26 @@ namespace SOC.IoT.ApiGateway.Controllers
 
             return Ok(triggers);
         }
+
+        /// <summary>
+        /// Creates a trigger.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="commonTriggerDto"></param>
+        /// <returns></returns>
+        [HttpPost("{type}", Name = "CreateTrigger")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CommonTriggerDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+        public async Task<IActionResult> CreateTriggerAsync([FromRoute] string type, [FromBody] CommonTriggerDto commonTriggerDto)
+        {
+            var result = await _triggersClient.CreateTriggerAsync(type, commonTriggerDto);
+
+            if (result is not null)
+                return Ok(result);
+
+            return NotFound();
+        }
     }
 }

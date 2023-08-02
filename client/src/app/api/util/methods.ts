@@ -25,7 +25,14 @@ async function checkOk(r) {
     throw Error(r.statusText);
 }
 
-let apiBaseUrl = "https://127.0.0.1:7297/api";
+let apiBaseUrl;
+
+if(process.env.NODE_ENV == 'development'){
+    apiBaseUrl = "http://127.0.0.1:5288/api";
+}
+else if(process.env.NODE_ENV == 'production'){
+    apiBaseUrl = `${process.env.API_URL}/api`;
+}
 
 export function resolveAPIUrl(path, query) {
     let qs = "";

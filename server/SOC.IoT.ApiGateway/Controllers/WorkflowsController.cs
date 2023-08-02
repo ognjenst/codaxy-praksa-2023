@@ -32,7 +32,7 @@ public class WorkflowsController : ControllerBase
     }
 
     /// <summary>
-    /// Returns all registered workflows from conductor.
+    /// Returns all registered tasks from conductor.
     /// </summary>
     /// <returns></returns>
     [HttpGet("GetAllTasks", Name = "GetAllTasksAsync")]
@@ -109,6 +109,24 @@ public class WorkflowsController : ControllerBase
     public async Task<IActionResult> UpdateWorkflowAsync([FromBody] CreateWorkflowDto workflowDto)
     {
         var result = await _workflowsClient.UpdateWorkflowAsync(workflowDto);
+
+        if (result is not null)
+            return Ok(result);
+
+        return NotFound();
+    }
+
+    /// <summary>
+    /// Gets all workflows from database.
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("db", Name = "GetAllWorkflowsFromDB")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<WorkflowDto>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
+    public async Task<IActionResult> GetAllWorkflowsFromDBAsync()
+    {
+        var result = await _workflowsClient.GetAllWorkflowsFromDBAsync();
 
         if (result is not null)
             return Ok(result);
