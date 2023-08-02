@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SOC.Conductor.Entities.Enums;
 
 namespace SOC.Conductor.Entities.Contexts
 {
@@ -31,14 +31,15 @@ namespace SOC.Conductor.Entities.Contexts
                     .HasMany(e => e.Workflows)
                     .WithMany(e => e.Triggers)
                     .UsingEntity<Automation>(
-                        l => l.HasOne<Workflow>().WithMany().HasForeignKey(e => e.WorkflowId),
-                        r => r.HasOne<Trigger>().WithMany().HasForeignKey(e => e.TriggerId)
+                        l => l.HasOne(e => e.Workflow).WithMany().HasForeignKey(e => e.WorkflowId),
+                        r => r.HasOne(e => e.Trigger).WithMany().HasForeignKey(e => e.TriggerId)
                     );
             });
 
             modelBuilder.Entity<Trigger>().UseTptMappingStrategy();
 
             modelBuilder.Entity<Automation>(entity =>
+
             {
                 entity.HasKey(e => new { e.WorkflowId, e.TriggerId });
                 entity
@@ -47,7 +48,12 @@ namespace SOC.Conductor.Entities.Contexts
                         v => JsonConvert.SerializeObject(v),
                         v => JsonConvert.DeserializeObject<JObject?>(v)
                     )
-                    .HasColumnType("jsonb");
+                    .HasColumnType("jsonb");    
+            });
+
+            modelBuilder.Entity<IoTTrigger>(entity =>
+            {
+                entity.Property(p => p.Condition).HasConversion(v => v.ToString(), v => (Operator)Enum.Parse(typeof(Operator), v));
             });
 
             base.OnModelCreating(modelBuilder);

@@ -3,13 +3,14 @@ using Microsoft.EntityFrameworkCore.Design.Internal;
 using SOC.Conductor.Contracts;
 using SOC.Conductor.Entities.Contexts;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace SOC.Conductor.Repositories
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T>
         where T : class
     {
-        private readonly SOCDbContext _dbContext;
+        protected readonly SOCDbContext _dbContext;
 
         protected RepositoryBase(SOCDbContext dbContext)
         {
@@ -33,12 +34,12 @@ namespace SOC.Conductor.Repositories
             return await Task.FromResult(entity);
         }
 
-        public async Task<List<T>> GetAllAsync()
+        public virtual async Task<List<T>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await _dbContext.Set<T>().ToListAsync();
+            return await _dbContext.Set<T>().ToListAsync(cancellationToken);
         }
 
-        public async Task<ICollection<T>> GetByCondition(Expression<Func<T, bool>> condition)
+        public async Task<IList<T>> GetByCondition(Expression<Func<T, bool>> condition, CancellationToken cancellationToken)
         {
             return await _dbContext.Set<T>().Where(condition).ToListAsync();
         }

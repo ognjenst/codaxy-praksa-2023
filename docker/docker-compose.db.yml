@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+
+  soc-db:
+    container_name: soc-db
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /data/postgres
+    volumes:
+      - psqlvolume:/data/postgres
+    networks:
+      - soc
+    restart: unless-stopped
+
+  soc-pgadmin:
+    container_name: soc-pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: soc-user@soc.com
+      PGADMIN_DEFAULT_PASSWORD: soc-user
+    volumes:
+      - pgadminvolume:/root/.pgadmin
+    ports:
+      - "8085:80"
+    networks:
+      - soc
+    restart: unless-stopped
+
+volumes:
+  psqlvolume: null
+  pgadminvolume: null 
+
+networks:
+  soc:
+    name: soc_network
+    driver: bridge

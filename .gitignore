@@ -451,3 +451,5 @@ docker/vol/thehive
 docker/vol/
 !docker/vol/thehive/etc
 /server/SOC.Conductor/appsettings.Development.json
+/docker/secrets/local
+/docker/secrets/certs

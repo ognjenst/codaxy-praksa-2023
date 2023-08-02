@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using SOC.IoT.ApiGateway.Entities;
 using SOC.IoT.ApiGateway.Entities.Contexts;
 using SOC.IoT.ApiGateway.Models;
@@ -27,7 +28,7 @@ namespace SOC.IoT.ApiGateway.Services
                 var deviceHistory = new DeviceHistory
                 {
                     Time = DateTime.UtcNow,
-                    Configuration = JObject.FromObject(item)
+                    Configuration = JObject.FromObject(item, new Newtonsoft.Json.JsonSerializer() { ContractResolver = new DefaultContractResolver() { NamingStrategy = new CamelCaseNamingStrategy() } })
                 };
                 SaveToDbAsync(deviceHistory, item);
                 _logger.LogInformation("Device {@Device}", item);

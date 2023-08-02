@@ -46,8 +46,8 @@ public class WorkflowsController : ControllerBase
 	 {
         var data = await _workflowsClient.GetAllTasksAsync();
 
-		return Ok(data);
-	}
+        return Ok(data);
+    }
 
 	/// <summary>
 	/// Play workflow

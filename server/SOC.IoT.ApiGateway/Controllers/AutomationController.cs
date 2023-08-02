@@ -35,5 +35,23 @@ namespace SOC.IoT.ApiGateway.Controllers
 			return Ok(automation);
 		}
 
-	}
+        /// <summary>
+        /// Returns all automations.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet(Name = "GetAllAutomations")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<AutomationDto>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
+        public async Task<IActionResult> GetAllAutomationsAsync()
+        {
+            var result = await _automationClient.GetAllAutomationsAsync();
+
+            if (result is not null)
+                return Ok(result);
+
+            return NotFound();
+        }
+
+    }
 }

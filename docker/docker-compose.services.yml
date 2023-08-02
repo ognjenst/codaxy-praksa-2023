@@ -1,0 +1,115 @@
+version: "3.8"
+
+services:
+  
+  soc_iotgateway:
+    image: soc_iotgateway:latest
+    container_name: soc_iotgateway
+    networks:
+      - soc_net
+    restart: unless-stopped
+    secrets:
+      - source: soc_iotgateway_appsettings
+        target: /app/appsettings.json
+    volumes:
+      - ~/.aspnet/https/:/https:ro
+
+  soc_conductor:
+    image: soc_conductor:latest
+    container_name: soc_conductor
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - soc_net
+    restart: unless-stopped
+    secrets:
+      - source: soc_conductor_appsettings
+        target: /app/appsettings.json
+
+  soc_ticketing:
+    image: soc_ticketing:latest
+    container_name: soc_ticketing
+    restart: unless-stopped
+    secrets:
+      - source: soc_ticketing_appsettings
+        target: /app/appsettings.json
+
+  soc_notifications:
+    image: soc_notifications:latest
+    container_name: soc_notifications
+    restart: unless-stopped
+    secrets:
+      - source: soc_notifications_appsettings
+        target: /app/appsettings.json
+
+  soc_intelligence:
+    image: soc_intelligence:latest
+    container_name: soc_intelligence
+    restart: unless-stopped
+    secrets:
+      - source: soc_intelligence_appsettings
+        target: /app/appsettings.json
+
+  soc_scanning:
+    image: soc_scanning:latest
+    container_name: soc_scanning
+    restart: unless-stopped
+    secrets:
+      - source: soc_scanning_appsettings
+        target: /app/appsettings.json
+
+  soc_iot-micro:
+    image: soc_iot-micro:latest
+    container_name: soc_iot-micro
+    restart: unless-stopped
+    secrets:
+      - source: soc_iot-micro_appsettings
+        target: /app/appsettings.json
+
+  nginx:
+    container_name: webserver
+    restart: unless-stopped
+    image: nginx:1.25.1-alpine
+    networks:
+      - soc_net
+    ports:
+      - target: 443
+        published: 9002
+        protocol: tcp
+        mode: host
+    secrets:
+      - source: nginx_internal_cert
+        target: /certs/cert_internal.crt
+      - source: nginx_internal_key
+        target: /certs/key_internal.key
+      - source: nginx_conf
+        target: /etc/nginx/nginx.conf
+
+
+secrets:
+  soc_iotgateway_appsettings:
+    file: secrets/local/appsettings.soc_iotgateway.json
+  soc_conductor_appsettings:
+    file: secrets/local/appsettings.soc_conductor.json
+  soc_ticketing_appsettings:
+    file: secrets/local/appsettings.soc_ticketing.json
+  soc_notifications_appsettings:
+    file: secrets/local/appsettings.soc_notifications.json
+  soc_intelligence_appsettings:
+    file: secrets/local/appsettings.soc_intelligence.json
+  soc_scanning_appsettings:
+    file: secrets/local/appsettings.soc_scanning.json
+  soc_iot-micro_appsettings:
+    file: secrets/local/appsettings.soc_iot-micro.json
+  nginx_internal_cert:
+    file: secrets/certs/cert_internal.crt
+  nginx_internal_key:
+    file: secrets/certs/key_internal.key
+  nginx_conf:
+    file: nginx/nginx.conf
+
+networks:
+  soc_net:
+    external: true
+    name: soc_network

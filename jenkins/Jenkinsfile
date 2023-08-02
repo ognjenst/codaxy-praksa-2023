@@ -1,0 +1,212 @@
+@Library("slack-library") _
+
+pipeline{
+    agent{
+        label 'docker-agent-one'
+    }
+    environment {
+        BUILD_NUMBER = "${env.BUILD_NUMBER}"
+        IMAGE_TAG = 'latest'
+    }
+
+    parameters {
+        booleanParam(name: 'USECOMMIT', defaultValue: true, description: 'Show commits in message')
+        string(defaultValue: 'master', description: 'Branch Specifier', name: 'branch')
+    }
+
+    stages{
+
+        // stage('Slack Notify Start'){
+        //     steps{
+        //         script{
+        //           if(params.USECOMMIT){
+        //             def notification = startNotification(
+        //               [
+        //                   gitBranch: "master", 
+        //                   projectName: "SOC", 
+        //                   dockerImage: "soc_iot,soc_conductor,soc_scanning,soc_ticketing...", 
+        //                   commits: "${commits}", 
+        //                   pipelineId: env.BUILD_ID, 
+        //                   pipelineUrl: env.BUILD_URL, 
+        //                   triggeredBy: env.BUILD_USER
+        //               ]
+        //             )
+        //             slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
+        //           }
+        //           if(params.USECOMMIT == false){
+        //             def notification = startNotification(
+        //               [
+        //                   gitBranch: "master", 
+        //                   projectName: "SOC", 
+        //                   dockerImage: "soc_iot,soc_conductor,soc_scanning,soc_ticketing...", 
+        //                   pipelineId: env.BUILD_ID, 
+        //                   pipelineUrl: env.BUILD_URL, 
+        //                   triggeredBy: env.BUILD_USER
+        //               ]
+        //             )
+        //             slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
+        //           }
+        //         }
+        //     }
+        // }
+
+        stage('Clonning git') {
+          steps {
+              git branch: 'master', credentialsId: 'soc-pat', url: 'https://github.com/ognjenst/codaxy-praksa-2023'
+          }
+        }
+
+        stage("Build docker images"){
+
+            parallel{
+
+              stage('SOC.Conductor'){
+
+                agent{
+                  label 'docker-agent-one'
+                }
+
+                stages{
+                  stage('Build docker image'){
+                    steps{
+                      sh 'docker build -t soc_conductor:$IMAGE_TAG -f docker/conductor/Dockerfile .'
+                    }
+                  }
+                }
+
+              }
+              
+              stage('SOC.IoT.ApiGateway'){
+
+                agent{
+                  label 'docker-agent-one'
+                }
+
+                stages{
+                  stage('Build docker image'){
+                    steps{
+                      sh 'docker build -t soc_iotgateway:$IMAGE_TAG -f docker/iot-gateway/Dockerfile .'
+                    }
+                  }
+                }
+              }
+
+              stage('SOC.Scanning'){
+
+                agent{
+                  label 'docker-agent-one'
+                }
+
+                stages{
+                  stage('Build docker image'){
+                    steps{
+                      sh 'docker build -t soc_scanning:$IMAGE_TAG -f docker/scanning/Dockerfile .'
+                    }
+                  }
+                }
+              }
+
+              stage('SOC.Ticketing'){
+
+                agent{
+                  label 'docker-agent-one'
+                }
+
+                stages{
+                  stage('Build docker image'){
+                    steps{
+                      sh 'docker build -t soc_ticketing:$IMAGE_TAG -f docker/ticketing/Dockerfile .'
+                    }
+                  }
+                }
+              }
+              
+              stage('SOC.Notifications'){
+
+                agent{
+                  label 'docker-agent-one'
+                }
+
+                stages{
+                  stage('Build docker image'){
+                    steps{
+                      sh 'docker build -t soc_notifications:$IMAGE_TAG -f docker/notifications/Dockerfile .'
+                    }
+                  }
+                }
+              }
+
+              stage('SOC.IoT'){
+
+                agent{
+                  label 'docker-agent-one'
+                }
+
+                stages{
+                  stage('Build docker image'){
+                    steps{
+                      sh 'docker build -t soc_iot-micro:$IMAGE_TAG -f docker/iot-micro/Dockerfile .'
+                    }
+                  }
+                }
+              }
+
+              stage('SOC.Intelligence'){
+
+                agent{
+                  label 'docker-agent-one'
+                }
+
+                stages{
+                  stage('Build docker image'){
+                    steps{
+                      sh 'docker build -t soc_intelligence:$IMAGE_TAG -f docker/intelligence/Dockerfile .'
+                    }
+                  }
+                }
+              }
+
+            }
+        }
+
+        stage('Rebuild SOC db stack'){
+          steps{
+              sh 'ssh buildagent@192.168.101.17 -i ~/.ssh/id_rsa \"cd /home/buildagent/soc-composer/ && docker compose -f docker-compose.db.yml up -d \"'
+          }
+        }
+
+        stage('Rebuild SOC micros stack'){
+          steps{
+              sh 'ssh buildagent@192.168.101.17 -i ~/.ssh/id_rsa \"cd /home/buildagent/soc-composer/ && docker compose -f docker-compose.services.yml up -d \"'
+          }
+        }
+
+    }
+    // post{
+    //     success{
+    //       script{
+    //         def notification = completedNotification(
+    //             projectName: "SOC", 
+    //             gitBranch: "master", 
+    //             dockerImage: "soc", 
+    //             pipelineId: env.BUILD_ID, 
+    //             pipelineUrl: env.BUILD_URL, 
+    //             triggeredBy: env.BUILD_USER
+    //         )
+    //         slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
+    //       }
+    //     }
+    //     failure{
+    //       script{
+    //         def notification = failureNotification(
+    //             projectName: "SOC", 
+    //             gitBranch: "master", 
+    //             pipelineId: env.BUILD_ID, 
+    //             pipelineUrl: env.BUILD_URL, 
+    //             triggeredBy: env.BUILD_USER
+    //         )
+    //         slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
+    //       }
+    //     }
+    // }
+}

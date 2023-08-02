@@ -6,6 +6,7 @@ using Serilog.Events;
 using SOC.IoT.Generated;
 using SOC.IoT.OptionsSetup;
 using MediatR;
+using SOC.IoT.Services;
 
 namespace SOC.IoT.Extensions;
 public static class DependencyInjection
@@ -15,7 +16,8 @@ public static class DependencyInjection
         services.RegisterOptions();
 
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-        services.AddScoped<IDevicesClient, DevicesClient>();
+		services.AddScoped<IDeviceService, DeviceService>();
+		services.AddScoped<IDevicesClient, DevicesClient>();
         services.AddHttpClient<DevicesClient>();
 
         services.AddAutoMapper(typeof(Program).Assembly);
