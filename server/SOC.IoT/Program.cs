@@ -53,6 +53,7 @@ var builder = Host.CreateDefaultBuilder()
 
             builder.RegisterWorkerTask<DeviceHandler>();
             builder.RegisterWorkerTask<SocketHandler>();
+            builder.RegisterWorkerTask<SoundHandler>();
         }
     );
 
