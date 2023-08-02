@@ -22,7 +22,7 @@
 
 	<ItemGroup>
 	  <Content Include="appsettings.Development.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 	  </Content>
@@ -50,9 +50,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="appsettings - Copy.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="appsettings.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
