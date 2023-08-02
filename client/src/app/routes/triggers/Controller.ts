@@ -3,6 +3,9 @@ import { GET } from "../../api/util/methods";
 import { openAddPeriodicTriggerWindow } from "./openAddPeriodicTriggerWindow";
 import { openAddIoTTriggerWindow } from "./openAddIoTTriggerWindow";
 
+const units = ["Days", "Hours", "Minutes"];
+const conditions = ["=", "<" , ">",  ">=", "<="]
+
 export default class extends Controller {
     async onInit() {
         this.loadData();
@@ -11,9 +14,9 @@ export default class extends Controller {
     async loadData() {
         try {
             let periodicTriggers = await GET("/triggers/PeriodicTrigger");
-            this.store.set("$page.periodicTriggers", periodicTriggers);
+            this.store.set("$page.periodicTriggers", periodicTriggers.map((trigger) => { return {...trigger, start: new Date(trigger.start).toLocaleString("sr-SR"), unit: units[trigger.unit]}}));
             let iotTriggers = await GET("/triggers/IoTTrigger");
-            this.store.set("$page.iotTriggers", iotTriggers);
+            this.store.set("$page.iotTriggers", iotTriggers.map((trigger) => { return {...trigger, condition: conditions[trigger.condition]}}));
         } catch (err) {
             console.log(err);
         }

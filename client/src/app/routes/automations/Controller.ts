@@ -4,7 +4,7 @@ import { openInputParametersWindow } from "./openInputParametersWindow";
 
 export default class extends Controller {
     onInit() {
-        this.store.set("$page.trigger.type", 1);
+        this.store.set("$page.automation.triggerType", 1);
         this.loadWorkflows();
         this.loadTriggers();
         this.loadAutomations();
@@ -49,7 +49,7 @@ export default class extends Controller {
     async loadAutomations() {
         try {
             let automation = await GET("/automation");
-            this.store.set("$page.automation", automation);
+            this.store.set("$page.automations", automation);
         } catch (err) {
             console.log(err);
         }

@@ -1,5 +1,5 @@
 import { LabelsLeftLayout, UseParentLayout } from "cx/ui";
-import { Button, DateTimeField, Grid, LookupField, PureContainer, Section, TextField, Window } from "cx/widgets";
+import { Button, DateTimeField, Grid, LookupField, PureContainer, Section, TextField, ValidationGroup, Window } from "cx/widgets";
 import { encodeDateWithTimezoneOffset } from "cx/util";
 import Controller from "./Controller";
 
@@ -9,82 +9,48 @@ export default () => (
             <div className="flex">
                 <Section title="Add automation">
                     <div className="flex flex-row">
-                        <LabelsLeftLayout>
+                        <ValidationGroup invalid-bind="$page.invalid" layout={LabelsLeftLayout}>
                             <LookupField
                                 label="Select trigger type"
                                 options={options}
                                 optionTextField="name"
-                                value-bind="$page.trigger.type"
+                                value-bind="$page.automation.triggerType"
+                                required
                             />
 
                             <LookupField
                                 label="Select trigger"
                                 options-bind="$page.periodicTriggers"
                                 optionTextField="name"
-                                value-bind="$page.trigger.selected"
-                                visible-expr="{$page.trigger.type}==1"
+                                value-bind="$page.automation.iotId"
+                                visible-expr="{$page.automation.triggerType}==1"
+                                required-expr="{$page.automation.triggerType}==1 ? 'true' : 'false'"
                             />
                             <LookupField
                                 label="Select trigger"
                                 options-bind="$page.iotTriggers"
                                 optionTextField="name"
-                                value-bind="$page.trigger.selected"
-                                visible-expr="{$page.trigger.type}==2"
+                                value-bind="$page.automation.periodicId"
+                                visible-expr="{$page.automation.triggerType}==2"
+                                required-expr="{$page.automation.triggerType}==2 ? 'true' : 'false'"
                             />
                             <LookupField
                                 label="Select workflow"
                                 options-bind="$page.workflows"
                                 optionTextField="name"
-                                value-bind="$page.automation.workflows"
+                                value-bind="$page.automation.workflowId"
+                                required
                             />
-                            <Button text="Add automation" onClick="addAutomation" icon="plus" mod="primary" />
-                        </LabelsLeftLayout>
+                            <TextField value-bind="$page.automation.name" label="Name" required />
+                            <Button text="Add automation" onClick="addAutomation" icon="plus" mod="primary" disabled-bind="$page.invalid" />
+                        </ValidationGroup>
                     </div>
                 </Section>
-                <Window
-                    title="Add trigger"
-                    visible={{ bind: "$page.addTrigger.visible", defaultValue: false }}
-                    center
-                    style={{ width: "500px" }}
-                    modal
-                    draggable
-                    closeOnEscape
-                >
-                    <Section>
-                        <div className="flex-1">
-                            <LabelsLeftLayout>
-                                <LookupField
-                                    label="Trigger type"
-                                    options={options}
-                                    optionTextField="name"
-                                    value-bind="$page.trigger.type"
-                                />
-
-                                <PureContainer layout={UseParentLayout} visible-expr="{$page.trigger.type} == 1">
-                                    <DateTimeField
-                                        encoding={encodeDateWithTimezoneOffset}
-                                        value-bind="$page.trigger.start"
-                                        label="Start"
-                                        required
-                                    />
-                                    <TextField value-bind="$page.trigger.period" label="Period" required />
-                                    <LookupField label="Unit" options={unitEnums} optionTextField="name" value-bind="$page.trigger.unit" />
-                                </PureContainer>
-                                <PureContainer layout={UseParentLayout} visible-expr="{$page.trigger.type} == 2">
-                                    <TextField value-bind="$page.trigger.property" label="Property" required />
-                                    <TextField value-bind="$page.trigger.value" label="Value" required />
-                                    <TextField value-bind="$page.trigger.condition" label="Condition" required />
-                                </PureContainer>
-                                <Button text="Add trigger" icon="plus" mod="primary" />
-                            </LabelsLeftLayout>
-                        </div>
-                    </Section>
-                </Window>
             </div>
             <div>
                 <Grid
                     className="text-slate-600 h-full"
-                    records-bind="$page.automation"
+                    records-bind="$page.automations"
                     headerMode="plain"
                     sortField="time"
                     columns={automationColumns}
