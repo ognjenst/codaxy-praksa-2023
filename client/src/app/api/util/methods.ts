@@ -27,10 +27,9 @@ async function checkOk(r) {
 
 let apiBaseUrl;
 
-if(process.env.NODE_ENV == 'development'){
-    apiBaseUrl = "http://127.0.0.1:5288/api";
-}
-else if(process.env.NODE_ENV == 'production'){
+if (process.env.NODE_ENV == "development") {
+    apiBaseUrl = "https://127.0.0.1:7297/api";
+} else if (process.env.NODE_ENV == "production") {
     apiBaseUrl = `${process.env.API_URL}/api`;
 }
 
