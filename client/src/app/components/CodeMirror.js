@@ -1,13 +1,12 @@
-import codemirror from 'codemirror';
-import 'codemirror/addon/edit/closetag';
-import 'codemirror/addon/edit/matchtags';
-import 'codemirror/addon/selection/active-line';
-import 'codemirror/mode/clike/clike';
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/mode/python/python';
-import { CSS, getContent, VDOM, Widget } from 'cx/ui';
-import { isString } from 'cx/util';
-import { TextField } from 'cx/widgets';
+import codemirror from "codemirror";
+import "codemirror/addon/edit/closetag";
+import "codemirror/addon/edit/matchtags";
+import "codemirror/addon/selection/active-line";
+import "codemirror/mode/clike/clike";
+import "codemirror/mode/javascript/javascript";
+import "codemirror/mode/python/python";
+import { CSS, getContent, VDOM, Widget } from "cx/ui";
+import { isString } from "cx/util";
 
 export class CodeMirror extends Widget {
     declareData() {
@@ -17,7 +16,7 @@ export class CodeMirror extends Widget {
             class: { structured: true },
             style: { structured: true },
             onSave: undefined,
-            lineSeparator: '\n',
+            lineSeparator: "\n",
         });
     }
 
@@ -27,13 +26,13 @@ export class CodeMirror extends Widget {
                 key={key}
                 instance={instance}
                 data={instance.data}
-                help={this.helpPlacement && getContent(this.renderHelp(context, instance, 'help'))}
+                help={this.helpPlacement && getContent(this.renderHelp(context, instance, "help"))}
             />
         );
     }
 }
 
-CodeMirror.prototype.baseClass = 'codemirror';
+CodeMirror.prototype.baseClass = "codemirror";
 
 class Component extends VDOM.Component {
     constructor(props) {
@@ -48,7 +47,7 @@ class Component extends VDOM.Component {
         var { data, widget } = this.props.instance;
         return (
             <div className={data.classNames} style={data.style}>
-                <textarea className={CSS.element(widget.baseClass, 'input')} defaultValue={data.code} ref="input" />
+                <textarea className={CSS.element(widget.baseClass, "input")} defaultValue={data.code} ref="input" />
                 {help}
             </div>
         );
@@ -76,18 +75,18 @@ class Component extends VDOM.Component {
                 // 'Ctrl-I': () => this.resolveImport()
             },
         });
-        this.cm.on('blur', () => this.onBlur());
+        this.cm.on("blur", () => this.onBlur());
     }
 
     componentWillReceiveProps(props) {
-        if (props.data.code != this.cm.getValue()) this.cm.setValue(props.data.code || '');
+        if (props.data.code != this.cm.getValue()) this.cm.setValue(props.data.code || "");
     }
 
     save() {
         var { widget, store } = this.props.instance;
         if (widget.nameMap.code) {
             var value = this.cm.getValue();
-            if (typeof value == 'string') store.set(widget.nameMap.code, value);
+            if (typeof value == "string") store.set(widget.nameMap.code, value);
         }
     }
 
@@ -104,4 +103,4 @@ class Component extends VDOM.Component {
     }
 }
 
-CodeMirror.prototype.mode = 'application/json';
+CodeMirror.prototype.mode = "application/json";
