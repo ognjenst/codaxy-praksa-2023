@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
-using SOC.IoT.ApiGateway.Helpers;
 
 namespace SOC.IoT.ApiGateway.Controllers
 {
@@ -20,7 +19,6 @@ namespace SOC.IoT.ApiGateway.Controllers
 		/// </summary>
 		/// <param name="automationDto"></param>
 		/// <returns></returns>
-		[PermissionAuthorize("Create-Automation")]
 		[HttpPost(Name = "CreateAutomationAsync")]
 		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AutomationDto))]
 		[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]

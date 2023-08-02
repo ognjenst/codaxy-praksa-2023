@@ -10,15 +10,8 @@ using Serilog;
 using Microsoft.EntityFrameworkCore;
 using SOC.IoT.ApiGateway.Entities.Contexts;
 using SOC.IoT.ApiGateway.Services;
-using Autofac.Core;
-using SOC.IoT.ApiGateway.Options;
-using Microsoft.AspNetCore.Authorization;
-using SOC.IoT.ApiGateway.Handlers;
-using SOC.IoT.ApiGateway.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
 
 // Add services to the container.
 
@@ -29,9 +22,6 @@ builder.Services.AddDbContext<SOCIoTDbContext>(
 );
 
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
-
-builder.Services.Configure<JwtSecret>(builder.Configuration.GetSection("Jwt"));
-builder.Services.AddSingleton<JwtSecret>();
 
 builder.Services.Configure<RouteOptions>(options =>
 {

@@ -4,7 +4,6 @@ using SOC.Conductor.Client.Generated;
 using SOC.IoT.ApiGateway.Entities.Contexts;
 using SOC.IoT.ApiGateway.Options;
 using SOC.IoT.ApiGateway.OptionsSetup;
-using SOC.IoT.ApiGateway.Services;
 
 namespace SOC.IoT.ApiGateway.Extensions;
 
@@ -14,7 +13,6 @@ public static class DependencyInjection
     {
         services.RegisterOptions();
         services.RegisterHttpClients();
-
 
         services.AddScoped<IWorkflowsClient, WorkflowsClient>(
             (serviceProvider) =>
@@ -78,8 +76,6 @@ public static class DependencyInjection
     private static IServiceCollection RegisterOptions(this IServiceCollection services)
     {
         services.ConfigureOptions<ConductorClientOpitonsSetup>();
-
-        services.ConfigureOptions<JwtSecretSetup>();
         return services;
     }
 
