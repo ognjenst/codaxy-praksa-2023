@@ -48,6 +48,7 @@ var builder = Host.CreateDefaultBuilder()
                 });
 
             builder.RegisterWorkerTask<DeviceHandler>();
+            builder.RegisterWorkerTask<TemperatureColorHandler>();
 
         }
     );
