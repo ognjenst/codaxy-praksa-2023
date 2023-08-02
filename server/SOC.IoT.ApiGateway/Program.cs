@@ -1,34 +1,27 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
+using SOC.IoT.ApiGateway.Controllers.Examples;
+using SOC.IoT.ApiGateway.Entities.Contexts;
+using SOC.IoT.ApiGateway.Extensions;
+using SOC.IoT.ApiGateway.Hubs;
+using SOC.IoT.ApiGateway.Middleware;
+using SOC.IoT.ApiGateway.Security;
+using SOC.IoT.ApiGateway.Services;
+using SOC.IoT.Base;
 using SOC.IoT.Base.Interfaces;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
-using SOC.IoT.Base;
-using SOC.IoT.ApiGateway.Hubs;
-using SOC.IoT.ApiGateway.Controllers.Examples;
-using SOC.IoT.ApiGateway.Middleware;
-using SOC.IoT.ApiGateway.Extensions;
-using Serilog;
-using Microsoft.EntityFrameworkCore;
-using SOC.IoT.ApiGateway.Entities.Contexts;
-using SOC.IoT.ApiGateway.Services;
-using Autofac.Core;
-using SOC.IoT.ApiGateway.Options;
-using Microsoft.AspNetCore.Authorization;
-using SOC.IoT.ApiGateway.Handlers;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using SOC.IoT.ApiGateway.Security;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<SOCIoTDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db")));
+builder.Services.AddDbContext<SOCIoTDbContext>(
+    options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db"))
+);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddRazorPages();
 
@@ -37,7 +30,6 @@ builder.Services.AddDbContext<SOCIoTDbContext>(
 );
 
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
-
 
 builder.Services.Configure<RouteOptions>(options =>
 {
@@ -67,18 +59,16 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.RegisterAuthentication(builder.Configuration);
 builder.Services.RegisterAuthorization();
 
-
 // ...
 
 builder.Services.AddScoped<IAuthorizationHandler, JwtAuthorizationHandler>();
 
-
 // Configure Serilog
 builder.Host.UseSerilog(
-	(context, config) =>
-	{
-		config.WriteTo.Console();
-	}
+    (context, config) =>
+    {
+        config.WriteTo.Console();
+    }
 );
 
 // Configure Serilog
