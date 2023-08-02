@@ -5,6 +5,8 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SOC.Scanning.Services;
+using System.Net;
+using SOC.Scanning.Exceptions;
 
 namespace SOC.Scanning.Handler;
 
@@ -39,19 +41,34 @@ internal class ScanIpAddressHandler
         _sshClientService = sshClientService;
     }
 
+    private bool ValidateInput(ScanIpAddressRequest request)
+    {
+        if (!IPAddress.TryParse(request.IpAddress, out _))
+            return false;
+        else if (request.Subnet < 0 || request.Subnet > 32)
+            return false;
+        else
+            return true;
+    }
+
     public Task<ScanIpAddressResponse> Handle(
         ScanIpAddressRequest request,
         CancellationToken cancellationToken
     )
     {
-        _sshClientService.Connect();
+        var command = $"nmap {request.IpAddress}/{request.Subnet}";
 
-        var command = $"nmap {request.IpAddress}";
+        if (!ValidateInput(request))
+            throw new InvalidInputException("Input parameters are not valid!");
+   
+        _sshClientService.Connect();
         var result = _sshClientService.ExecuteCommand(command);
 
         return Task.FromResult(new ScanIpAddressResponse
         {
-            Command=command, Result=result.Result
+            Command = command,
+            Result = result.Result
         });
+       
     }
 }
