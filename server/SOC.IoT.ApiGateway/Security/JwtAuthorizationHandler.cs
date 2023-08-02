@@ -9,32 +9,19 @@ namespace SOC.IoT.ApiGateway.Security
 {
 	public class JwtAuthorizationHandler : AuthorizationHandler<JwtRequirements>
 	{
-		private readonly JwtSecret _options;
-		private readonly SOCIoTDbContext _context;
-
-        public JwtAuthorizationHandler(IOptions<JwtSecret> options, SOCIoTDbContext context)
-        {
-            _context = context;
-			_options = options.Value;
-        }
+		
 		protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, JwtRequirements requirement)
 		{
-			Console.WriteLine(context.User.Claims);
+			// Get permissions from JWT
+			var userPermissions = context.User.Claims
+				.Where(x => x.Type == "Permission")
+				.Select(x => x.Value)
+				.ToList();
 
-			var userId = context.User.Claims.FirstOrDefault()?.Value;
-
-			if (userId != null)
+			if (userPermissions != null)
 			{
-				var currentUser = _context.Users
-					.Where(x => x.Id.ToString() == userId)
-					.FirstOrDefault();
-
-				var currentUserPermissions = _context.Permissions
-					.Where(x => x.RoleId == currentUser.RoleId)
-					.Select(x => x.Name)
-					.ToList();
-
-				if (currentUserPermissions.Any(x => x == requirement.Permission))
+				// Check if user permissions have required permission
+				if (userPermissions.Any(x => x == requirement.Permission))
 				{
 					context.Succeed(requirement);
 				}
@@ -45,7 +32,7 @@ namespace SOC.IoT.ApiGateway.Security
 			}
 			else 
 			{
-				throw new AppException("This user doesn't exist!");
+				context.Fail();
 			}
 
 			return Task.CompletedTask;

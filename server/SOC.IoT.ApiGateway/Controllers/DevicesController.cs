@@ -8,6 +8,7 @@ using SOC.IoT.ApiGateway.Models.Requests;
 using SOC.IoT.Base.Interfaces;
 using Swashbuckle.AspNetCore.Filters;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SOC.IoT.ApiGateway.Controllers;
 
@@ -25,11 +26,11 @@ public class DevicesController : ControllerBase
         _mediator = mediator;
     }
 
-	/// <summary>
-	/// Returns a list of all registered devices with their capabilities and last states
-	/// </summary>
-	/// <returns>Returns a list of all registered devices with their capabilities and last states</returns>
-	
+    /// <summary>
+    /// Returns a list of all registered devices with their capabilities and last states
+    /// </summary>
+    /// <returns>Returns a list of all registered devices with their capabilities and last states</returns>
+    [Authorize(policy: "Read-Device")]
 	[HttpGet(Name = "GetDevices")]
     [SwaggerResponseExample(StatusCodes.Status200OK, typeof(DevicesExample))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DeviceDTO>))]
@@ -38,12 +39,12 @@ public class DevicesController : ControllerBase
         return await _mediator.Send(new GetDevicesQuery());
     }
 
-	/// <summary>
-	/// Returns a single device with its last known state
-	/// </summary>
-	/// <param name="id">ID of the device</param>
-	/// <returns>Single device with its last known state</returns>
-	
+    /// <summary>
+    /// Returns a single device with its last known state
+    /// </summary>
+    /// <param name="id">ID of the device</param>
+    /// <returns>Single device with its last known state</returns>
+    [Authorize(policy: "Read-Device")]
 	[HttpGet("{id}", Name = "GetDevice")]
     [SwaggerResponseExample(StatusCodes.Status200OK, typeof(DeviceExample))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeviceDTO))]
@@ -72,7 +73,7 @@ public class DevicesController : ControllerBase
     /// <param name="id">ID of the device</param>
     /// <param name="payload">State that will be applied to the device</param>
     /// <returns></returns>
-    
+    [AllowAnonymous]
     [HttpPut("{id}", Name = "UpdateDevice")]
     [SwaggerRequestExample(typeof(DeviceUpdateDTO), typeof(UpdateDeviceExample))]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

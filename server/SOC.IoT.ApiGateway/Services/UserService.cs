@@ -19,7 +19,7 @@ namespace SOC.IoT.ApiGateway.Services
     public interface IUserService
     {
         AuthResponse Login(LoginRequest request);
-        string Register(User request);
+        Task<string> Register(User request);
     }
 
     public class UserService : IUserService
@@ -87,7 +87,7 @@ namespace SOC.IoT.ApiGateway.Services
             return authResponse;
         }
 
-        public string Register(User request)
+        public async Task<string> Register(User request)
         {
             if (_context.Users.Any(x => x.Username == request.Username))
             {
@@ -108,8 +108,8 @@ namespace SOC.IoT.ApiGateway.Services
             user.Password = HashPassword(request.Password, out var salt);
             user.Salt = Convert.ToHexString(salt);
 
-            _context.Add(user);
-            _context.SaveChanges();
+            await _context.AddAsync(user);
+            await _context.SaveChangesAsync();
 
             return "Success";
         }
@@ -118,11 +118,31 @@ namespace SOC.IoT.ApiGateway.Services
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSecret.Key);
+
+            var userPermissions = _context.Permissions
+                .Where(x => x.RoleId == user.RoleId)
+                .Select(x => x.Name)
+                .ToList();
+
+            var claims = new List<Claim>();
+
+            // Add user Id to claims
+            claims.Add(new Claim("id", user.Id.ToString()));
+
+            // Add user permissions to claims
+            foreach (var permission in userPermissions)
+            {
+                claims.Add(new Claim("Permission", permission));
+            }
+
+            // Generate JWT
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity( new[] { new Claim("id", user.Id.ToString())} ) ,
-                Expires = DateTime.UtcNow.AddMinutes(15),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                Subject = new ClaimsIdentity(claims),
+                Issuer = _jwtSecret.Issuer,
+                Audience = _jwtSecret.Audience,
+                Expires = DateTime.UtcNow.AddMinutes(_jwtSecret.Minutes),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),        
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);

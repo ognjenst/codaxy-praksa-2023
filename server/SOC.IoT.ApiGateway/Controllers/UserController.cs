@@ -19,7 +19,7 @@ namespace SOC.IoT.ApiGateway.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : BaseController
+    public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
@@ -47,7 +47,7 @@ namespace SOC.IoT.ApiGateway.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(User request)
         {
-            var response = _userService.Register(request);
+            var response = await _userService.Register(request);
             if (response == "Success")
             {
                 return Ok(new { message = "User registered successfuly." });
@@ -58,11 +58,12 @@ namespace SOC.IoT.ApiGateway.Controllers
             }
         }
 
-        [Authorize(policy:"Update-Workflow")]
-        [HttpPost("login-test")]
-        public async Task<IActionResult> LoginTest(LoginRequest request)
-        {
-            return Ok("Poruka");
-        }
-    }
+		[HttpPost("test-method")]
+		[Authorize(policy: "Update-Device")]
+		public async Task<IActionResult> Test(LoginRequest login)
+		{
+			return Ok(new { message = "bravo sergej" });
+		}
+	}    
+
 }

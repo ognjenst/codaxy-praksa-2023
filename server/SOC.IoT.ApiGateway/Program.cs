@@ -35,11 +35,6 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
 
-// Configure JWT authentication
-var jwtSecretKey = builder.Configuration.GetValue<string>("Jwt:Key");
-var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSecretKey));
-
-
 builder.Services.Configure<RouteOptions>(options =>
 {
     options.LowercaseUrls = true;
@@ -64,32 +59,10 @@ builder.Services.AddIoTServices();
 builder.Services.RegisterServices();
 builder.Services.AddScoped<IUserService, UserService>();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-	.AddJwtBearer(options => 
-	{
-			options.TokenValidationParameters = new TokenValidationParameters
-			{
-				ValidateIssuerSigningKey = true,
-			    IssuerSigningKey = key,
-				ValidateIssuer = false,
-				ValidateAudience = false,
-				// set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
-				ClockSkew = TimeSpan.Zero
-			};
-    });
+// Configure authentication and authorization
+builder.Services.RegisterAuthentication(builder.Configuration);
+builder.Services.RegisterAuthorization();
 
-builder.Services.AddAuthorization(options =>
-{
-	options.AddPolicy("Update-Workflow", policy =>
-	{
-		policy.Requirements.Add(new JwtRequirements("Update-Workflow")) ;
-	});
-	
-	options.AddPolicy("Read-Workflow", policy =>
-	{
-		policy.Requirements.Add(new JwtRequirements("Read-Workflow"));
-	});
-});
 
 // ...
 
@@ -111,8 +84,6 @@ builder.Host.UseSerilog(
         config.WriteTo.Console();
     }
 );
-
-
 
 var app = builder.Build();
 
