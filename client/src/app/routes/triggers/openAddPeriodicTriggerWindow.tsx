@@ -1,6 +1,6 @@
 import { Controller, LabelsLeftLayout, PureContainer, UseParentLayout } from "cx/ui";
 import { encodeDateWithTimezoneOffset } from "cx/util";
-import { Button, DateTimeField, LookupField, NumberField, Section, TextField, Window } from "cx/widgets";
+import { Button, DateTimeField, LookupField, NumberField, Section, TextField, ValidationGroup, Window } from "cx/widgets";
 import { POST, PUT } from "../../api/util/methods";
 
 const getController = (resolve) =>
@@ -34,7 +34,7 @@ export const openAddPeriodicTriggerWindow = () =>
                     >
                         <Section>
                             <div className="flex flex-col flex-1 items-center space-y-5">
-                                <LabelsLeftLayout>
+                                <ValidationGroup invalid-bind="invalid" layout={LabelsLeftLayout}>
                                     <PureContainer layout={UseParentLayout}>
                                         <TextField value-bind="trigger.name" label="Name" required />
                                         <DateTimeField
@@ -43,14 +43,14 @@ export const openAddPeriodicTriggerWindow = () =>
                                             label="Start"
                                             required
                                         />
-                                        <NumberField value-bind="trigger.period" label="Period" required />
-                                        <LookupField label="Unit" options={unitEnums} optionTextField="name" value-bind="trigger.unit" />
+                                        <NumberField value-bind="trigger.period" label="Period" minValue={1} required />
+                                        <LookupField required label="Unit" options={unitEnums} optionTextField="name" value-bind="trigger.unit" />
                                     </PureContainer>
                                     <div putInto="footer" className="flex justify-end gap-2">
-                                        <Button text="Add trigger" icon="plus" mod="primary" onClick="addPeriodicTrigger" />
+                                        <Button text="Add trigger" icon="plus" mod="primary" onClick="addPeriodicTrigger" disabled-bind="invalid" />
                                         <Button text="Cancel" dismiss />
                                     </div>
-                                </LabelsLeftLayout>
+                                </ValidationGroup>
                             </div>
                         </Section>
                     </Window>

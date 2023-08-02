@@ -1,6 +1,6 @@
 import { Controller, LabelsLeftLayout, PureContainer, UseParentLayout, computable } from "cx/ui";
 import { encodeDateWithTimezoneOffset } from "cx/util";
-import { Button, DateTimeField, LookupField, Section, TextField, Window } from "cx/widgets";
+import { Button, DateTimeField, LookupField, Section, TextField, ValidationGroup, Window } from "cx/widgets";
 import { GET, POST, PUT } from "../../api/util/methods";
 
 const getController = (resolve) =>
@@ -47,7 +47,7 @@ export const openAddIoTTriggerWindow = () =>
                     >
                         <Section>
                             <div className="flex flex-col flex-1 items-center space-y-5">
-                                <LabelsLeftLayout>
+                                <ValidationGroup invalid-bind="invalid" layout={LabelsLeftLayout}>
                                     <PureContainer layout={UseParentLayout}>
                                         <TextField value-bind="trigger.name" label="Name" required />
                                         <LookupField
@@ -55,6 +55,7 @@ export const openAddIoTTriggerWindow = () =>
                                             options-bind="devices"
                                             optionTextField="name"
                                             value-bind="trigger.deviceId"
+                                            required
                                         />
                                         <LookupField
                                             label="Device"
@@ -67,25 +68,27 @@ export const openAddIoTTriggerWindow = () =>
                                                             const name = `${capability[0].toUpperCase()}${capability.slice(1)}`;
                                                             return {
                                                                 name,
-                                                                id,
+                                                                id: name,
                                                             };
                                                         });
                                                 } else return [];
                                             })}
                                             optionTextField="name"
                                             value-bind="trigger.property"
+                                            required
                                         />
                                         <LookupField
                                             label="Condition"
                                             options={operators}
                                             optionTextField="name"
                                             value-bind="trigger.condition"
+                                            required
                                         />
                                         <TextField value-bind="trigger.value" label="Value" required />
                                     </PureContainer>
-                                </LabelsLeftLayout>
+                                </ValidationGroup>
                                 <div putInto="footer" className="flex justify-end gap-2">
-                                    <Button text="Add trigger" icon="plus" mod="primary" onClick="addIoTTrigger" />
+                                    <Button text="Add trigger" icon="plus" mod="primary" onClick="addIoTTrigger" disabled-bind="invalid" />
                                     <Button text="Cancel" dismiss />
                                 </div>
                             </div>

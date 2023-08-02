@@ -7,11 +7,12 @@ export default class extends Controller {
         this.store.set("$page.trigger.type", 1);
         this.loadWorkflows();
         this.loadTriggers();
+        this.loadAutomations();
     }
 
     async loadWorkflows() {
         try {
-            let workflows = await GET("/workflows");
+            let workflows = await GET("/workflows/db");
             this.store.set("$page.workflows", workflows);
         } catch (err) {
             console.log(err);
