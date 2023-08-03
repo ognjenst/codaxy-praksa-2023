@@ -89,6 +89,14 @@ const periodicTriggersColumns = [
             </cx>
         ),
     },
+    {
+        header: "Delete",
+        items: (
+            <cx>
+                <Button icon="trash" mod="hollow" className="hover:text-red-600" onClick="deletePeriodicTrigger" />
+            </cx>
+        ),
+    },
 ];
 
 const iotTriggersColumns = [
@@ -121,5 +129,13 @@ const iotTriggersColumns = [
         header: "Device ID",
         field: "deviceId",
         sortable: true,
+    },
+    {
+        header: "Delete",
+        items: (
+            <cx>
+                <Button icon="trash" mod="hollow" className="hover:text-red-600" onClick="deleteIotTrigger" />
+            </cx>
+        ),
     },
 ];

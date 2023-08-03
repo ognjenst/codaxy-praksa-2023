@@ -1,5 +1,5 @@
 import { Controller } from "cx/ui";
-import { GET } from "../../api/util/methods";
+import { DELETE, GET } from "../../api/util/methods";
 import { openAddPeriodicTriggerWindow } from "./openAddPeriodicTriggerWindow";
 import { openAddIoTTriggerWindow } from "./openAddIoTTriggerWindow";
 
@@ -27,5 +27,17 @@ export default class extends Controller {
     async showAddIoTTriggerWindow() {
         let res = await openAddIoTTriggerWindow();
         if (res) this.loadData();
+    }
+
+    async deletePeriodicTrigger(e, { store }) {
+        const { id } = store.get("$record");
+        await DELETE(`/triggers/PeriodicTrigger/${id}`);
+        this.loadData();
+    }
+
+    async deleteIotTrigger(e, { store }) {
+        const { id } = store.get("$record");
+        await DELETE(`/triggers/IoTTrigger/${id}`);
+        this.loadData();
     }
 }

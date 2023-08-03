@@ -6,7 +6,7 @@ import { CodeMirror } from "../../components/CodeMirror";
 
 export default () => (
     <cx>
-        <div controller={Controller}>
+        <div controller={Controller} className="flex flex-col overflow-hidden">
             <div className="flex">
                 <Section title="Add automation" className="">
                     <ValidationGroup invalid-bind="$page.invalid">
@@ -89,7 +89,7 @@ export default () => (
                     </ValidationGroup>
                 </Section>
             </div>
-            <div>
+            <div className="flex-1 overflow-y-auto">
                 <Grid
                     className="text-slate-600 h-full"
                     records-bind="$page.automations"
