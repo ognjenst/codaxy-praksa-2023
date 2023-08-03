@@ -43,7 +43,11 @@ public class DeviceHandler : ITaskRequestHandler<DeviceRequest, NoOutput>
     {
         var obj = _mapper.Map<Device>(request);
 
-        await _deviceManager.SetDeviceStateAsync(obj);
+        var device = _deviceManager.GetDevice(request.Id);
+        device.State = obj.State;
+        device.ColorXy = obj.ColorXy;
+        device.Light = obj.Light;
+        await _deviceManager.SetDeviceStateAsync(device);
 
         return await Task.FromResult(new NoOutput());
     }

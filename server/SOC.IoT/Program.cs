@@ -65,7 +65,8 @@ var builder = Host.CreateDefaultBuilder()
 
 using var host = builder.Build();
 
-using var scope = host.Services.CreateScope();
-scope.ServiceProvider.GetRequiredService<IStartupService>();
+host.Services.GetRequiredService<IStartupService>();
+
+await Task.Delay(2000);
 
 await host.RunAsync();

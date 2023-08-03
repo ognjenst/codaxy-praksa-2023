@@ -47,7 +47,7 @@ public class TemperatureColorHandler
     {
         DeviceColorXy deviceColorXy;
 
-        var sensor = _deviceManager.GetDevice(request.DeviceId);
+        var sensor = _deviceManager.GetDevice(request.SensorId);
         var temperature = sensor.Temperature!.Value;
 
         if (temperature >= 30)
@@ -57,13 +57,10 @@ public class TemperatureColorHandler
         else
             deviceColorXy = Colors.BLUE;
 
-        var device = new Device()
-        {
-            Id = request.DeviceId,
-            State = new DeviceState() { State = true },
-            Light = new DeviceLight() { Brightness = 0.7M },
-            ColorXy = deviceColorXy
-        };
+        var device = _deviceManager.GetDevice(request.DeviceId);
+
+        device.State = new DeviceState { State = true };
+        device.ColorXy = deviceColorXy;
 
         try
         {

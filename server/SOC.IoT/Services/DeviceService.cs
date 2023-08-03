@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using SOC.IoT.Base.Interfaces;
 using SOC.IoT.Domain.Entity;
 using SOC.IoT.Handler;
@@ -15,17 +14,11 @@ public interface IDeviceService
 public class DeviceService : IDeviceService
 {
     private readonly DeviceOptions _options;
-    private readonly IMapper _mapper;
     private readonly IDeviceManager _deviceManager;
 
-    public DeviceService(
-        IOptions<DeviceOptions> options,
-        IMapper mapper,
-        IDeviceManager deviceManager
-    )
+    public DeviceService(IOptions<DeviceOptions> options, IDeviceManager deviceManager)
     {
         _options = options.Value;
-        _mapper = mapper;
         _deviceManager = deviceManager;
     }
 
@@ -40,30 +33,25 @@ public class DeviceService : IDeviceService
         {
             int numberOfRepetitions = 0;
 
-            var updateDeviceObj = new DeviceRequest
-            {
-                Id = device.Id,
-                Brightness = _options.Brightness,
-                X = request.X,
-                Y = request.Y,
-                State = true
-            };
+            device.Light = new DeviceLight { Brightness = ((decimal)_options.Brightness) };
+            device.ColorXy = new DeviceColorXy { X = (decimal)request.X, Y = (decimal)request.Y };
+            device.State = new DeviceState { State = true };
 
             while (numberOfRepetitions <= request.MaxNumberOfRepetitions)
             {
                 numberOfRepetitions++;
 
-                var updateDeviceDto = _mapper.Map<Device>(updateDeviceObj);
-
-                await _deviceManager.SetDeviceStateAsync(updateDeviceDto);
+                await _deviceManager.SetDeviceStateAsync(device);
 
                 await Task.Delay(_options.DelayTime, cancellationToken);
 
-                updateDeviceDto.State!.State = false;
+                device.State!.State = false;
 
-                await _deviceManager.SetDeviceStateAsync(updateDeviceDto);
+                await _deviceManager.SetDeviceStateAsync(device);
 
                 await Task.Delay(_options.DelayTime, cancellationToken);
+
+                device.State!.State = true;
             }
         }
     }
