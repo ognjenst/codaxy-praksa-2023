@@ -5,12 +5,9 @@ import { HexXYColorMap } from "../../../api/util/colors";
 import { openHistoryWindow } from "./showHistoryWindow";
 import * as signalR from "@microsoft/signalr";
 
-let deviceUrl = "http://127.0.0.1:5288/api/hubs/devices";
+let deviceUrl = "/api/hubs/devices";
 
-if(process.env.NODE_ENV == 'development'){
-    deviceUrl = "http://127.0.0.1:5288/api/hubs/devices";
-}
-else if(process.env.NODE_ENV == 'production'){
+if(process.env.NODE_ENV == 'production'){
     deviceUrl = `${process.env.API_URL}/api/hubs/devices`;
 }
 let connection;

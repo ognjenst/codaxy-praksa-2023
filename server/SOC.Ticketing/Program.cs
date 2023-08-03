@@ -51,6 +51,7 @@ var builder = Host.CreateDefaultBuilder()
                 });
 
             builder.RegisterWorkerTask<TicketingHandler>();
+            builder.RegisterWorkerTask<TicketingHandlerVulnerability>();
 
             builder.RegisterMediatR(typeof(Program).Assembly);
         }

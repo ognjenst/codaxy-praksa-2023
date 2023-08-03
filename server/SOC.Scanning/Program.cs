@@ -51,6 +51,12 @@ var builder = Host.CreateDefaultBuilder()
                 });
 
             builder.RegisterWorkerTask<ScanIpAddressHandler>();
+            builder.RegisterWorkerTask<ScanVulnerabilityHandler>(opt =>
+            {
+                opt.TimeoutSeconds = 600;
+                opt.ResponseTimeoutSeconds = 600;
+            });
+            builder.RegisterWorkerTask<ExamineNetworkScanHandler>();
 
             builder.RegisterMediatR(typeof(Program).Assembly);
         }

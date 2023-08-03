@@ -2,6 +2,7 @@
 using ConductorSharp.Engine.Model;
 using ConductorSharp.Engine.Util;
 using MediatR;
+using Newtonsoft.Json;
 using SOC.Intelligence.DTO;
 using SOC.Intelligence.Services;
 using System;
@@ -14,7 +15,9 @@ namespace SOC.Intelligence.Handler;
 
 public class TicketingRequest : IRequest<IntelligenceResponseDto> 
 {
+	[JsonProperty("ipAddress")]
 	public string IpAddress { get; set; }
+	[JsonProperty("maxDaysInAge")]
 	public string MaxDaysInAge { get; set; }
 }
 
