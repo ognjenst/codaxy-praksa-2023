@@ -84,7 +84,7 @@ export async function PATCH(url, data, options = defaultOptions) {
 
 export async function POST(url, data, options = defaultOptions) {
     let response = await doFetch(url, {
-        options,
+        ...options,
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -95,9 +95,9 @@ export async function POST(url, data, options = defaultOptions) {
     return await processResponse(response);
 }
 
-export async function PUT(url, data) {
+export async function PUT(url, data, options = defaultOptions) {
     let response = await doFetch(url, {
-        ...defaultOptions,
+        ...options,
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
