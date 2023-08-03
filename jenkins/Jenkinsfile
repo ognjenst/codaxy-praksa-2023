@@ -148,31 +148,31 @@ pipeline{
         }
 
     }
-    post{
-        // success{
-        //   script{
-        //     def notification = completedNotification(
-        //         projectName: "SOC", 
-        //         gitBranch: "master", 
-        //         dockerImage: "soc", 
-        //         pipelineId: env.BUILD_ID, 
-        //         pipelineUrl: env.BUILD_URL, 
-        //         triggeredBy: env.BUILD_USER
-        //     )
-        //     slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
-        //   }
-        // }
-        // failure{
-        //   script{
-        //     def notification = failureNotification(
-        //         projectName: "SOC", 
-        //         gitBranch: "master", 
-        //         pipelineId: env.BUILD_ID, 
-        //         pipelineUrl: env.BUILD_URL, 
-        //         triggeredBy: env.BUILD_USER
-        //     )
-        //     slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
-        //   }
-        // }
-    }
+    // post{
+    //     success{
+    //       script{
+    //         def notification = completedNotification(
+    //             projectName: "SOC", 
+    //             gitBranch: "master", 
+    //             dockerImage: "soc", 
+    //             pipelineId: env.BUILD_ID, 
+    //             pipelineUrl: env.BUILD_URL, 
+    //             triggeredBy: env.BUILD_USER
+    //         )
+    //         slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
+    //       }
+    //     }
+    //     failure{
+    //       script{
+    //         def notification = failureNotification(
+    //             projectName: "SOC", 
+    //             gitBranch: "master", 
+    //             pipelineId: env.BUILD_ID, 
+    //             pipelineUrl: env.BUILD_URL, 
+    //             triggeredBy: env.BUILD_USER
+    //         )
+    //         slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
+    //       }
+    //     }
+    // }
 }
