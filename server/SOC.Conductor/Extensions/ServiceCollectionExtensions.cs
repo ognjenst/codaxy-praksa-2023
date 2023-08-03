@@ -30,10 +30,8 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IWorkflowBuilderService, WorkflowBuilderService>();
 
-        //services.AddHostedService<PeriodicTriggerEvaluationService>();
-
-        //// Register background service for IoTTrigger evaluation
-        //services.AddHostedService<IoTTriggerEvaluationService>();
+        services.AddHostedService<PeriodicTriggerEvaluationService>();
+        services.AddHostedService<IoTTriggerEvaluationService>();
 
         return services;
     }
