@@ -21,7 +21,7 @@ namespace SOC.Conductor.Entities.Contexts
             modelBuilder.Entity<Workflow>(entity =>
             {
                 entity.HasKey(entity => entity.Id);
-                entity.HasIndex(entity => entity.Name).IsUnique(); //this was added by aleksandar
+                entity.HasIndex(entity => entity.Name).IsUnique();
             });
 
             modelBuilder.Entity<Trigger>(entity =>
