@@ -32,11 +32,10 @@ public class WorkflowsController : ControllerBase
     }
 
     /// <summary>
-    /// Returns all registered workflows from conductor.
+    /// Gets all workflows from a database.
     /// </summary>
     /// <returns></returns>
-    [HttpGet(Name = "GetAllWorkflowsFromDbAsync")]
-    [Route("db")]
+    [HttpGet("db", Name = "GetAllWorkflowsFromDb")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<WorkflowDto>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
