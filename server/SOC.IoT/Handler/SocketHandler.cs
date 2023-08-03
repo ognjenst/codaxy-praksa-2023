@@ -4,7 +4,8 @@ using ConductorSharp.Engine.Util;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using SOC.IoT.Generated;
+using SOC.IoT.Base.Interfaces;
+using SOC.IoT.Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +23,12 @@ namespace SOC.IoT.Handler
     [OriginalName("IoT_socket_turn_on")]
     public class SocketHandler : ITaskRequestHandler<SocketRequest, NoOutput>
     {
-        private readonly IDevicesClient _devicesClient;
+        private readonly IDeviceManager _deviceManager;
         private readonly ILogger<SocketHandler> _logger;
 
-        public SocketHandler(IDevicesClient devicesClient, ILogger<SocketHandler> logger)
+        public SocketHandler(IDeviceManager deviceManager, ILogger<SocketHandler> logger)
         {
-            _devicesClient = devicesClient;
+            _deviceManager = deviceManager;
             _logger = logger;
         }
 
@@ -37,22 +38,15 @@ namespace SOC.IoT.Handler
         )
         {
             _logger.LogInformation("Socket changing state started.");
-            var device = await _devicesClient.GetDeviceAsync(request.DeviceId, cancellationToken);
-            var state = device.State.State;
+            var device = _deviceManager.GetDevice(request.DeviceId);
+            var state = device.State!.State;
 
             if (state.HasValue && !state.Value)
             {
-                var deviceUpdate = new DeviceUpdateDTO()
-                {
-                    State = new DeviceState() { State = true }
-                };
+                device.State = new DeviceState() { State = true };
                 try
                 {
-                    await _devicesClient.UpdateDeviceAsync(
-                        request.DeviceId,
-                        deviceUpdate,
-                        cancellationToken
-                    );
+                    await _deviceManager.SetDeviceStateAsync(device);
                     _logger.LogInformation("Socket turned on.");
                 }
                 catch (Exception ex)

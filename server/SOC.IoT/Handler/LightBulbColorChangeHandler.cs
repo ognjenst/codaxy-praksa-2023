@@ -6,9 +6,9 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using SOC.IoT.Generated;
+using SOC.IoT.Base.Interfaces;
+using SOC.IoT.Domain.Entity;
 using SOC.IoT.Options;
-using SOC.IoT.Services;
 
 namespace SOC.IoT.Handler;
 
@@ -30,17 +30,17 @@ public class ColorChangeRequest : IRequest<NoOutput>
 [OriginalName("IoT_light_on_color_change")]
 public class LightBulbColorChangeHandler : ITaskRequestHandler<ColorChangeRequest, NoOutput>
 {
-    private readonly IDevicesClient _devicesClient;
+    private readonly IDeviceManager _deviceManager;
     private readonly ILogger<LightBulbColorChangeHandler> _logger;
     private readonly DeviceOptions _options;
 
     public LightBulbColorChangeHandler(
-        IDevicesClient devicesClient,
+        IDeviceManager deviceManager,
         ILogger<LightBulbColorChangeHandler> logger,
         IOptions<DeviceOptions> options
     )
     {
-        _devicesClient = devicesClient;
+        _deviceManager = deviceManager;
         _logger = logger;
         _options = options.Value;
     }
@@ -50,36 +50,25 @@ public class LightBulbColorChangeHandler : ITaskRequestHandler<ColorChangeReques
         CancellationToken cancellationToken
     )
     {
-        var device = await _devicesClient.GetDeviceAsync(request.DeviceId, cancellationToken);
+        var device = _deviceManager.GetDevice(request.DeviceId);
 
         if (device is not null)
         {
-            var deviceUpdate = new DeviceUpdateDTO
-            {
-                State = new DeviceState() { State = true },
-                Light = new DeviceLight() { Brightness = _options.Brightness },
-                ColorXy = new DeviceColorXy() { X = request.X, Y = request.Y }
-            };
+            device.State = new DeviceState { State = true };
+            device.Light = new DeviceLight() { Brightness = (decimal)_options.Brightness };
+            device.ColorXy = new DeviceColorXy { X = (decimal)request.X, Y = (decimal)request.Y };
 
             // Light bulb turns on and off alternately <NumberOfRepetitions> times
             for (int i = 0; i < request.NumberOfRepetitions; i++)
             {
                 try
                 {
-                    await _devicesClient.UpdateDeviceAsync(
-                        request.DeviceId,
-                        deviceUpdate,
-                        cancellationToken
-                    );
+                    await _deviceManager.SetDeviceStateAsync(device);
                     _logger.LogInformation("Light turned on.");
                     await Task.Delay(_options.DelayTime);
 
-                    deviceUpdate.State.State = false;
-                    await _devicesClient.UpdateDeviceAsync(
-                        device.Id,
-                        deviceUpdate,
-                        cancellationToken
-                    );
+                    device.State.State = false;
+                    await _deviceManager.SetDeviceStateAsync(device);
                     _logger.LogInformation("Light turned off.");
                     await Task.Delay(_options.DelayTime);
                 }
