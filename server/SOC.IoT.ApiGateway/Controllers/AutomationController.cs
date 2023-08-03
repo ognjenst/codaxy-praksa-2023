@@ -54,5 +54,21 @@ namespace SOC.IoT.ApiGateway.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Deletes an automation.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}", Name = "DeleteAutomation")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+        [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
+        public async Task<IActionResult> DeleteAutomationAsync([FromRoute] int id)
+        {
+            await _automationClient.DeleteAutomationAsync(id);
+
+            return NoContent();
+        }
+
     }
 }

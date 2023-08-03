@@ -42,13 +42,13 @@ namespace SOC.Conductor.Generated
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<AutomationDto> CreateAutomationAsync(AutomationDto? body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Deletes an automation.
-        /// </summary>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeleteAutomationAsync(int workflowId, int triggerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <summary>
+    /// Deletes an automation.
+    /// </summary>
+    /// <returns>Success</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    System.Threading.Tasks.Task DeleteAutomationAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -239,24 +239,20 @@ namespace SOC.Conductor.Generated
             }
         }
 
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Deletes an automation.
-        /// </summary>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task DeleteAutomationAsync(int workflowId, int triggerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
-        {
-            if (workflowId == null)
-                throw new System.ArgumentNullException("workflowId");
+    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <summary>
+    /// Deletes an automation.
+    /// </summary>
+    /// <returns>Success</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual async System.Threading.Tasks.Task DeleteAutomationAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    {
+        if (id == null)
+            throw new System.ArgumentNullException("workflowId");
 
-            if (triggerId == null)
-                throw new System.ArgumentNullException("triggerId");
-
-            var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/automation/{workflowId}/{triggerId}");
-            urlBuilder_.Replace("{workflowId}", System.Uri.EscapeDataString(ConvertToString(workflowId, System.Globalization.CultureInfo.InvariantCulture)));
-            urlBuilder_.Replace("{triggerId}", System.Uri.EscapeDataString(ConvertToString(triggerId, System.Globalization.CultureInfo.InvariantCulture)));
+        var urlBuilder_ = new System.Text.StringBuilder();
+        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/automation/{id}");
+        urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -286,30 +282,30 @@ namespace SOC.Conductor.Generated
 
                         ProcessResponse(client_, response_);
 
-                        var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
-                            return;
-                        }
-                        else
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                        }
-                    }
-                    finally
+                    var status_ = (int)response_.StatusCode;
+                    if (status_ == 204)
                     {
-                        if (disposeResponse_)
-                            response_.Dispose();
+                        return;
+                    }
+                    else
+                    {
+                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                     }
                 }
-            }
-            finally
-            {
-                if (disposeClient_)
-                    client_.Dispose();
+                finally
+                {
+                    if (disposeResponse_)
+                        response_.Dispose();
+                }
             }
         }
+        finally
+        {
+            if (disposeClient_)
+                client_.Dispose();
+        }
+    }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -768,30 +764,30 @@ namespace SOC.Conductor.Generated
 
                         ProcessResponse(client_, response_);
 
-                        var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
-                            return;
-                        }
-                        else
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                        }
-                    }
-                    finally
+                    var status_ = (int)response_.StatusCode;
+                    if (status_ == 204)
                     {
-                        if (disposeResponse_)
-                            response_.Dispose();
+                        return;
+                    }
+                    else
+                    {
+                        var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
                     }
                 }
-            }
-            finally
-            {
-                if (disposeClient_)
-                    client_.Dispose();
+                finally
+                {
+                    if (disposeResponse_)
+                        response_.Dispose();
+                }
             }
         }
+        finally
+        {
+            if (disposeClient_)
+                client_.Dispose();
+        }
+    }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
