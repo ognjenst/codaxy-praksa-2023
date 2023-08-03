@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
-using SOC.Conductor.Generated;
-
 
 namespace SOC.IoT.ApiGateway.Controllers
 {
@@ -44,7 +42,10 @@ namespace SOC.IoT.ApiGateway.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-        public async Task<IActionResult> CreateTriggerAsync([FromRoute] string type, [FromBody] CommonTriggerDto commonTriggerDto)
+        public async Task<IActionResult> CreateTriggerAsync(
+            [FromRoute] string type,
+            [FromBody] CommonTriggerDto commonTriggerDto
+        )
         {
             var result = await _triggersClient.CreateTriggerAsync(type, commonTriggerDto);
 
