@@ -17,10 +17,10 @@ COPY server/SOC.IoT.Base ./SOC.IoT.Base
 COPY server/SOC.IoT.Domain ./SOC.IoT.Domain
 
 WORKDIR "/src/SOC.Conductor"
-RUN dotnet build "SOC.Conductor.csproj" -c Release -o /app/build
+RUN dotnet build "SOC.Conductor.csproj" -c Debug -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "SOC.Conductor.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "SOC.Conductor.csproj" -c Debug -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
