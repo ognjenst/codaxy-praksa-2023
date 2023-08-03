@@ -4,13 +4,14 @@ import { openAddPeriodicTriggerWindow } from "./openAddPeriodicTriggerWindow";
 import { openAddIoTTriggerWindow } from "./openAddIoTTriggerWindow";
 
 export default class extends Controller {
-    async onInit() {
+    onInit() {
         this.loadData();
     }
 
     async loadData() {
         try {
             let periodicTriggers = await GET("/triggers/PeriodicTrigger");
+            console.log(periodicTriggers);
             this.store.set("$page.periodicTriggers", periodicTriggers);
             let iotTriggers = await GET("/triggers/IoTTrigger");
             this.store.set("$page.iotTriggers", iotTriggers);

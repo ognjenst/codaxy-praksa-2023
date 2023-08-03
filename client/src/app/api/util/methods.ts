@@ -66,6 +66,7 @@ export function GET(url, options = defaultOptions) {
         ...options,
         headers: {
             Accept: "application/json",
+            "Content-Type": "application/json",
         },
     }).then((x) => x.json());
 }

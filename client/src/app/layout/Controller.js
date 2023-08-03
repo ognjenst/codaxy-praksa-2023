@@ -32,7 +32,8 @@ export default {
 
     async onSignOut() {
         //window.location = "/sign-out";
-        this.store.set("authUser", null);
+
+        window.localStorage.removeItem("auth");
         History.pushState({}, null, "~/");
     },
 };
