@@ -29,7 +29,7 @@ public class DevicesController : ControllerBase
     /// Returns a list of all registered devices with their capabilities and last states
     /// </summary>
     /// <returns>Returns a list of all registered devices with their capabilities and last states</returns>
-    //[Authorize(policy: "Read-Device")]
+    [Authorize(policy: "Read-Device")]
     [HttpGet(Name = "GetDevices")]
     [SwaggerResponseExample(StatusCodes.Status200OK, typeof(DevicesExample))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DeviceDTO>))]
