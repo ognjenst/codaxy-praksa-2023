@@ -35,6 +35,22 @@ public class WorkflowsController : ControllerBase
     /// Returns all registered workflows from conductor.
     /// </summary>
     /// <returns></returns>
+    [HttpGet(Name = "GetAllWorkflowsFromDbAsync")]
+    [Route("db")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<WorkflowDto>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
+    public async Task<IActionResult> GetAllWorkflowsFromDBAsync()
+    {
+        var data = await _workflowsClient.GetAllWorkflowsFromDBAsync();
+
+        return Ok(data);
+    }
+
+    /// <summary>
+    /// Returns all registered workflows from conductor.
+    /// </summary>
+    /// <returns></returns>
     [Authorize(policy: "Read-Workflow")]
     [HttpGet("GetAllTasks", Name = "GetAllTasksAsync")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<TaskResponseDto>))]

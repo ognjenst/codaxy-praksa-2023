@@ -37,7 +37,11 @@ export default class extends Controller {
     async addAutomation() {
         let automation = this.store.get("$page.automation");
         const type = this.store.get("$page.automation.triggerType");
-        automation = {...automation, triggerId: type == 1 ? this.store.get("$page.automation.iotId") : this.store.get("$page.automation.periodicId"), inputParameters: JSON.stringify(automation.inputParameters)}
+        automation = {
+            ...automation,
+            triggerId: type == 1 ? this.store.get("$page.automation.iotId") : this.store.get("$page.automation.periodicId"),
+            inputParameters: JSON.stringify(automation.inputParameters),
+        };
         try {
             await POST("/automation", automation);
             this.loadAutomations();
@@ -81,5 +85,4 @@ export default class extends Controller {
         await DELETE(`/automation/${id}`);
         this.loadAutomations();
     }
-   
 }

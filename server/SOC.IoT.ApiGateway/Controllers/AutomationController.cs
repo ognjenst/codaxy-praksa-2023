@@ -20,7 +20,7 @@ namespace SOC.IoT.ApiGateway.Controllers
         /// </summary>
         /// <param name="automationDto"></param>
         /// <returns></returns>
-        [Authorize(policy: "Create-Automation")]
+        //[Authorize(policy: "Create-Automation")]
         [HttpPost(Name = "CreateAutomationAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AutomationDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]

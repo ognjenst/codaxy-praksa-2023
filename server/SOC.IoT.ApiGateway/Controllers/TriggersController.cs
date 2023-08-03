@@ -19,7 +19,7 @@ namespace SOC.IoT.ApiGateway.Controllers
         /// Returns all triggers.
         /// </summary>
         /// <returns></returns>
-        [Authorize(policy: "Read-Trigger")]
+        //[Authorize(policy: "Read-Trigger")]
         [HttpGet("{type}",Name = "GetAllTriggersAsync")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<CommonTriggerDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
@@ -37,7 +37,7 @@ namespace SOC.IoT.ApiGateway.Controllers
         /// <param name="type"></param>
         /// <param name="commonTriggerDto"></param>
         /// <returns></returns>
-        [Authorize(policy: "Create-Trigger")]
+        //[Authorize(policy: "Create-Trigger")]
         [HttpPost("{type}", Name = "CreateTrigger")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CommonTriggerDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
