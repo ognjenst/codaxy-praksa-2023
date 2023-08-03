@@ -12,8 +12,8 @@ using SOC.IoT.ApiGateway.Entities.Contexts;
 namespace SOC.IoT.ApiGateway.Migrations
 {
     [DbContext(typeof(SOCIoTDbContext))]
-    [Migration("20230802121551_init")]
-    partial class init
+    [Migration("20230803122128_initial_migration")]
+    partial class initial_migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
