@@ -39,15 +39,15 @@ public class WorkflowsController : ControllerBase
     /// <summary>
     /// Deletes a workflow.
     /// </summary>
-    /// <param name="workflowId"></param>
+    /// <param name="workflowName"></param>
+    /// <param name="workflowVersion"></param>
     /// <returns></returns>
-    [HttpDelete("{workflowId}", Name = "DeleteWorkflow")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+    [HttpDelete("{workflowName}/{workflowVersion}", Name = "DeleteWorkflow")]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
-    public async Task<IActionResult> DeleteWorkflowAsync(int workflowId)
+    public async Task<IActionResult> DeleteWorkflowAsync([FromRoute] string workflowName, [FromRoute] int workflowVersion = 1)
     {
-        await _mediator.Send(new DeleteWorkflowRequest(workflowId));
+        await _mediator.Send(new DeleteWorkflowRequest(workflowName, workflowVersion));
 
         return NoContent();
     }
@@ -77,16 +77,15 @@ public class WorkflowsController : ControllerBase
     /// Updates a workflow.
     /// </summary>
     /// <param name="workflowDto"></param>
-    /// <param name="workflowId"></param>
     /// <returns></returns>
-    [HttpPut("{workflowId}", Name = "UpdateWorkflow")]
+    [HttpPut(Name = "UpdateWorkflow")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkflowDto))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
     public async Task<IActionResult> UpdateWorkflowAsync([FromRoute] int workflowId, [FromBody] CreateWorkflowDto workflowDto)
     {
-        var result = await _mediator.Send(new UpdateWorkflowRequest(workflowId, workflowDto));
+        var result = await _mediator.Send(new UpdateWorkflowRequest(workflowDto));
         
         if (result is not null)
             return Ok(result);

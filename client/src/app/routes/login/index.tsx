@@ -1,5 +1,5 @@
 import Controller from "./Controller";
-import { Button, Section, TextField, Link } from "cx/widgets";
+import { Button, Section, TextField, Link, ValidationGroup } from "cx/widgets";
 import BackgroundImage from "../../../assets/img/background2.jpg";
 
 export default () => (
@@ -14,46 +14,38 @@ export default () => (
             }}
             controller={Controller}
         >
-            <Section className="bg-gray-200 rounded-2xl p-4" style={{ width: "400px", height: "410px", backgroundColor: "#dededf" }}>
+            <Section className="rounded-2xl p-4 user-section-background">
                 <div className="flex flex-col items-center space-y-6">
-                    <div className="text-center font-sans text-gray-500 text-2xl">WELCOME</div>
-
-                    <TextField
-                        className="h-11"
-                        style={{ width: "250px", marginTop: "50px" }}
-                        placeholder="Username"
-                        inputStyle={{ fontSize: "16px" }}
-                        value-bind="$page.user.username"
-                        icon="user-circle"
-                        required
-                        onKeyDown="handleEnter"
-                    />
-                    <TextField
-                        className="h-11"
-                        style={{ width: "250px" }}
-                        placeholder="Password"
-                        inputType="password"
-                        inputStyle={{ fontSize: "16px" }}
-                        value-bind="$page.user.password"
-                        icon="key"
-                        required
-                        onKeyDown="handleEnter"
-                    />
-                    <Button
-                        style={{ width: "250px", marginTop: "50px", backgroundColor: "#4cbdf9" }}
-                        className="text-xl h-12 text-gray-100"
-                        onClick="login"
-                    >
-                        LOGIN
-                    </Button>
+                    <div className="text-center font-sans text-gray-500 text-2xl" text="WELCOME" />
+                    <div className="flex flex-col gap-4 flex-1">
+                        <ValidationGroup invalid-bind="$page.login.invalid">
+                            <TextField
+                                className="h-11 !w-[250px]"
+                                placeholder="Username"
+                                value-bind="$page.user.username"
+                                icon="user-circle"
+                                onKeyDown="handleEnter"
+                                required
+                            />
+                            <TextField
+                                className="h-11 !w-[250px]"
+                                placeholder="Password"
+                                inputType="password"
+                                value-bind="$page.user.password"
+                                icon="key"
+                                onKeyDown="handleEnter"
+                                required
+                            />
+                        </ValidationGroup>
+                        <Button className="text-xl h-12 text-gray-100 !bg-[#4cbdf9]" onClick="login" text="LOGIN" />
+                    </div>
                     <Link
                         onClick={(e, { store }) => {
                             store.set("login", false);
                         }}
-                        className="font-sans text-gray-500 text-l bg-transparent underline hover:text-gray-700"
-                    >
-                        Don't have an account yet? Sign up here.
-                    </Link>
+                        className="font-sans text-gray-500 text-sm bg-transparent underline hover:text-gray-700 flex-1"
+                        text=" Don't have an account yet? Sign up here."
+                    />
                 </div>
             </Section>
         </div>

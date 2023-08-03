@@ -89,6 +89,9 @@ namespace SOC.Conductor.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Workflows");
                 });
 
@@ -122,8 +125,8 @@ namespace SOC.Conductor.Migrations
                     b.Property<int>("Period")
                         .HasColumnType("integer");
 
-                    b.Property<TimeSpan>("Start")
-                        .HasColumnType("interval");
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Unit")
                         .HasColumnType("integer");

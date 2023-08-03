@@ -50,7 +50,7 @@ module.exports = async () => {
                     // router: () => "https://localhost:7297",
                     secure: false,
                 },
-                "/hubs/devices": "https://localhost:7297",
+                "/hubs/devices": "http://localhost:5288",
             },
             headers: {
                 "Access-Control-Allow-Origin": "*",

@@ -1,155 +1,23 @@
 import { Controller } from "cx/ui";
 import { GET } from "../../../api/util/methods";
 
-export default class extends Controller {
+export default class Controller1 extends Controller {
     onInit(): void {
-        var arrFill = [
-            {
-                tab: "Input1",
-                source: [
-                    {
-                        id: 1,
-                        text: "one",
-                    },
-                    {
-                        id: 2,
-                        text: "two",
-                    },
-                ],
+        this.store.set("$page.workflows", []);
 
-                param: [
-                    {
-                        id: 1,
-                        text: "one",
-                    },
-                    {
-                        id: 2,
-                        text: "two",
-                    },
-                ],
-            },
-            {
-                tab: "Input2",
-                source: [
-                    {
-                        id: 1,
-                        text: "one 2",
-                    },
-                    {
-                        id: 2,
-                        text: "two 2",
-                    },
-                ],
-                param: [
-                    {
-                        id: 1,
-                        text: "one 2",
-                    },
-                    {
-                        id: 2,
-                        text: "two 2",
-                    },
-                ],
-            },
-        ];
-
-        let arrInput = [
-            {
-                tab: "DeviceIP",
-                source: [
-                    {
-                        id: 1,
-                        text: "one 1",
-                    },
-                    {
-                        id: 2,
-                        text: "two 1",
-                    },
-                ],
-
-                param: [
-                    {
-                        id: 1,
-                        text: "one 1",
-                    },
-                    {
-                        id: 2,
-                        text: "two 1",
-                    },
-                ],
-            },
-            {
-                tab: "NumberOfRepetitions",
-                source: [
-                    {
-                        id: 1,
-                        text: "one 2",
-                    },
-                    {
-                        id: 2,
-                        text: "two 2",
-                    },
-                ],
-                param: [
-                    {
-                        id: 1,
-                        text: "one 2",
-                    },
-                    {
-                        id: 2,
-                        text: "two 2",
-                    },
-                ],
-            },
-        ];
-
-        var arr = [
-            {
-                name: "Task 1",
-                flagShow: false,
-                conditions: arrFill,
-                inputs: arrInput,
-            },
-            { name: "Task 2", flagShow: false, conditions: arrFill, inputs: arrInput },
-            { name: "Task 4", flagShow: false, conditions: arrFill, inputs: arrInput },
-            { name: "Task 6", flagShow: false, conditions: arrFill, inputs: arrInput },
-        ];
-
-        let workflows = [
-            {
-                name: "Morning routine",
-                version: 0,
-                enabled: false,
-                createdAt: "0001-01-01T00:00:00",
-                updatedAt: "0001-01-01T00:00:00",
-                tasks: arr,
-            },
-            {
-                name: "Mail received",
-                version: 0,
-                enabled: false,
-                createdAt: "0001-01-01T00:00:00",
-                updatedAt: "0001-01-01T00:00:00",
-                tasks: arr,
-            },
-            {
-                name: "Locked lab mode",
-                version: 0,
-                enabled: false,
-                createdAt: "0001-01-01T00:00:00",
-                updatedAt: "0001-01-01T00:00:00",
-                tasks: arr,
-            },
-        ];
-
-        this.store.set("$page.workflows", workflows);
-        this.store.set("$page.currentWorkflow", workflows[0]);
+        this.loadData();
     }
 
     async loadData() {
         try {
             let resp = await GET("/workflows");
             this.store.set("$page.workflows", resp);
+
+            if (resp.length > 0) {
+                this.store.set("$page.currentWorkflow", resp[0]);
+            } else {
+                this.store.set("$page.flagDashboard", false);
+            }
         } catch (err) {
             console.error(err);
         }
@@ -157,7 +25,39 @@ export default class extends Controller {
 
     itemClicked(currentWorkflow) {
         this.store.set("$page.currentWorkflow", currentWorkflow);
+
+        var arrT = [];
+        for (let i = 0; i < currentWorkflow.tasks.length; i++) {
+            arrT.push(currentWorkflow.tasks[i]);
+            for (const key in currentWorkflow.tasks[i].decisionCases) {
+                for (let j = 0; j < currentWorkflow.tasks[i].decisionCases[key].length; j++) {
+                    var oob = {
+                        ...currentWorkflow.tasks[i].decisionCases[key][j],
+                        from_switch: currentWorkflow.tasks[i].name,
+                        switch_decision: key,
+                    };
+                    arrT.push(oob);
+                }
+            }
+        }
+
+        this.store.set("$page.currentWorkflow.tasks", arrT);
         this.store.set("$page.arrTasks", this.store.get("$page.currentWorkflow.tasks"));
         this.store.set("$page.currentWorkflowInUndoneList", false);
+        this.store.set("$page.flagDashboard", true);
+
+        if (this.store.get("$page.currentWorkflow.inputParameters").length == 0) {
+            this.store.set("$page.showInputParameters", []);
+        } else {
+            this.store.set("$page.showInputParameters", []);
+            for (let i = 0; i < this.store.get("$page.currentWorkflow.inputParameters").length; i++) {
+                var obj = {
+                    id: i,
+                    text: this.store.get("$page.currentWorkflow.inputParameters")[i],
+                };
+
+                this.store.set("$page.showInputParameters", [...this.store.get("$page.showInputParameters"), obj]);
+            }
+        }
     }
 }

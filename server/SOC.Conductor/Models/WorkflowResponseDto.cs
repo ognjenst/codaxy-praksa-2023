@@ -12,5 +12,7 @@ namespace SOC.Conductor.Models
         public int Version { get; set; }
         [JsonProperty("tasks")]
         public IEnumerable<WorkflowTaskDto> Tasks { get; set; }
+        [JsonProperty("inputParameters")]
+        public IEnumerable<string> InputParameters { get; set; }
     } 
 }

@@ -10,8 +10,8 @@ namespace SOC.Conductor.Profile
 	{
         public WorkflowProfile()
         {
-			CreateMap<WorkflowDef, WorkflowResponseDto>();
-			CreateMap<WorkflowTask, WorkflowTaskDto>();
+            CreateMap<WorkflowDef, WorkflowResponseDto>();
+            CreateMap<WorkflowTask, WorkflowTaskDto>();
             CreateMap<PlayRequestDto, StartWorkflowRequest>();
             CreateMap<Entities.Workflow, WorkflowDto>()
 				.ForMember(e => e.CreateDate, m => m.MapFrom(e => e.CreatedAt))

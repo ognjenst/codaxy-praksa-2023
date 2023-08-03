@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SOC.Conductor.Client.Generated;
+using SOC.Conductor.Generated;
 using SOC.IoT.ApiGateway.Entities.Contexts;
 using SOC.IoT.ApiGateway.Entities.Enums;
 using SOC.IoT.ApiGateway.Options;
