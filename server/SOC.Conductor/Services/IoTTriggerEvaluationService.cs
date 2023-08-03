@@ -115,13 +115,13 @@ public class IoTTriggerEvaluationService : BackgroundService
                 else
                 {
                     // only for workflow with switch task
-                    ProcessWorkflowWithSwitchTask(unitOfWork, iotTrigger, device, workflows);
+                    await ProcessWorkflowWithSwitchTask(unitOfWork, iotTrigger, device, workflows);
                 }
             }
         }
     }
 
-    private async void ProcessWorkflowWithSwitchTask(
+    private async Task ProcessWorkflowWithSwitchTask(
         IUnitOfWork unitOfWork,
         IoTTrigger iotTrigger,
         Device device,
