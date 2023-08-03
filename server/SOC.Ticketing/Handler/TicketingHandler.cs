@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using SOC.Ticketing.Generated;
 using SOC.Ticketing.Services;
 using System.Text.Json;
+using static ConductorSharp.Engine.Service.DeploymentValidator;
 
 namespace SOC.Ticketing.Handler
 {
@@ -49,16 +50,18 @@ namespace SOC.Ticketing.Handler
                     throw new ArgumentException("Invalid severity level provided.");
             }
 
+            string title = request.Title;
+
             var inputCreateCase = new InputCreateCase()
             {
-                Title = request.Title,
+                Title = title,
                 Description = request.Message,
                 Severity = inputSeverity
             };
 
             var inputCeateTask = new InputCreateTask()
             {
-                Title = request.Title
+                Title = title
             };
 
             try

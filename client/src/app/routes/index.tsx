@@ -1,4 +1,4 @@
-import { ContentResolver, FirstVisibleChildLayout } from "cx/ui";
+import { ContentResolver, FirstVisibleChildLayout, PureContainer } from "cx/ui";
 import { DocumentTitle, RedirectRoute, Route } from "cx/widgets";
 import { SandboxedRoute } from "../components/SandboxedRoute";
 import { CheckerLayout } from "../layout/CheckerLayout";
@@ -8,11 +8,16 @@ import Automations from "./automations";
 import Dashboard from "./dashboard";
 import Devices from "./devices";
 import DeviceDetails from "./devices/device-details";
+import Login from "./login";
+import Registration from "./registration";
 
 export default () => (
     <cx>
         <FirstVisibleChildLayout>
-            <RedirectRoute route="~/" redirect="~/devices" url-bind="url" />
+            <RedirectRoute route="~/" redirect="~/login" url-bind="url" />
+
+            <Login visible-expr="!{authUser} && {login}" />
+            <Registration visible-expr="!{authUser} && !{login}" />
 
             <CheckerLayout>
                 <SandboxedRoute route="~/dashboard">

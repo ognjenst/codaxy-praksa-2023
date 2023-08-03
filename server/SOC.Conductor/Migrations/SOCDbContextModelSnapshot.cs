@@ -97,6 +97,9 @@ namespace SOC.Conductor.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Workflows");
                 });
 

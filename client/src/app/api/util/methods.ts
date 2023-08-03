@@ -25,11 +25,9 @@ async function checkOk(r) {
     throw Error(r.statusText);
 }
 
-let apiBaseUrl = '/api';
+let apiBaseUrl = "/api";
 
-
-
- if(process.env.NODE_ENV == 'production'){
+if (process.env.NODE_ENV == "production") {
     apiBaseUrl = `${process.env.API_URL}/api`;
 }
 
@@ -51,8 +49,7 @@ export function resolveFetchOptions(options) {
         body: options.body,
     };
 
-    // if (options.authorize)
-    //     fetchOptions.headers["authorization"] = `Bearer ${access_token}`;
+    if (options.authorize) fetchOptions.headers["authorization"] = `Bearer ${window.localStorage.getItem("auth")}`;
     return fetchOptions;
 }
 

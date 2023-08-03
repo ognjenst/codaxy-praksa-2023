@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
+using SOC.Conductor.Generated;
+
 
 namespace SOC.IoT.ApiGateway.Controllers
 {
@@ -18,11 +21,9 @@ namespace SOC.IoT.ApiGateway.Controllers
         /// Returns all triggers.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("{type}", Name = "GetAllTriggers")]
-        [ProducesResponseType(
-            StatusCodes.Status200OK,
-            Type = typeof(ICollection<CommonTriggerDto>)
-        )]
+        [Authorize(policy: "Read-Trigger")]
+        [HttpGet(Name = "GetAllTriggersAsync")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IList<CommonTriggerDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
         public async Task<IActionResult> GetAllTriggersAsync([FromRoute] string type)

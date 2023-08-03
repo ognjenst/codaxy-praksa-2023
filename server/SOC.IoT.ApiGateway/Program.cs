@@ -1,22 +1,28 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
+using SOC.IoT.ApiGateway.Controllers.Examples;
+using SOC.IoT.ApiGateway.Entities.Contexts;
+using SOC.IoT.ApiGateway.Extensions;
+using SOC.IoT.ApiGateway.Hubs;
+using SOC.IoT.ApiGateway.Middleware;
+using SOC.IoT.ApiGateway.Security;
+using SOC.IoT.ApiGateway.Services;
+using SOC.IoT.Base;
 using SOC.IoT.Base.Interfaces;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
-using SOC.IoT.Base;
-using SOC.IoT.ApiGateway.Hubs;
-using SOC.IoT.ApiGateway.Controllers.Examples;
-using SOC.IoT.ApiGateway.Middleware;
-using SOC.IoT.ApiGateway.Extensions;
-using Serilog;
-using Microsoft.EntityFrameworkCore;
-using SOC.IoT.ApiGateway.Entities.Contexts;
-using SOC.IoT.ApiGateway.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson();
 
+builder.Services.AddDbContext<SOCIoTDbContext>(
+    options => options.UseNpgsql(builder.Configuration.GetConnectionString("Db"))
+);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<SOCIoTDbContext>(
@@ -47,6 +53,23 @@ builder.Services.AddHostedService<DevicesBackgroundService>();
 builder.Services.AddIoTServices();
 
 builder.Services.RegisterServices();
+builder.Services.AddScoped<IUserService, UserService>();
+
+// Configure authentication and authorization
+builder.Services.RegisterAuthentication(builder.Configuration);
+builder.Services.RegisterAuthorization();
+
+// ...
+
+builder.Services.AddScoped<IAuthorizationHandler, JwtAuthorizationHandler>();
+
+// Configure Serilog
+builder.Host.UseSerilog(
+    (context, config) =>
+    {
+        config.WriteTo.Console();
+    }
+);
 
 // Configure Serilog
 builder.Host.UseSerilog(
@@ -76,6 +99,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

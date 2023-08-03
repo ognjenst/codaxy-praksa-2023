@@ -15,7 +15,7 @@ public class IntelligenceResponseDto
 	public bool IsPublic { get; set; }
 	[JsonProperty("ipVersion")]
 	public int IpVersion { get; set; }
-	[JsonProperty("isWhiteListed")]
+	[JsonProperty("isWhitelisted")]
 	public bool IsWhitelisted { get; set; }
 	[JsonProperty("abuseConfidenceScore")]
 	public int AbuseConfidenceScore { get; set; }
