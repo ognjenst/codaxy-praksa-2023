@@ -39,10 +39,11 @@ namespace SOC.Conductor.Handlers
                     } else if (automation.Trigger is IoTTrigger) 
                     {
                         var iotTrigger = automation.Trigger as IoTTrigger;
-                        _mapper.Map<CommonTriggerDto>(iotTrigger);
+                        triggerDto = _mapper.Map<CommonTriggerDto>(iotTrigger);
                     }
                     return new AutomationDto
                     {
+                        Id = automation.Id,
                         Trigger = triggerDto,
                         Workflow = _mapper.Map<WorkflowDto>(automation.Workflow),
                         TriggerId = automation.TriggerId,

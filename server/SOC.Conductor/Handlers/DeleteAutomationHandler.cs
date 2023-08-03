@@ -5,7 +5,7 @@ using SOC.Conductor.Entities;
 
 namespace SOC.Conductor.Handlers
 {
-    public record DeleteAutomationRequest(int WorkflowId, int TriggerId) : IRequest { }
+    public record DeleteAutomationRequest(int Id) : IRequest { }
 
     public class DeleteAutomationHandler : IRequestHandler<DeleteAutomationRequest>
     {
@@ -18,7 +18,7 @@ namespace SOC.Conductor.Handlers
 
         public async Task Handle(DeleteAutomationRequest request, CancellationToken cancellationToken)
         {
-            var automation = (await _unitOfWork.Automations.GetByCondition(x => x.WorkflowId == request.WorkflowId && x.TriggerId == request.TriggerId, cancellationToken)).FirstOrDefault();             
+            var automation = (await _unitOfWork.Automations.GetByCondition(x => x.Id == request.Id, cancellationToken)).FirstOrDefault();             
             if (automation is not null)
             {
                 var result = await _unitOfWork.Automations.DeleteAsync(automation, cancellationToken);

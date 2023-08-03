@@ -46,7 +46,7 @@ public partial interface IAutomationClient
     /// </summary>
     /// <returns>Success</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    System.Threading.Tasks.Task DeleteAutomationAsync(int workflowId, int triggerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+    System.Threading.Tasks.Task DeleteAutomationAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <summary>
@@ -243,18 +243,14 @@ public partial class AutomationClient : IAutomationClient
     /// </summary>
     /// <returns>Success</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task DeleteAutomationAsync(int workflowId, int triggerId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task DeleteAutomationAsync(int id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
     {
-        if (workflowId == null)
+        if (id == null)
             throw new System.ArgumentNullException("workflowId");
 
-        if (triggerId == null)
-            throw new System.ArgumentNullException("triggerId");
-
         var urlBuilder_ = new System.Text.StringBuilder();
-        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/automation/{workflowId}/{triggerId}");
-        urlBuilder_.Replace("{workflowId}", System.Uri.EscapeDataString(ConvertToString(workflowId, System.Globalization.CultureInfo.InvariantCulture)));
-        urlBuilder_.Replace("{triggerId}", System.Uri.EscapeDataString(ConvertToString(triggerId, System.Globalization.CultureInfo.InvariantCulture)));
+        urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/automation/{id}");
+        urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
 
         var client_ = _httpClient;
         var disposeClient_ = false;
@@ -285,7 +281,7 @@ public partial class AutomationClient : IAutomationClient
                     ProcessResponse(client_, response_);
 
                     var status_ = (int)response_.StatusCode;
-                    if (status_ == 200)
+                    if (status_ == 204)
                     {
                         return;
                     }
@@ -767,7 +763,7 @@ public partial class TriggersClient : ITriggersClient
                     ProcessResponse(client_, response_);
 
                     var status_ = (int)response_.StatusCode;
-                    if (status_ == 200)
+                    if (status_ == 204)
                     {
                         return;
                     }

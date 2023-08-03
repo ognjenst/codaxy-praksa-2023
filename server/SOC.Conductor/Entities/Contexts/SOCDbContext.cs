@@ -41,7 +41,8 @@ namespace SOC.Conductor.Entities.Contexts
             modelBuilder.Entity<Automation>(entity =>
 
             {
-                entity.HasKey(e => new { e.WorkflowId, e.TriggerId });
+                entity.HasKey(e => e.Id);
+
                 entity
                     .Property(e => e.InputParameters)
                     .HasConversion(

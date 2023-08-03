@@ -38,16 +38,15 @@ namespace SOC.Conductor.Controllers
         /// <summary>
         /// Deletes an automation.
         /// </summary>
-        /// <param name="workflowId"></param>
-        /// <param name="triggerId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("{workflowId}/{triggerId}", Name = "DeleteAutomation")]
+        [HttpDelete("{id}", Name = "DeleteAutomation")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
-        public async Task<IActionResult> DeleteAutomationAsync([FromRoute] int workflowId, [FromRoute] int triggerId)
+        public async Task<IActionResult> DeleteAutomationAsync([FromRoute] int id)
         {
-            await _mediator.Send(new DeleteAutomationRequest(workflowId, triggerId)); 
+            await _mediator.Send(new DeleteAutomationRequest(id)); 
             
             return NoContent();
         }
@@ -77,20 +76,18 @@ namespace SOC.Conductor.Controllers
         /// <summary>
         /// Updates an automation.
         /// </summary>
-        /// <param name="workflowId"></param>
-        /// <param name="triggerId"></param>
+        /// <param name="id"></param>
         /// <param name="automationDto"></param>
         /// <returns></returns>
-        [HttpPut("{workflowId}/{triggerId}", Name = "UpdateAutomation")]
+        [HttpPut("{id}", Name = "UpdateAutomation")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AutomationDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
 
-        public async Task<IActionResult> UpdateAutomationAsync([FromRoute] int workflowId, [FromRoute] int triggerId, [FromBody] AutomationDto automationDto)
+        public async Task<IActionResult> UpdateAutomationAsync([FromRoute] int id, [FromBody] AutomationDto automationDto)
         {
-            automationDto.WorkflowId = workflowId;
-            automationDto.TriggerId = triggerId;
-            var result = await _mediator.Send(new UpdateAutomationRequest(workflowId, triggerId, automationDto));
+            automationDto.Id = id;
+            var result = await _mediator.Send(new UpdateAutomationRequest(id, automationDto));
             if (result is not null) 
                 return Ok(result);
 

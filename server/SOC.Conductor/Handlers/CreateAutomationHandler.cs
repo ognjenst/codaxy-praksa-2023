@@ -35,6 +35,7 @@ namespace SOC.Conductor.Handlers
 
             return new AutomationDto()
             {
+                Id = result.Id,
                 WorkflowId = result.WorkflowId,
                 TriggerId = result.TriggerId,
                 Name = result.Name,
