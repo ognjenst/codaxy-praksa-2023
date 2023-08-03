@@ -26,6 +26,9 @@ internal class PingIpAddressResponse
 
     [JsonProperty("result")]
     public string Result { get; set; }
+
+    [JsonProperty("percentageOfLoss")]
+    public int PercentageOfLoss { get; set; }
 }
 
 [OriginalName("SCANNING_ping_ip_address")]
@@ -54,17 +57,23 @@ internal class PingIpAddressHandler
     )
     {
         var command = $"ping -c {request.NumberOfRequests} {request.IpAddress}";
-
+        
         if (!ValidateInput(request))
             throw new InvalidInputException("Input parameters are not valid!");
 
         _sshClientService.Connect();
         var result = _sshClientService.ExecuteCommand(command);
 
+        int startIndex = result.Result.IndexOf("received") + 10;
+        int endIndex = result.Result.IndexOf("packet loss") - 2;
+        string percentage = result.Result.Substring(startIndex, endIndex - startIndex);
+        int percentageOfLoss = int.Parse(percentage);
+
         return Task.FromResult(new PingIpAddressResponse
         {
             Command = command,
-            Result = result.Result
+            Result = result.Result,
+            PercentageOfLoss = percentageOfLoss
         });
 
     }
