@@ -29,8 +29,8 @@ public class DevicesController : ControllerBase
     /// Returns a list of all registered devices with their capabilities and last states
     /// </summary>
     /// <returns>Returns a list of all registered devices with their capabilities and last states</returns>
-    [Authorize(policy: "Read-Device")]
-	[HttpGet(Name = "GetDevices")]
+    //[Authorize(policy: "Read-Device")]
+    [HttpGet(Name = "GetDevices")]
     [SwaggerResponseExample(StatusCodes.Status200OK, typeof(DevicesExample))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<DeviceDTO>))]
     public async Task<IEnumerable<DeviceDTO>> GetDevices()
@@ -44,12 +44,14 @@ public class DevicesController : ControllerBase
     /// <param name="id">ID of the device</param>
     /// <returns>Single device with its last known state</returns>
     [Authorize(policy: "Read-Device")]
-	[HttpGet("{id}", Name = "GetDevice")]
+    [HttpGet("{id}", Name = "GetDevice")]
     [SwaggerResponseExample(StatusCodes.Status200OK, typeof(DeviceExample))]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DeviceDTO))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
-    public async Task<IResult> GetDevice([FromRoute] [RegularExpression(_deviceIdRegexPattern)] string id)
+    public async Task<IResult> GetDevice(
+        [FromRoute] [RegularExpression(_deviceIdRegexPattern)] string id
+    )
     {
         try
         {
