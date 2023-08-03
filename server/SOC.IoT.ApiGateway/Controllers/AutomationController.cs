@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
+using SOC.Conductor.Generated;
 using Microsoft.AspNetCore.Authorization;
 
 namespace SOC.IoT.ApiGateway.Controllers

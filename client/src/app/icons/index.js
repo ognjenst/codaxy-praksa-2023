@@ -9,6 +9,7 @@ import {
     BanknotesIcon,
     ChartBarIcon,
     ChevronDownIcon,
+    ChevronUpIcon,
     CogIcon,
     CreditCardIcon,
     CurrencyDollarIcon,
@@ -19,6 +20,7 @@ import {
     InformationCircleIcon,
     PencilIcon,
     PlusIcon,
+    PlusCircleIcon,
     PresentationChartBarIcon,
     PrinterIcon,
     PuzzlePieceIcon,
@@ -40,6 +42,7 @@ import {
     PlayIcon,
     StopCircleIcon,
     TrashIcon,
+    MinusIcon,
 } from "@heroicons/react/24/outline";
 
 //register all icons that are used within the application
@@ -91,6 +94,7 @@ Icon.register("currency-euro", (props) => <CurrencyEuroIcon {...props} />);
 
 Icon.register("chevron-down", (props) => <ChevronDownIcon {...props} />);
 Icon.register("drop-down", (props) => <ChevronDownIcon {...props} />);
+Icon.register("drop-up", (props) => <ChevronUpIcon {...props} />);
 
 Icon.register("information-circle", (props) => <InformationCircleIcon {...props} />);
 
@@ -100,6 +104,7 @@ Icon.register("x", (props) => <XMarkIcon {...props} />);
 Icon.register("close", (props) => <XMarkIcon {...props} />);
 
 Icon.register("plus", (props) => <PlusIcon {...props} />);
+Icon.register("plus-circle", (props) => <PlusCircleIcon {...props} />);
 
 Icon.register("arrow-left", (props) => <ArrowLeftIcon {...props} />);
 
@@ -121,4 +126,7 @@ Icon.register("signal", (props) => <SignalIcon {...props} />);
 
 Icon.register("play-circle", (props) => <PlayCircleIcon {...props} />);
 
+Icon.register("play", (props) => <PlayIcon {...props} />);
+
 Icon.register("stop-circle", (props) => <StopCircleIcon {...props} />);
+Icon.register("minus", (props) => <MinusIcon {...props} />);

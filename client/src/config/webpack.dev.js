@@ -46,11 +46,11 @@ module.exports = async () => {
             // },
             proxy: {
                 "/api": {
-                    target: "https://localhost:5288",
+                    target: "http://localhost:5288",
                     // router: () => "https://localhost:7297",
                     secure: false,
                 },
-                "/hubs/devices": "https://localhost:7297",
+                "/hubs/devices": "http://localhost:5288",
             },
             headers: {
                 "Access-Control-Allow-Origin": "*",

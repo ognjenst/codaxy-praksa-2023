@@ -5,7 +5,7 @@ using SOC.Conductor.Services;
 
 namespace SOC.Conductor.Handlers
 {
-    public record UpdateWorkflowRequest(int workflowId, CreateWorkflowDto workflowDto) : IRequest<WorkflowDto> { }
+    public record UpdateWorkflowRequest(CreateWorkflowDto workflowDto) : IRequest<WorkflowDto> { }
 
     public class UpdateWorkflowHandler : IRequestHandler<UpdateWorkflowRequest, WorkflowDto>
     {
@@ -20,7 +20,7 @@ namespace SOC.Conductor.Handlers
 
         public async Task<WorkflowDto> Handle(UpdateWorkflowRequest request, CancellationToken cancellationToken)
         {
-            var workflow = (await _unitOfWork.Workflows.GetByCondition(x => x.Id == request.workflowId, cancellationToken)).FirstOrDefault();
+            var workflow = (await _unitOfWork.Workflows.GetByCondition(x => x.Name == request.workflowDto.Name && x.Version == request.workflowDto.Version, cancellationToken)).FirstOrDefault();
             if (workflow is not null)
             {
                 workflow.Name = request.workflowDto.Name;

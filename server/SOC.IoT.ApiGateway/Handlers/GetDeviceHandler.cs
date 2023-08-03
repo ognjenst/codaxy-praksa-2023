@@ -12,17 +12,24 @@ namespace SOC.IoT.ApiGateway.Handlers
     {
         private readonly SOCIoTDbContext _dbContext;
         private readonly IDeviceManager _deviceManager;
+
         public GetDeviceHandler(SOCIoTDbContext dbContext, IDeviceManager deviceManager)
         {
             _dbContext = dbContext;
             _deviceManager = deviceManager;
         }
-    
-        public async Task<DeviceDTO?> Handle(GetDeviceQuery request, CancellationToken cancellationToken)
+
+        public async Task<DeviceDTO?> Handle(
+            GetDeviceQuery request,
+            CancellationToken cancellationToken
+        )
         {
             var deviceDto = new DeviceDTO(_deviceManager.GetDevice(request.id));
-            var device = await _dbContext.Devices.Where(d => d.IoTId == request.id).FirstOrDefaultAsync(cancellationToken);
-            if (device is null) 
+            return deviceDto;
+            var device = await _dbContext.Devices
+                .Where(d => d.IoTId == request.id)
+                .FirstOrDefaultAsync(cancellationToken);
+            if (device is null)
             {
                 return null;
             }
