@@ -51,6 +51,7 @@ var builder = Host.CreateDefaultBuilder()
                 });
 
             builder.RegisterWorkerTask<ScanIpAddressHandler>();
+            builder.RegisterWorkerTask<PingIpAddressHandler>();
             builder.RegisterWorkerTask<ScanVulnerabilityHandler>(opt =>
             {
                 opt.TimeoutSeconds = 600;
