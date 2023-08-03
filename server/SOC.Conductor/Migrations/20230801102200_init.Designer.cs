@@ -12,8 +12,8 @@ using SOC.Conductor.Entities.Contexts;
 namespace SOC.Conductor.Migrations
 {
     [DbContext(typeof(SOCDbContext))]
-    [Migration("20230726063853_DeviceId_IoTTrigger")]
-    partial class DeviceId_IoTTrigger
+    [Migration("20230801102200_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -92,6 +92,9 @@ namespace SOC.Conductor.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Workflows");
                 });
 
@@ -103,8 +106,9 @@ namespace SOC.Conductor.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("DeviceId")
-                        .HasColumnType("integer");
+                    b.Property<string>("DeviceId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Property")
                         .IsRequired()

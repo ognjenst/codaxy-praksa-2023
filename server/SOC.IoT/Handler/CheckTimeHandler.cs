@@ -6,11 +6,6 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SOC.IoT.Options;
 using SOC.IoT.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SOC.IoT.Handler;
 

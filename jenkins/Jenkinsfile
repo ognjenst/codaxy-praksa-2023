@@ -16,39 +16,39 @@ pipeline{
 
     stages{
 
-        // stage('Slack Notify Start'){
-        //     steps{
-        //         script{
-        //           if(params.USECOMMIT){
-        //             def notification = startNotification(
-        //               [
-        //                   gitBranch: "master", 
-        //                   projectName: "SOC", 
-        //                   dockerImage: "soc_iot,soc_conductor,soc_scanning,soc_ticketing...", 
-        //                   commits: "${commits}", 
-        //                   pipelineId: env.BUILD_ID, 
-        //                   pipelineUrl: env.BUILD_URL, 
-        //                   triggeredBy: env.BUILD_USER
-        //               ]
-        //             )
-        //             slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
-        //           }
-        //           if(params.USECOMMIT == false){
-        //             def notification = startNotification(
-        //               [
-        //                   gitBranch: "master", 
-        //                   projectName: "SOC", 
-        //                   dockerImage: "soc_iot,soc_conductor,soc_scanning,soc_ticketing...", 
-        //                   pipelineId: env.BUILD_ID, 
-        //                   pipelineUrl: env.BUILD_URL, 
-        //                   triggeredBy: env.BUILD_USER
-        //               ]
-        //             )
-        //             slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
-        //           }
-        //         }
-        //     }
-        // }
+        stage('Slack Notify Start'){
+            steps{
+                script{
+                  if(params.USECOMMIT){
+                    def notification = startNotification(
+                      [
+                          gitBranch: "master", 
+                          projectName: "SOC", 
+                          dockerImage: "soc_iot,soc_conductor,soc_scanning,soc_ticketing...", 
+                          commits: "${commits}", 
+                          pipelineId: env.BUILD_ID, 
+                          pipelineUrl: env.BUILD_URL, 
+                          triggeredBy: env.BUILD_USER
+                      ]
+                    )
+                    slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
+                  }
+                  if(params.USECOMMIT == false){
+                    def notification = startNotification(
+                      [
+                          gitBranch: "master", 
+                          projectName: "SOC", 
+                          dockerImage: "soc_iot,soc_conductor,soc_scanning,soc_ticketing...", 
+                          pipelineId: env.BUILD_ID, 
+                          pipelineUrl: env.BUILD_URL, 
+                          triggeredBy: env.BUILD_USER
+                      ]
+                    )
+                    slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
+                  }
+                }
+            }
+        }
 
         stage('Clonning git') {
           steps {
@@ -182,31 +182,31 @@ pipeline{
         }
 
     }
-    // post{
-    //     success{
-    //       script{
-    //         def notification = completedNotification(
-    //             projectName: "SOC", 
-    //             gitBranch: "master", 
-    //             dockerImage: "soc", 
-    //             pipelineId: env.BUILD_ID, 
-    //             pipelineUrl: env.BUILD_URL, 
-    //             triggeredBy: env.BUILD_USER
-    //         )
-    //         slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
-    //       }
-    //     }
-    //     failure{
-    //       script{
-    //         def notification = failureNotification(
-    //             projectName: "SOC", 
-    //             gitBranch: "master", 
-    //             pipelineId: env.BUILD_ID, 
-    //             pipelineUrl: env.BUILD_URL, 
-    //             triggeredBy: env.BUILD_USER
-    //         )
-    //         slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
-    //       }
-    //     }
-    // }
+    post{
+        success{
+          script{
+            def notification = completedNotification(
+                projectName: "SOC", 
+                gitBranch: "master", 
+                dockerImage: "soc", 
+                pipelineId: env.BUILD_ID, 
+                pipelineUrl: env.BUILD_URL, 
+                triggeredBy: env.BUILD_USER
+            )
+            slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
+          }
+        }
+        failure{
+          script{
+            def notification = failureNotification(
+                projectName: "SOC", 
+                gitBranch: "master", 
+                pipelineId: env.BUILD_ID, 
+                pipelineUrl: env.BUILD_URL, 
+                triggeredBy: env.BUILD_USER
+            )
+            slackSend(blocks: notification, channel: '#soc', tokenCredentialId: 'soc-slack-bot', teamDomain: 'Codaxy Praksa')
+          }
+        }
+    }
 }

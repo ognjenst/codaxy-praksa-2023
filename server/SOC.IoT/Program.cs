@@ -2,20 +2,23 @@
 using Autofac.Extensions.DependencyInjection;
 using ConductorSharp.Engine.Extensions;
 using ConductorSharp.Engine.Health;
-using MediatR.Extensions.Autofac.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SOC.IoT.Base;
+using SOC.IoT.Base.Interfaces;
 using SOC.IoT.Extensions;
 using SOC.IoT.Handler;
-using SOC.IoT.Services;
 
 var builder = Host.CreateDefaultBuilder()
     .ConfigureAppConfiguration(
         (hosting, config) =>
         {
             config.AddJsonFile("appsettings.json", true);
-            config.AddJsonFile("appsettings.Development.json", true);
+            if (hosting.HostingEnvironment.IsDevelopment())
+            {
+                config.AddJsonFile("appsettings.Development.json", true);
+            }
         }
     )
     .UseServiceProviderFactory(new AutofacServiceProviderFactory())
@@ -23,6 +26,7 @@ var builder = Host.CreateDefaultBuilder()
         (context, services) =>
         {
             services.RegisterServices(context.Configuration);
+            services.AddIoTServices();
         }
     )
     .ConfigureContainer<ContainerBuilder>(
@@ -62,5 +66,9 @@ var builder = Host.CreateDefaultBuilder()
     );
 
 using var host = builder.Build();
+
+host.Services.GetRequiredService<IStartupService>();
+
+await Task.Delay(2000);
 
 await host.RunAsync();
