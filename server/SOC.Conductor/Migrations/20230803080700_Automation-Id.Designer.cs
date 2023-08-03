@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SOC.Conductor.Entities.Contexts;
@@ -11,9 +12,11 @@ using SOC.Conductor.Entities.Contexts;
 namespace SOC.Conductor.Migrations
 {
     [DbContext(typeof(SOCDbContext))]
-    partial class SOCDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230803080700_Automation-Id")]
+    partial class AutomationId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,9 +99,6 @@ namespace SOC.Conductor.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("Workflows");
                 });

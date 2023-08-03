@@ -46,6 +46,9 @@ import {
     UserCircleIcon,
     EnvelopeIcon,
     KeyIcon,
+    BoltIcon,
+    ShieldCheckIcon,
+    WrenchScrewdriverIcon,
 } from "@heroicons/react/24/outline";
 
 //register all icons that are used within the application
@@ -139,3 +142,9 @@ Icon.register("envelope", (props) => <EnvelopeIcon {...props} />);
 
 Icon.register("key", (props) => <KeyIcon {...props} />);
 Icon.register("minus", (props) => <MinusIcon {...props} />);
+
+Icon.register("bolt", (props) => <BoltIcon {...props} />);
+
+Icon.register("shield-check", (props) => <ShieldCheckIcon {...props} />);
+
+Icon.register("wrench-screwdriver", (props) => <WrenchScrewdriverIcon {...props} />);

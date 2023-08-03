@@ -3,6 +3,7 @@ import { DocumentTitle, RedirectRoute, Route } from "cx/widgets";
 import { SandboxedRoute } from "../components/SandboxedRoute";
 import { CheckerLayout } from "../layout/CheckerLayout";
 import Workflows from "../routes/workflows";
+import Triggers from "./triggers";
 import Automations from "./automations";
 import Dashboard from "./dashboard";
 import Devices from "./devices";
@@ -18,26 +19,26 @@ export default () => (
             <Login visible-expr="!{authUser} && {login}" />
             <Registration visible-expr="!{authUser} && !{login}" />
 
-            <PureContainer>
-                <CheckerLayout>
-                    <SandboxedRoute route="~/dashboard">
-                        <Dashboard />
-                    </SandboxedRoute>
-
-                    <Route route="~/devices" url-bind="url">
-                        <Devices />
-                    </Route>
-                    <Route route="~/workflows" url-bind="url">
-                        <Workflows />
-                    </Route>
-                    <Route route="~/automations" url-bind="url">
-                        <Automations />
-                    </Route>
-                    <SandboxedRoute route="~/devices/:id">
-                        <DeviceDetails />
-                    </SandboxedRoute>
-                </CheckerLayout>
-            </PureContainer>
+            <CheckerLayout>
+                <SandboxedRoute route="~/dashboard">
+                    <Dashboard />
+                </SandboxedRoute>
+                <Route route="~/devices" url-bind="url">
+                    <Devices />
+                </Route>
+                <Route route="~/workflows" url-bind="url">
+                    <Workflows />
+                </Route>
+                <Route route="~/triggers" url-bind="url">
+                    <Triggers />
+                </Route>
+                <Route route="~/automations" url-bind="url">
+                    <Automations />
+                </Route>
+                <SandboxedRoute route="~/devices/:id">
+                    <DeviceDetails />
+                </SandboxedRoute>
+            </CheckerLayout>
         </FirstVisibleChildLayout>
 
         <ContentResolver
@@ -46,6 +47,6 @@ export default () => (
             onResolve={() => import(/* webpackChunkName: "user-routes" */ "./user").then((x) => x.default)}
         />
         <ContentResolver params={1} onResolve={() => import(/* webpackChunkName: "overlays" */ "../overlays").then((x) => x.default)} />
-        <DocumentTitle append text="Demo App" separator=" | " />
+        <DocumentTitle append text="SOC" separator=" | " />
     </cx>
 );

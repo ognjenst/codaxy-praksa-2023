@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace SOC.IoT.ApiGateway.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class initial_migration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -158,7 +158,12 @@ namespace SOC.IoT.ApiGateway.Migrations
                     { 17, "Create-DeviceHistory", 1 },
                     { 18, "Update-DeviceHistory", 1 },
                     { 19, "Read-DeviceHistory", 1 },
-                    { 20, "Delete-DeviceHistory", 1 }
+                    { 20, "Delete-DeviceHistory", 1 },
+                    { 21, "Read-Workflow", 2 },
+                    { 22, "Read-Automation", 2 },
+                    { 23, "Read-Device", 2 },
+                    { 24, "Read-DeviceHistory", 2 },
+                    { 26, "Read-Trigger", 2 }
                 });
 
             migrationBuilder.CreateIndex(
