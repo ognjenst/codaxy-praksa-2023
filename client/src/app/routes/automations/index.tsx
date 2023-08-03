@@ -9,10 +9,10 @@ export default () => (
         <div controller={Controller}>
             <div className="flex">
                 <Section title="Add automation" className="">
-                    <div className="flex flex-col gap-5">
-                        <div className="flex gap-10">
-                            <div className=" flex-col">
-                                <ValidationGroup invalid-bind="$page.invalid" layout={LabelsLeftLayout}>
+                    <ValidationGroup invalid-bind="$page.invalid">
+                        <div className="flex flex-col gap-5">
+                            <div className="flex gap-10">
+                                <div className=" flex-col" layout={LabelsLeftLayout}>
                                     <LookupField
                                         label="Select trigger type"
                                         options={options}
@@ -20,7 +20,6 @@ export default () => (
                                         value-bind="$page.automation.triggerType"
                                         required
                                     />
-
                                     <LookupField
                                         label="Select trigger"
                                         options-bind="$page.periodicTriggers"
@@ -45,49 +44,49 @@ export default () => (
                                         required
                                     />
                                     <TextField value-bind="$page.automation.name" label="Name" required />
-                                </ValidationGroup>
-                            </div>
-                            <div className="flex-col">
-                                <Heading
-                                    text="Parameters"
-                                    style={{ marginBottom: 10 }}
-                                    visible-expr={"Object.keys({$page.automation.inputParameters}).length > 0"}
-                                />
-                                <Repeater records={computable("$page.automation.inputParameters", (params) => Object.keys(params))}>
-                                    <ContentResolver
-                                        params={{
-                                            name: bind("$record"),
-                                        }}
-                                        onResolve={({ name }) => {
-                                            if (!name) return;
-
-                                            return (
-                                                <cx>
-                                                    <ValidationGroup invalid-bind="$page.invalid2" layout={LabelsLeftLayout}>
-                                                        <TextField
-                                                            value-bind={`$page.automation.inputParameters.${name}`}
-                                                            label={name}
-                                                            required
-                                                        />
-                                                    </ValidationGroup>
-                                                </cx>
-                                            );
-                                        }}
+                                </div>
+                                <div className="flex-col">
+                                    <Heading
+                                        text="Parameters"
+                                        style={{ marginBottom: 10 }}
+                                        visible-expr={"Object.keys({$page.automation.inputParameters}).length > 0"}
                                     />
-                                </Repeater>
+                                    <Repeater records={computable("$page.automation.inputParameters", (params) => Object.keys(params))}>
+                                        <ContentResolver
+                                            params={{
+                                                name: bind("$record"),
+                                            }}
+                                            onResolve={({ name }) => {
+                                                if (!name) return;
+
+                                                return (
+                                                    <cx>
+                                                        <LabelsLeftLayout>
+                                                            <TextField
+                                                                value-bind={`$page.automation.inputParameters.${name}`}
+                                                                label={name}
+                                                                required
+                                                            />
+                                                        </LabelsLeftLayout>
+                                                    </cx>
+                                                );
+                                            }}
+                                        />
+                                    </Repeater>
+                                </div>
+                            </div>
+                            <div className="flex-1">
+                                <Button
+                                    className="float-left"
+                                    text="Add automation"
+                                    onClick="addAutomation"
+                                    icon="plus"
+                                    mod="primary"
+                                    disabled-bind="$page.invalid"
+                                />
                             </div>
                         </div>
-                        <div className="flex-1">
-                            <Button
-                                className="float-left"
-                                text="Add automation"
-                                onClick="addAutomation"
-                                icon="plus"
-                                mod="primary"
-                                disabled-expr="{$page.invalid} || {$page.invalid2}"
-                            />
-                        </div>
-                    </div>
+                    </ValidationGroup>
                 </Section>
             </div>
             <div>
@@ -133,6 +132,14 @@ const automationColumns = [
         items: (
             <cx>
                 <Button text="More information" icon="document-report" onClick="showInputParameters" />
+            </cx>
+        ),
+    },
+    {
+        header: "Delete",
+        items: (
+            <cx>
+                <Button icon="trash" mod="hollow" className="hover:text-red-600" onClick="deleteAutomation" />
             </cx>
         ),
     },

@@ -1,5 +1,5 @@
 import { Controller } from "cx/ui";
-import { GET, POST } from "../../api/util/methods";
+import { DELETE, GET, POST } from "../../api/util/methods";
 import { openInputParametersWindow } from "./openInputParametersWindow";
 import { debounce } from "cx/util";
 
@@ -72,8 +72,14 @@ export default class extends Controller {
         if (!workflow) return;
         const inputParams = workflow.inputParameters;
         const params = new Map();
-        inputParams.forEach((param) => params.set(param, ""));
+        inputParams.forEach((param) => params.set(param, null));
         this.store.set("$page.automation.inputParameters", Object.fromEntries(params));
+    }
+
+    async deleteAutomation(e, { store }) {
+        const { id } = store.get("$record");
+        await DELETE(`/automation/${id}`);
+        this.loadAutomations();
     }
    
 }

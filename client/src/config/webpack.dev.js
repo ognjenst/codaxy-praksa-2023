@@ -46,7 +46,7 @@ module.exports = async () => {
             // },
             proxy: {
                 "/api": {
-                    target: "https://localhost:5288",
+                    target: "http://127.0.0.1:5288",
                     // router: () => "https://localhost:7297",
                     secure: false,
                 },
