@@ -8,8 +8,7 @@ using SOC.Conductor.Repositories;
 namespace SOC.Conductor.Handlers
 {
     public record UpdateAutomationRequest(
-        int workflowId,
-        int triggerId,
+        int id,
         AutomationDto automationDto
     ) : IRequest<AutomationDto> { }
 
@@ -29,7 +28,7 @@ namespace SOC.Conductor.Handlers
         {
             var automation = (
                 await _unitOfWork.Automations.GetByCondition(
-                    x => x.WorkflowId == request.workflowId && x.TriggerId == request.triggerId,
+                    x => x.WorkflowId == request.id,
                     cancellationToken
                 )
             ).FirstOrDefault();
@@ -52,6 +51,7 @@ namespace SOC.Conductor.Handlers
 
                 return new AutomationDto()
                 {
+                    Id = result.Id,
                     WorkflowId = automation.WorkflowId,
                     TriggerId = automation.TriggerId,
                     Name = result.Name,

@@ -24,11 +24,11 @@ namespace SOC.Conductor.Migrations
 
             modelBuilder.Entity("SOC.Conductor.Entities.Automation", b =>
                 {
-                    b.Property<int>("WorkflowId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    b.Property<int>("TriggerId")
-                        .HasColumnType("integer");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("InputParameters")
                         .HasColumnType("jsonb");
@@ -37,9 +37,17 @@ namespace SOC.Conductor.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("WorkflowId", "TriggerId");
+                    b.Property<int>("TriggerId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("WorkflowId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("TriggerId");
+
+                    b.HasIndex("WorkflowId");
 
                     b.ToTable("Automations");
                 });
@@ -125,7 +133,7 @@ namespace SOC.Conductor.Migrations
                     b.Property<int>("Period")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime>("Start")
+                    b.Property<DateTimeOffset>("Start")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Unit")
@@ -136,17 +144,21 @@ namespace SOC.Conductor.Migrations
 
             modelBuilder.Entity("SOC.Conductor.Entities.Automation", b =>
                 {
-                    b.HasOne("SOC.Conductor.Entities.Trigger", null)
+                    b.HasOne("SOC.Conductor.Entities.Trigger", "Trigger")
                         .WithMany()
                         .HasForeignKey("TriggerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SOC.Conductor.Entities.Workflow", null)
+                    b.HasOne("SOC.Conductor.Entities.Workflow", "Workflow")
                         .WithMany()
                         .HasForeignKey("WorkflowId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Trigger");
+
+                    b.Navigation("Workflow");
                 });
 
             modelBuilder.Entity("SOC.Conductor.Entities.IoTTrigger", b =>

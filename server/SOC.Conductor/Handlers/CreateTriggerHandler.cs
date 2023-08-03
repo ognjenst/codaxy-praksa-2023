@@ -28,7 +28,7 @@ namespace SOC.Conductor.Handlers
                 {
                     Name = request.commonTriggerDto.Name,
                     Period = request.commonTriggerDto.Period.GetValueOrDefault(),
-                    Start = request.commonTriggerDto.Start.GetValueOrDefault(),
+                    Start = request.commonTriggerDto.Start.Value.UtcDateTime,
                     Unit = request.commonTriggerDto.Unit.GetValueOrDefault(),
                 };
 

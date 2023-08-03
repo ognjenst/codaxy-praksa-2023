@@ -53,5 +53,21 @@ namespace SOC.IoT.ApiGateway.Controllers
 
             return NotFound();
         }
+
+        /// <summary>
+        /// Deletes a trigger.
+        /// </summary>
+        /// <param name="triggerId"></param>
+        /// <returns></returns>
+        [HttpDelete("{type}/{triggerId}", Name = "DeleteTrigger")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+        [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
+        public async Task<IActionResult> DeleteTriggerAsync([FromRoute] string type, int triggerId)
+        {
+            await _triggersClient.DeleteTriggerAsync(type, triggerId);
+
+            return NoContent();
+        }
     }
 }

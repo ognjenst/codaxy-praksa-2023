@@ -28,17 +28,6 @@ const gridColumns = [
         ),
     },
     {
-        header: "State",
-        field: "$record.state.state",
-        align: "center",
-        defaultWidth: 60,
-        items: (
-            <cx>
-                <span text={computable("$record.state", (state) => (state ? (state.state ? "On" : "Off") : ""))} />
-            </cx>
-        ),
-    },
-    {
         header: "Device name",
         field: "$record.name",
         items: (
@@ -53,17 +42,31 @@ const gridColumns = [
         ),
     },
     {
-        header: "Actions",
-        defaultWidth: 80,
+        header: "State",
+        field: "$record.state.state",
         align: "center",
+        defaultWidth: 150,
         items: (
             <cx>
-                <Button icon="cog" mod="hollow" />
+                <span
+                    className="text-slate-500"
+                    text={computable("$record", (record) => {
+                        if (record.state) {
+                            if (record.state.state) return "ON";
+                            else return "OFF";
+                        } else if (record.temperature) {
+                            return record.temperature.value + " ˚C / " + record.humidity.value + " %";
+                        } else if (record.contact) {
+                            if (!record.contact.value) return "CLOSED";
+                            else return "OPEN";
+                        }
+                    })}
+                />
             </cx>
         ),
     },
 ] as GridColumnConfig[];
-export default (
+export default () => (
     <cx>
         <div controller={Controller}>
             <Section
@@ -76,7 +79,7 @@ export default (
                                 alignItems: "center",
                             }}
                         >
-                            <h3>Devices</h3>
+                            <h3 className="text-slate-600">Devices</h3>
                             <Button
                                 mod={ButtonMod.Primary}
                                 icon={expr($page.status.request, (status) => (status === Status.Loading ? Icons.Loading : Icons.Refresh))}
