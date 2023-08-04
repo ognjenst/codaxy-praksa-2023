@@ -13,7 +13,6 @@ module.exports = merge(common({ rootCssLoader: MiniCssExtractPlugin.loader }), {
 
     output: {
         path: path.resolve(__dirname, "../../../server/SOC.IoT.ApiGateway/wwwroot/dist"),
-        publicPath: "../../../server/SOC.IoT.ApiGateway/wwwroot/dist",
         filename: "[name].ltc.[contenthash].js",
         chunkFilename: "[name].ltc.[contenthash].js",
         hashDigestLength: 6,
