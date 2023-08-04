@@ -14,7 +14,7 @@ export default class extends Controller {
 
         try {
             let response = await POST("/user/login", user);
-            this.store.set("authUser", user);
+
             window.localStorage.setItem("auth", response.jwt);
             History.pushState({}, null, "/devices");
         } catch (e) {

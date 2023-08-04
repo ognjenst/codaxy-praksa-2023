@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
-using SOC.Conductor.Generated;
-using Microsoft.AspNetCore.Authorization;
 
 namespace SOC.IoT.ApiGateway.Controllers
 {
@@ -16,25 +15,25 @@ namespace SOC.IoT.ApiGateway.Controllers
             _automationClient = automationClient;
         }
 
-		/// <summary>
-		/// Create automation entity
-		/// </summary>
-		/// <param name="automationDto"></param>
-		/// <returns></returns>
-		[Authorize(policy: "Create-Automation")]
-		[HttpPost(Name = "CreateAutomationAsync")]
-		[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AutomationDto))]
-		[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-		[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
-		[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-		public async Task<IActionResult> CreateAutomationAsync(AutomationDto automationDto)
-		{
-			var automation = await _automationClient.CreateAutomationAsync(automationDto);
+        /// <summary>
+        /// Create automation entity
+        /// </summary>
+        /// <param name="automationDto"></param>
+        /// <returns></returns>
+        //[Authorize(policy: "Create-Automation")]
+        [HttpPost(Name = "CreateAutomationAsync")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AutomationDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+        public async Task<IActionResult> CreateAutomationAsync(AutomationDto automationDto)
+        {
+            var automation = await _automationClient.CreateAutomationAsync(automationDto);
 
-			await Task.Delay(1000);
+            await Task.Delay(1000);
 
-			return Ok(automation);
-		}
+            return Ok(automation);
+        }
 
         /// <summary>
         /// Returns all automations.
@@ -69,6 +68,5 @@ namespace SOC.IoT.ApiGateway.Controllers
 
             return NoContent();
         }
-
     }
 }

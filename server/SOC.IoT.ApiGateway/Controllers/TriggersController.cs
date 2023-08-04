@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
-using SOC.Conductor.Generated;
-
 
 namespace SOC.IoT.ApiGateway.Controllers
 {
@@ -21,9 +19,9 @@ namespace SOC.IoT.ApiGateway.Controllers
         /// Returns all triggers.
         /// </summary>
         /// <returns></returns>
-        [Authorize(policy: "Read-Trigger")]
-        [HttpGet(Name = "GetAllTriggersAsync")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IList<CommonTriggerDto>))]
+        //[Authorize(policy: "Read-Trigger")]
+        [HttpGet("{type}",Name = "GetAllTriggersAsync")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<CommonTriggerDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
         public async Task<IActionResult> GetAllTriggersAsync([FromRoute] string type)
@@ -39,12 +37,16 @@ namespace SOC.IoT.ApiGateway.Controllers
         /// <param name="type"></param>
         /// <param name="commonTriggerDto"></param>
         /// <returns></returns>
+        //[Authorize(policy: "Create-Trigger")]
         [HttpPost("{type}", Name = "CreateTrigger")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CommonTriggerDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-        public async Task<IActionResult> CreateTriggerAsync([FromRoute] string type, [FromBody] CommonTriggerDto commonTriggerDto)
+        public async Task<IActionResult> CreateTriggerAsync(
+            [FromRoute] string type,
+            [FromBody] CommonTriggerDto commonTriggerDto
+        )
         {
             var result = await _triggersClient.CreateTriggerAsync(type, commonTriggerDto);
 
@@ -68,6 +70,6 @@ namespace SOC.IoT.ApiGateway.Controllers
             await _triggersClient.DeleteTriggerAsync(type, triggerId);
 
             return NoContent();
-        }
+        }  
     }
 }

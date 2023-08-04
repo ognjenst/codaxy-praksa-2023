@@ -21,8 +21,11 @@ namespace SOC.Conductor.Controllers
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        [HttpGet("{type}" ,Name = "GetAllTriggers")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<CommonTriggerDto>))]
+        [HttpGet("{type}", Name = "GetAllTriggers")]
+        [ProducesResponseType(
+            StatusCodes.Status200OK,
+            Type = typeof(IEnumerable<CommonTriggerDto>)
+        )]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
         public async Task<IActionResult> GetAllTriggersAsync([FromRoute] string type)
@@ -34,7 +37,7 @@ namespace SOC.Conductor.Controllers
 
             return NotFound();
         }
-        
+
         // TODO: Send TriggerNotification
 
         /// <summary>
@@ -43,16 +46,14 @@ namespace SOC.Conductor.Controllers
         /// <param name="triggerId"></param>
         /// <returns></returns>
         [HttpDelete("{type}/{triggerId}", Name = "DeleteTrigger")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+        [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(void))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-        [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
-        public async Task<IActionResult> DeleteTriggerAsync([FromRoute] string type , int triggerId)
+        public async Task<IActionResult> DeleteTriggerAsync([FromRoute] string type, int triggerId)
         {
             await _mediator.Send(new DeleteTriggerRequest(type, triggerId));
-            
+
             return NoContent();
         }
-
 
         /// <summary>
         /// Creates a trigger.
@@ -65,7 +66,10 @@ namespace SOC.Conductor.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-        public async Task<IActionResult> CreateTriggerAsync([FromRoute] string type, [FromBody] CommonTriggerDto commonTriggerDto)
+        public async Task<IActionResult> CreateTriggerAsync(
+            [FromRoute] string type,
+            [FromBody] CommonTriggerDto commonTriggerDto
+        )
         {
             var result = await _mediator.Send(new CreateTriggerRequest(type, commonTriggerDto));
 
@@ -74,7 +78,6 @@ namespace SOC.Conductor.Controllers
 
             return NotFound();
         }
-
 
         /// <summary>
         /// Updates a trigger.
@@ -87,10 +90,16 @@ namespace SOC.Conductor.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-        public async Task<IActionResult> UpdateTriggerAsync([FromRoute] string type, [FromRoute] int triggerId, [FromBody] CommonTriggerDto commonTriggerDto)
+        public async Task<IActionResult> UpdateTriggerAsync(
+            [FromRoute] string type,
+            [FromRoute] int triggerId,
+            [FromBody] CommonTriggerDto commonTriggerDto
+        )
         {
             commonTriggerDto.Id = triggerId;
-            var result = await _mediator.Send(new UpdateTriggerRequest(type, triggerId, commonTriggerDto));
+            var result = await _mediator.Send(
+                new UpdateTriggerRequest(type, triggerId, commonTriggerDto)
+            );
             if (result is not null)
                 return Ok(result);
 

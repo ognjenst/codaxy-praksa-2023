@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SOC.Conductor.Client.Generated;
-using SOC.Conductor.Generated;
-using System.Net;
 
 namespace SOC.IoT.ApiGateway.Controllers;
 
@@ -35,6 +32,21 @@ public class WorkflowsController : ControllerBase
     }
 
     /// <summary>
+    /// Gets all workflows from a database.
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("db", Name = "GetAllWorkflowsFromDb")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<WorkflowDto>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
+    public async Task<IActionResult> GetAllWorkflowsFromDBAsync()
+    {
+        var data = await _workflowsClient.GetAllWorkflowsFromDBAsync();
+
+        return Ok(data);
+    }
+
+    /// <summary>
     /// Returns all registered workflows from conductor.
     /// </summary>
     /// <returns></returns>
@@ -57,15 +69,15 @@ public class WorkflowsController : ControllerBase
     /// <returns></returns>
     [Authorize(policy: "Update-Workflow")]
     [HttpPost("PlayWorkflow", Name = "PlayWorkflow")]
-	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
-	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-	[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
-	[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-	public async Task<IActionResult> PlayWorkflowAsync([FromBody] PlayRequestDto playDto)
-	{
-		await _workflowsClient.PlayWorkflowAsync(playDto);
-		return StatusCode(201);
-	}
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+    public async Task<IActionResult> PlayWorkflowAsync([FromBody] PlayRequestDto playDto)
+    {
+        await _workflowsClient.PlayWorkflowAsync(playDto);
+        return StatusCode(201);
+    }
 
     /// <summary>
     /// Deletes a workflow.
@@ -75,10 +87,12 @@ public class WorkflowsController : ControllerBase
     /// <returns></returns>
     [Authorize(policy: "Delete-Workflow")]
     [HttpDelete("{workflowName}/{workflowVersion}", Name = "DeleteWorkflow")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-    [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
-    public async Task<IActionResult> DeleteWorkflowAsync([FromRoute] string workflowName, [FromRoute] int workflowVersion = 1)
+    public async Task<IActionResult> DeleteWorkflowAsync(
+        [FromRoute] string workflowName,
+        [FromRoute] int workflowVersion = 1
+    )
     {
         await _workflowsClient.DeleteWorkflowAsync(workflowName, workflowVersion);
 
@@ -95,32 +109,34 @@ public class WorkflowsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
-    public async Task<IActionResult> CreateWorkflowAsync([FromBody] CreateWorkflowDto createWorkflowDto)
+    public async Task<IActionResult> CreateWorkflowAsync(
+        [FromBody] CreateWorkflowDto createWorkflowDto
+    )
     {
         var result = await _workflowsClient.CreateWorkflowAsync(createWorkflowDto);
 
-        return StatusCode(201); ;
+        return StatusCode(201);
+        ;
     }
 
+    ///// <summary>
+    ///// Updates a workflow.
+    ///// </summary>
+    ///// <param name="workflowDto"></param>
+    ///// <returns></returns>
+    //[Authorize(policy: "Update-Workflow")]
+    //[HttpPut(Name = "UpdateWorkflow")]
+    //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkflowDto))]
+    //[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    //[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+    //[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+    //public async Task<IActionResult> UpdateWorkflowAsync([FromBody] CreateWorkflowDto workflowDto)
+    //{
+    //    var result = await _workflowsClient.UpdateWorkflowAsync(workflowDto);
 
-    /// <summary>
-    /// Updates a workflow.
-    /// </summary>
-    /// <param name="workflowDto"></param>
-    /// <returns></returns>
-    [Authorize(policy: "Update-Workflow")]
-    [HttpPut(Name = "UpdateWorkflow")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WorkflowDto))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-    [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-    public async Task<IActionResult> UpdateWorkflowAsync([FromBody] CreateWorkflowDto workflowDto)
-    {
-        var result = await _workflowsClient.UpdateWorkflowAsync(workflowDto);
+    //    if (result is not null)
+    //        return Ok(result);
 
-        if (result is not null)
-            return Ok(result);
-
-        return NotFound();
-    }
+    //    return NotFound();
+    //}
 }

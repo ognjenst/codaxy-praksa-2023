@@ -17,8 +17,8 @@ export default class extends Controller {
         try {
             let workflows = await GET("/workflows/db");
             this.store.set("$page.workflows", workflows);
-            let workflowsConductor = await GET("/workflows");
-            this.store.set("$page.workflowsConductor", workflowsConductor);
+            // let workflowsConductor = await GET("/workflows");
+            // this.store.set("$page.workflowsConductor", workflowsConductor);
         } catch (err) {
             console.log(err);
         }
@@ -37,7 +37,11 @@ export default class extends Controller {
     async addAutomation() {
         let automation = this.store.get("$page.automation");
         const type = this.store.get("$page.automation.triggerType");
-        automation = {...automation, triggerId: type == 1 ? this.store.get("$page.automation.iotId") : this.store.get("$page.automation.periodicId"), inputParameters: JSON.stringify(automation.inputParameters)}
+        automation = {
+            ...automation,
+            triggerId: type == 1 ? this.store.get("$page.automation.iotId") : this.store.get("$page.automation.periodicId"),
+            inputParameters: JSON.stringify(automation.inputParameters),
+        };
         try {
             await POST("/automation", automation);
             this.loadAutomations();
@@ -65,12 +69,12 @@ export default class extends Controller {
         if (!workflows) return;
         const workflowDb = workflows.find((w) => w.id == workflowId);
         if (!workflowDb) return;
-        const { name, version } = workflowDb;
-        const workflowsConductor = this.store.get("$page.workflowsConductor");
-        if (!workflowsConductor) return;
-        const workflow = workflowsConductor.find((w) => w.name == name && w.version == version);
-        if (!workflow) return;
-        const inputParams = workflow.inputParameters;
+        // const { name, version } = workflowDb;
+        // const workflowsConductor = this.store.get("$page.workflowsConductor");
+        // if (!workflowsConductor) return;
+        // const workflow = workflowsConductor.find((w) => w.name == name && w.version == version);
+        // if (!workflow) return;
+        const inputParams = workflowDb.inputParameters;
         const params = new Map();
         inputParams.forEach((param) => params.set(param, null));
         this.store.set("$page.automation.inputParameters", Object.fromEntries(params));
@@ -81,5 +85,4 @@ export default class extends Controller {
         await DELETE(`/automation/${id}`);
         this.loadAutomations();
     }
-   
 }
