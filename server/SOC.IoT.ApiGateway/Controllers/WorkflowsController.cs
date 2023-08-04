@@ -87,9 +87,8 @@ public class WorkflowsController : ControllerBase
     /// <returns></returns>
     [Authorize(policy: "Delete-Workflow")]
     [HttpDelete("{workflowName}/{workflowVersion}", Name = "DeleteWorkflow")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-    [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
     public async Task<IActionResult> DeleteWorkflowAsync(
         [FromRoute] string workflowName,
         [FromRoute] int workflowVersion = 1

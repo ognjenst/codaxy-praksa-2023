@@ -44,8 +44,11 @@ public class WorkflowsController : ControllerBase
     /// <returns></returns>
     [HttpDelete("{workflowName}/{workflowVersion}", Name = "DeleteWorkflow")]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-    [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
-    public async Task<IActionResult> DeleteWorkflowAsync([FromRoute] string workflowName, [FromRoute] int workflowVersion = 1)
+    [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(void))]
+    public async Task<IActionResult> DeleteWorkflowAsync(
+        [FromRoute] string workflowName,
+        [FromRoute] int workflowVersion = 1
+    )
     {
         await _mediator.Send(new DeleteWorkflowRequest(workflowName, workflowVersion));
 
@@ -62,7 +65,9 @@ public class WorkflowsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-    public async Task<IActionResult> CreateWorkflowAsync([FromBody] CreateWorkflowDto createWorkflowDto)
+    public async Task<IActionResult> CreateWorkflowAsync(
+        [FromBody] CreateWorkflowDto createWorkflowDto
+    )
     {
         var result = await _mediator.Send(new CreateWorkflowRequest(createWorkflowDto));
 
@@ -71,7 +76,6 @@ public class WorkflowsController : ControllerBase
 
         return NoContent();
     }
-
 
     /// <summary>
     /// Updates a workflow.
@@ -83,96 +87,102 @@ public class WorkflowsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-    public async Task<IActionResult> UpdateWorkflowAsync([FromRoute] int workflowId, [FromBody] CreateWorkflowDto workflowDto)
+    public async Task<IActionResult> UpdateWorkflowAsync(
+        [FromRoute] int workflowId,
+        [FromBody] CreateWorkflowDto workflowDto
+    )
     {
         var result = await _mediator.Send(new UpdateWorkflowRequest(workflowDto));
-        
+
         if (result is not null)
             return Ok(result);
 
         return NotFound();
     }
 
-	/// <summary>
-	/// Get all tasks 
-	/// </summary>
-	/// <param name=""></param>
-	/// <returns></returns>
-	[HttpGet("GetAllTasks", Name = "GetAllTasks")]
-	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<TaskResponseDto>))]
-	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-	[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
-	[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-	public async Task<IActionResult> GetAllTasksAsync()
-	{
-		var response = await _mediator.Send(new GetAllTasks());
-		if (response == null) return NotFound();
-		return Ok(response);
-	}
-
-	/// <summary>
-	/// Get all workflows
-	/// </summary>
-	/// <param name=""></param>
-	/// <returns></returns>
-	[HttpGet("GetAllWorkflows", Name = "GetAllWorkflows")]
-	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<WorkflowResponseDto>))]
-	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-	[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
-	[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-	public async Task<IActionResult> GetAllWorkflows()
-	{
-		var response = await _mediator.Send(new GetAllWorkflows());
-		if (response == null) return NotFound();
-		return Ok(response);
-	}
+    /// <summary>
+    /// Get all tasks
+    /// </summary>
+    /// <param name=""></param>
+    /// <returns></returns>
+    [HttpGet("GetAllTasks", Name = "GetAllTasks")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<TaskResponseDto>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+    public async Task<IActionResult> GetAllTasksAsync()
+    {
+        var response = await _mediator.Send(new GetAllTasks());
+        if (response == null)
+            return NotFound();
+        return Ok(response);
+    }
 
     /// <summary>
-	/// Pauses workflow
-	/// </summary>
-	/// <param name="pauseDto"></param>
-	/// <returns></returns>
+    /// Get all workflows
+    /// </summary>
+    /// <param name=""></param>
+    /// <returns></returns>
+    [HttpGet("GetAllWorkflows", Name = "GetAllWorkflows")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<WorkflowResponseDto>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+    public async Task<IActionResult> GetAllWorkflows()
+    {
+        var response = await _mediator.Send(new GetAllWorkflows());
+        if (response == null)
+            return NotFound();
+        return Ok(response);
+    }
+
+    /// <summary>
+    /// Pauses workflow
+    /// </summary>
+    /// <param name="pauseDto"></param>
+    /// <returns></returns>
     [HttpPut("PauseWorkflowAsync")]
     [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-	public async Task<IActionResult> PauseWorkflowAsync([FromBody] PauseWorkflowRequestDto pauseDto)
-	{
-		await _mediator.Send(new PauseWorkflow(pauseDto));
+    public async Task<IActionResult> PauseWorkflowAsync([FromBody] PauseWorkflowRequestDto pauseDto)
+    {
+        await _mediator.Send(new PauseWorkflow(pauseDto));
 
-		return NoContent();
-	}
-
+        return NoContent();
+    }
 
     /// <summary>
-	/// Resumes workflow
-	/// </summary>
-	/// <param name="resumeDto"></param>
-	/// <returns></returns>
+    /// Resumes workflow
+    /// </summary>
+    /// <param name="resumeDto"></param>
+    /// <returns></returns>
     [HttpPut("ResumeWorkflow")]
     [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(void))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-	public async Task<IActionResult> ResumeWorkflowAsync([FromBody] ResumeWorkflowRequestDto resumeDto)
-	{
-		await _mediator.Send(new ResumeWorkflow(resumeDto));
+    public async Task<IActionResult> ResumeWorkflowAsync(
+        [FromBody] ResumeWorkflowRequestDto resumeDto
+    )
+    {
+        await _mediator.Send(new ResumeWorkflow(resumeDto));
 
-		return NoContent();
-	}
+        return NoContent();
+    }
 
-	/// <summary>
-	/// Play workflow
-	/// </summary>
-	/// <param name="playDto"></param>
-	/// <returns></returns>
-	[HttpPost("PlayWorkflow", Name = "PlayWorkflow")]
-	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
-	[ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-	[ProducesResponseType(StatusCodes.Status201Created, Type = null)]
-	[ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-	public async Task<IActionResult> PlayWorkflowAsync([FromBody] PlayRequestDto playDto)
-	{
-		await _mediator.Send(new PlayWorkflow(playDto));
-		return Ok();
-	}
+    /// <summary>
+    /// Play workflow
+    /// </summary>
+    /// <param name="playDto"></param>
+    /// <returns></returns>
+    [HttpPost("PlayWorkflow", Name = "PlayWorkflow")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
+    public async Task<IActionResult> PlayWorkflowAsync([FromBody] PlayRequestDto playDto)
+    {
+        await _mediator.Send(new PlayWorkflow(playDto));
+        return Ok();
+    }
 }
