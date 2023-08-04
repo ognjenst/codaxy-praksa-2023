@@ -26,7 +26,7 @@ namespace SOC.Conductor.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
         public async Task<IActionResult> GetAllAutomationsAsync()
         {
-            var result = await _mediator.Send(new GetAllAutomationsRequest()); 
+            var result = await _mediator.Send(new GetAllAutomationsRequest());
 
             if (result is not null)
                 return Ok(result);
@@ -34,23 +34,20 @@ namespace SOC.Conductor.Controllers
             return NotFound();
         }
 
-
         /// <summary>
         /// Deletes an automation.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}", Name = "DeleteAutomation")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+        [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(void))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
-        [ProducesResponseType(StatusCodes.Status204NoContent, Type = null)]
         public async Task<IActionResult> DeleteAutomationAsync([FromRoute] int id)
         {
-            await _mediator.Send(new DeleteAutomationRequest(id)); 
-            
+            await _mediator.Send(new DeleteAutomationRequest(id));
+
             return NoContent();
         }
-
 
         /// <summary>
         /// Insert a new automation into database.
@@ -62,7 +59,9 @@ namespace SOC.Conductor.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status201Created, Type = null)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-        public async Task<IActionResult> CreateAutomationAsync([FromBody] AutomationDto automationDto)
+        public async Task<IActionResult> CreateAutomationAsync(
+            [FromBody] AutomationDto automationDto
+        )
         {
             var result = await _mediator.Send(new CreateAutomationRequest(automationDto));
 
@@ -71,7 +70,6 @@ namespace SOC.Conductor.Controllers
 
             return NotFound();
         }
-
 
         /// <summary>
         /// Updates an automation.
@@ -83,15 +81,17 @@ namespace SOC.Conductor.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AutomationDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = null)]
-
-        public async Task<IActionResult> UpdateAutomationAsync([FromRoute] int id, [FromBody] AutomationDto automationDto)
+        public async Task<IActionResult> UpdateAutomationAsync(
+            [FromRoute] int id,
+            [FromBody] AutomationDto automationDto
+        )
         {
             automationDto.Id = id;
             var result = await _mediator.Send(new UpdateAutomationRequest(id, automationDto));
-            if (result is not null) 
+            if (result is not null)
                 return Ok(result);
 
             return NotFound();
-        }      
+        }
     }
 }

@@ -1,4 +1,4 @@
-import { ContentResolver, FirstVisibleChildLayout, PureContainer } from "cx/ui";
+import { ContentResolver, FirstVisibleChildLayout, PureContainer, computable } from "cx/ui";
 import { DocumentTitle, RedirectRoute, Route } from "cx/widgets";
 import { SandboxedRoute } from "../components/SandboxedRoute";
 import { CheckerLayout } from "../layout/CheckerLayout";
@@ -16,8 +16,16 @@ export default () => (
         <FirstVisibleChildLayout>
             <RedirectRoute route="~/" redirect="~/login" url-bind="url" />
 
-            <Login visible-expr="!{authUser} && {login}" />
-            <Registration visible-expr="!{authUser} && !{login}" />
+            <Login
+                visible={(store) => {
+                    return !localStorage.getItem("auth") && store.login;
+                }}
+            />
+            <Registration
+                visible={(store) => {
+                    return !localStorage.getItem("auth") && !store.login;
+                }}
+            />
 
             <CheckerLayout>
                 <SandboxedRoute route="~/dashboard">

@@ -1,5 +1,4 @@
-import { LabelsLeftLayout } from "cx/ui";
-import { TextField, Window } from "cx/widgets";
+import { Window } from "cx/widgets";
 import { CodeMirror } from "../../components/CodeMirror";
 
 export const openInputParametersWindow = (info) => {

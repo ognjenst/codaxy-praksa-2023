@@ -41,10 +41,10 @@ COPY server/SOC.IoT.Domain ./SOC.IoT.Domain
 COPY --from=node-build /usr/src/soc/server/SOC.IoT.ApiGateway/wwwroot /src/SOC.IoT.ApiGateway/wwwroot
 
 WORKDIR "/src/SOC.IoT.ApiGateway"
-RUN dotnet build "SOC.IoT.ApiGateway.csproj" -c Release -o /app/build
+RUN dotnet build "SOC.IoT.ApiGateway.csproj" -c Debug -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "SOC.IoT.ApiGateway.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "SOC.IoT.ApiGateway.csproj" -c Debug -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
