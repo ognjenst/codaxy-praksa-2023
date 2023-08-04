@@ -22,8 +22,18 @@ internal class SshClientService : ISshClientService, IDisposable
 
     public void Dispose()
     {
-        _client.Disconnect();
-        _client.Dispose();
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _client.Disconnect();
+            _client.Dispose();
+        }
     }
 
     public SshCommand ExecuteCommand(string command)
