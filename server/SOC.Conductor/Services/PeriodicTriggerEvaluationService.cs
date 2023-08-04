@@ -17,9 +17,9 @@ using Task = System.Threading.Tasks.Task;
 public class PeriodicTriggerEvaluationService : BackgroundService, INotificationHandler<TriggerNotification>
 {
     private readonly ILogger<PeriodicTriggerEvaluationService> _logger;
-    private readonly Dictionary<int, Timer> _triggerEvaluators = new();
-    private readonly IServiceProvider _services;
-    public PeriodicTriggerEvaluationService(IServiceProvider services, ILogger<PeriodicTriggerEvaluationService> logger)
+    private static readonly Dictionary<int, Timer> _triggerEvaluators = new();
+    private readonly IServiceScopeFactory _services;
+    public PeriodicTriggerEvaluationService(IServiceScopeFactory services, ILogger<PeriodicTriggerEvaluationService> logger)
     {
         _services = services;
         _logger = logger;
@@ -30,14 +30,14 @@ public class PeriodicTriggerEvaluationService : BackgroundService, INotification
         if (notification.Trigger is not PeriodicTrigger) return Task.CompletedTask;
         var task = notification.Trigger as PeriodicTrigger;
 
-        if (notification.Action == TriggerNotificationAction.DELETE)
+        if (notification.Action == TriggerNotificationAction.DELETE && _triggerEvaluators.ContainsKey(task.Id))
         {
              _triggerEvaluators[task.Id].Change(Timeout.Infinite, Timeout.Infinite);
             _triggerEvaluators.Remove(task.Id);
         }
-        else if (notification.Action == TriggerNotificationAction.CREATE)
+        else if (notification.Action == TriggerNotificationAction.CREATE && !_triggerEvaluators.ContainsKey(task.Id))
             _triggerEvaluators.Add(task.Id, Evaluate(task));
-        else
+        else if (notification.Action == TriggerNotificationAction.UPDATE && _triggerEvaluators.ContainsKey(task.Id))
         {
             var (delay, minutes) = GetTimerParameters(task);
             _triggerEvaluators[task.Id].Change(delay, minutes);
