@@ -8,18 +8,12 @@ using ConductorSharp.Engine.Health;
 using MediatR.Extensions.Autofac.DependencyInjection;
 using SOC.Ticketing.Extensions;
 using SOC.Ticketing.Handler;
-using Microsoft.Extensions.DependencyInjection;
-using SOC.Ticketing.Services;
-using SOC.Ticketing.Generated;
-using MediatR;
-using System.ComponentModel.Design;
 
 var builder = Host.CreateDefaultBuilder()
     .ConfigureAppConfiguration(
         (hosting, config) =>
         {
             config.AddJsonFile("appsettings.Development.json", true);
-            config.AddJsonFile("appsettings.json", true);
         }
     )
     .UseServiceProviderFactory(new AutofacServiceProviderFactory())
@@ -28,8 +22,8 @@ var builder = Host.CreateDefaultBuilder()
         {
             services.RegisterServices(context.Configuration);
         }
-    ).
-    ConfigureContainer<ContainerBuilder>(
+    )
+    .ConfigureContainer<ContainerBuilder>(
         (context, builder) =>
         {
             builder

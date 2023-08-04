@@ -1,9 +1,34 @@
 ﻿using ConductorSharp.Engine.Interface;
 using ConductorSharp.Engine.Model;
 using ConductorSharp.Engine.Util;
+using MediatR;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using SOC.IoT.Options;
 using SOC.IoT.Services;
 
 namespace SOC.IoT.Handler;
+
+public class DetectionRequest : IRequest<NoOutput>
+{
+    [JsonProperty("deviceId")]
+    public string DeviceId { get; set; }
+
+    [JsonProperty("x")]
+    public double X { get; set; }
+
+    [JsonProperty("y")]
+    public double Y { get; set; }
+
+    [JsonProperty("startHour")]
+    public int StartHour { get; set; }
+
+    [JsonProperty("endHour")]
+    public int EndHour { get; set; }
+
+    [JsonProperty("maxNumberOfRepetitions")]
+    public int MaxNumberOfRepetitions { get; set; }
+}
 
 [OriginalName("IoT_light_bulb_out_of_working_time")]
 public class CheckTimeHandler : ITaskRequestHandler<DetectionRequest, NoOutput>
