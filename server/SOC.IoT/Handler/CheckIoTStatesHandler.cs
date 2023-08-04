@@ -18,8 +18,8 @@ namespace SOC.IoT.Handler;
 
 public class CheckIoTStatesRequest : IRequest<CheckIoTStatesResponse>
 {
-    [JsonProperty("percentageOfLoss")]
-    public int PercentageOfLoss { get; set; }
+    [JsonProperty("isAvailable")]
+    public bool IsAvailable { get; set; }
 }
 
 public class CheckIoTStatesResponse
@@ -53,7 +53,7 @@ public class CheckIoTStatesHandler : ITaskRequestHandler<CheckIoTStatesRequest, 
     }
     public async Task<CheckIoTStatesResponse> Handle(CheckIoTStatesRequest request, CancellationToken cancellationToken)
     {
-        if(request.PercentageOfLoss >= 50) {
+        if(!request.IsAvailable) {
             return new CheckIoTStatesResponse()
             {
                 Message = "IoT server is not available!",
