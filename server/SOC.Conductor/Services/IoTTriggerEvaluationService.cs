@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Newtonsoft.Json.Linq;
 using SOC.Conductor.Contracts;
 using SOC.Conductor.Entities;
 using SOC.Conductor.Entities.Enums;
 using SOC.Conductor.Generated;
+using SOC.Conductor.Repositories;
 using SOC.IoT.Base.Interfaces;
 using SOC.IoT.Domain.Entity;
 using SOC.IoT.Domain.Enum;
@@ -17,7 +19,11 @@ public class IoTTriggerEvaluationService : BackgroundService
     private readonly IServiceScopeFactory _serviceScopeFactory;
     private readonly ILogger<IoTTriggerEvaluationService> _logger;
     private readonly Dictionary<string, Guid> _listeners = new();
-    private List<string> deviceIds = new List<string>() { "0x00124b0022d2d320", "0x00124b00226969ac" };
+    private List<string> deviceIds = new List<string>()
+    {
+        "0x00124b0022d2d320",
+        "0x00124b00226969ac"
+    };
 
     public IoTTriggerEvaluationService(
         IServiceScopeFactory serviceScopeFactory,
@@ -40,7 +46,7 @@ public class IoTTriggerEvaluationService : BackgroundService
 
         while (!cancellationToken.IsCancellationRequested)
         {
-            await Task.Delay(500, cancellationToken);
+            await Task.Delay(600, cancellationToken);
         }
     }
 
@@ -63,8 +69,13 @@ public class IoTTriggerEvaluationService : BackgroundService
     private async Task ProcessDeviceUpdate(Device device)
     {
         _logger.LogInformation("Device {@Device}", device);
-        if (device.Capabilities.Contains(DeviceCapability.Temperature) && device?.Temperature is null) return;
-        if (device.Capabilities.Contains(DeviceCapability.Contact) && device?.Contact is null) return;
+        if (
+            device.Capabilities.Contains(DeviceCapability.Temperature)
+            && device?.Temperature is null
+        )
+            return;
+        if (device.Capabilities.Contains(DeviceCapability.Contact) && device?.Contact is null)
+            return;
 
         using (var scope = _serviceScopeFactory.CreateScope())
         {
@@ -74,25 +85,80 @@ public class IoTTriggerEvaluationService : BackgroundService
             foreach (var iotTrigger in iotTriggers.Where(e => e.DeviceId.Equals(device.Id)))
             {
                 string actualValue = GetDeviceValue(device, iotTrigger.Property);
+                var workflows = await unitOfWork.IoTTriggers.GetWorkflowsByTriggerIdAsync(
+                    iotTrigger.Id
+                );
                 if (string.IsNullOrEmpty(actualValue))
                     continue;
                 if (EvaluateIoTTrigger(iotTrigger, actualValue))
                 {
-                    var workflows = await unitOfWork.IoTTriggers.GetWorkflowsByTriggerIdAsync(iotTrigger.Id);
                     foreach (var workflow in workflows)
                     {
-                        var automation = (await unitOfWork.Automations.GetByCondition((a) => a.WorkflowId == workflow.Id && a.TriggerId == iotTrigger.Id)).FirstOrDefault();
+                        var automation = (
+                            await unitOfWork.Automations.GetByCondition(
+                                (a) => a.WorkflowId == workflow.Id && a.TriggerId == iotTrigger.Id
+                            )
+                        ).FirstOrDefault();
                         if (automation != null)
                         {
-                            await ProcessWorkflow(workflow, UpdateWorkflowInputParameters(automation.InputParameters, device, iotTrigger));
+                            await ProcessWorkflow(
+                                workflow,
+                                UpdateWorkflowInputParameters(
+                                    automation.InputParameters,
+                                    device,
+                                    iotTrigger
+                                )
+                            );
                         }
                     }
+                }
+                else
+                {
+                    // only for workflow with switch task
+                    await ProcessWorkflowWithSwitchTask(unitOfWork, iotTrigger, device, workflows);
                 }
             }
         }
     }
 
-    private JObject UpdateWorkflowInputParameters(JObject inputParameters, Device device, IoTTrigger trigger)
+    private async Task ProcessWorkflowWithSwitchTask(
+        IUnitOfWork unitOfWork,
+        IoTTrigger iotTrigger,
+        Device device,
+        IList<Workflow> workflows
+    )
+    {
+        var workflow = workflows.FirstOrDefault();
+        if (workflow != null)
+        {
+            var automation = (
+                await unitOfWork.Automations.GetByCondition(
+                    (a) => a.WorkflowId == workflow.Id && a.TriggerId == iotTrigger.Id
+                )
+            ).FirstOrDefault();
+            if (automation != null)
+            {
+                var dataCentreState = automation.InputParameters["dataCentreState"];
+                if (dataCentreState != null)
+                {
+                    await ProcessWorkflow(
+                        workflow,
+                        UpdateWorkflowInputParameters(
+                            new JObject { { "dataCentreState", "normal" } },
+                            device,
+                            iotTrigger
+                        )
+                    );
+                }
+            }
+        }
+    }
+
+    private JObject UpdateWorkflowInputParameters(
+        JObject inputParameters,
+        Device device,
+        IoTTrigger trigger
+    )
     {
         var propertyInfo = typeof(Device).GetProperty(trigger.Property);
         if (propertyInfo != null)
@@ -101,17 +167,25 @@ public class IoTTriggerEvaluationService : BackgroundService
             string? actualValue;
             actualValue = trigger.Property switch
             {
-                nameof(DeviceProperty.Temperature) => ((DeviceTemperature)propertyValue).Value.ToString(),
+                nameof(DeviceProperty.Temperature)
+                    => ((DeviceTemperature)propertyValue).Value.ToString(),
                 nameof(DeviceProperty.Humidity) => ((DeviceHumidity)propertyValue).Value.ToString(),
                 nameof(DeviceProperty.Contact) => ((DeviceContact)propertyValue).Value.ToString(),
-                _ => throw new NotSupportedException($"Property '{trigger.Property}' is not supported.")
+                _
+                    => throw new NotSupportedException(
+                        $"Property '{trigger.Property}' is not supported."
+                    )
             };
 
-            string customMessage = $"Device {device.Id} has changed {trigger.Property}.\nActualValue: {actualValue} {trigger.Condition} TriggerValue: {trigger.Value}";
+            string customMessage =
+                $"Device {device.Id} has changed {trigger.Property}.\nActualValue: {actualValue} {trigger.Condition} TriggerValue: {trigger.Value}";
             JObject messageObject = new JObject { { "message", customMessage } };
 
             if (inputParameters is null)
-                throw new ArgumentNullException(nameof(inputParameters), "Input parameters are not set.");
+                throw new ArgumentNullException(
+                    nameof(inputParameters),
+                    "Input parameters are not set."
+                );
             else
             {
                 // Merge the messageObject with the inputParameters
@@ -133,9 +207,12 @@ public class IoTTriggerEvaluationService : BackgroundService
 
         actualValue = property switch
         {
-            nameof(DeviceProperty.Temperature) when device?.Temperature is not null => device.Temperature.Value.ToString(),
-            nameof(DeviceProperty.Humidity) when device?.Humidity is not null => device.Humidity.Value.ToString(),
-            nameof(DeviceProperty.Contact) when device?.Contact is not null => device.Contact.Value.ToString(),
+            nameof(DeviceProperty.Temperature) when device?.Temperature is not null
+                => device.Temperature.Value.ToString(),
+            nameof(DeviceProperty.Humidity) when device?.Humidity is not null
+                => device.Humidity.Value.ToString(),
+            nameof(DeviceProperty.Contact) when device?.Contact is not null
+                => device.Contact.Value.ToString(),
             _ => actualValue
         };
 
@@ -155,21 +232,28 @@ public class IoTTriggerEvaluationService : BackgroundService
         }
 
         // For non-numeric values, evaluation can be done only for EQuality
-        if (ioTTrigger.Condition.Equals(Entities.Enums.Operator.EQ))
+        if (ioTTrigger.Condition.Equals(Operator.EQ))
             return actualValue.Equals(ioTTrigger.Value, StringComparison.OrdinalIgnoreCase);
 
         // For numeric values
-        if (double.TryParse(actualValue, out double actualValueDouble) && double.TryParse(ioTTrigger.Value, out double iotTriggerValueDouble))
+        if (
+            double.TryParse(actualValue, out double actualValueDouble)
+            && double.TryParse(ioTTrigger.Value, out double iotTriggerValueDouble)
+        )
         {
             // Check if the actual property value matches the trigger value based on the specified condition
             return ioTTrigger.Condition switch
             {
-                Operator.EQ => actualValue.Equals(ioTTrigger.Value, StringComparison.OrdinalIgnoreCase),
+                Operator.EQ
+                    => actualValue.Equals(ioTTrigger.Value, StringComparison.OrdinalIgnoreCase),
                 Operator.GT => actualValueDouble > iotTriggerValueDouble,
                 Operator.LT => actualValueDouble < iotTriggerValueDouble,
                 Operator.GEQ => actualValueDouble >= iotTriggerValueDouble,
                 Operator.LEQ => actualValueDouble <= iotTriggerValueDouble,
-                _ => throw new NotSupportedException($"Condition '{ioTTrigger.Condition}' is not supported.")
+                _
+                    => throw new NotSupportedException(
+                        $"Condition '{ioTTrigger.Condition}' is not supported."
+                    )
             };
         }
         else
@@ -181,12 +265,9 @@ public class IoTTriggerEvaluationService : BackgroundService
         var body = GenerateBody(inputParameters);
         using (var scope = _serviceScopeFactory.CreateScope())
         {
-            IWorkflowResourceClient _workflowResourceClient = scope.ServiceProvider.GetRequiredService<IWorkflowResourceClient>();
-            await _workflowResourceClient.StartWorkflowAsync(
-                workflow.Name,
-                body,
-                VERSION_NUMBER
-            );
+            IWorkflowResourceClient _workflowResourceClient =
+                scope.ServiceProvider.GetRequiredService<IWorkflowResourceClient>();
+            await _workflowResourceClient.StartWorkflowAsync(workflow.Name, body, VERSION_NUMBER);
         }
     }
 

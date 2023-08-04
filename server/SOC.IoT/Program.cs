@@ -57,9 +57,11 @@ var builder = Host.CreateDefaultBuilder()
                 });
 
             builder.RegisterWorkerTask<DeviceHandler>();
-            builder.RegisterWorkerTask<DetectionHandler>();
+            builder.RegisterWorkerTask<LightBulbColorChangeHandler>();
             builder.RegisterWorkerTask<CheckTimeHandler>();
             builder.RegisterWorkerTask<TemperatureColorHandler>();
+            builder.RegisterWorkerTask<SocketHandler>();
+            builder.RegisterWorkerTask<SoundHandler>();
             builder.RegisterWorkerTask<CheckIoTStatesHandler>();
         }
     );
