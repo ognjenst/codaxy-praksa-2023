@@ -2,6 +2,7 @@
 using SOC.Conductor.Contracts;
 using SOC.Conductor.DTOs;
 using SOC.Conductor.Entities;
+using SOC.Conductor.Models;
 
 namespace SOC.Conductor.Handlers
 {
@@ -11,10 +12,12 @@ namespace SOC.Conductor.Handlers
     public class CreateTriggerHandler : IRequestHandler<CreateTriggerRequest, CommonTriggerDto>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMediator _mediator;
 
-        public CreateTriggerHandler(IUnitOfWork unitOfWork)
+        public CreateTriggerHandler(IUnitOfWork unitOfWork, IMediator mediator)
         {
             _unitOfWork = unitOfWork;
+            _mediator = mediator;
         }
 
         public async Task<CommonTriggerDto> Handle(
@@ -34,6 +37,14 @@ namespace SOC.Conductor.Handlers
 
                 var result = await _unitOfWork.PeriodicTriggers.CreateAsync(periodic);
                 await _unitOfWork.SaveAllAsync();
+
+                await _mediator.Publish(
+                    new TriggerNotification
+                    {
+                        Action = Models.Enums.TriggerNotificationAction.CREATE,
+                        Trigger = result
+                    }
+                );
 
                 return new CommonTriggerDto()
                 {
@@ -59,6 +70,14 @@ namespace SOC.Conductor.Handlers
 
                 var result = await _unitOfWork.IoTTriggers.CreateAsync(iot);
                 await _unitOfWork.SaveAllAsync();
+
+                await _mediator.Publish(
+                    new TriggerNotification
+                    {
+                        Action = Models.Enums.TriggerNotificationAction.CREATE,
+                        Trigger = result
+                    }
+                );
 
                 return new CommonTriggerDto()
                 {
