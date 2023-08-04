@@ -25,7 +25,6 @@ namespace SOC.IoT.ApiGateway.Handlers
         )
         {
             var deviceDto = new DeviceDTO(_deviceManager.GetDevice(request.id));
-            return deviceDto;
             var device = await _dbContext.Devices
                 .Where(d => d.IoTId == request.id)
                 .FirstOrDefaultAsync(cancellationToken);
