@@ -63,6 +63,7 @@ public class LightBulbColorChangeHandler : ITaskRequestHandler<ColorChangeReques
             {
                 try
                 {
+                    device.State.State = true;
                     await _deviceManager.SetDeviceStateAsync(device);
                     _logger.LogInformation("Light turned on.");
                     await Task.Delay(_options.DelayTime);
