@@ -62,6 +62,7 @@ var builder = Host.CreateDefaultBuilder()
             builder.RegisterWorkerTask<TemperatureColorHandler>();
             builder.RegisterWorkerTask<SocketHandler>();
             builder.RegisterWorkerTask<SoundHandler>();
+            builder.RegisterWorkerTask<CheckIoTStatesHandler>();
         }
     );
 
